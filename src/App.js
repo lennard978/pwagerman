@@ -22,7 +22,7 @@ function App() {
   return (
     <div className="bg-slate-100">
       <h1 className="flex justify-center font-serif font-bold uppercase p-3">
-        Lesson 1
+        Lesson
       </h1>
       <div>{list}</div>
     </div>
