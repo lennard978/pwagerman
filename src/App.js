@@ -9,7 +9,9 @@ function App() {
       <div
         key={uuidv4()}
         className="flex justify-between p-1 flex-row border-2 border-slate-800 m-1 p-4 cursor-pointer"
-        onClick={() => speak({ rate: 0.5, pitch: 0, voice, text: item.german })}
+        onClick={() =>
+          speak({ rate: 0.6, pitch: 0.2, voice, text: item.german })
+        }
       >
         <p className="font-bold text-left">{item.german}</p>
         <p className="text-right italic">{item.english}</p>
@@ -21,7 +23,7 @@ function App() {
 
   return (
     <div className="bg-slate-100">
-      <h1 className="flex justify-center font-serif font-bold uppercase p-3">
+      <h1 className="flex justify-center text-2xl font-serif font-bold uppercase p-3">
         Lesson 1
       </h1>
       <div>{list}</div>
