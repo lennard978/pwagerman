@@ -7,29 +7,30 @@ import {
   FaBookOpen,
   FaTrophy,
 } from "react-icons/fa";
+import { Link } from "react-router-dom";
 export default function Nav() {
   return (
-    <div className="w-full h-screen from-dark-blue bg-gradient-to-b to-stone-900">
+    <div className=" from-dark-blue bg-gradient-to-b to-stone-900">
       {/* <section id="bottom-navigation" class="md:hidden block fixed inset-x-0 bottom-0 z-10 bg-white shadow"> // if shown only tablet/mobile--> */}
       <section
         id="bottom-navigation"
-        className="block fixed inset-x-0 bottom-0 z-10 from-dark-blue bg-gradient-to-b to-stone-900 shadow"
+        className="block fixed w-screen inset-x-0 bottom-0 z-10 from-dark-blue bg-gradient-to-b to-stone-900 shadow"
       >
         <div id="tabs" className="flex justify-between">
-          <a
-            href="#"
+          <Link
+            to="/"
             className="w-full text-white focus:text-main-green hover:text-main-green justify-center inline-block text-center pt-2 pb-1"
           >
             <FaHome className="inline-block mb-1" />
             <span className="tab tab-kategori block text-xs">Home</span>
-          </a>
-          <a
-            href="#"
+          </Link>
+          <Link
+            to="/lesson"
             className="w-full text-white focus:text-main-green hover:text-main-green justify-center inline-block text-center pt-2 pb-1"
           >
             <FaFile className="inline-block mb-1" />
             <span className="tab tab-kategori block text-xs">Learn</span>
-          </a>
+          </Link>
           <a
             href="#"
             className="w-full text-white focus:text-main-green hover:text-main-green justify-center inline-block text-center pt-2 pb-1"
