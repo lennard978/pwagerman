@@ -35,6 +35,9 @@ export default function Nav() {
           <NavLink to="/lesson" title="Lesson">
             <FaFile className="inline-block mb-1" />
           </NavLink>
+          <NavLink to="/pair" title="Pair">
+            <FaPen className="inline-block mb-1" />
+          </NavLink>
           <NavLink to="/write" title="Write">
             <FaPen className="inline-block mb-1" />
           </NavLink>

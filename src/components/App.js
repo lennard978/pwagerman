@@ -1,13 +1,14 @@
 import React from "react";
 import { useSpeechSynthesis } from "react-speech-kit";
-import Home from "./components/screens/Home";
-import Lesson from "./components/screens/Lesson";
-import Write from "./components/screens/Write";
-import Cards from "./components/screens/Cards";
-import Test from "./components/screens/Test";
-import Quiz from "./components/screens/Quiz";
-import Nav from "./components/Nav";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import Home from "./screens/Home";
+import Lesson from "./screens/Lesson";
+import Write from "./screens/Write";
+import Cards from "./screens/Cards";
+import Test from "./screens/Test";
+import Quiz from "./screens/Quiz";
+import Nav from "./Nav";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Pair from "./screens/Pair";
 
 function App() {
   useSpeechSynthesis();
@@ -19,6 +20,9 @@ function App() {
         </Route>
         <Route path="/lesson">
           <Lesson />
+        </Route>
+        <Route path="/pair">
+          <Pair />
         </Route>
         <Route path="/write">
           <Write />
