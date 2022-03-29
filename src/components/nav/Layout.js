@@ -12,6 +12,7 @@ export const Layout = () => {
 
 const Container = styled.div`
   display: flex;
+
   min-block-size: 100vh;
   background-image: linear-gradient(to top, #243b50, #141e30);
 `;

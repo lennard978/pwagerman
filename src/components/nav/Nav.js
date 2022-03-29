@@ -67,7 +67,7 @@ const Row = styled.div`
 `;
 
 const Paragraph = styled.p`
-  font-size: 0.6rem;
+  font-size: 0.8rem;
   color: white;
   margin: 0;
   &:focus {
@@ -86,7 +86,7 @@ const Button = styled(Link)`
   justify-content: center;
   align-items: center;
   color: white;
-  font-size: 0.7rem;
+  font-size: 1rem;
   &:focus {
     color: rgba(57, 255, 20, 1);
   }
