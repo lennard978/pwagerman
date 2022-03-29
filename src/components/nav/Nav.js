@@ -29,7 +29,7 @@ export default function Nav() {
           <NavLink to="/chooselesson" title="Lesson">
             <FaFile />
           </NavLink>
-          <NavLink to="/pair" title="Pair">
+          <NavLink to="/choosepair" title="Pair">
             <FaPen />
           </NavLink>
           <NavLink to="/write" title="Write">

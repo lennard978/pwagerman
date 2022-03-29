@@ -58,105 +58,105 @@ export const Lesson1 = [
     german: "auf Wiedersehen",
     english: "Goodbuy",
   },
-  {
-    german: "auch",
-    english: "too, as well as, also",
-    gender: "adv.",
-  },
-  {
-    german: "beantworten",
-    english: "to answer",
-  },
-  {
-    german: "danke",
-    english: "Thank you",
-  },
-  {
-    german: "entscheiden",
-    english: "to decide",
-  },
-  {
-    german: "ergänzen",
-    english: "to add",
-  },
-  {
-    german: "falsch",
-    english: "wrong",
-    gender: "adj.",
-  },
-  {
-    german: "fragen",
-    english: "to ask",
-  },
-  {
-    german: "gehen",
-    english: "to go, to walk",
-  },
-  {
-    german: "gut",
-    english: "very well",
-  },
-  {
-    german: "Guten Tag",
-    english: "Good Day",
-  },
-  {
-    german: "hallo",
-    english: "hello",
-    gender: "int.",
-  },
-  {
-    german: "heißen",
-    english: "to be called",
-  },
-  {
-    german: "kommen",
-    english: "to come",
-  },
-  {
-    german: "können",
-    english: "can",
-  },
-  {
-    german: "liegen",
-    english: "to lie",
-  },
-  {
-    german: "nicht",
-    english: "not, no",
-  },
-  {
-    german: "nichts",
-    english: "nothing",
-  },
-  {
-    german: "ohne",
-    english: "without",
-  },
-  {
-    german: "noch einmal",
-    english: "once again",
-  },
-  {
-    german: "richtig",
-    english: "right, properly",
-  },
-  {
-    german: "sein",
-    english: "to be",
-  },
-  {
-    german: "sich freuen",
-    english: "to be glad",
-  },
-  {
-    german: "tschüss",
-    english: "bye",
-  },
-  {
-    german: "und",
-    english: "and",
-  },
+  // {
+  //   german: "auch",
+  //   english: "too, as well as, also",
+  //   gender: "adv.",
+  // },
+  // {
+  //   german: "beantworten",
+  //   english: "to answer",
+  // },
+  // {
+  //   german: "danke",
+  //   english: "Thank you",
+  // },
+  // {
+  //   german: "entscheiden",
+  //   english: "to decide",
+  // },
+  // {
+  //   german: "ergänzen",
+  //   english: "to add",
+  // },
+  // {
+  //   german: "falsch",
+  //   english: "wrong",
+  //   gender: "adj.",
+  // },
+  // {
+  //   german: "fragen",
+  //   english: "to ask",
+  // },
+  // {
+  //   german: "gehen",
+  //   english: "to go, to walk",
+  // },
+  // {
+  //   german: "gut",
+  //   english: "very well",
+  // },
+  // {
+  //   german: "Guten Tag",
+  //   english: "Good Day",
+  // },
+  // {
+  //   german: "hallo",
+  //   english: "hello",
+  //   gender: "int.",
+  // },
+  // {
+  //   german: "heißen",
+  //   english: "to be called",
+  // },
+  // {
+  //   german: "kommen",
+  //   english: "to come",
+  // },
+  // {
+  //   german: "können",
+  //   english: "can",
+  // },
+  // {
+  //   german: "liegen",
+  //   english: "to lie",
+  // },
+  // {
+  //   german: "nicht",
+  //   english: "not, no",
+  // },
+  // {
+  //   german: "nichts",
+  //   english: "nothing",
+  // },
+  // {
+  //   german: "ohne",
+  //   english: "without",
+  // },
+  // {
+  //   german: "noch einmal",
+  //   english: "once again",
+  // },
+  // {
+  //   german: "richtig",
+  //   english: "right, properly",
+  // },
+  // {
+  //   german: "sein",
+  //   english: "to be",
+  // },
+  // {
+  //   german: "sich freuen",
+  //   english: "to be glad",
+  // },
+  // {
+  //   german: "tschüss",
+  //   english: "bye",
+  // },
+  // {
+  //   german: "und",
+  //   english: "and",
+  // },
 ];
 
 export const Lesson2 = [
