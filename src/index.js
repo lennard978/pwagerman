@@ -4,11 +4,12 @@ import "./index.css";
 import App from "./components/App";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import reportWebVitals from "./reportWebVitals";
-import { MenuProvider } from "./components/screens/MenuContext";
+import { BrowserRouter } from "react-router-dom";
+
 ReactDOM.render(
-  <MenuProvider>
+  <BrowserRouter>
     <App />
-  </MenuProvider>,
+  </BrowserRouter>,
   document.getElementById("root")
 );
 

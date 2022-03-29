@@ -1,44 +1,30 @@
 import React from "react";
+import "../App.css";
+import { Route, Routes } from "react-router-dom";
+import Nav from "./nav/Nav";
 import { useSpeechSynthesis } from "react-speech-kit";
-import Home from "./screens/Home";
-import Lesson from "./screens/Lesson";
-import Write from "./screens/Write";
-import Cards from "./screens/Cards";
-import Test from "./screens/Test";
-import Quiz from "./screens/Quiz";
-import Nav from "./Nav";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Pair from "./screens/Pair";
-
+import { Home } from "../screen/home/Home";
+import { Layout } from "./nav/Layout";
+import { NoMatch } from "./nav/NoMatch";
+import { ChooseLesson } from "../screen/lesson/ChooseLesson";
+import { Lesson } from "../screen/lesson/Lesson";
+import { Lesson1, Lesson2, Lesson3 } from "../data/data";
 function App() {
   useSpeechSynthesis();
+  const data = [Lesson1, Lesson2, Lesson3];
   return (
-    <Router basename="pwagerman">
-      <Switch>
-        <Route exact path="/">
-          <Home />
-        </Route>
-        <Route path="/lesson">
-          <Lesson />
-        </Route>
-        <Route path="/pair">
-          <Pair />
-        </Route>
-        <Route path="/write">
-          <Write />
-        </Route>
-        <Route path="/cards">
-          <Cards />
-        </Route>
-        <Route path="/test">
-          <Test />
-        </Route>
-        <Route path="/quiz">
-          <Quiz />
-        </Route>
-      </Switch>
+    <>
       <Nav />
-    </Router>
+      <Routes>
+        <Route element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="home" element={<Home />} />
+          <Route path="chooselesson" element={<ChooseLesson data={data} />} />
+          <Route path="chooselesson/:userId" element={<Lesson data={data} />} />
+          <Route path="*" element={<NoMatch />} />
+        </Route>
+      </Routes>
+    </>
   );
 }
 
