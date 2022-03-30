@@ -1,78 +1,82 @@
 import React from "react";
 import { Link, useParams } from "react-router-dom";
-import styled from "styled-components";
 import SoundButton from "../../components/SoundButton";
+import { Title } from "../../components/Title";
+import styled from "styled-components";
 
 export const Lesson = ({ data }) => {
   const { userId } = useParams();
   const number = Number(userId);
   return (
-    <Container>
-      <Title>Lesson {number + 1}</Title>
+    <Wrapper>
+      <Title title={`Lesson ${number + 1}`} />
       {data[userId].map((item, index) => {
         return (
-          <SoundButton key={index} german={item.german}>
-            <ParagraphGerman>{item.german}</ParagraphGerman>
-            <ParagraphEnglish>{item.english}</ParagraphEnglish>
-          </SoundButton>
+          <Container>
+            <SoundButton key={index} german={item.german}>
+              <Row>
+                <GermanParagraph>{item.german}</GermanParagraph>
+                <EnglishParagraph>{item.english}</EnglishParagraph>
+              </Row>
+            </SoundButton>
+          </Container>
         );
       })}
-      <Button to="/chooselesson">Back to Choose</Button>
-    </Container>
+      <Button to="/chooselesson">Go Back</Button>
+    </Wrapper>
   );
 };
 
-const Container = styled.div`
+const Wrapper = styled.div`
+  padding-top: 3rem;
+  padding-bottom: 5rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 100vw;
-  margin-top: 0.4rem;
-  margin-bottom: 0.4rem;
-  padding-bottom: 3rem;
+  align-items: center;
 `;
 
-const Title = styled.h2`
-  margin: 0.5rem;
-  color: rgba(57, 255, 20, 1);
+const Container = styled.div`
   display: flex;
   justify-content: center;
+  align-items: center;
 `;
 
-const ParagraphGerman = styled.p`
-  text-transform: capitalize;
-  font-size: 1rem;
-  font-weight: 900;
+const Row = styled.div`
+  display: flex;
+  justify-content: space-between;
+  inline-size: 80vw;
+  background-image: linear-gradient(to left, #243b50, #141e30);
+  margin: 0.4rem;
+  padding: 0.4rem;
+  border-radius: 0.2rem;
+  cursor: pointer;
+  border-left: 0.1rem solid rgba(57, 255, 20, 1);
+  border-right: 0.1rem solid white;
+`;
+
+const GermanParagraph = styled.p`
   color: rgba(57, 255, 20, 1);
-  margin: 5px;
 `;
 
-const ParagraphEnglish = styled.p`
-  text-transform: capitalize;
-  font-size: 1rem;
-  font-weight: 400;
-  font-style: italic;
+const EnglishParagraph = styled.p`
   color: white;
-  margin: 5px;
+  font-style: italic;
 `;
 
 const Button = styled(Link)`
-  display: flex;
-  justify-content: center;
-  align-self: center;
-  width: 33%;
-  text-transform: uppercase;
   font-size: 0.8rem;
   font-weight: 400;
   color: rgba(57, 255, 20, 1);
-  margin: 1rem;
-  padding-block: 0.5rem;
+  padding-block: 0.3rem;
+  padding-inline: 2rem;
   border-bottom: 1px solid #141e30;
   border-right: 1px solid #141e30;
   border-top: 1px solid #243b50;
   border-left: 1px solid #243b50;
   box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.3);
-  background-image: linear-gradient(to top, #243b50, #141e30);
+  background-image: linear-gradient(to left, #243b50, #141e30);
   text-decoration: none;
   border-radius: 0.2rem;
+  margin-top: 0.5rem;
 `;

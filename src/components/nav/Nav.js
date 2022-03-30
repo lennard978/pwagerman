@@ -1,4 +1,3 @@
-import React from "react";
 import {
   FaHome,
   FaFile,
@@ -6,6 +5,7 @@ import {
   FaPen,
   FaBookOpen,
   FaTrophy,
+  FaFolderPlus,
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
@@ -30,18 +30,18 @@ export default function Nav() {
             <FaFile />
           </NavLink>
           <NavLink to="/choosepair" title="Pair">
-            <FaPen />
-          </NavLink>
-          <NavLink to="/write" title="Write">
-            <FaPen />
-          </NavLink>
-          <NavLink to="/cards" title="Cards">
             <FaEye />
           </NavLink>
-          <NavLink to="/test" title="Test">
+          <NavLink to="/choosewrite" title="Write">
+            <FaPen />
+          </NavLink>
+          <NavLink to="/choosecards" title="Cards">
+            <FaFolderPlus />
+          </NavLink>
+          <NavLink to="/choosetest" title="Test">
             <FaBookOpen />
           </NavLink>
-          <NavLink to="/quiz" title="Quiz">
+          <NavLink to="/choosequiz" title="Quiz">
             <FaTrophy />
           </NavLink>
         </Row>
@@ -51,7 +51,6 @@ export default function Nav() {
 }
 
 const Container = styled.div`
-  display: block;
   position: fixed;
   bottom: 0;
   left: 0;
@@ -67,7 +66,7 @@ const Row = styled.div`
 `;
 
 const Paragraph = styled.p`
-  font-size: 0.8rem;
+  font-size: 1rem;
   color: white;
   margin: 0;
   &:focus {
@@ -85,12 +84,12 @@ const Button = styled(Link)`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  color: white;
-  font-size: 1rem;
+  color: rgba(57, 255, 20, 1);
+  font-size: 1.2rem;
   &:focus {
-    color: rgba(57, 255, 20, 1);
+    color: white;
   }
   &:hover {
-    color: rgba(57, 255, 20, 1);
+    color: white;
   }
 `;
