@@ -8,7 +8,18 @@ import { Layout } from "./nav/Layout";
 import { NoMatch } from "./nav/NoMatch";
 import { ChooseLesson } from "../screen/lesson/ChooseLesson";
 import { Lesson } from "../screen/lesson/Lesson";
-import { Lesson1, Lesson2, Lesson3 } from "../data/data";
+import {
+  Lesson1,
+  Lesson2,
+  Lesson3,
+  Lesson4,
+  Lesson5,
+  Lesson6,
+  Lesson7,
+  Lesson8,
+  Lesson9,
+  Lesson10,
+} from "../data/data";
 import { ChoosePair } from "../screen/pair/ChoosePair";
 import { Pair } from "../screen/pair/Pair";
 import { ChooseWrite } from "../screen/write/ChooseWrite";
@@ -22,7 +33,18 @@ import { Quiz } from "../screen/quiz/Quiz";
 
 function App() {
   useSpeechSynthesis();
-  const data = [Lesson1, Lesson2, Lesson3];
+  const data = [
+    Lesson1,
+    Lesson2,
+    Lesson3,
+    Lesson4,
+    Lesson5,
+    Lesson6,
+    Lesson7,
+    Lesson8,
+    Lesson9,
+    Lesson10,
+  ];
   return (
     <>
       <Nav />

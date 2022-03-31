@@ -1,6 +1,7 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useState } from "react";
 import { Title } from "../../components/Title";
+import styled from "styled-components";
 
 export const Pair = ({ data }) => {
   const { userId } = useParams();
@@ -13,21 +14,14 @@ export const Pair = ({ data }) => {
   const [english, setEnglish] = useState(
     JSON.parse(JSON.stringify(wordList)).sort(() => Math.random() - 0.5)
   );
-  // let [germanAnswer, setGermanAnswer] = useState("");
-  // let [englishAnswer, setEnglishAnswer] = useState("");
 
   const [germanResult, setGermanResult] = useState("");
   const [englishResult, setEnglishResult] = useState("");
 
   const checkGerman = (item) => {
-    // const germanItem = german.find((word) => word === item);
-    // setGermanAnswer(germanItem);
     setGermanResult(item);
   };
-
   const checkEnglish = (item) => {
-    // const englishItem = english.find((word) => word === item);
-    // setEnglishAnswer(englishItem);
     setEnglishResult(item);
   };
 
@@ -40,26 +34,88 @@ export const Pair = ({ data }) => {
 
   const germanList = german.map((item, index) => {
     return (
-      <button onClick={() => checkGerman(item)} key={index}>
+      <Btn onClick={() => checkGerman(item)} key={index}>
         {item.german}
-      </button>
+      </Btn>
     );
   });
   const englishList = english.map((item, index) => {
     return (
-      <button onClick={() => checkEnglish(item)} key={index}>
+      <Btn onClick={() => checkEnglish(item)} key={index}>
         {item.english}
-      </button>
+      </Btn>
     );
   });
 
   return (
-    <div>
+    <Container>
       <Title title={`Pair ${number + 1}`} />
-      <div>{germanList}</div>
-      <button onClick={() => checkCorrect()}>Check</button>
-      <div>{englishList}</div>
-      <button to="/choosepair">Back to Choose</button>
-    </div>
+      <Row>{germanList}</Row>
+      <Check onClick={() => checkCorrect()}>Check</Check>
+      <Row>{englishList}</Row>
+      {/* <Check to="/choosepair">Go Back</Check> */}
+    </Container>
   );
 };
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding-top: 2.7rem;
+  padding-bottom: 4rem;
+`;
+
+const Row = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+`;
+
+const Btn = styled.button`
+  text-transform: capitalize;
+  font-size: 0.6rem;
+  font-weight: 400;
+  color: rgba(57, 255, 20, 1);
+  margin: 5px;
+  padding-block: 0.5rem;
+  padding-inline: 2rem;
+  border-bottom: 1px solid #141e30;
+  border-right: 1px solid #141e30;
+  border-top: 1px solid #243b50;
+  border-left: 1px solid #243b50;
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.3);
+  background: transparent;
+  text-decoration: none;
+  border-radius: 0.2rem;
+  &:hover {
+    border-bottom: 1px solid rgba(57, 255, 20, 1);
+    border-left: 1px solid rgba(57, 255, 20, 1);
+    transition: all 0.5s ease;
+  }
+`;
+
+const Check = styled.button`
+  text-transform: capitalize;
+  font-size: 0.6rem;
+  font-weight: 400;
+  color: rgba(57, 255, 20, 1);
+  margin: 5px;
+  padding-block: 0.5rem;
+  padding-inline: 2rem;
+  border-bottom: 1px solid #141e30;
+  border-right: 1px solid #141e30;
+  border-top: 1px solid #243b50;
+  border-left: 1px solid #243b50;
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.3);
+  background: transparent;
+  text-decoration: none;
+  border-radius: 0.2rem;
+  &:hover {
+    border-bottom: 1px solid rgba(57, 255, 20, 1);
+    border-left: 1px solid rgba(57, 255, 20, 1);
+    transition: all 0.5s ease;
+  }
+`;

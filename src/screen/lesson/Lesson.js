@@ -12,7 +12,7 @@ export const Lesson = ({ data }) => {
       <Title title={`Lesson ${number + 1}`} />
       {data[userId].map((item, index) => {
         return (
-          <Container>
+          <Container key={index}>
             <SoundButton key={index} german={item.german}>
               <Row>
                 <GermanParagraph>{item.german}</GermanParagraph>
@@ -57,11 +57,13 @@ const Row = styled.div`
 
 const GermanParagraph = styled.p`
   color: rgba(57, 255, 20, 1);
+  font-size: 1.1rem;
 `;
 
 const EnglishParagraph = styled.p`
   color: white;
   font-style: italic;
+  font-size: 1.1rem;
 `;
 
 const Button = styled(Link)`

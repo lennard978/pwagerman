@@ -11,6 +11,11 @@ export const Layout = () => {
 };
 
 const Container = styled.div`
-  background-image: linear-gradient(to top, #243b50, #141e30);
   min-block-size: 100vh;
+  min-inline-size: 100vw;
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  z-index: -1;
+  background-image: linear-gradient(to top, #243b50, #141e30);
 `;

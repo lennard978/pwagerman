@@ -6,11 +6,9 @@ export const BtnList = ({ dataList, title, nav }) => {
     <Container>
       <Row>
         {dataList.map((lesson, index) => (
-          <div key={index}>
-            <Button to={`/${nav}/${index}`}>
-              {title} {index + 1}
-            </Button>
-          </div>
+          <Button key={index} to={`/${nav}/${index}`}>
+            {title} {index + 1}
+          </Button>
         ))}
         <Outlet />
       </Row>
@@ -22,9 +20,7 @@ const Container = styled.div`
   min-block-size: 100vh;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
   align-items: center;
-  flex-wrap: wrap;
 `;
 const Row = styled.div`
   display: flex;
@@ -32,12 +28,11 @@ const Row = styled.div`
   justify-content: space-around;
   align-items: center;
   flex-wrap: wrap;
-  width: 100vw;
 `;
 
 const Button = styled(Link)`
   text-transform: uppercase;
-  font-size: 0.8rem;
+  font-size: 1rem;
   font-weight: 400;
   color: rgba(57, 255, 20, 1);
   margin: 5px;
