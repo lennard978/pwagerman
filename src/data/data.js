@@ -44,33 +44,33 @@ export const Lesson1 = [
     english: "the exercise",
     gender: "f",
   },
-  {
-    german: "die Antwort",
-    english: "the answer",
-    gender: "f",
-  },
-  {
-    german: "antworten",
-    english: "to reply",
-    gender: "verb",
-  },
-  {
-    german: "auf Wiedersehen",
-    english: "Goodbuy",
-  },
-  {
-    german: "auch",
-    english: "too, as well as, also",
-    gender: "adv.",
-  },
-  {
-    german: "beantworten",
-    english: "to answer",
-  },
-  {
-    german: "danke",
-    english: "Thank you",
-  },
+  // {
+  //   german: "die Antwort",
+  //   english: "the answer",
+  //   gender: "f",
+  // },
+  // {
+  //   german: "antworten",
+  //   english: "to reply",
+  //   gender: "verb",
+  // },
+  // {
+  //   german: "auf Wiedersehen",
+  //   english: "Goodbuy",
+  // },
+  // {
+  //   german: "auch",
+  //   english: "too, as well as, also",
+  //   gender: "adv.",
+  // },
+  // {
+  //   german: "beantworten",
+  //   english: "to answer",
+  // },
+  // {
+  //   german: "danke",
+  //   english: "Thank you",
+  // },
   // {
   //   german: "entscheiden",
   //   english: "to decide",

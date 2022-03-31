@@ -15,20 +15,25 @@ export const Pair = ({ data }) => {
     JSON.parse(JSON.stringify(wordList)).sort(() => Math.random() - 0.5)
   );
 
-  const [germanResult, setGermanResult] = useState("");
-  const [englishResult, setEnglishResult] = useState("");
+  let germanResultNew = "";
+  let englishResultNew = "";
 
   const checkGerman = (item) => {
-    setGermanResult(item);
+    germanResultNew = item;
+    console.log(germanResultNew);
   };
   const checkEnglish = (item) => {
-    setEnglishResult(item);
+    englishResultNew = item;
+    console.log(englishResultNew);
+    checkCorrect();
   };
 
   const checkCorrect = () => {
-    if (germanResult.german === englishResult.german) {
-      setGerman(german.filter((item) => item !== germanResult));
-      setEnglish(english.filter((item) => item !== englishResult));
+    console.log(germanResultNew);
+    console.log(englishResultNew);
+    if (germanResultNew.german === englishResultNew.german) {
+      setGerman(german.filter((item) => item !== germanResultNew));
+      setEnglish(english.filter((item) => item !== englishResultNew));
     }
   };
 
@@ -51,7 +56,7 @@ export const Pair = ({ data }) => {
     <Container>
       <Title title={`Pair ${number + 1}`} />
       <Row>{germanList}</Row>
-      <Check onClick={() => checkCorrect()}>Check</Check>
+      {/* <Check onClick={() => checkCorrect()}>Check</Check> */}
       <Row>{englishList}</Row>
       {/* <Check to="/choosepair">Go Back</Check> */}
     </Container>
@@ -76,7 +81,7 @@ const Row = styled.div`
 
 const Btn = styled.button`
   text-transform: capitalize;
-  font-size: 0.6rem;
+  font-size: 1rem;
   font-weight: 400;
   color: rgba(57, 255, 20, 1);
   margin: 5px;
