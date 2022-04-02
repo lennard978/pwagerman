@@ -11,13 +11,37 @@ export const Write = ({ data }) => {
     return item;
   });
 
-  const [count, setCount] = useState(0);
+  let [count, setCount] = useState(0);
   const [englishWord, setEnglishWord] = useState(wordList[count].english);
   const [germanWord, setGermanWord] = useState(wordList[count].german);
   const shuffle = (v) => [...v].sort((_) => Math.random() - 0.5).join("");
   const shuffleWord = shuffle(germanWord.split(""));
   const [german, setGerman] = useState([...shuffleWord]);
-
+  const [germanAnswer, setGermanAnswer] = useState(
+    new Array(wordList[count].german.length).fill("?")
+  );
+  const [addOne, setAddOne] = useState(0);
+  const removeLetter = (item) => {
+    const index = german.indexOf(item);
+    german.splice(index, 1);
+    if (item.indexOf() === -1) {
+      setAddOne(addOne + 1);
+      germanAnswer.splice(addOne, 0, item);
+      germanAnswer.pop();
+      setGermanAnswer(germanAnswer);
+    }
+    let list = germanAnswer.join("");
+    if (germanWord === list) {
+      alert("Victory");
+    }
+  };
+  const nextWord = () => {
+    setCount(count + 1);
+    setEnglishWord(wordList[count].english);
+    setGerman([...shuffleWord]);
+    setGermanWord(wordList[count].german);
+    setGermanAnswer(new Array(wordList[count].german.length).fill("?"));
+  };
   return (
     <Container>
       <Title title={`Write ${number + 1}`} />
@@ -25,11 +49,25 @@ export const Write = ({ data }) => {
         <H2>{englishWord}</H2>
       </Row>
       <Row>
-        {german.map((item, index) => {
+        {germanAnswer.map((item, index) => {
           return <GermanLetter key={index}>{item}</GermanLetter>;
         })}
       </Row>
-      <Button>Next</Button>
+      <Row>
+        {german.map((item, index) => {
+          return (
+            <GermanLetter
+              onClick={() => {
+                removeLetter(item);
+              }}
+              key={index}
+            >
+              {item}
+            </GermanLetter>
+          );
+        })}
+      </Row>
+      <Button onClick={() => nextWord()}>Next</Button>
     </Container>
   );
 };
@@ -47,8 +85,6 @@ const Row = styled.div`
   flex-wrap: wrap;
   flex-direction: row;
   justify-content: center;
-  padding-top: 2.7rem;
-  padding-bottom: 4rem;
   margin-inline: 1rem;
 `;
 
@@ -74,6 +110,7 @@ const GermanLetter = styled.h2`
   border-radius: 0.2rem;
   margin: 0.2rem;
   text-transform: uppercase;
+  min-height: 1.6rem;
   cursor: pointer;
   &:hover {
     border: 1px inset rgba(57, 255, 20, 1);
