@@ -1,29 +1,47 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { Title } from "../../components/Title";
 
 export const Write = ({ data }) => {
+  // useEffect(() => {
+  //   setAddOne(addOne + 1);
+  //   setGerman([...shuffleWord]);
+  // }, []);
+
   const { userId } = useParams();
   const number = Number(userId);
 
+  //Collect Data
   const wordList = data[userId].map((item) => {
     return item;
   });
 
+  const [disable, setDisable] = useState(false);
+
+  //Update wordList count
   let [count, setCount] = useState(0);
+
+  //English Word
   const [englishWord, setEnglishWord] = useState(wordList[count].english);
-  const [germanWord, setGermanWord] = useState(wordList[count].german);
+
+  //German Word
   const shuffle = (v) => [...v].sort((_) => Math.random() - 0.5).join("");
-  const shuffleWord = shuffle(germanWord.split(""));
-  const [german, setGerman] = useState([...shuffleWord]);
+  const [shuffleWord, setShuffleWord] = useState([
+    ...shuffle(wordList[count].german.split("")),
+  ]);
+
+  //German Answer
   const [germanAnswer, setGermanAnswer] = useState(
     new Array(wordList[count].german.length).fill("?")
   );
-  const [addOne, setAddOne] = useState(0);
+
+  //Add one for removing array item
+  let [addOne, setAddOne] = useState(0);
+
   const removeLetter = (item) => {
-    const index = german.indexOf(item);
-    german.splice(index, 1);
+    const index = shuffleWord.indexOf(item);
+    shuffleWord.splice(index, 1);
     if (item.indexOf() === -1) {
       setAddOne(addOne + 1);
       germanAnswer.splice(addOne, 0, item);
@@ -31,17 +49,19 @@ export const Write = ({ data }) => {
       setGermanAnswer(germanAnswer);
     }
     let list = germanAnswer.join("");
-    if (germanWord === list) {
-      alert("Victory");
+    if (wordList[count].german === list) {
+      alert("Good Job");
     }
   };
   const nextWord = () => {
-    setCount(count + 1);
+    setAddOne(0);
+    setCount(++count);
     setEnglishWord(wordList[count].english);
-    setGerman([...shuffleWord]);
-    setGermanWord(wordList[count].german);
+    setShuffleWord([...shuffle(wordList[count].german.split(""))]);
     setGermanAnswer(new Array(wordList[count].german.length).fill("?"));
+    console.log(germanAnswer);
   };
+
   return (
     <Container>
       <Title title={`Write ${number + 1}`} />
@@ -54,7 +74,7 @@ export const Write = ({ data }) => {
         })}
       </Row>
       <Row>
-        {german.map((item, index) => {
+        {shuffleWord.map((item, index) => {
           return (
             <GermanLetter
               onClick={() => {
@@ -67,7 +87,9 @@ export const Write = ({ data }) => {
           );
         })}
       </Row>
-      <Button onClick={() => nextWord()}>Next</Button>
+      <Button disabled={disable} onClick={() => nextWord()}>
+        Next
+      </Button>
     </Container>
   );
 };
