@@ -1,14 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { Title } from "../../components/Title";
 
 export const Write = ({ data }) => {
-  // useEffect(() => {
-  //   setAddOne(addOne + 1);
-  //   setGerman([...shuffleWord]);
-  // }, []);
-
   const { userId } = useParams();
   const number = Number(userId);
 
@@ -18,6 +13,11 @@ export const Write = ({ data }) => {
   });
 
   const [disable, setDisable] = useState(false);
+  const [topColor, setTopColor] = useState("#243b50");
+  const [bottomColor, setBottomColor] = useState("#141e30");
+  const myStyle = {
+    background: `linear-gradient(to left, ${topColor}, ${bottomColor})`,
+  };
 
   //Update wordList count
   let [count, setCount] = useState(0);
@@ -49,17 +49,27 @@ export const Write = ({ data }) => {
       setGermanAnswer(germanAnswer);
     }
     let list = germanAnswer.join("");
-    if (wordList[count].german === list) {
-      alert("Good Job");
+    if (list.length - 1 === addOne) {
+      if (wordList[count].german === list) {
+        setTopColor("rgba(57, 255, 20, .2)");
+        setBottomColor("green");
+      } else {
+        setTopColor("rgba(900,0,0, .4)");
+        setBottomColor("rgba(100,0,0)");
+      }
     }
   };
   const nextWord = () => {
+    setTopColor("#243b50");
+    setBottomColor("#141e30");
     setAddOne(0);
     setCount(++count);
     setEnglishWord(wordList[count].english);
     setShuffleWord([...shuffle(wordList[count].german.split(""))]);
     setGermanAnswer(new Array(wordList[count].german.length).fill("?"));
-    console.log(germanAnswer);
+    if (wordList.length - 1 < count + 1) {
+      setDisable(true);
+    }
   };
 
   return (
@@ -70,7 +80,11 @@ export const Write = ({ data }) => {
       </Row>
       <Row>
         {germanAnswer.map((item, index) => {
-          return <GermanLetter key={index}>{item}</GermanLetter>;
+          return (
+            <GermanLetter style={myStyle} key={index}>
+              {item}
+            </GermanLetter>
+          );
         })}
       </Row>
       <Row>
@@ -110,7 +124,7 @@ const Row = styled.div`
   margin-inline: 1rem;
 `;
 
-const H2 = styled.h2`
+const H2 = styled.h3`
   color: white;
 `;
 
@@ -118,7 +132,7 @@ const GermanLetter = styled.h2`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 1rem;
+  width: 0.5rem;
   color: white;
   padding-block: 0.5rem;
   padding-inline: 1rem;
@@ -127,14 +141,15 @@ const GermanLetter = styled.h2`
   border-top: 1px solid #243b50;
   border-left: 1px solid #243b50;
   box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.3);
-  background: linear-gradient(to top, #243b50, #141e30);
+  background: linear-gradient(to left, #243b50, #141e30);
   text-decoration: none;
   border-radius: 0.2rem;
   margin: 0.2rem;
   text-transform: uppercase;
-  min-height: 1.6rem;
+  min-height: 1rem;
+  font-size: 0.9rem;
   cursor: pointer;
-  &:hover {
+  &:active {
     border: 1px inset rgba(57, 255, 20, 1);
     transition: all 0.5s ease;
   }
@@ -153,7 +168,7 @@ const Button = styled.button`
   border-top: 1px solid #243b50;
   border-left: 1px solid #243b50;
   box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.3);
-  background: linear-gradient(to top, #243b50, #141e30);
+  background: linear-gradient(to left, #243b50, #141e30);
   text-decoration: none;
   border-radius: 0.2rem;
   cursor: pointer;
@@ -161,7 +176,7 @@ const Button = styled.button`
   display: flex;
   justify-content: center;
   align-self: center;
-  &:hover {
+  &:active {
     border-bottom: 1px inset rgba(57, 255, 20, 1);
     transition: all 0.5s ease;
     color: rgba(57, 255, 20, 1);

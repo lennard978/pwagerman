@@ -1,8 +1,9 @@
 import React from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import SoundButton from "../../components/SoundButton";
 import { Title } from "../../components/Title";
 import styled from "styled-components";
+import { BackBtn } from "../../components/BackBtn";
 
 export const Lesson = ({ data }) => {
   const { userId } = useParams();
@@ -22,7 +23,7 @@ export const Lesson = ({ data }) => {
           </Container>
         );
       })}
-      <Button to="/chooselesson">Go Back</Button>
+      <BackBtn title="Go Back" to="/chooselesson" />
     </Wrapper>
   );
 };
@@ -64,21 +65,4 @@ const EnglishParagraph = styled.p`
   color: white;
   font-style: italic;
   font-size: 1.1rem;
-`;
-
-const Button = styled(Link)`
-  font-size: 0.8rem;
-  font-weight: 400;
-  color: rgba(57, 255, 20, 1);
-  padding-block: 0.3rem;
-  padding-inline: 2rem;
-  border-bottom: 1px solid #141e30;
-  border-right: 1px solid #141e30;
-  border-top: 1px solid #243b50;
-  border-left: 1px solid #243b50;
-  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.3);
-  background-image: linear-gradient(to left, #243b50, #141e30);
-  text-decoration: none;
-  border-radius: 0.2rem;
-  margin-top: 0.5rem;
 `;

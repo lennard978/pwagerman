@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useState } from "react";
 import { Title } from "../../components/Title";
 import styled from "styled-components";
@@ -88,7 +88,7 @@ const Btn = styled.button`
   text-decoration: none;
   border-radius: 0.2rem;
   cursor: pointer;
-  &:hover {
+  &:active {
     border: 1px inset rgba(57, 255, 20, 1);
     transition: all 0.5s ease;
   }

@@ -32,7 +32,7 @@ const Row = styled.div`
 
 const Button = styled(Link)`
   text-transform: uppercase;
-  font-size: 1rem;
+  font-size: 0.8rem;
   font-weight: 400;
   color: rgba(57, 255, 20, 1);
   margin: 5px;
