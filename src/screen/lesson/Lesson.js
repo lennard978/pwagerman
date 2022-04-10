@@ -47,13 +47,11 @@ const Row = styled.div`
   display: flex;
   justify-content: space-between;
   inline-size: 80vw;
-  background-image: linear-gradient(to left, #243b50, #141e30);
+  background-image: linear-gradient(to bottom, #243b50, #141e30);
   margin: 0.4rem;
-  padding: 0.4rem;
+  padding: 0.6rem;
   border-radius: 0.2rem;
   cursor: pointer;
-  border-left: 0.1rem solid rgba(57, 255, 20, 1);
-  border-right: 0.1rem solid white;
 `;
 
 const GermanParagraph = styled.p`

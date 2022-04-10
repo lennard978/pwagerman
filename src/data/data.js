@@ -210,117 +210,117 @@ export const Lesson2 = [
     english: "the plant",
     gender: "f",
   },
-  {
-    german: "der Schuh",
-    english: "the shoe",
-    gender: "m",
-  },
-  {
-    german: "der Stuhl",
-    english: "the chair",
-    gender: "m",
-  },
-  {
-    german: "die Tasche",
-    english: "the bag",
-    gender: "f",
-  },
-  {
-    german: "die Tasse",
-    english: "the cup",
-    gender: "f",
-  },
-  {
-    german: "der Tisch",
-    english: "the table",
-    gender: "m",
-  },
-  {
-    german: "der Vater",
-    english: "the father",
-    gender: "m",
-  },
-  {
-    german: "die Tür",
-    english: "the door",
-    gender: "f",
-  },
-  {
-    german: "alt",
-    english: "old",
-  },
-  {
-    german: "blau",
-    english: "blue",
-  },
-  {
-    german: "braun",
-    english: "brown",
-  },
-  {
-    german: "gelb",
-    english: "yellow",
-  },
-  {
-    german: "grau",
-    english: "grey",
-  },
-  {
-    german: "groß",
-    english: "big",
-  },
-  {
-    german: "grün",
-    english: "green",
-  },
-  {
-    german: "interessant",
-    english: "interesting",
-  },
-  {
-    german: "kein, keine",
-    english: "no, none",
-  },
-  {
-    german: "kennen",
-    english: "to know",
-  },
-  {
-    german: "klein",
-    english: "small",
-  },
-  {
-    german: "leer",
-    english: "empty",
-  },
-  {
-    german: "neu",
-    english: "new",
-  },
-  {
-    german: "orange",
-    english: "orange",
-  },
-  {
-    german: "rot",
-    english: "red",
-  },
-  {
-    german: "schön",
-    english: "beautiful",
-  },
-  {
-    german: "schwarz",
-    english: "black",
-  },
-  {
-    german: "voll",
-    english: "full",
-  },
-  {
-    german: "weiß",
-    english: "white",
-  },
+  // {
+  //   german: "der Schuh",
+  //   english: "the shoe",
+  //   gender: "m",
+  // },
+  // {
+  //   german: "der Stuhl",
+  //   english: "the chair",
+  //   gender: "m",
+  // },
+  // {
+  //   german: "die Tasche",
+  //   english: "the bag",
+  //   gender: "f",
+  // },
+  // {
+  //   german: "die Tasse",
+  //   english: "the cup",
+  //   gender: "f",
+  // },
+  // {
+  //   german: "der Tisch",
+  //   english: "the table",
+  //   gender: "m",
+  // },
+  // {
+  //   german: "der Vater",
+  //   english: "the father",
+  //   gender: "m",
+  // },
+  // {
+  //   german: "die Tür",
+  //   english: "the door",
+  //   gender: "f",
+  // },
+  // {
+  //   german: "alt",
+  //   english: "old",
+  // },
+  // {
+  //   german: "blau",
+  //   english: "blue",
+  // },
+  // {
+  //   german: "braun",
+  //   english: "brown",
+  // },
+  // {
+  //   german: "gelb",
+  //   english: "yellow",
+  // },
+  // {
+  //   german: "grau",
+  //   english: "grey",
+  // },
+  // {
+  //   german: "groß",
+  //   english: "big",
+  // },
+  // {
+  //   german: "grün",
+  //   english: "green",
+  // },
+  // {
+  //   german: "interessant",
+  //   english: "interesting",
+  // },
+  // {
+  //   german: "kein, keine",
+  //   english: "no, none",
+  // },
+  // {
+  //   german: "kennen",
+  //   english: "to know",
+  // },
+  // {
+  //   german: "klein",
+  //   english: "small",
+  // },
+  // {
+  //   german: "leer",
+  //   english: "empty",
+  // },
+  // {
+  //   german: "neu",
+  //   english: "new",
+  // },
+  // {
+  //   german: "orange",
+  //   english: "orange",
+  // },
+  // {
+  //   german: "rot",
+  //   english: "red",
+  // },
+  // {
+  //   german: "schön",
+  //   english: "beautiful",
+  // },
+  // {
+  //   german: "schwarz",
+  //   english: "black",
+  // },
+  // {
+  //   german: "voll",
+  //   english: "full",
+  // },
+  // {
+  //   german: "weiß",
+  //   english: "white",
+  // },
 ];
 
 export const Lesson3 = [
@@ -365,110 +365,110 @@ export const Lesson3 = [
     german: "einsetzen",
     english: "to apply something",
   },
-  {
-    german: "die Firma",
-    english: "the company",
-  },
-  {
-    german: "haben",
-    english: "to have",
-  },
-  {
-    german: "das Haus",
-    english: "the house",
-  },
-  {
-    german: "die Hausaufgabe",
-    english: "the homework",
-  },
-  {
-    german: "heute",
-    english: "today",
-  },
-  {
-    german: "hier",
-    english: "here",
-  },
-  {
-    german: "die information",
-    english: "the information",
-  },
-  {
-    german: "die Klasse",
-    english: "the class",
-  },
-  {
-    german: "korrigieren",
-    english: "to correct",
-  },
-  {
-    german: "lernen",
-    english: "to learn",
-  },
-  {
-    german: "links",
-    english: "left",
-  },
-  {
-    german: "natürlich",
-    english: "of course",
-  },
-  {
-    german: "noch",
-    english: "still, yet, in addition to",
-  },
-  {
-    german: "rechts",
-    english: "right",
-  },
-  {
-    german: "das Regal",
-    english: "the shelf",
-  },
-  {
-    german: "schreiben",
-    english: "to write",
-  },
-  {
-    german: "die Schule",
-    english: "the school",
-  },
-  {
-    german: "der Schüler",
-    english: "the student",
-  },
-  {
-    german: "studieren",
-    english: "to study",
-  },
-  {
-    german: "der Teppich",
-    english: "the carpet",
-  },
-  {
-    german: "toll",
-    english: "great",
-  },
-  {
-    german: "die Uhr",
-    english: "the clock",
-  },
-  {
-    german: "die Uhrzeit",
-    english: "the time",
-  },
-  {
-    german: "unregelmäßig",
-    english: "irregular",
-  },
-  {
-    german: "verlieren",
-    english: "to lose",
-  },
-  {
-    german: "das WC",
-    english: "the toilet",
-  },
+  // {
+  //   german: "die Firma",
+  //   english: "the company",
+  // },
+  // {
+  //   german: "haben",
+  //   english: "to have",
+  // },
+  // {
+  //   german: "das Haus",
+  //   english: "the house",
+  // },
+  // {
+  //   german: "die Hausaufgabe",
+  //   english: "the homework",
+  // },
+  // {
+  //   german: "heute",
+  //   english: "today",
+  // },
+  // {
+  //   german: "hier",
+  //   english: "here",
+  // },
+  // {
+  //   german: "die information",
+  //   english: "the information",
+  // },
+  // {
+  //   german: "die Klasse",
+  //   english: "the class",
+  // },
+  // {
+  //   german: "korrigieren",
+  //   english: "to correct",
+  // },
+  // {
+  //   german: "lernen",
+  //   english: "to learn",
+  // },
+  // {
+  //   german: "links",
+  //   english: "left",
+  // },
+  // {
+  //   german: "natürlich",
+  //   english: "of course",
+  // },
+  // {
+  //   german: "noch",
+  //   english: "still, yet, in addition to",
+  // },
+  // {
+  //   german: "rechts",
+  //   english: "right",
+  // },
+  // {
+  //   german: "das Regal",
+  //   english: "the shelf",
+  // },
+  // {
+  //   german: "schreiben",
+  //   english: "to write",
+  // },
+  // {
+  //   german: "die Schule",
+  //   english: "the school",
+  // },
+  // {
+  //   german: "der Schüler",
+  //   english: "the student",
+  // },
+  // {
+  //   german: "studieren",
+  //   english: "to study",
+  // },
+  // {
+  //   german: "der Teppich",
+  //   english: "the carpet",
+  // },
+  // {
+  //   german: "toll",
+  //   english: "great",
+  // },
+  // {
+  //   german: "die Uhr",
+  //   english: "the clock",
+  // },
+  // {
+  //   german: "die Uhrzeit",
+  //   english: "the time",
+  // },
+  // {
+  //   german: "unregelmäßig",
+  //   english: "irregular",
+  // },
+  // {
+  //   german: "verlieren",
+  //   english: "to lose",
+  // },
+  // {
+  //   german: "das WC",
+  //   english: "the toilet",
+  // },
 ];
 
 export const Lesson4 = [
