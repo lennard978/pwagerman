@@ -112,8 +112,8 @@ const EnglishWord = styled.div`
 
 const AnimateBox = styled.div`
   position: relative;
-  height: 50%;
-  width: 50%;
+  height: 40%;
+  width: 90%;
   box-shadow: 0.1rem 0.1rem 0.4rem lightgray;
   margin-bottom: 2rem;
   cursor: pointer;
@@ -122,7 +122,8 @@ const AnimateBox = styled.div`
   background: linear-gradient(to top, #243b50, #141e30);
 `;
 
-const Text = styled.h2`
+const Text = styled.p`
+  font-size: 1.4rem;
   color: white;
   text-transform: capitalize;
   color: rgba(57, 255, 20, 1);
