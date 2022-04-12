@@ -114,7 +114,7 @@ const AnimateBox = styled.div`
   position: relative;
   height: 40%;
   width: 90%;
-  box-shadow: 0.1rem 0.1rem 0.4rem lightgray;
+  /* box-shadow: 0.1rem 0.1rem 0.4rem lightgray; */
   margin-bottom: 2rem;
   cursor: pointer;
   perspective: 1000px;

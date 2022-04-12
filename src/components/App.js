@@ -19,10 +19,12 @@ import { ChooseTest } from "../screen/test/ChooseTest";
 import { Test } from "../screen/test/Test";
 import { ChooseQuiz } from "../screen/quiz/ChooseQuiz";
 import { Quiz } from "../screen/quiz/Quiz";
+import { DerDieDas1, DerDieDas2, DerDieDas3 } from "../data/test";
 
 function App() {
   useSpeechSynthesis();
   const data = [Lesson1, Lesson2, Lesson3];
+  const test = [DerDieDas1, DerDieDas2, DerDieDas3];
   return (
     <>
       <Nav />
@@ -38,8 +40,8 @@ function App() {
           <Route path="choosewrite/:userId" element={<Write data={data} />} />
           <Route path="choosecards" element={<ChooseCards data={data} />} />
           <Route path="choosecards/:userId" element={<Cards data={data} />} />
-          <Route path="choosetest" element={<ChooseTest data={data} />} />
-          <Route path="choosetest/:userId" element={<Test data={data} />} />
+          <Route path="choosetest" element={<ChooseTest data={test} />} />
+          <Route path="choosetest/:userId" element={<Test data={test} />} />
           <Route path="choosequiz" element={<ChooseQuiz data={data} />} />
           <Route path="choosequiz/:userId" element={<Quiz data={data} />} />
           <Route path="*" element={<NoMatch />} />
