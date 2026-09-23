@@ -18,6 +18,7 @@ import { Quiz } from "../screen/quiz/Quiz";
 import { Test } from "../screen/test/Test";
 import { Write } from "../screen/write/Write";
 import SoundButton, { selectBestVoice } from "../components/SoundButton";
+import { normalizeSpeechLanguage } from "../services/tts/ttsProvider";
 import { LanguageProvider } from "../i18n/LanguageProvider";
 
 const mockSpeak = jest.fn();
@@ -364,6 +365,14 @@ test("Serbian voice selection prefers exact local sr-RS voices", () => {
 test("Serbian speech falls back to another sr voice or browser default", () => {
   expect(selectBestVoice([{ name: "Serbian", lang: "sr-Latn" }], "sr").lang).toBe("sr-Latn");
   expect(selectBestVoice([{ name: "English", lang: "en-US" }], "sr")).toBeUndefined();
+});
+
+test.each([
+  ["sr", "sr-RS"],
+  ["sr-Latn", "sr-RS"],
+  ["sr-RS", "sr-RS"],
+])("normalizes Serbian locale %s to %s", (input, expected) => {
+  expect(normalizeSpeechLanguage(input)).toBe(expected);
 });
 
 test("Lesson speaks the Serbian target", () => {

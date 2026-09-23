@@ -19,7 +19,7 @@ export const Lesson = ({ data }) => {
       {data[userId].items.map((item, index) => {
         return (
           <Container key={index}>
-            <SoundButton key={index} text={item.target} lang="sr">
+            <SoundButton key={index} text={item.target} lang="sr-RS">
               <Row>
                 <SourceParagraph>{item.source}</SourceParagraph>
                 <TargetParagraph>{item.target}</TargetParagraph>
