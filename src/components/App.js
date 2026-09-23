@@ -29,6 +29,7 @@ import { Quiz } from "../screen/quiz/Quiz";
 import { Tests } from "../data/test";
 import { useMyWords } from "../i18n/MyWordsProvider";
 import { MyWords } from "../screen/myWords/MyWords";
+import { UpdateNotification } from "./UpdateNotification";
 
 function App() {
   useSpeechSynthesis();
@@ -44,6 +45,7 @@ function App() {
   return (
     <>
       <Nav />
+      <UpdateNotification />
       <Routes>
         <Route element={<Layout />}>
           <Route index element={<Home />} />

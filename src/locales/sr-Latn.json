@@ -91,5 +91,9 @@
     "label": "Jezik",
     "english": "English",
     "serbian": "Srpski"
+  },
+  "update": {
+    "available": "Dostupna je nova verzija",
+    "action": "Ažuriraj sada"
   }
 }

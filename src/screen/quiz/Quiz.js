@@ -157,22 +157,30 @@ const Wrapper = styled.div`
 `;
 
 const Content = styled.div`
+  min-block-size: calc(100vh - 8.75rem);
+  position: relative;
+  inset-block-start: -0.7rem;
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  gap: 0.75rem;
+  justify-content: center;
+  gap: 0.9rem;
+
+  @media (max-height: 600px) {
+    justify-content: flex-start;
+    padding-top: 1rem;
+  }
 `;
 
 const Progress = styled.p`
   margin: 0;
   color: ${theme.colors.textMuted};
-  font-size: 0.9rem;
 `;
 
 const Prompt = styled.h2`
-  margin: 1rem 0 0;
+  margin: 0.75rem 0;
   color: ${theme.colors.text};
-  font-size: clamp(1.6rem, 7vw, 2.2rem);
+  font-size: clamp(1.35rem, 6vw, 1.9rem);
   text-align: center;
 `;
 
@@ -244,8 +252,8 @@ const ResultCard = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 1rem;
-  margin-top: 2rem;
-  padding: 2rem 1.25rem;
+  margin-top: 1.5rem;
+  padding: 1.5rem 1rem;
   background: ${theme.colors.surface};
   border: 1px solid ${theme.colors.border};
   border-radius: ${theme.radius.large};

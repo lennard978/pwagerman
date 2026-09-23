@@ -92,5 +92,9 @@
     "label": "Language",
     "english": "English",
     "serbian": "Srpski"
+  },
+  "update": {
+    "available": "New version available",
+    "action": "Update now"
   }
 }
