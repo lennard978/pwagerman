@@ -22,4 +22,5 @@ api/.env
 
 npm-debug.log*
 yarn-debug.log*
+tmp-jest-results.json
 yarn-error.log*
