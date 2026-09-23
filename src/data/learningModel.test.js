@@ -127,6 +127,8 @@ test("Write renders an English prompt and Serbian answer", () => {
 
   expect(screen.getByText(/^(house|water|chair|city)$/)).toBeTruthy();
   expect(screen.getByText("ć")).toBeTruthy();
+  expect(screen.queryByTestId("write-answer-space")).toBeNull();
+  expect(screen.queryByTestId("write-pool-space")).toBeNull();
 });
 
 test("Write filled answer tiles expose an explicit readable state", () => {
@@ -162,6 +164,77 @@ test("Write changes incorrect answers to correct and speaks once", () => {
   screen.getAllByText(/^[ukća]$/).filter((tile) => tile.getAttribute("data-filled") === "true").forEach((tile) => fireEvent.click(tile));
   ["k", "u", "ć", "a"].forEach((letter) => fireEvent.click(screen.getByRole("button", { name: letter })));
   expect(screen.getAllByText(/^[ukća]$/).filter((tile) => tile.getAttribute("data-filled") === "true")[0].getAttribute("data-result-state")).toBe("correct");
+  expect(mockSpeak).toHaveBeenCalledTimes(1);
+});
+
+test("Write preserves a non-interactive word-boundary spacer in both rows", () => {
+  renderWithLanguage(
+    <MemoryRouter initialEntries={["/write/0"]}>
+      <Routes>
+        <Route path="/write/:userId" element={<Write data={[{ items: [{ source: "I love you", target: "volim te" }] }]} />} />
+      </Routes>
+    </MemoryRouter>
+  );
+
+  const answerSpace = screen.getByTestId("write-answer-space");
+  const poolSpace = screen.getByTestId("write-pool-space");
+  expect(answerSpace.closest("button")).toBeNull();
+  expect(poolSpace.closest("button")).toBeNull();
+  expect(screen.getAllByRole("button", { name: "?" })).toHaveLength(7);
+});
+
+test("Write keeps duplicate letter IDs stable when returning an exact tile", () => {
+  renderWithLanguage(
+    <MemoryRouter initialEntries={["/write/0"]}>
+      <Routes>
+        <Route path="/write/:userId" element={<Write data={[{ items: [{ source: "mom loves", target: "mama voli" }] }]} />} />
+      </Routes>
+    </MemoryRouter>
+  );
+
+  const duplicateTiles = screen.getAllByRole("button", { name: "a" });
+  const tileIds = duplicateTiles.map((tile) => tile.getAttribute("data-tile-id"));
+  expect(new Set(tileIds).size).toBe(2);
+
+  fireEvent.click(duplicateTiles[0]);
+  const filledTile = document.querySelector(`[data-filled="true"][data-tile-id="${tileIds[0]}"]`);
+  expect(filledTile).toBeTruthy();
+  fireEvent.click(filledTile);
+  expect(document.querySelector(`[data-filled="false"][data-tile-id="${tileIds[0]}"]`)).toBeTruthy();
+});
+
+test("Write preserves Serbian diacritics as individual letter tiles", () => {
+  renderWithLanguage(
+    <MemoryRouter initialEntries={["/write/0"]}>
+      <Routes>
+        <Route path="/write/:userId" element={<Write data={[{ items: [{ source: "letters", target: "čćšžđ" }] }]} />} />
+      </Routes>
+    </MemoryRouter>
+  );
+
+  ["č", "ć", "š", "ž", "đ"].forEach((letter) => {
+    expect(screen.getByRole("button", { name: letter })).toBeTruthy();
+  });
+});
+
+test("Write evaluates the exact target with automatic spaces and speaks once", () => {
+  mockSpeak.mockClear();
+  renderWithLanguage(
+    <MemoryRouter initialEntries={["/write/0"]}>
+      <Routes>
+        <Route path="/write/:userId" element={<Write data={[{ items: [{ source: "I love you", target: "volim te" }] }]} />} />
+      </Routes>
+    </MemoryRouter>
+  );
+
+  "volimte".split("").forEach((letter) => {
+    const poolTile = screen.getAllByRole("button", { name: letter })
+      .find((tile) => tile.getAttribute("data-filled") === "false");
+    fireEvent.click(poolTile);
+  });
+
+  expect(screen.getAllByRole("button", { name: /^[volimte]$/ })[0].getAttribute("data-result-state")).toBe("correct");
+  expect(screen.getByTestId("write-answer-space")).toBeTruthy();
   expect(mockSpeak).toHaveBeenCalledTimes(1);
 });
 

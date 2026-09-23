@@ -26,17 +26,29 @@ export const Write = ({ data }) => {
 
   const [sourceWord, setSourceWord] = useState(wordList[0]?.source || "");
 
-  const createTiles = (value) => value.split("").map((char, index) => ({
-    id: `${char}-${index}-${Math.random()}`,
-    char,
-  }));
+  const createTokens = (value) => value.split("").map((char, index) => (
+    char === " "
+      ? { id: `space-${index}`, type: "space", char }
+      : { id: `${char}-${index}-${Math.random()}`, type: "letter", char }
+  ));
   const shuffle = (v) => [...v].sort(() => Math.random() - 0.5);
+  const createShuffledTarget = (value) => {
+    const tokens = createTokens(value);
+    const letters = shuffle(tokens.filter((token) => token.type === "letter"));
+    let letterIndex = 0;
+    return tokens.map((token) => (
+      token.type === "space" ? token : letters[letterIndex++]
+    ));
+  };
+  const createAnswer = (value) => createTokens(value).map((token) => (
+    token.type === "space" ? token : null
+  ));
   const [shuffledTarget, setShuffledTarget] = useState([
-    ...shuffle(createTiles(wordList[0]?.target || "")),
+    ...createShuffledTarget(wordList[0]?.target || ""),
   ]);
 
   const [targetAnswer, setTargetAnswer] = useState(
-    new Array(wordList[0]?.target?.length || 0).fill(null)
+    createAnswer(wordList[0]?.target || "")
   );
 
   //Add one for removing array item
@@ -76,8 +88,8 @@ export const Write = ({ data }) => {
     setResultState("idle");
     setCount(nextCount);
     setSourceWord(wordList[nextCount].source);
-    setShuffledTarget(shuffle(createTiles(wordList[nextCount].target)));
-    setTargetAnswer(new Array(wordList[nextCount].target.length).fill(null));
+    setShuffledTarget(createShuffledTarget(wordList[nextCount].target));
+    setTargetAnswer(createAnswer(wordList[nextCount].target));
   };
 
   return (
@@ -89,12 +101,14 @@ export const Write = ({ data }) => {
       </Row>
       <Row>
         {targetAnswer.map((item, index) => {
+          if (item?.type === "space") {
+            return <Space key={item.id} data-testid="write-answer-space" aria-hidden="true" />;
+          }
           return (
             <TargetLetter
               type="button"
               $filled={Boolean(item)}
               $resultState={resultState}
-              $space={item?.char === " "}
               data-result-state={resultState}
               data-filled={Boolean(item)}
               data-tile-id={item?.id}
@@ -107,12 +121,15 @@ export const Write = ({ data }) => {
         })}
       </Row>
       <Row>
-        {shuffledTarget.map((item, index) => {
+        {shuffledTarget.map((item) => {
+          if (item.type === "space") {
+            return <Space key={item.id} data-testid="write-pool-space" aria-hidden="true" />;
+          }
           return (
             <TargetLetter
               type="button"
-              $space={item.char === " "}
               data-filled={false}
+              data-tile-id={item.id}
               onClick={() => selectLetter(item)}
               key={item.id}
             >
@@ -194,19 +211,18 @@ const TargetLetter = styled.button`
   text-shadow: ${(props) => props.$filled ? "0 1px 1px rgba(0, 0, 0, 0.2)" : "none"};
   overflow-wrap: anywhere;
   transition: color 180ms ease, background-color 180ms ease, border-color 180ms ease, transform 160ms ease;
-  ${(props) => props.$space && `
-    min-inline-size: 0.7rem;
-    padding-inline: 0.15rem;
-    border-color: transparent;
-    background: transparent;
-    box-shadow: none;
-  `}
   cursor: pointer;
   &:active {
     border-color: ${theme.colors.primary};
     background: ${theme.colors.primarySoft};
     transform: scale(0.96);
   }
+`;
+
+const Space = styled.span`
+  flex: 0 0 0.8rem;
+  min-block-size: 2.75rem;
+  margin-block: 0.2rem;
 `;
 
 const Button = styled.button`
