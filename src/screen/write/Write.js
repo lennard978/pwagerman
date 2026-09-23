@@ -1,72 +1,73 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import { Title } from "../../components/Title";
+import { useLanguage } from "../../i18n/LanguageProvider";
+import { theme } from "../../styles/theme";
+import { EmptyExercise } from "../../components/EmptyExercise";
 
 export const Write = ({ data }) => {
   const { userId } = useParams();
   const number = Number(userId);
+  const { t } = useLanguage();
 
   //Collect Data
-  const wordList = data[userId].map((item) => {
+  const wordList = data[userId].items.map((item) => {
     return item;
   });
 
   const [disable, setDisable] = useState(false);
-  const [topColor, setTopColor] = useState("#243b50");
-  const [bottomColor, setBottomColor] = useState("#141e30");
-  const myStyle = {
-    background: `linear-gradient(to left, ${topColor}, ${bottomColor})`,
-  };
+  const [resultState, setResultState] = useState("idle");
 
   //Update wordList count
   let [count, setCount] = useState(0);
 
-  //English Word
-  const [englishWord, setEnglishWord] = useState(wordList[count].english);
+  const [sourceWord, setSourceWord] = useState(wordList[0]?.source || "");
 
-  //German Word
-  const shuffle = (v) => [...v].sort((_) => Math.random() - 0.5).join("");
-  const [shuffleWord, setShuffleWord] = useState([
-    ...shuffle(wordList[count].german.split("")),
+  const createTiles = (value) => value.split("").map((char, index) => ({
+    id: `${char}-${index}-${Math.random()}`,
+    char,
+  }));
+  const shuffle = (v) => [...v].sort(() => Math.random() - 0.5);
+  const [shuffledTarget, setShuffledTarget] = useState([
+    ...shuffle(createTiles(wordList[0]?.target || "")),
   ]);
 
-  //German Answer
-  const [germanAnswer, setGermanAnswer] = useState(
-    new Array(wordList[count].german.length).fill("?")
+  const [targetAnswer, setTargetAnswer] = useState(
+    new Array(wordList[0]?.target?.length || 0).fill(null)
   );
 
   //Add one for removing array item
-  let [addOne, setAddOne] = useState(0);
-
-  const removeLetter = (item) => {
-    const index = shuffleWord.indexOf(item);
-    shuffleWord.splice(index, 1);
-    if (item.indexOf() === -1) {
-      setAddOne(addOne + 1);
-      germanAnswer.splice(addOne, 0, item);
-      germanAnswer.pop();
-      setGermanAnswer(germanAnswer);
-    }
-    let list = germanAnswer.join("");
-    if (list.length - 1 === addOne) {
-      if (wordList[count].german === list) {
-        setTopColor("rgba(57, 255, 20, .2)");
-        setBottomColor("green");
+  const selectLetter = (tile) => {
+    const slot = targetAnswer.findIndex((item) => item === null);
+    if (slot === -1) return;
+    const nextAnswer = [...targetAnswer];
+    nextAnswer[slot] = tile;
+    setTargetAnswer(nextAnswer);
+    setShuffledTarget(shuffledTarget.filter((item) => item.id !== tile.id));
+    const list = nextAnswer.map((item) => item?.char || "").join("");
+    if (!nextAnswer.includes(null)) {
+      if (wordList[count].target === list) {
+        setResultState("correct");
       } else {
-        setTopColor("rgba(900,0,0, .4)");
-        setBottomColor("rgba(100,0,0)");
+        setResultState("incorrect");
       }
     }
   };
+  const removeLetter = (slot) => {
+    const tile = targetAnswer[slot];
+    if (!tile) return;
+    const nextAnswer = [...targetAnswer];
+    nextAnswer[slot] = null;
+    setTargetAnswer(nextAnswer);
+    setShuffledTarget([...shuffledTarget, tile]);
+    setResultState("idle");
+  };
   const nextWord = () => {
-    setTopColor("#243b50");
-    setBottomColor("#141e30");
-    setAddOne(0);
+    setResultState("idle");
     setCount(++count);
-    setEnglishWord(wordList[count].english);
-    setShuffleWord([...shuffle(wordList[count].german.split(""))]);
-    setGermanAnswer(new Array(wordList[count].german.length).fill("?"));
+    setSourceWord(wordList[count].source);
+    setShuffledTarget(shuffle(createTiles(wordList[count].target)));
+    setTargetAnswer(new Array(wordList[count].target.length).fill(null));
     if (wordList.length - 1 < count + 1) {
       setDisable(true);
     }
@@ -74,36 +75,46 @@ export const Write = ({ data }) => {
 
   return (
     <Container>
-      <Title title={`Write ${number + 1}`} />
+      <WriteTitle>{`${t("navigation.write")} ${number + 1}`}</WriteTitle>
+      {wordList.length === 0 ? <EmptyExercise message={t("myWords.minimum")} /> : <>
       <Row>
-        <H2>{englishWord}</H2>
+        <H2>{sourceWord}</H2>
       </Row>
       <Row>
-        {germanAnswer.map((item, index) => {
+        {targetAnswer.map((item, index) => {
           return (
-            <GermanLetter style={myStyle} key={index}>
-              {item}
-            </GermanLetter>
+            <TargetLetter
+              $filled={Boolean(item)}
+              $resultState={resultState}
+              $space={item?.char === " "}
+              data-filled={Boolean(item)}
+              data-tile-id={item?.id}
+              onClick={() => removeLetter(index)}
+              key={index}
+            >
+              {item?.char || "?"}
+            </TargetLetter>
           );
         })}
       </Row>
       <Row>
-        {shuffleWord.map((item, index) => {
+        {shuffledTarget.map((item, index) => {
           return (
-            <GermanLetter
-              onClick={() => {
-                removeLetter(item);
-              }}
-              key={index}
+            <TargetLetter
+              $space={item.char === " "}
+              data-filled={false}
+              onClick={() => selectLetter(item)}
+              key={item.id}
             >
-              {item}
-            </GermanLetter>
+              {item.char}
+            </TargetLetter>
           );
         })}
       </Row>
       <Button disabled={disable} onClick={() => nextWord()}>
-        Next
+        {t("actions.next")}
       </Button>
+      </>}
     </Container>
   );
 };
@@ -112,8 +123,18 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  padding-top: 2.7rem;
-  padding-bottom: 4rem;
+  padding-top: 0.75rem;
+  padding-bottom: 7rem;
+  inline-size: min(100%, 42rem);
+  padding-inline: 1rem;
+`;
+
+const WriteTitle = styled.h2`
+  margin: 0 0 1rem;
+  color: ${theme.colors.text};
+  font-size: 1.25rem;
+  font-weight: 700;
+  text-align: center;
 `;
 
 const Row = styled.div`
@@ -122,63 +143,79 @@ const Row = styled.div`
   flex-direction: row;
   justify-content: center;
   margin-inline: 1rem;
+  max-inline-size: 100%;
+  gap: 0.2rem;
 `;
 
 const H2 = styled.h3`
-  color: white;
+  margin: 0 0 0.5rem;
+  padding: 1rem 1.25rem;
+  color: ${(props) => props.$filled ? "#ffffff" : theme.colors.textMuted};
+  background: ${(props) => {
+    if (props.$resultState === "correct") return theme.colors.success;
+    if (props.$resultState === "incorrect") return theme.colors.error;
+    return props.$filled ? theme.colors.primary : theme.colors.surface;
+  }};
+  border: 1px solid ${theme.colors.border};
+  border-radius: ${theme.radius.medium};
+  box-shadow: ${theme.shadow.soft};
+  font-size: 1.2rem;
+  text-align: center;
 `;
 
-const GermanLetter = styled.h2`
+const TargetLetter = styled.h2`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 0.5rem;
-  color: white;
-  padding-block: 0.5rem;
-  padding-inline: 1rem;
-  border-bottom: 1px solid #141e30;
-  border-right: 1px solid #141e30;
-  border-top: 1px solid #243b50;
-  border-left: 1px solid #243b50;
-  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.3);
-  background: linear-gradient(to left, #243b50, #141e30);
-  text-decoration: none;
-  border-radius: 0.2rem;
+  min-inline-size: 2.5rem;
+  min-block-size: 2.75rem;
+  color: ${theme.colors.text};
+  padding: 0.5rem;
+  border: 1px solid ${theme.colors.border};
+  box-shadow: ${theme.shadow.soft};
+  background: ${theme.colors.surface};
+  border-radius: ${theme.radius.small};
   margin: 0.2rem;
-  text-transform: uppercase;
-  min-height: 1rem;
-  font-size: 0.9rem;
+  text-transform: none;
+  font-size: 1rem;
+  font-weight: 700;
+  text-shadow: ${(props) => props.$filled ? "0 1px 1px rgba(0, 0, 0, 0.2)" : "none"};
+  overflow-wrap: anywhere;
+  ${(props) => props.$space && `
+    min-inline-size: 0.7rem;
+    padding-inline: 0.15rem;
+    border-color: transparent;
+    background: transparent;
+    box-shadow: none;
+  `}
   cursor: pointer;
   &:active {
-    border: 1px inset rgba(57, 255, 20, 1);
-    transition: all 0.5s ease;
+    border-color: ${theme.colors.primary};
+    background: ${theme.colors.primarySoft};
   }
 `;
 
 const Button = styled.button`
-  text-transform: capitalize;
-  font-size: 0.8rem;
-  font-weight: 400;
+  min-block-size: 2.75rem;
+  text-transform: none;
+  font-size: 0.95rem;
+  font-weight: 700;
   color: white;
-  margin: 5px;
-  padding-block: 0.5rem;
-  padding-inline: 2rem;
-  border-bottom: 1px solid #141e30;
-  border-right: 1px solid #141e30;
-  border-top: 1px solid #243b50;
-  border-left: 1px solid #243b50;
-  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.3);
-  background: linear-gradient(to left, #243b50, #141e30);
-  text-decoration: none;
-  border-radius: 0.2rem;
+  margin: 1rem 5px 0;
+  padding-inline: 1.5rem;
+  border: 1px solid ${theme.colors.primary};
+  box-shadow: ${theme.shadow.soft};
+  background: ${theme.colors.primary};
+  border-radius: ${theme.radius.small};
   cursor: pointer;
-  width: 3rem;
-  display: flex;
-  justify-content: center;
+  min-inline-size: 5rem;
   align-self: center;
+  transition: 180ms ease;
   &:active {
-    border-bottom: 1px inset rgba(57, 255, 20, 1);
-    transition: all 0.5s ease;
-    color: rgba(57, 255, 20, 1);
+    background: ${theme.colors.primaryPressed};
+  }
+  &:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
   }
 `;

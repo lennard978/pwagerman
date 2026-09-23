@@ -1,13 +1,22 @@
 import { Link, Outlet } from "react-router-dom";
 import styled from "styled-components";
+import { useLanguage } from "../i18n/LanguageProvider";
+import { theme } from "../styles/theme";
 
 export const BtnList = ({ dataList, title, nav }) => {
+  const { t } = useLanguage();
+
   return (
     <Container>
       <Row>
         {dataList.map((lesson, index) => (
-          <Button key={index} to={`/${nav}/${index}`}>
-            {title} {index + 1}
+          <Button key={lesson.id || index} to={`/${nav}/${index}`}>
+            <ItemTitle>
+              {lesson.titleKey ? t(lesson.titleKey) : `${title} ${index + 1}`}
+            </ItemTitle>
+            {lesson.descriptionKey && (
+              <Description>{t(lesson.descriptionKey)}</Description>
+            )}
           </Button>
         ))}
         <Outlet />
@@ -18,37 +27,58 @@ export const BtnList = ({ dataList, title, nav }) => {
 
 const Container = styled.div`
   min-block-size: 100vh;
+  inline-size: min(100%, 48rem);
+  padding: 0.75rem 1rem 7rem;
   display: flex;
   flex-direction: row;
   align-items: center;
 `;
 const Row = styled.div`
+  inline-size: 100%;
   display: flex;
-  flex-direction: row;
-  justify-content: space-around;
+  gap: 0.75rem;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
   flex-wrap: wrap;
 `;
 
 const Button = styled(Link)`
-  text-transform: uppercase;
-  font-size: 0.8rem;
-  font-weight: 400;
-  color: rgba(57, 255, 20, 1);
-  margin: 5px;
-  padding-block: 0.5rem;
-  padding-inline: 2rem;
-  border-bottom: 1px solid #141e30;
-  border-right: 1px solid #141e30;
-  border-top: 1px solid #243b50;
-  border-left: 1px solid #243b50;
-  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.3);
-  background-image: linear-gradient(to top, #243b50, #141e30);
+  box-sizing: border-box;
+  inline-size: 100%;
+  max-inline-size: 42rem;
+  min-block-size: 5.5rem;
+  display: block;
+  overflow-wrap: anywhere;
+  padding: 1rem 1.1rem;
+  color: ${theme.colors.text};
+  border: 1px solid ${theme.colors.border};
+  box-shadow: ${theme.shadow.soft};
+  background: ${theme.colors.surface};
   text-decoration: none;
-  border-radius: 0.2rem;
+  border-radius: ${theme.radius.medium};
+  transition: 180ms ease;
   &:hover {
-    border-bottom: 1px solid rgba(57, 255, 20, 1);
-    border-left: 1px solid rgba(57, 255, 20, 1);
-    transition: all 0.5s ease;
+    border-color: ${theme.colors.primary};
+    transform: translateY(-1px);
   }
+  &:focus-visible {
+    outline: 3px solid ${theme.colors.primarySoft};
+    outline-offset: 2px;
+  }
+`;
+
+const ItemTitle = styled.span`
+  display: block;
+  font-size: 1.05rem;
+  font-weight: 700;
+`;
+
+const Description = styled.span`
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 0.7rem;
+  font-weight: 400;
+  color: ${theme.colors.textMuted};
+  line-height: 1.45;
 `;

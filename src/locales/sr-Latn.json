@@ -1,0 +1,90 @@
+{
+  "navigation": {
+    "home": "Početna",
+    "lesson": "Lekcija",
+    "pair": "Poveži",
+    "write": "Pisanje",
+    "cards": "Kartice",
+    "test": "Test",
+    "quiz": "Kviz",
+    "myWords": "Moje reči"
+  },
+  "actions": {
+    "next": "Dalje",
+    "nextWord": "Sledeća reč",
+    "goBack": "Nazad",
+    "backToQuiz": "Nazad na kviz"
+  },
+  "app": {
+    "name": "Srpski A1",
+    "tagline": "Uči srpski korak po korak."
+  },
+  "myWords": {
+    "title": "Moje reči",
+    "description": "Dodaj i vežbaj svoj rečnik.",
+    "add": "Dodaj reč",
+    "english": "Engleski",
+    "serbian": "Srpski",
+    "save": "Sačuvaj",
+    "edit": "Izmeni",
+    "delete": "Obriši",
+    "cancel": "Otkaži",
+    "noWords": "Još nema sačuvanih reči",
+    "emptyHint": "Dodaj reči da bi ih vežbao u vežbama.",
+    "duplicate": "Ovaj par na engleskom i srpskom već postoji.",
+    "blank": "Oba polja su obavezna.",
+    "length": "Svako polje može imati najviše 80 znakova.",
+    "minimum": "Dodaj još reči da bi koristio ovu vežbu.",
+    "deleteConfirm": "Obrisati ovu reč?"
+  },
+  "lessons": {
+    "greetings": {
+      "title": "Pozdravi i upoznavanje",
+      "description": "Nauči osnovne pozdrave i jednostavno predstavljanje."
+    },
+    "family": {
+      "title": "Ljudi i porodica",
+      "description": "Nauči reči za ljude, porodicu i odnose."
+    },
+    "home": {
+      "title": "Dom i svakodnevni predmeti",
+      "description": "Nauči reči za prostorije, nameštaj i korisne predmete."
+    },
+    "food": {
+      "title": "Hrana i piće",
+      "description": "Nauči korisne reči za hranu i naručivanje."
+    },
+    "time": {
+      "title": "Brojevi, vreme i dani",
+      "description": "Nauči osnovne brojeve, dane i izraze za vreme."
+    },
+    "travel": {
+      "title": "Putovanja i mesta",
+      "description": "Koristi osnovne reči za putovanje i snalaženje."
+    }
+  },
+  "exercise": {
+    "question": "Pitanje",
+    "chooseTranslation": "Izaberi prevod na srpski",
+    "correct": "Tačno",
+    "incorrect": "Nije tačno",
+    "quizComplete": "Kviz je završen",
+    "testComplete": "Test je završen",
+    "score": "tačnih odgovora",
+    "restartQuiz": "Ponovi kviz",
+    "retryTest": "Ponovi test",
+    "backToTests": "Nazad na testove",
+    "reviewMistakes": "Pregled grešaka",
+    "perfect": "Odlično - nema grešaka.",
+    "yourAnswer": "Tvoj odgovor",
+    "correctAnswer": "Tačan odgovor"
+  },
+  "errors": {
+    "pageNotFound": "Stranica nije pronađena (404)"
+  },
+  "language": {
+    "label": "Jezik",
+    "english": "English",
+    "serbian": "Srpski"
+  }
+}

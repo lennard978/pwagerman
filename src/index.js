@@ -5,11 +5,17 @@ import App from "./components/App";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
+import { LanguageProvider } from "./i18n/LanguageProvider";
+import { MyWordsProvider } from "./i18n/MyWordsProvider";
 
 ReactDOM.render(
-  <BrowserRouter basename="/pwagerman">
-    <App />
-  </BrowserRouter>,
+  <LanguageProvider>
+    <MyWordsProvider>
+      <BrowserRouter basename="/pwagerman">
+        <App />
+      </BrowserRouter>
+    </MyWordsProvider>
+  </LanguageProvider>,
   document.getElementById("root")
 );
 

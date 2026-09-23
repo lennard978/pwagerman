@@ -1,6 +1,9 @@
 import React from "react";
 import { BtnList } from "../../components/BtnList";
+import { useLanguage } from "../../i18n/LanguageProvider";
 
 export const ChooseWrite = ({ data }) => {
-  return <BtnList dataList={data} title="Write" nav="choosewrite" />;
+  const { t } = useLanguage();
+
+  return <BtnList dataList={data} title={t("navigation.write")} nav="choosewrite" />;
 };

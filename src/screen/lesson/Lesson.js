@@ -4,33 +4,40 @@ import SoundButton from "../../components/SoundButton";
 import { Title } from "../../components/Title";
 import styled from "styled-components";
 import { BackBtn } from "../../components/BackBtn";
+import { useLanguage } from "../../i18n/LanguageProvider";
+import { theme } from "../../styles/theme";
+import { EmptyExercise } from "../../components/EmptyExercise";
 
 export const Lesson = ({ data }) => {
   const { userId } = useParams();
   const number = Number(userId);
+  const { t } = useLanguage();
   return (
     <Wrapper>
-      <Title title={`Lesson ${number + 1}`} />
-      {data[userId].map((item, index) => {
+      <Title title={`${t("navigation.lesson")} ${number + 1}`} />
+      {data[userId].items.length === 0 && <EmptyExercise message={t("myWords.emptyHint")} />}
+      {data[userId].items.map((item, index) => {
         return (
           <Container key={index}>
-            <SoundButton key={index} german={item.german}>
+            <SoundButton key={index} text={item.target} lang="sr">
               <Row>
-                <GermanParagraph>{item.german}</GermanParagraph>
-                <EnglishParagraph>{item.english}</EnglishParagraph>
+                <SourceParagraph>{item.source}</SourceParagraph>
+                <TargetParagraph>{item.target}</TargetParagraph>
               </Row>
             </SoundButton>
           </Container>
         );
       })}
-      <BackBtn title="Go Back" to="/chooselesson" />
+      <BackBtn title={t("actions.goBack")} to="/chooselesson" />
     </Wrapper>
   );
 };
 
 const Wrapper = styled.div`
-  padding-top: 3rem;
-  padding-bottom: 5rem;
+  padding-top: 0.75rem;
+  padding-bottom: 7rem;
+  inline-size: min(100%, 42rem);
+  padding-inline: 1rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -38,6 +45,7 @@ const Wrapper = styled.div`
 `;
 
 const Container = styled.div`
+  inline-size: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -45,22 +53,31 @@ const Container = styled.div`
 
 const Row = styled.div`
   display: flex;
-  justify-content: space-between;
-  inline-size: 80vw;
-  background-image: linear-gradient(to bottom, #243b50, #141e30);
-  margin: 0.4rem;
-  padding: 0.6rem;
-  border-radius: 0.2rem;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+  inline-size: 100%;
+  background: ${theme.colors.surface};
+  margin: 0.45rem 0;
+  padding: 1rem;
+  border: 1px solid ${theme.colors.border};
+  border-radius: ${theme.radius.medium};
+  box-shadow: ${theme.shadow.soft};
   cursor: pointer;
 `;
 
-const GermanParagraph = styled.p`
-  color: rgba(57, 255, 20, 1);
-  font-size: 1.1rem;
+const SourceParagraph = styled.p`
+  order: 1;
+  margin: 0;
+  color: ${theme.colors.textMuted};
+  font-size: 1.15rem;
+  font-weight: 700;
 `;
 
-const EnglishParagraph = styled.p`
-  color: white;
-  font-style: italic;
-  font-size: 1.1rem;
+const TargetParagraph = styled.p`
+  order: 2;
+  margin: 0;
+  color: ${theme.colors.primary};
+  font-size: 1.2rem;
+  font-weight: 700;
 `;

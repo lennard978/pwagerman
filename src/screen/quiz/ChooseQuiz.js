@@ -1,14 +1,23 @@
 import React from "react";
 import { Link, Outlet } from "react-router-dom";
 import styled from "styled-components";
+import { useLanguage } from "../../i18n/LanguageProvider";
+import { theme } from "../../styles/theme";
 
 export const ChooseQuiz = ({ data }) => {
+  const { t } = useLanguage();
+
   return (
     <Container>
       <Row>
         {data.map((lesson, index) => (
           <div key={index}>
-            <Button to={`/choosequiz/${index}`}>Quiz {index + 1}</Button>
+            <Button to={`/choosequiz/${index}`}>
+              <Title>{lesson.titleKey ? t(lesson.titleKey) : `${t("navigation.quiz")} ${index + 1}`}</Title>
+              {lesson.descriptionKey && (
+                <Description>{t(lesson.descriptionKey)}</Description>
+              )}
+            </Button>
           </div>
         ))}
         <Outlet />
@@ -19,40 +28,47 @@ export const ChooseQuiz = ({ data }) => {
 
 const Container = styled.div`
   min-block-size: 100vh;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
+  inline-size: min(100%, 48rem);
+  padding: 2rem 1rem 7rem;
 `;
 const Row = styled.div`
   display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-  flex-wrap: wrap;
-  width: 100vw;
+  flex-direction: column;
+  gap: 0.75rem;
+  inline-size: 100%;
+`;
+
+const Title = styled.span`
+  display: block;
+  font-size: 1.05rem;
+  font-weight: 700;
+`;
+
+const Description = styled.span`
+  display: block;
+  margin-top: 0.25rem;
+  color: ${theme.colors.textMuted};
+  font-size: 0.75rem;
+  line-height: 1.4;
 `;
 
 const Button = styled(Link)`
-  text-transform: uppercase;
-  font-size: 0.8rem;
-  font-weight: 400;
-  color: rgba(57, 255, 20, 1);
-  margin: 5px;
-  padding-block: 0.5rem;
-  padding-inline: 2rem;
-  border-bottom: 1px solid #141e30;
-  border-right: 1px solid #141e30;
-  border-top: 1px solid #243b50;
-  border-left: 1px solid #243b50;
-  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.3);
-  background-image: linear-gradient(to top, #243b50, #141e30);
+  box-sizing: border-box;
+  inline-size: 100%;
+  min-block-size: 5.5rem;
+  display: block;
+  padding: 1rem 1.1rem;
+  color: ${theme.colors.text};
+  background: ${theme.colors.surface};
+  border: 1px solid ${theme.colors.border};
+  border-radius: ${theme.radius.medium};
+  box-shadow: ${theme.shadow.soft};
   text-decoration: none;
-  border-radius: 0.2rem;
-  &:hover {
-    border-bottom: 1px solid rgba(57, 255, 20, 1);
-    border-left: 1px solid rgba(57, 255, 20, 1);
-    transition: all 0.5s ease;
+  transition: 180ms ease;
+  &:hover,
+  &:focus-visible {
+    border-color: ${theme.colors.primary};
+    transform: translateY(-1px);
+    outline: none;
   }
 `;

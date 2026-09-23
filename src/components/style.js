@@ -1,24 +1,36 @@
 import styled from "styled-components";
+import { theme } from "../styles/theme";
 
 export const Btn = styled.button`
-  text-transform: capitalize;
-  font-size: 0.8rem;
+  min-block-size: 2.75rem;
+  text-transform: none;
+  font-size: 0.95rem;
+  font-weight: 600;
   font-weight: 400;
-  color: rgba(57, 255, 20, 1);
-  margin: 5px;
-  padding-block: 0.5rem;
-  padding-inline: 2rem;
-  border-bottom: 1px solid #141e30;
-  border-right: 1px solid #141e30;
-  border-top: 1px solid #243b50;
-  border-left: 1px solid #243b50;
-  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.3);
-  background: linear-gradient(to top, #243b50, #141e30);
-  text-decoration: none;
-  border-radius: 0.2rem;
+  color: ${theme.colors.text};
+  margin: 0.3rem;
+  padding-block: 0.65rem;
+  padding-inline: 1rem;
+  border: 1px solid ${theme.colors.border};
+  box-shadow: ${theme.shadow.soft};
+  background: ${theme.colors.surface};
+  border-radius: ${theme.radius.small};
   cursor: pointer;
+  transition: 180ms ease;
   &:active {
-    border: 1px inset rgba(57, 255, 20, 1);
-    transition: all 0.5s ease;
+    color: ${theme.colors.primaryPressed};
+    border-color: ${theme.colors.primary};
+    transform: translateY(1px);
+  }
+  &:hover {
+    border-color: ${theme.colors.primary};
+  }
+  &:focus-visible {
+    outline: 3px solid ${theme.colors.primarySoft};
+    outline-offset: 2px;
+  }
+  @media (max-width: 360px) {
+    padding-inline: 0.65rem;
+    font-size: 0.85rem;
   }
 `;

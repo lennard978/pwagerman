@@ -1,0 +1,91 @@
+{
+  "navigation": {
+    "home": "Home",
+    "lesson": "Lesson",
+    "pair": "Pair",
+    "write": "Write",
+    "cards": "Cards",
+    "test": "Test",
+    "quiz": "Quiz",
+    "settings": "Settings",
+    "myWords": "My Words"
+  },
+  "actions": {
+    "next": "Next",
+    "nextWord": "Next Word",
+    "goBack": "Go Back",
+    "backToQuiz": "Back to Quiz"
+  },
+  "app": {
+    "name": "Serbian A1",
+    "tagline": "Learn practical Serbian step by step."
+  },
+  "myWords": {
+    "title": "My Words",
+    "description": "Add and practise your own vocabulary.",
+    "add": "Add word",
+    "english": "English",
+    "serbian": "Serbian",
+    "save": "Save",
+    "edit": "Edit",
+    "delete": "Delete",
+    "cancel": "Cancel",
+    "noWords": "No saved words yet",
+    "emptyHint": "Add words to practise them in exercises.",
+    "duplicate": "This English and Serbian pair already exists.",
+    "blank": "Both fields are required.",
+    "length": "Each field must be 80 characters or fewer.",
+    "minimum": "Add more words to use this exercise.",
+    "deleteConfirm": "Delete this word?"
+  },
+  "lessons": {
+    "greetings": {
+      "title": "Greetings & Introductions",
+      "description": "Learn essential greetings and simple introductions."
+    },
+    "family": {
+      "title": "People & Family",
+      "description": "Talk about people, family, and relationships."
+    },
+    "home": {
+      "title": "Home & Everyday Objects",
+      "description": "Learn words for rooms, furniture, and useful objects."
+    },
+    "food": {
+      "title": "Food & Drink",
+      "description": "Build practical vocabulary for food and ordering."
+    },
+    "time": {
+      "title": "Numbers, Time & Days",
+      "description": "Learn basic numbers, days, and time expressions."
+    },
+    "travel": {
+      "title": "Travel & Places",
+      "description": "Use essential words for travel and getting around."
+    }
+  },
+  "exercise": {
+    "question": "Question",
+    "chooseTranslation": "Choose the Serbian translation",
+    "correct": "Correct",
+    "incorrect": "Not quite",
+    "quizComplete": "Quiz complete",
+    "testComplete": "Test complete",
+    "score": "correct",
+    "restartQuiz": "Restart Quiz",
+    "retryTest": "Retry Test",
+    "backToTests": "Back to Tests",
+    "reviewMistakes": "Review mistakes",
+    "perfect": "Perfect - no mistakes.",
+    "yourAnswer": "Your answer",
+    "correctAnswer": "Correct answer"
+  },
+  "errors": {
+    "pageNotFound": "Page not found (404)"
+  },
+  "language": {
+    "label": "Language",
+    "english": "English",
+    "serbian": "Srpski"
+  }
+}

@@ -1,127 +1,24 @@
-export const DerDieDas1 = [
-  {
-    question: "Abend",
-    answer: "der",
-  },
-  {
-    question: "Antwort",
-    answer: "die",
-  },
-  {
-    question: "Dialog",
-    answer: "der",
-  },
-  {
-    question: "Frage",
-    answer: "die",
-  },
-  {
-    question: "Frau",
-    answer: "die",
-  },
-  {
-    question: "Morgen",
-    answer: "der",
-  },
-  {
-    question: "Nationalität",
-    answer: "die",
-  },
-  {
-    question: "Satz",
-    answer: "der",
-  },
-  {
-    question: "Tag",
-    answer: "der",
-  },
-  {
-    question: "Übung",
-    answer: "die",
-  },
-];
-export const DerDieDas2 = [
-  {
-    question: "Bild",
-    answer: "das",
-  },
-  {
-    question: "Bleistift",
-    answer: "der",
-  },
-  {
-    question: "Fenster",
-    answer: "das",
-  },
-  {
-    question: "Glas",
-    answer: "das",
-  },
-  {
-    question: "Kind",
-    answer: "das",
-  },
-  {
-    question: "Kugelschreiber",
-    answer: "der",
-  },
-  {
-    question: "Lampe",
-    answer: "die",
-  },
-  {
-    question: "Mann",
-    answer: "der",
-  },
-  {
-    question: "Pflanze",
-    answer: "die",
-  },
-  {
-    question: "Schuh",
-    answer: "der",
-  },
+const createQuestion = (prompt, options, answer) => ({
+  prompt,
+  options,
+  answer,
+});
+
+export const Test1 = [
+  createQuestion('"house" in Serbian is:', ["kuća", "voda", "stolica"], "kuća"),
+  createQuestion('"thank you" in Serbian is:', ["hvala", "zdravo", "molim"], "hvala"),
+  createQuestion('"good morning" in Serbian is:', ["dobro jutro", "laku noć", "doviđenja"], "dobro jutro"),
+  createQuestion('"my name is..." in Serbian is:', ["zovem se...", "kako si?", "dobro sam"], "zovem se..."),
 ];
 
-export const DerDieDas3 = [
-  {
-    question: "Stuhl",
-    answer: "der",
-  },
-  {
-    question: "Tasche",
-    answer: "die",
-  },
-  {
-    question: "Tasse",
-    answer: "die",
-  },
-  {
-    question: "Tisch",
-    answer: "der",
-  },
-  {
-    question: "Tür",
-    answer: "die",
-  },
-  {
-    question: "Vater",
-    answer: "der",
-  },
-  {
-    question: "Arbeit",
-    answer: "die",
-  },
-  {
-    question: "Arzt",
-    answer: "der",
-  },
-  {
-    question: "Ausgang",
-    answer: "der",
-  },
-  {
-    question: "Eingang",
-    answer: "der",
-  },
+export const Test2 = [
+  createQuestion('"mother" in Serbian is:', ["majka", "sestra", "ćerka"], "majka"),
+  createQuestion('"friend" in Serbian is:', ["prijatelj", "roditelj", "čovek"], "prijatelj"),
+  createQuestion('"water" in Serbian is:', ["voda", "kafa", "hleb"], "voda"),
+];
+
+export const Test3 = [
+  createQuestion('"ticket" in Serbian is:', ["karta", "mapa", "stanica"], "karta"),
+  createQuestion('"Monday" in Serbian is:', ["ponedeljak", "sreda", "petak"], "ponedeljak"),
+  createQuestion('"where is the hotel?" in Serbian is:', ["gde je hotel?", "dobrodošli", "vidimo se"], "gde je hotel?"),
 ];

@@ -1,6 +1,7 @@
 {
-  "short_name": "German A1",
-  "name": "Learn German A1",
+  "short_name": "Serbian A1",
+  "name": "Serbian A1",
+  "description": "Learn practical beginner Serbian with interactive exercises.",
   "icons": [
     {
       "src": "favicon.ico",

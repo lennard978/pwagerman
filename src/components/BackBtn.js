@@ -1,23 +1,29 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { theme } from "../styles/theme";
 
 export const BackBtn = ({ title, to }) => {
   return <Button to={to}>{title}</Button>;
 };
 
 const Button = styled(Link)`
-  font-size: 0.8rem;
-  font-weight: 400;
-  color: rgba(57, 255, 20, 1);
-  padding-block: 0.3rem;
-  padding-inline: 2rem;
-  border-bottom: 1px solid #141e30;
-  border-right: 1px solid #141e30;
-  border-top: 1px solid #243b50;
-  border-left: 1px solid #243b50;
-  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.3);
-  background-image: linear-gradient(to left, #243b50, #141e30);
+  min-block-size: 2.75rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: ${theme.colors.text};
+  padding-inline: 1.25rem;
+  border: 1px solid ${theme.colors.border};
+  box-shadow: ${theme.shadow.soft};
+  background: ${theme.colors.surface};
   text-decoration: none;
-  border-radius: 0.2rem;
+  border-radius: ${theme.radius.small};
   margin-top: 0.5rem;
+  transition: 180ms ease;
+  &:hover,
+  &:focus-visible {
+    border-color: ${theme.colors.primary};
+  }
 `;

@@ -1,6 +1,7 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
 import styled from "styled-components";
+import { theme } from "../../styles/theme";
 
 export const Layout = () => {
   return (
@@ -13,9 +14,10 @@ export const Layout = () => {
 const Container = styled.div`
   min-block-size: 100vh;
   min-inline-size: 100vw;
+  padding-top: 3.5rem;
+  padding-bottom: ${theme.navHeight};
   display: flex;
   justify-content: center;
-  position: absolute;
-  z-index: -1;
-  background-image: linear-gradient(to top, #243b50, #141e30);
+  position: relative;
+  background: ${theme.colors.background};
 `;

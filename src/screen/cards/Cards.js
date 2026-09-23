@@ -1,73 +1,66 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Title } from "../../components/Title";
 import styled from "styled-components";
 import { Btn } from "../../components/style";
+import { useLanguage } from "../../i18n/LanguageProvider";
+import { theme } from "../../styles/theme";
+import { EmptyExercise } from "../../components/EmptyExercise";
 
 export const Cards = ({ data }) => {
-  useEffect(() => {
-    nextWord();
-  }, []);
   const { userId } = useParams();
   const number = Number(userId);
+  const { t } = useLanguage();
+  const wordList = data[userId].items;
 
-  const [addOne, setAddOne] = useState(0);
+  const [cardIndex, setCardIndex] = useState(0);
+  const [flipped, setFlipped] = useState(false);
 
-  const german = data[userId].map((item) => {
-    return <Text>{item.german}</Text>;
-  });
-  const english = data[userId].map((item) => {
-    return <Text>{item.english}</Text>;
-  });
+  useEffect(() => {
+    setCardIndex(0);
+    setFlipped(false);
+  }, [userId]);
 
-  const [germanWord, setGermanWord] = useState(german[addOne]);
-  const [englishWord, setEnglishWord] = useState(english[addOne]);
-
-  const [englishRotate, setEnglishRotate] = useState("rotateY(0deg)");
-  const [germanRotate, setGermanRotate] = useState("rotateY(180deg)");
-
-  const [disabled, setDisabled] = useState(false);
+  const currentItem = wordList[cardIndex];
 
   const nextWord = () => {
-    setAddOne(addOne + 1);
-    setGermanWord(german[addOne]);
-    setEnglishWord(english[addOne]);
-    setEnglishRotate("rotateY(0deg)");
-    setGermanRotate("rotateY(180deg)");
-    if (german.length - 1 === addOne) {
-      setDisabled(true);
-    }
-  };
-  const rotateWord = () => {
-    if (germanRotate === "rotateY(180deg)") {
-      setEnglishRotate("rotateY(-180deg)");
-      setGermanRotate("rotateY(0deg)");
-    } else {
-      setEnglishRotate("rotateY(0deg)");
-      setGermanRotate("rotateY(180deg)");
+    if (cardIndex < wordList.length - 1) {
+      setCardIndex(cardIndex + 1);
+      setFlipped(false);
     }
   };
   return (
     <Wrapper>
-      <Title title={`Cards ${number + 1}`} />
+      <Title title={`${t("navigation.cards")} ${number + 1}`} />
+      {wordList.length === 0 ? <EmptyExercise message={t("myWords.minimum")} /> : (
       <Container>
-        <AnimateBox onClick={() => rotateWord()}>
-          <GermanWord germanRotate={germanRotate}>{germanWord}</GermanWord>
-          <EnglishWord englishRotate={englishRotate}>{englishWord}</EnglishWord>
+        <AnimateBox
+          type="button"
+          aria-label={flipped ? "Show English word" : "Show Serbian translation"}
+          onClick={() => setFlipped(!flipped)}
+        >
+          <SourceWord sourceRotate={flipped ? "rotateY(180deg)" : "rotateY(0deg)"}>
+            <Text>{currentItem.source}</Text>
+          </SourceWord>
+          <TargetWord targetRotate={flipped ? "rotateY(0deg)" : "rotateY(180deg)"}>
+            <Text>{currentItem.target}</Text>
+          </TargetWord>
         </AnimateBox>
-        <Btn disabled={disabled} onClick={() => nextWord()}>
-          Next Word
+        <Btn disabled={cardIndex === wordList.length - 1} onClick={nextWord}>
+          {t("actions.nextWord")}
         </Btn>
       </Container>
+      )}
     </Wrapper>
   );
 };
 
 const Wrapper = styled.div`
-  padding-top: 3rem;
-  padding-bottom: 5rem;
+  padding-top: 0.75rem;
+  padding-bottom: 7rem;
   display: flex;
   inline-size: 100%;
+  justify-content: center;
 `;
 
 const Container = styled.div`
@@ -76,9 +69,11 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   inline-size: 100%;
+  max-inline-size: 42rem;
+  padding-inline: 1rem;
 `;
 
-const GermanWord = styled.div`
+const SourceWord = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -87,14 +82,17 @@ const GermanWord = styled.div`
   left: 0;
   block-size: 100%;
   inline-size: 100%;
-  background: linear-gradient(to left, #243b50, #141e30);
-  transition: all 0.5s ease;
-  transform: ${(props) => props.germanRotate};
+  padding: 1.25rem;
+  background: ${theme.colors.surface};
+  transition: transform 180ms ease;
+  transform: ${(props) => props.sourceRotate};
   backface-visibility: hidden;
-  border-radius: 0.3rem;
+  border: 1px solid ${theme.colors.border};
+  border-radius: ${theme.radius.large};
+  box-shadow: ${theme.shadow.soft};
 `;
 
-const EnglishWord = styled.div`
+const TargetWord = styled.div`
   position: absolute;
   top: 0;
   left: 0;
@@ -103,29 +101,43 @@ const EnglishWord = styled.div`
   align-items: center;
   block-size: 100%;
   inline-size: 100%;
-  background: linear-gradient(to right, #243b50, #141e30);
-  transition: all 0.5s ease;
+  padding: 1.25rem;
+  background: ${theme.colors.primarySoft};
+  transition: transform 180ms ease;
   backface-visibility: hidden;
-  transform: ${(props) => props.englishRotate};
-  border-radius: 0.3rem;
+  transform: ${(props) => props.targetRotate};
+  border: 1px solid ${theme.colors.primary};
+  border-radius: ${theme.radius.large};
+  box-shadow: ${theme.shadow.soft};
 `;
 
-const AnimateBox = styled.div`
+const AnimateBox = styled.button`
   position: relative;
-  height: 40%;
-  width: 90%;
-  /* box-shadow: 0.1rem 0.1rem 0.4rem lightgray; */
-  margin-bottom: 2rem;
+  display: block;
+  inline-size: 100%;
+  block-size: clamp(260px, 38vh, 340px);
+  max-inline-size: 34rem;
+  margin-bottom: 0.75rem;
   cursor: pointer;
   perspective: 1000px;
-  border-radius: 0.3rem;
-  background: linear-gradient(to top, #243b50, #141e30);
+  border-radius: ${theme.radius.large};
+  background: ${theme.colors.surface};
+  padding: 0;
+  border: 0;
+  color: inherit;
+  text-align: inherit;
+  &:focus-visible {
+    outline: 3px solid ${theme.colors.primarySoft};
+    outline-offset: 3px;
+  }
 `;
 
 const Text = styled.p`
-  font-size: 1.4rem;
-  color: white;
-  text-transform: capitalize;
-  color: rgba(57, 255, 20, 1);
+  margin: 0;
+  max-inline-size: 100%;
+  color: ${theme.colors.text};
+  font-size: clamp(1.25rem, 5vw, 1.8rem);
+  line-height: 1.3;
+  overflow-wrap: anywhere;
   font-weight: bold;
 `;
