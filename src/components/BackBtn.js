@@ -21,9 +21,12 @@ const Button = styled(Link)`
   text-decoration: none;
   border-radius: ${theme.radius.small};
   margin-top: 0.5rem;
-  transition: 180ms ease;
+  transition: transform 160ms ease, border-color 180ms ease, background-color 180ms ease;
   &:hover,
   &:focus-visible {
     border-color: ${theme.colors.primary};
+  }
+  &:active {
+    transform: scale(0.98);
   }
 `;

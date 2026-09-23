@@ -26,7 +26,7 @@ import { ChooseTest } from "../screen/test/ChooseTest";
 import { Test } from "../screen/test/Test";
 import { ChooseQuiz } from "../screen/quiz/ChooseQuiz";
 import { Quiz } from "../screen/quiz/Quiz";
-import { Test1, Test2, Test3 } from "../data/test";
+import { Tests } from "../data/test";
 import { useMyWords } from "../i18n/MyWordsProvider";
 import { MyWords } from "../screen/myWords/MyWords";
 
@@ -41,7 +41,6 @@ function App() {
     items: words,
   };
   const data = [Lesson1, Lesson2, Lesson3, Lesson4, Lesson5, Lesson6, customLesson];
-  const test = [Test1, Test2, Test3];
   return (
     <>
       <Nav />
@@ -58,8 +57,8 @@ function App() {
           <Route path="choosewrite/:userId" element={<Write data={data} />} />
           <Route path="choosecards" element={<ChooseCards data={data} />} />
           <Route path="choosecards/:userId" element={<Cards data={data} />} />
-          <Route path="choosetest" element={<ChooseTest data={test} />} />
-          <Route path="choosetest/:userId" element={<Test data={test} />} />
+          <Route path="choosetest" element={<ChooseTest data={Tests} />} />
+          <Route path="choosetest/:userId" element={<Test data={Tests} />} />
           <Route path="choosequiz" element={<ChooseQuiz data={data} />} />
           <Route path="choosequiz/:userId" element={<Quiz data={data} />} />
           <Route path="*" element={<NoMatch />} />

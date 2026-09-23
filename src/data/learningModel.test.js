@@ -9,13 +9,14 @@ import {
   Lesson5,
   Lesson6,
 } from "./data";
-import { Test1, Test2, Test3 } from "./test";
+import { Test1, Test2, Test3, Test4, Test5, Test6, Tests } from "./test";
 import { Cards } from "../screen/cards/Cards";
 import { ChooseLesson } from "../screen/lesson/ChooseLesson";
 import { Lesson } from "../screen/lesson/Lesson";
 import { Pair } from "../screen/pair/Pair";
 import { Quiz } from "../screen/quiz/Quiz";
 import { Test } from "../screen/test/Test";
+import { ChooseTest } from "../screen/test/ChooseTest";
 import { Write } from "../screen/write/Write";
 import SoundButton, { selectBestVoice } from "../components/SoundButton";
 import { normalizeSpeechLanguage } from "../services/tts/ttsProvider";
@@ -144,6 +145,26 @@ test("Write filled answer tiles expose an explicit readable state", () => {
   expect(screen.getByText("k").getAttribute("data-filled")).toBe("true");
 });
 
+test("Write changes incorrect answers to correct and speaks once", () => {
+  mockSpeak.mockClear();
+  renderWithLanguage(
+    <MemoryRouter initialEntries={["/write/0"]}>
+      <Routes>
+        <Route path="/write/:userId" element={<Write data={[{ items: [{ source: "house", target: "kuća" }] }]} />} />
+      </Routes>
+    </MemoryRouter>
+  );
+
+  ["u", "k", "ć", "a"].forEach((letter) => fireEvent.click(screen.getByRole("button", { name: letter })));
+  expect(screen.getAllByText(/^[ukća]$/).filter((tile) => tile.getAttribute("data-filled") === "true")[0].getAttribute("data-result-state")).toBe("incorrect");
+  expect(mockSpeak).not.toHaveBeenCalled();
+
+  screen.getAllByText(/^[ukća]$/).filter((tile) => tile.getAttribute("data-filled") === "true").forEach((tile) => fireEvent.click(tile));
+  ["k", "u", "ć", "a"].forEach((letter) => fireEvent.click(screen.getByRole("button", { name: letter })));
+  expect(screen.getAllByText(/^[ukća]$/).filter((tile) => tile.getAttribute("data-filled") === "true")[0].getAttribute("data-result-state")).toBe("correct");
+  expect(mockSpeak).toHaveBeenCalledTimes(1);
+});
+
 test("Pair renders English source and Serbian target values", () => {
   renderWithLanguage(
     <MemoryRouter initialEntries={["/pair/0"]}>
@@ -182,6 +203,27 @@ test("Pair shows no more than ten vocabulary pairs per round", () => {
   expect(screen.getAllByRole("button")).toHaveLength(20);
 });
 
+test("Pair completion links back to the existing selector", () => {
+  renderWithLanguage(
+    <MemoryRouter initialEntries={["/pair/0"]}>
+      <Routes>
+        <Route path="/pair/:userId" element={<Pair data={[{ items: [
+          { source: "house", target: "kuća" },
+          { source: "water", target: "voda" },
+        ] }]} />} />
+      </Routes>
+    </MemoryRouter>
+  );
+
+  fireEvent.click(screen.getByRole("button", { name: "house" }));
+  fireEvent.click(screen.getByRole("button", { name: "kuća" }));
+  fireEvent.click(screen.getByRole("button", { name: "water" }));
+  fireEvent.click(screen.getByRole("button", { name: "voda" }));
+
+  expect(screen.getByText("All pairs matched")).toBeTruthy();
+  expect(screen.getByRole("link", { name: "Back to Pair" }).getAttribute("href")).toBe("/choosepair");
+});
+
 test("Cards render English on the front and Serbian on the back", () => {
   renderWithLanguage(
     <MemoryRouter initialEntries={["/cards/0"]}>
@@ -198,6 +240,25 @@ test("Cards render English on the front and Serbian on the back", () => {
 
   expect(screen.getByText(/^(house|water|chair|city)$/)).toBeTruthy();
   expect(screen.getByText("kuća")).toBeTruthy();
+});
+
+test("Cards speak once each time they flip to Serbian", () => {
+  mockSpeak.mockClear();
+  renderWithLanguage(
+    <MemoryRouter initialEntries={["/cards/0"]}>
+      <Routes>
+        <Route path="/cards/:userId" element={<Cards data={[{ items: [{ source: "house", target: "kuća" }] }]} />} />
+      </Routes>
+    </MemoryRouter>
+  );
+
+  fireEvent.click(screen.getByRole("button", { name: "Show Serbian translation" }));
+  expect(mockSpeak).toHaveBeenCalledTimes(1);
+  fireEvent.click(screen.getByRole("button", { name: "Show English word" }));
+  expect(mockSpeak).toHaveBeenCalledTimes(1);
+  fireEvent.click(screen.getByRole("button", { name: "Show Serbian translation" }));
+  expect(mockSpeak).toHaveBeenCalledTimes(2);
+  expect(screen.getByRole("link", { name: "Back to Cards" }).getAttribute("href")).toBe("/choosecards");
 });
 
 test("Cards update when navigating to another lesson", () => {
@@ -253,6 +314,21 @@ test("Test receives multiple-choice options from generic question data", () => {
   expect(screen.queryByRole("button", { name: "English" })).toBeNull();
 });
 
+test("Test speaker pronounces without selecting the answer", () => {
+  mockSpeak.mockClear();
+  renderWithLanguage(
+    <MemoryRouter initialEntries={["/test/0"]}>
+      <Routes>
+        <Route path="/test/:userId" element={<Test data={[[{ prompt: "house", options: ["kuća", "voda"], answer: "kuća" }]]} />} />
+      </Routes>
+    </MemoryRouter>
+  );
+
+  fireEvent.click(screen.getByRole("button", { name: "Hear Serbian pronunciation: kuća" }));
+  expect(mockSpeak).toHaveBeenCalledTimes(1);
+  expect(screen.getByRole("button", { name: "Next" }).disabled).toBe(true);
+});
+
 test("Quiz presents an English prompt with Serbian choices and completes", () => {
   renderWithLanguage(
     <MemoryRouter initialEntries={["/quiz/0"]}>
@@ -280,7 +356,7 @@ test("Quiz presents an English prompt with Serbian choices and completes", () =>
 
   expect(screen.getByText(/^(house|water|chair|city)$/)).toBeTruthy();
   expect(screen.getAllByRole("button", { name: "kuća" })[0]).toBeTruthy();
-  expect(screen.getAllByRole("button")).toHaveLength(4);
+  expect(screen.getAllByRole("button")).toHaveLength(8);
   ["kuća", "voda", "stolica", "grad"].forEach((answer) => {
     fireEvent.click(screen.getAllByRole("button", { name: answer })[0]);
     fireEvent.click(screen.getByRole("button", { name: "Next" }));
@@ -326,16 +402,71 @@ test("Test perfect result reports no mistakes", () => {
   fireEvent.click(screen.getByRole("button", { name: "Next" }));
 
   expect(screen.getByText("Perfect - no mistakes.")).toBeTruthy();
+  expect(document.querySelectorAll('[data-status="correct"]')).toHaveLength(1);
 });
 
-test("active test data contains Serbian-learning questions", () => {
-  [Test1, Test2, Test3].forEach((testSet) => {
-    testSet.forEach((question) => {
+test("Quiz speaker does not select and results review every answer", () => {
+  mockSpeak.mockClear();
+  const items = [
+    { source: "house", target: "kuća" },
+    { source: "water", target: "voda" },
+    { source: "chair", target: "stolica" },
+    { source: "city", target: "grad" },
+  ];
+  renderWithLanguage(
+    <MemoryRouter initialEntries={["/quiz/0"]}>
+      <Routes>
+        <Route path="/quiz/:userId" element={<Quiz data={[{ items }]} />} />
+      </Routes>
+    </MemoryRouter>
+  );
+
+  const firstPrompt = screen.getByText(/^(house|water|chair|city)$/).textContent;
+  const firstTarget = items.find((item) => item.source === firstPrompt).target;
+  fireEvent.click(screen.getByRole("button", { name: `Hear Serbian pronunciation: ${firstTarget}` }));
+  expect(mockSpeak).toHaveBeenCalledTimes(1);
+  expect(screen.queryByRole("button", { name: "Next" })).toBeNull();
+
+  for (let index = 0; index < items.length; index += 1) {
+    const prompt = screen.getByText(/^(house|water|chair|city)$/).textContent;
+    const target = items.find((item) => item.source === prompt).target;
+    fireEvent.click(screen.getByRole("button", { name: target }));
+    fireEvent.click(screen.getByRole("button", { name: "Next" }));
+  }
+  expect(document.querySelectorAll('[data-status="correct"]')).toHaveLength(items.length);
+});
+
+test("active test data contains six curriculum-backed Serbian tests", () => {
+  const lessons = [Lesson1, Lesson2, Lesson3, Lesson4, Lesson5, Lesson6];
+  const testSets = [Test1, Test2, Test3, Test4, Test5, Test6];
+
+  expect(Tests).toEqual(testSets);
+  testSets.forEach((testSet, index) => {
+    const lesson = lessons[index];
+    const lessonTargets = lesson.items.map((item) => item.target);
+    expect(testSet.titleKey).toBe(lesson.titleKey);
+    expect(testSet.descriptionKey).toBe(lesson.descriptionKey);
+    expect(testSet.category).toBe(lesson.category);
+    testSet.questions.forEach((question) => {
       expect(question.options).not.toEqual(["der", "die", "das"]);
       expect(question.prompt).toContain("Serbian");
-      expect(question.answer).toEqual(expect.any(String));
+      expect(lessonTargets).toContain(question.answer);
+      question.options.forEach((option) => expect(lessonTargets).toContain(option));
     });
   });
+});
+
+test("Test chooser renders the six shared curriculum cards", () => {
+  renderWithLanguage(
+    <MemoryRouter>
+      <ChooseTest data={Tests} />
+    </MemoryRouter>
+  );
+
+  expect(screen.getAllByRole("link")).toHaveLength(6);
+  expect(screen.getByText("Greetings & Introductions")).toBeTruthy();
+  expect(screen.getByText("Travel & Places")).toBeTruthy();
+  expect(screen.getByText("Learn essential greetings and simple introductions.")).toBeTruthy();
 });
 
 test("SoundButton selects a Serbian voice from its explicit content language", () => {

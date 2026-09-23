@@ -16,32 +16,16 @@ const NavLink = ({ to, title, children, active }) => {
   return (
     <Button to={to} $active={active} aria-current={active ? "page" : undefined}>
       <div>{children}</div>
-      <Paragraph>{title}</Paragraph>
+      <Paragraph $active={active}>{title}</Paragraph>
     </Button>
   );
 };
 export default function Nav() {
-  const { language, setLanguage, t } = useLanguage();
+  const { t } = useLanguage();
   const location = useLocation();
 
   return (
     <>
-      <Utility>
-        <LanguageArea>
-          <LanguageLabel htmlFor="language-select">
-            {t("language.label")}
-          </LanguageLabel>
-          <LanguageSelect
-            id="language-select"
-            aria-label={t("language.label")}
-            value={language}
-            onChange={(event) => setLanguage(event.target.value)}
-          >
-            <option value="en">{t("language.english")}</option>
-            <option value="sr-Latn">{t("language.serbian")}</option>
-          </LanguageSelect>
-        </LanguageArea>
-      </Utility>
       <Container as="nav" aria-label="Primary navigation">
         <Row>
           <NavLink to="/home" title={t("navigation.home")} active={location.pathname === "/home" || location.pathname === "/"}>
@@ -75,24 +59,11 @@ const Container = styled.div`
   position: fixed;
   bottom: 0;
   left: 0;
-  inline-size: 100vw;
+  inline-size: 100%;
   z-index: 10;
   border-top: 1px solid ${theme.colors.border};
   background: ${theme.colors.nav};
   box-shadow: ${theme.shadow.nav};
-`;
-
-const Utility = styled.div`
-  position: fixed;
-  inset-block-start: 0;
-  inset-inline: 0;
-  block-size: 3.25rem;
-  z-index: 12;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  padding-inline: 0.75rem;
-  pointer-events: none;
 `;
 
 const Row = styled.div`
@@ -103,42 +74,12 @@ const Row = styled.div`
   padding: 0.35rem 0.25rem;
 `;
 
-const LanguageArea = styled.div`
-  pointer-events: auto;
-  display: flex;
-  align-items: center;
-  gap: 0.35rem;
-  padding: 0.35rem 0.5rem;
-  background: ${theme.colors.surface};
-  border: 1px solid ${theme.colors.border};
-  border-radius: ${theme.radius.small};
-  box-shadow: ${theme.shadow.soft};
-`;
-
-const LanguageLabel = styled.label`
-  color: ${theme.colors.textMuted};
-  font-size: 0.7rem;
-`;
-
-const LanguageSelect = styled.select`
-  min-block-size: 2.25rem;
-  max-inline-size: 7rem;
-  color: ${theme.colors.text};
-  background: ${theme.colors.surfaceMuted};
-  border: 1px solid ${theme.colors.border};
-  border-radius: ${theme.radius.small};
-  cursor: pointer;
-  &:focus-visible {
-    outline: 3px solid ${theme.colors.primarySoft};
-    border-color: ${theme.colors.primary};
-  }
-`;
-
 const Paragraph = styled.p`
   min-inline-size: 0;
   font-size: 0.68rem;
-  color: ${theme.colors.textMuted};
+  color: ${(props) => (props.$active ? theme.colors.primary : theme.colors.textMuted)};
   margin: 0;
+  transition: color 180ms ease;
 `;
 
 const Button = styled(Link)`
@@ -152,7 +93,7 @@ const Button = styled(Link)`
   align-items: center;
   color: ${(props) => (props.$active ? theme.colors.primary : theme.colors.textMuted)};
   font-size: 1rem;
-  transition: 180ms ease;
+  transition: color 180ms ease, transform 160ms ease;
   &:focus-visible {
     outline: 3px solid ${theme.colors.primarySoft};
     outline-offset: -2px;
@@ -160,5 +101,8 @@ const Button = styled(Link)`
   }
   &:hover {
     color: ${theme.colors.primary};
+  }
+  &:active {
+    transform: scale(0.97);
   }
 `;

@@ -1,11 +1,12 @@
 import React from "react";
 import { render, screen, act, fireEvent } from "@testing-library/react";
-import { MemoryRouter, Route, Routes, useLocation } from "react-router-dom";
+import { MemoryRouter, Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import Nav from "./nav/Nav";
 import { NoMatch } from "./nav/NoMatch";
 import { ChooseLesson } from "../screen/lesson/ChooseLesson";
 import { Home } from "../screen/home/Home";
 import { Write } from "../screen/write/Write";
+import { Layout } from "./nav/Layout";
 import {
   LANGUAGE_STORAGE_KEY,
   LanguageProvider,
@@ -39,6 +40,28 @@ const RouteLanguageProbe = () => {
   );
 };
 
+const LanguageStateProbe = () => {
+  const { language, setLanguage } = useLanguage();
+  return (
+    <>
+      <span data-testid="language-state">{language}</span>
+      <button onClick={() => setLanguage("sr-Latn")}>Change language</button>
+    </>
+  );
+};
+
+const RouteSwitchProbe = () => {
+  const navigate = useNavigate();
+  const [count, setCount] = React.useState(0);
+
+  return (
+    <>
+      <button onClick={() => setCount((value) => value + 1)}>Rerender {count}</button>
+      <button onClick={() => navigate("/choosetest/2")}>Open test</button>
+    </>
+  );
+};
+
 beforeEach(() => {
   window.localStorage.clear();
 });
@@ -58,7 +81,7 @@ test("renders all active navigation labels in English", () => {
   );
 });
 
-test("shows the English language selector with the current language selected", () => {
+test("keeps seven navigation links without a visible language selector", () => {
   renderWithLanguage(
     <MemoryRouter>
       <Nav />
@@ -66,10 +89,7 @@ test("shows the English language selector with the current language selected", (
     "en"
   );
 
-  const selector = screen.getByRole("combobox", { name: "Language" });
-  expect(selector.value).toBe("en");
-  expect(screen.getByRole("option", { name: "Srpski" })).toBeTruthy();
-  expect(screen.getByRole("combobox", { name: "Language" }).closest("nav")).toBeNull();
+  expect(screen.queryByRole("combobox", { name: "Language" })).toBeNull();
   expect(screen.getAllByRole("link")).toHaveLength(7);
 });
 
@@ -88,27 +108,18 @@ test("renders all active navigation labels in Serbian Latin", () => {
   );
 });
 
-test("switches between Serbian and English through the selector", () => {
+test("internal language state can still switch without a visible selector", () => {
   renderWithLanguage(
     <MemoryRouter>
       <Nav />
+      <LanguageStateProbe />
     </MemoryRouter>,
     "en"
   );
 
-  const selector = screen.getByRole("combobox", { name: "Language" });
-  fireEvent.change(selector, { target: { value: "sr-Latn" } });
-
-  expect(selector.value).toBe("sr-Latn");
-  expect(screen.getByRole("link", { name: "Početna" })).toBeTruthy();
+  fireEvent.click(screen.getByRole("button", { name: "Change language" }));
+  expect(screen.getByTestId("language-state").textContent).toBe("sr-Latn");
   expect(window.localStorage.getItem(LANGUAGE_STORAGE_KEY)).toBe("sr-Latn");
-  expect(screen.getByRole("combobox", { name: "Jezik" })).toBeTruthy();
-
-  fireEvent.change(selector, { target: { value: "en" } });
-
-  expect(selector.value).toBe("en");
-  expect(screen.getByRole("link", { name: "Home" })).toBeTruthy();
-  expect(window.localStorage.getItem(LANGUAGE_STORAGE_KEY)).toBe("en");
 });
 
 test("localizes lesson metadata without changing vocabulary", () => {
@@ -116,6 +127,7 @@ test("localizes lesson metadata without changing vocabulary", () => {
     <MemoryRouter>
       <Nav />
       <ChooseLesson data={lessonData} />
+      <LanguageStateProbe />
       <span data-testid="lesson-source">{lessonData[0].items[0].source}</span>
     </MemoryRouter>,
     "en"
@@ -124,15 +136,13 @@ test("localizes lesson metadata without changing vocabulary", () => {
   expect(screen.getByText("Greetings & Introductions")).toBeTruthy();
   expect(screen.getByTestId("lesson-source").textContent).toBe("house");
 
-  fireEvent.change(screen.getByRole("combobox", { name: "Language" }), {
-    target: { value: "sr-Latn" },
-  });
+  fireEvent.click(screen.getByRole("button", { name: "Change language" }));
 
   expect(screen.getByText("Pozdravi i upoznavanje")).toBeTruthy();
   expect(screen.getByTestId("lesson-source").textContent).toBe("house");
 });
 
-test("localizes an exercise action button", () => {
+test("localizes an exercise completion action", () => {
   renderWithLanguage(
     <MemoryRouter initialEntries={["/choosewrite/0"]}>
       <Routes>
@@ -142,7 +152,7 @@ test("localizes an exercise action button", () => {
     "sr-Latn"
   );
 
-  expect(screen.getByRole("button", { name: "Dalje" })).toBeTruthy();
+  expect(screen.getByRole("link", { name: "Nazad na pisanje" })).toBeTruthy();
 });
 
 test("localizes the not-found screen", () => {
@@ -163,13 +173,38 @@ test("changing language does not change the current route", () => {
   );
 
   act(() => {
-    fireEvent.change(screen.getByRole("combobox", { name: "Language" }), {
-      target: { value: "sr-Latn" },
-    });
+    screen.getByRole("button", { name: "Change language" }).click();
   });
 
   expect(screen.getByTestId("current-path").textContent).toBe("/choosewrite/0");
   expect(document.documentElement).toBe(documentRoot);
+});
+
+test("scrolls to the top on route changes but not same-page rerenders", () => {
+  const scrollTo = jest.fn();
+  Object.defineProperty(window, "scrollTo", {
+    configurable: true,
+    value: scrollTo,
+  });
+
+  renderWithLanguage(
+    <MemoryRouter initialEntries={["/choosetest"]}>
+      <Routes>
+        <Route element={<Layout />}>
+          <Route path="/choosetest" element={<RouteSwitchProbe />} />
+          <Route path="/choosetest/2" element={<span>Test exercise</span>} />
+        </Route>
+      </Routes>
+    </MemoryRouter>,
+    "en"
+  );
+
+  expect(scrollTo).toHaveBeenCalledTimes(1);
+  fireEvent.click(screen.getByRole("button", { name: "Rerender 0" }));
+  expect(scrollTo).toHaveBeenCalledTimes(1);
+  fireEvent.click(screen.getByRole("button", { name: "Open test" }));
+  expect(scrollTo).toHaveBeenCalledTimes(2);
+  expect(scrollTo).toHaveBeenLastCalledWith(0, 0);
 });
 
 test("uses browser detection after an invalid persisted language", () => {
@@ -182,12 +217,12 @@ test("uses browser detection after an invalid persisted language", () => {
   render(
     <LanguageProvider>
       <MemoryRouter>
-        <Nav />
+        <LanguageStateProbe />
       </MemoryRouter>
     </LanguageProvider>
   );
 
-  expect(screen.getByRole("combobox", { name: "Jezik" }).value).toBe("sr-Latn");
+  expect(screen.getByTestId("language-state").textContent).toBe("sr-Latn");
 });
 
 test("renders Serbian A1 branding in English UI", () => {
@@ -203,13 +238,12 @@ test("switches visible branding and document title with the UI language", () => 
     <MemoryRouter>
       <Nav />
       <Home />
+      <LanguageStateProbe />
     </MemoryRouter>,
     "en"
   );
 
-  fireEvent.change(screen.getByRole("combobox", { name: "Language" }), {
-    target: { value: "sr-Latn" },
-  });
+  fireEvent.click(screen.getByRole("button", { name: "Change language" }));
 
   expect(screen.getByText("Srpski A1")).toBeTruthy();
   expect(screen.getByText("Uči srpski korak po korak.")).toBeTruthy();

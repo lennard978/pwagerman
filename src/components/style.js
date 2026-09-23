@@ -16,11 +16,11 @@ export const Btn = styled.button`
   background: ${theme.colors.surface};
   border-radius: ${theme.radius.small};
   cursor: pointer;
-  transition: 180ms ease;
+  transition: transform 160ms ease, color 180ms ease, border-color 180ms ease, background-color 180ms ease;
   &:active {
     color: ${theme.colors.primaryPressed};
     border-color: ${theme.colors.primary};
-    transform: translateY(1px);
+    transform: scale(0.98);
   }
   &:hover {
     border-color: ${theme.colors.primary};

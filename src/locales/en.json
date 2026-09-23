@@ -14,6 +14,9 @@
     "next": "Next",
     "nextWord": "Next Word",
     "goBack": "Go Back",
+    "backToWrite": "Back to Write",
+    "backToCards": "Back to Cards",
+    "backToPair": "Back to Pair",
     "backToQuiz": "Back to Quiz"
   },
   "app": {
@@ -76,6 +79,8 @@
     "retryTest": "Retry Test",
     "backToTests": "Back to Tests",
     "reviewMistakes": "Review mistakes",
+    "answerReview": "Answer review",
+    "pairComplete": "All pairs matched",
     "perfect": "Perfect - no mistakes.",
     "yourAnswer": "Your answer",
     "correctAnswer": "Correct answer"

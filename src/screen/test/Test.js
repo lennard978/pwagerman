@@ -1,14 +1,17 @@
 import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
+import { FaVolumeUp } from "react-icons/fa";
 import { Title } from "../../components/Title";
+import SoundButton from "../../components/SoundButton";
 import { useLanguage } from "../../i18n/LanguageProvider";
 import { theme } from "../../styles/theme";
 
 export const Test = ({ data }) => {
   const { userId } = useParams();
   const { t } = useLanguage();
-  const questions = data[userId];
+  const testData = data[userId];
+  const questions = testData.questions || testData;
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [currentAnswer, setCurrentAnswer] = useState("");
   const [answers, setAnswers] = useState([]);
@@ -61,18 +64,20 @@ export const Test = ({ data }) => {
           <Score>{score} / {questions.length} {t("exercise.score")}</Score>
           {mistakes.length === 0 ? (
             <Perfect>{t("exercise.perfect")}</Perfect>
-          ) : (
-            <Review>
-              <ReviewTitle>{t("exercise.reviewMistakes")}</ReviewTitle>
-              {mistakes.map((mistake, index) => (
-                <Mistake key={`${mistake.prompt}-${index}`}>
-                  <Prompt>{mistake.prompt}</Prompt>
-                  <Detail>{t("exercise.yourAnswer")}: {mistake.answer}</Detail>
-                  <Correct>{t("exercise.correctAnswer")}: {mistake.correctAnswer}</Correct>
-                </Mistake>
-              ))}
-            </Review>
-          )}
+          ) : null}
+          <Review>
+            <ReviewTitle>{t("exercise.answerReview")}</ReviewTitle>
+            {answers.map((answer, index) => (
+              <ReviewItem data-status={answer.correct ? "correct" : "incorrect"} $correct={answer.correct} key={`${answer.prompt}-${index}`}>
+                <Prompt>{answer.prompt}</Prompt>
+                <Detail $correct={answer.correct}>{t("exercise.yourAnswer")}: {answer.answer}</Detail>
+                <Correct>{t("exercise.correctAnswer")}: {answer.correctAnswer}</Correct>
+                <Status $correct={answer.correct}>
+                  {answer.correct ? t("exercise.correct") : t("exercise.incorrect")}
+                </Status>
+              </ReviewItem>
+            ))}
+          </Review>
           <PrimaryButton type="button" onClick={retry}>{t("exercise.retryTest")}</PrimaryButton>
           <BackLink to="/choosetest">{t("exercise.backToTests")}</BackLink>
         </ResultCard>
@@ -82,14 +87,22 @@ export const Test = ({ data }) => {
           <Question>{question.prompt}</Question>
           <Choices>
             {option.map((item) => (
-              <Answer
-                key={item}
-                type="button"
-                $selected={currentAnswer === item}
-                onClick={() => chooseAnswer(item)}
-              >
-                {item}
-              </Answer>
+              <ChoiceRow key={item}>
+                <Answer
+                  type="button"
+                  $selected={currentAnswer === item}
+                  onClick={() => chooseAnswer(item)}
+                >
+                  {item}
+                </Answer>
+                <Speaker
+                  text={item}
+                  lang="sr-RS"
+                  ariaLabel={`Hear Serbian pronunciation: ${item}`}
+                >
+                  <FaVolumeUp aria-hidden="true" />
+                </Speaker>
+              </ChoiceRow>
             ))}
           </Choices>
           <PrimaryButton type="button" disabled={!currentAnswer} onClick={nextQuestion}>
@@ -102,6 +115,11 @@ export const Test = ({ data }) => {
 };
 
 const shuffleOptions = (options) => [...options].sort(() => 0.5 - Math.random());
+
+const revealResult = keyframes`
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+`;
 
 const Wrapper = styled.div`
   inline-size: min(100%, 42rem);
@@ -140,7 +158,13 @@ const Choices = styled.div`
   gap: 0.6rem;
 `;
 
+const ChoiceRow = styled.div`
+  display: flex;
+  gap: 0.5rem;
+`;
+
 const Answer = styled.button`
+  flex: 1;
   min-block-size: 2.75rem;
   padding: 0.7rem 1rem;
   color: ${theme.colors.text};
@@ -150,7 +174,25 @@ const Answer = styled.button`
   box-shadow: ${theme.shadow.soft};
   font-weight: 600;
   cursor: pointer;
+  transition: color 180ms ease, background-color 180ms ease, border-color 180ms ease, transform 160ms ease;
+  &:active { transform: scale(0.985); }
   &:focus-visible { outline: 3px solid ${theme.colors.primarySoft}; }
+`;
+
+const Speaker = styled(SoundButton)`
+  flex: 0 0 2.75rem;
+  display: inline-flex;
+  inline-size: 2.75rem;
+  min-block-size: 2.75rem;
+  align-items: center;
+  justify-content: center;
+  color: ${theme.colors.primary};
+  background: ${theme.colors.surface};
+  border: 1px solid ${theme.colors.border};
+  border-radius: ${theme.radius.small};
+  box-shadow: ${theme.shadow.soft};
+  transition: transform 160ms ease, background-color 180ms ease;
+  &:active { transform: scale(0.94); }
 `;
 
 const PrimaryButton = styled.button`
@@ -162,8 +204,9 @@ const PrimaryButton = styled.button`
   border-radius: ${theme.radius.small};
   font-weight: 700;
   cursor: pointer;
+  transition: transform 160ms ease, background-color 180ms ease, opacity 180ms ease;
   &:disabled { opacity: 0.45; cursor: not-allowed; }
-  &:active { background: ${theme.colors.primaryPressed}; }
+  &:active { background: ${theme.colors.primaryPressed}; transform: scale(0.98); }
 `;
 
 const ResultCard = styled.section`
@@ -177,6 +220,11 @@ const ResultCard = styled.section`
   border: 1px solid ${theme.colors.border};
   border-radius: ${theme.radius.large};
   box-shadow: ${theme.shadow.soft};
+  animation: ${revealResult} 220ms ease-out both;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
 `;
 
 const ResultTitle = styled.h2`
@@ -206,11 +254,11 @@ const ReviewTitle = styled.h3`
   color: ${theme.colors.text};
 `;
 
-const Mistake = styled.div`
+const ReviewItem = styled.div`
   margin-top: 0.65rem;
   padding: 0.8rem;
-  background: ${theme.colors.errorSoft};
-  border: 1px solid #fecdca;
+  background: ${(props) => props.$correct ? theme.colors.successSoft : theme.colors.errorSoft};
+  border: 1px solid ${(props) => props.$correct ? theme.colors.success : theme.colors.error};
   border-radius: ${theme.radius.small};
 `;
 
@@ -222,12 +270,18 @@ const Prompt = styled.p`
 
 const Detail = styled.p`
   margin: 0.2rem 0;
-  color: ${theme.colors.error};
+  color: ${(props) => props.$correct ? theme.colors.success : theme.colors.error};
 `;
 
 const Correct = styled.p`
   margin: 0.2rem 0;
   color: ${theme.colors.success};
+`;
+
+const Status = styled.p`
+  margin: 0.4rem 0 0;
+  color: ${(props) => props.$correct ? theme.colors.success : theme.colors.error};
+  font-weight: 700;
 `;
 
 const BackLink = styled(Link)`
@@ -240,4 +294,6 @@ const BackLink = styled(Link)`
   border-radius: ${theme.radius.small};
   text-decoration: none;
   font-weight: 600;
+  transition: transform 160ms ease, background-color 180ms ease;
+  &:active { transform: scale(0.98); }
 `;

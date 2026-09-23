@@ -1,21 +1,24 @@
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import { useSpeechSynthesis } from "react-speech-kit";
 import styled from "styled-components";
+import { Title } from "../../components/Title";
 import { useLanguage } from "../../i18n/LanguageProvider";
 import { theme } from "../../styles/theme";
 import { EmptyExercise } from "../../components/EmptyExercise";
+import { speak } from "../../services/tts/ttsProvider";
 
 export const Write = ({ data }) => {
   const { userId } = useParams();
   const number = Number(userId);
   const { t } = useLanguage();
+  const { speak: browserSpeak, voices } = useSpeechSynthesis();
 
   //Collect Data
   const wordList = data[userId].items.map((item) => {
     return item;
   });
 
-  const [disable, setDisable] = useState(false);
   const [resultState, setResultState] = useState("idle");
 
   //Update wordList count
@@ -48,6 +51,12 @@ export const Write = ({ data }) => {
     if (!nextAnswer.includes(null)) {
       if (wordList[count].target === list) {
         setResultState("correct");
+        speak({
+          text: wordList[count].target,
+          lang: "sr-RS",
+          voices,
+          browserSpeak,
+        });
       } else {
         setResultState("incorrect");
       }
@@ -63,19 +72,17 @@ export const Write = ({ data }) => {
     setResultState("idle");
   };
   const nextWord = () => {
+    const nextCount = count + 1;
     setResultState("idle");
-    setCount(++count);
-    setSourceWord(wordList[count].source);
-    setShuffledTarget(shuffle(createTiles(wordList[count].target)));
-    setTargetAnswer(new Array(wordList[count].target.length).fill(null));
-    if (wordList.length - 1 < count + 1) {
-      setDisable(true);
-    }
+    setCount(nextCount);
+    setSourceWord(wordList[nextCount].source);
+    setShuffledTarget(shuffle(createTiles(wordList[nextCount].target)));
+    setTargetAnswer(new Array(wordList[nextCount].target.length).fill(null));
   };
 
   return (
     <Container>
-      <WriteTitle>{`${t("navigation.write")} ${number + 1}`}</WriteTitle>
+      <Title title={`${t("navigation.write")} ${number + 1}`} />
       {wordList.length === 0 ? <EmptyExercise message={t("myWords.minimum")} /> : <>
       <Row>
         <H2>{sourceWord}</H2>
@@ -84,9 +91,11 @@ export const Write = ({ data }) => {
         {targetAnswer.map((item, index) => {
           return (
             <TargetLetter
+              type="button"
               $filled={Boolean(item)}
               $resultState={resultState}
               $space={item?.char === " "}
+              data-result-state={resultState}
               data-filled={Boolean(item)}
               data-tile-id={item?.id}
               onClick={() => removeLetter(index)}
@@ -101,6 +110,7 @@ export const Write = ({ data }) => {
         {shuffledTarget.map((item, index) => {
           return (
             <TargetLetter
+              type="button"
               $space={item.char === " "}
               data-filled={false}
               onClick={() => selectLetter(item)}
@@ -111,9 +121,11 @@ export const Write = ({ data }) => {
           );
         })}
       </Row>
-      <Button disabled={disable} onClick={() => nextWord()}>
-        {t("actions.next")}
-      </Button>
+      {count === wordList.length - 1 ? (
+        <BackLink to="/choosewrite">{t("actions.backToWrite")}</BackLink>
+      ) : (
+        <Button onClick={nextWord}>{t("actions.next")}</Button>
+      )}
       </>}
     </Container>
   );
@@ -127,14 +139,6 @@ const Container = styled.div`
   padding-bottom: 7rem;
   inline-size: min(100%, 42rem);
   padding-inline: 1rem;
-`;
-
-const WriteTitle = styled.h2`
-  margin: 0 0 1rem;
-  color: ${theme.colors.text};
-  font-size: 1.25rem;
-  font-weight: 700;
-  text-align: center;
 `;
 
 const Row = styled.div`
@@ -163,17 +167,25 @@ const H2 = styled.h3`
   text-align: center;
 `;
 
-const TargetLetter = styled.h2`
+const TargetLetter = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
   min-inline-size: 2.5rem;
   min-block-size: 2.75rem;
-  color: ${theme.colors.text};
+  color: ${(props) => props.$resultState !== "idle" && props.$filled ? "#ffffff" : theme.colors.text};
   padding: 0.5rem;
-  border: 1px solid ${theme.colors.border};
+  border: 1px solid ${(props) => {
+    if (props.$resultState === "correct" && props.$filled) return theme.colors.success;
+    if (props.$resultState === "incorrect" && props.$filled) return theme.colors.error;
+    return theme.colors.border;
+  }};
   box-shadow: ${theme.shadow.soft};
-  background: ${theme.colors.surface};
+  background: ${(props) => {
+    if (props.$resultState === "correct" && props.$filled) return theme.colors.success;
+    if (props.$resultState === "incorrect" && props.$filled) return theme.colors.error;
+    return theme.colors.surface;
+  }};
   border-radius: ${theme.radius.small};
   margin: 0.2rem;
   text-transform: none;
@@ -181,6 +193,7 @@ const TargetLetter = styled.h2`
   font-weight: 700;
   text-shadow: ${(props) => props.$filled ? "0 1px 1px rgba(0, 0, 0, 0.2)" : "none"};
   overflow-wrap: anywhere;
+  transition: color 180ms ease, background-color 180ms ease, border-color 180ms ease, transform 160ms ease;
   ${(props) => props.$space && `
     min-inline-size: 0.7rem;
     padding-inline: 0.15rem;
@@ -192,6 +205,7 @@ const TargetLetter = styled.h2`
   &:active {
     border-color: ${theme.colors.primary};
     background: ${theme.colors.primarySoft};
+    transform: scale(0.96);
   }
 `;
 
@@ -210,12 +224,27 @@ const Button = styled.button`
   cursor: pointer;
   min-inline-size: 5rem;
   align-self: center;
-  transition: 180ms ease;
+  transition: transform 160ms ease, background-color 180ms ease, opacity 180ms ease;
   &:active {
     background: ${theme.colors.primaryPressed};
+    transform: scale(0.98);
   }
   &:disabled {
     opacity: 0.45;
     cursor: not-allowed;
   }
+`;
+
+const BackLink = styled(Link)`
+  min-block-size: 2.75rem;
+  display: inline-flex;
+  align-items: center;
+  align-self: center;
+  margin: 1rem 5px 0;
+  padding-inline: 1.5rem;
+  color: white;
+  background: ${theme.colors.primary};
+  border-radius: ${theme.radius.small};
+  text-decoration: none;
+  font-weight: 700;
 `;

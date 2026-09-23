@@ -13,6 +13,9 @@
     "next": "Dalje",
     "nextWord": "Sledeća reč",
     "goBack": "Nazad",
+    "backToWrite": "Nazad na pisanje",
+    "backToCards": "Nazad na kartice",
+    "backToPair": "Nazad na povezivanje",
     "backToQuiz": "Nazad na kviz"
   },
   "app": {
@@ -75,6 +78,8 @@
     "retryTest": "Ponovi test",
     "backToTests": "Nazad na testove",
     "reviewMistakes": "Pregled grešaka",
+    "answerReview": "Pregled odgovora",
+    "pairComplete": "Svi parovi su povezani",
     "perfect": "Odlično - nema grešaka.",
     "yourAnswer": "Tvoj odgovor",
     "correctAnswer": "Tačan odgovor"

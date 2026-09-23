@@ -30,19 +30,22 @@ export const selectBestVoice = (voices = [], language) => {
   })[0];
 };
 
-export default function SoundButton({ children, text, lang, className }) {
+export default function SoundButton({ children, text, lang, className, ariaLabel }) {
   const { speak, voices } = useSpeechSynthesis();
   return (
     <Button
       type="button"
       className={className}
-      aria-label={text}
-      onClick={() => speakWithProvider({
-        text,
-        lang,
-        voices,
-        browserSpeak: speak,
-      })}
+      aria-label={ariaLabel || text}
+      onClick={(event) => {
+        event.stopPropagation();
+        speakWithProvider({
+          text,
+          lang,
+          voices,
+          browserSpeak: speak,
+        });
+      }}
     >
       {children}
     </Button>

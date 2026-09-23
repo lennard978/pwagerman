@@ -1,7 +1,7 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useState } from "react";
 import { Title } from "../../components/Title";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { Btn } from "../../components/style";
 import { useLanguage } from "../../i18n/LanguageProvider";
 import { theme } from "../../styles/theme";
@@ -80,8 +80,17 @@ export const Pair = ({ data }) => {
     <Container>
       <Title title={`${t("navigation.pair")} ${number + 1}`} />
       {roundItems.length < 2 ? <EmptyExercise message={t("myWords.minimum")} /> : <>
-        <Row>{sourceList}</Row>
-        <Row>{targetList}</Row>
+        {source.length === 0 ? (
+          <Completion>
+            <CompletionTitle>{t("exercise.pairComplete")}</CompletionTitle>
+            <BackLink to="/choosepair">{t("actions.backToPair")}</BackLink>
+          </Completion>
+        ) : (
+          <>
+            <Row>{sourceList}</Row>
+            <Row>{targetList}</Row>
+          </>
+        )}
       </>}
     </Container>
   );
@@ -107,4 +116,42 @@ const Row = styled.div`
 const PairButton = styled(Btn)`
   border-color: ${(props) => (props.$wrong ? theme.colors.error : props.$selected ? theme.colors.primary : theme.colors.border)};
   background: ${(props) => (props.$wrong ? theme.colors.errorSoft : props.$selected ? theme.colors.primarySoft : theme.colors.surface)};
+  transform: ${(props) => props.$selected ? "scale(0.98)" : "scale(1)"};
+`;
+
+const revealCompletion = keyframes`
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+`;
+
+const Completion = styled.section`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  text-align: center;
+  animation: ${revealCompletion} 220ms ease-out both;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+`;
+
+const CompletionTitle = styled.h2`
+  margin: 0;
+  color: ${theme.colors.success};
+`;
+
+const BackLink = styled(Link)`
+  min-block-size: 2.75rem;
+  display: inline-flex;
+  align-items: center;
+  padding-inline: 1.5rem;
+  color: white;
+  background: ${theme.colors.primary};
+  border-radius: ${theme.radius.small};
+  text-decoration: none;
+  font-weight: 700;
 `;

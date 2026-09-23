@@ -1,24 +1,40 @@
-const createQuestion = (prompt, options, answer) => ({
-  prompt,
-  options,
-  answer,
+import {
+  Lesson1,
+  Lesson2,
+  Lesson3,
+  Lesson4,
+  Lesson5,
+  Lesson6,
+} from "./data";
+
+const createQuestion = (lesson, itemIndex) => {
+  const item = lesson.items[itemIndex];
+  const distractors = [1, 2, 3].map(
+    (offset) => lesson.items[(itemIndex + offset) % lesson.items.length].target
+  );
+
+  return {
+    prompt: `"${item.source}" in Serbian is:`,
+    options: [item.target, ...distractors],
+    answer: item.target,
+  };
+};
+
+const createTest = (lesson) => ({
+  id: `test-${lesson.id}`,
+  titleKey: lesson.titleKey,
+  descriptionKey: lesson.descriptionKey,
+  category: lesson.category,
+  questions: [0, 3, 6, 9, 12, 15].map((itemIndex) =>
+    createQuestion(lesson, itemIndex)
+  ),
 });
 
-export const Test1 = [
-  createQuestion('"house" in Serbian is:', ["kuća", "voda", "stolica"], "kuća"),
-  createQuestion('"thank you" in Serbian is:', ["hvala", "zdravo", "molim"], "hvala"),
-  createQuestion('"good morning" in Serbian is:', ["dobro jutro", "laku noć", "doviđenja"], "dobro jutro"),
-  createQuestion('"my name is..." in Serbian is:', ["zovem se...", "kako si?", "dobro sam"], "zovem se..."),
-];
+export const Test1 = createTest(Lesson1);
+export const Test2 = createTest(Lesson2);
+export const Test3 = createTest(Lesson3);
+export const Test4 = createTest(Lesson4);
+export const Test5 = createTest(Lesson5);
+export const Test6 = createTest(Lesson6);
 
-export const Test2 = [
-  createQuestion('"mother" in Serbian is:', ["majka", "sestra", "ćerka"], "majka"),
-  createQuestion('"friend" in Serbian is:', ["prijatelj", "roditelj", "čovek"], "prijatelj"),
-  createQuestion('"water" in Serbian is:', ["voda", "kafa", "hleb"], "voda"),
-];
-
-export const Test3 = [
-  createQuestion('"ticket" in Serbian is:', ["karta", "mapa", "stanica"], "karta"),
-  createQuestion('"Monday" in Serbian is:', ["ponedeljak", "sreda", "petak"], "ponedeljak"),
-  createQuestion('"where is the hotel?" in Serbian is:', ["gde je hotel?", "dobrodošli", "vidimo se"], "gde je hotel?"),
-];
+export const Tests = [Test1, Test2, Test3, Test4, Test5, Test6];

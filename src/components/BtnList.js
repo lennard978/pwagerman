@@ -57,10 +57,16 @@ const Button = styled(Link)`
   background: ${theme.colors.surface};
   text-decoration: none;
   border-radius: ${theme.radius.medium};
-  transition: 180ms ease;
-  &:hover {
-    border-color: ${theme.colors.primary};
-    transform: translateY(-1px);
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+  @media (hover: hover) {
+    &:hover {
+      border-color: ${theme.colors.primary};
+      box-shadow: 0 12px 28px rgba(31, 41, 51, 0.12);
+      transform: translateY(-2px);
+    }
+  }
+  &:active {
+    transform: scale(0.985);
   }
   &:focus-visible {
     outline: 3px solid ${theme.colors.primarySoft};
