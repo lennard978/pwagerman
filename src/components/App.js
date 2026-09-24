@@ -33,6 +33,7 @@ import { ExamPrep } from "../screen/examPrep/ExamPrep";
 import { ExamPrepTaskList } from "../screen/examPrep/ExamPrepTaskList";
 import { ExamPrepTask } from "../screen/examPrep/ExamPrepTask";
 import { ExamPrepReview } from "../screen/examPrep/ExamPrepReview";
+import { MockA1 } from "../screen/examPrep/MockA1";
 
 function App() {
   useSpeechSynthesis();
@@ -69,6 +70,7 @@ function App() {
           <Route path="practice" element={<Practice />} />
           <Route path="exam-prep" element={<ExamPrep />} />
           <Route path="exam-prep/vocabulary-grammar" element={<ExamPrepReview />} />
+          <Route path="exam-prep/mock-a1" element={<MockA1 />} />
           <Route path="exam-prep/:area" element={<ExamPrepTaskList />} />
           <Route path="exam-prep/:area/:taskId" element={<ExamPrepTask />} />
           <Route path="review" element={<Review />} />

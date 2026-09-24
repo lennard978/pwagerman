@@ -53,7 +53,7 @@ test("exam prep data provides complete original reading and listening tasks", ()
     ["reading", "available"],
     ["listening", "available"],
     ["vocabulary-grammar", "available"],
-    ["mock-a1", "locked"],
+    ["mock-a1", "available"],
   ]);
 
   [ReadingTasks, ListeningTasks].forEach((tasks) => {
@@ -109,7 +109,7 @@ test("Practice links to Exam Prep without changing the four-tab navigation", () 
   expect(screen.getByRole("navigation").querySelectorAll("a")).toHaveLength(4);
 });
 
-test("Exam Prep landing exposes three skills and keeps Mock A1 locked", () => {
+test("Exam Prep landing exposes all four skills including Mock A1", () => {
   renderApp("/exam-prep");
 
   expect(screen.getByRole("heading", { name: "Exam Prep" })).toBeTruthy();
@@ -120,7 +120,8 @@ test("Exam Prep landing exposes three skills and keeps Mock A1 locked", () => {
     .toBe("/exam-prep/listening");
   expect(screen.getByRole("link", { name: /Vocabulary & Grammar/ }).getAttribute("href"))
     .toBe("/exam-prep/vocabulary-grammar");
-  expect(screen.getByText("Mock A1").closest("[aria-disabled='true']")).toBeTruthy();
+  expect(screen.getByRole("link", { name: /Mock A1/ }).getAttribute("href"))
+    .toBe("/exam-prep/mock-a1");
 });
 
 test("reading task grades answers, shows shared results, and persists completion", () => {

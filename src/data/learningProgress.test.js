@@ -63,6 +63,7 @@ const Probe = () => {
     recordGrammarCompletion,
     recordGrammarAnswer,
     recordExamPrepCompletion,
+    recordMockCompletion,
     completeOnboarding,
   } = useProgress();
   return (
@@ -74,6 +75,8 @@ const Probe = () => {
       <span data-testid="exam-reading">{progress.completedExamReadingTasks.length}</span>
       <span data-testid="exam-sessions">{progress.completedExamPrepSessions.length}</span>
       <span data-testid="exam-best">{progress.examPrepBestScores.reading || 0}</span>
+      <span data-testid="mock-count">{progress.completedMockExams.length}</span>
+      <span data-testid="mock-best">{progress.bestMockScore}</span>
       <span data-testid="onboarding">{String(progress.onboardingComplete)}</span>
       <button onClick={() => recordCompletion({ type: "lesson", categoryId: "lesson-1", route: "/chooselesson/0" })}>Complete</button>
       <button onClick={() => recordAnswer({ id: "word-1", source: "house", target: "kuća" }, false)}>Wrong</button>
@@ -89,6 +92,19 @@ const Probe = () => {
         route: "/exam-prep/reading/reading-introduction",
         title: "Ana introduces herself",
       })}>Complete exam task</button>
+      <button onClick={() => recordMockCompletion({
+        mockId: "mock-a1-0",
+        seed: 0,
+        score: 31,
+        total: 40,
+        sectionScores: [
+          { id: "reading", score: 8, total: 10 },
+          { id: "listening", score: 7, total: 10 },
+          { id: "vocabulary", score: 9, total: 10 },
+          { id: "grammar", score: 7, total: 10 },
+        ],
+        route: "/exam-prep/mock-a1",
+      })}>Complete mock</button>
       <button onClick={completeOnboarding}>Onboard</button>
     </>
   );
@@ -114,7 +130,7 @@ test("malformed progress migrates to the versioned default without losing valid 
     onboardingComplete: true,
   }));
   expect(loadProgress()).toEqual(expect.objectContaining({
-    version: 3,
+    version: 4,
     completedLessons: ["lesson-2"],
     completedExercises: [],
     completedGrammarLessons: [],
@@ -123,6 +139,10 @@ test("malformed progress migrates to the versioned default without losing valid 
     completedExamListeningTasks: [],
     completedExamPrepSessions: [],
     examPrepBestScores: {},
+    completedMockExams: [],
+    latestMockScore: null,
+    bestMockScore: 0,
+    bestMockSectionScores: {},
     activityDates: ["2026-09-24"],
     onboardingComplete: true,
   }));
@@ -172,6 +192,32 @@ test("progress provider keeps exam prep completion and best scores isolated", ()
     type: "exam-prep",
     area: "reading",
     percentage: 75,
+  }));
+  expect(saved.recentMistakes).toEqual([]);
+  expect(saved.grammarMistakes).toEqual([]);
+});
+
+test("progress provider records latest and best mock scores without review mistakes", () => {
+  render(<ProgressProvider><Probe /></ProgressProvider>);
+  fireEvent.click(screen.getByRole("button", { name: "Complete mock" }));
+  expect(screen.getByTestId("mock-count").textContent).toBe("1");
+  expect(screen.getByTestId("mock-best").textContent).toBe("31");
+
+  const saved = JSON.parse(localStorage.getItem(PROGRESS_STORAGE_KEY));
+  expect(saved.latestMockScore).toEqual(expect.objectContaining({
+    mockId: "mock-a1-0",
+    score: 31,
+    total: 40,
+  }));
+  expect(saved.bestMockSectionScores).toEqual({
+    reading: 8,
+    listening: 7,
+    vocabulary: 9,
+    grammar: 7,
+  });
+  expect(saved.lastActivity).toEqual(expect.objectContaining({
+    type: "exam-prep",
+    area: "mock-a1",
   }));
   expect(saved.recentMistakes).toEqual([]);
   expect(saved.grammarMistakes).toEqual([]);

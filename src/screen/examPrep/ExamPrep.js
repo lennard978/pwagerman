@@ -5,7 +5,7 @@ import {
   FaCheck,
   FaHeadphones,
   FaLayerGroup,
-  FaLock,
+  FaClipboardCheck,
 } from "react-icons/fa";
 import { EXAM_PREP_DISCLAIMER, ExamPrepAreas } from "../../data/examPrep";
 import { useProgress } from "../../i18n/ProgressProvider";
@@ -15,7 +15,7 @@ const icons = {
   reading: FaBookReader,
   listening: FaHeadphones,
   "vocabulary-grammar": FaLayerGroup,
-  "mock-a1": FaLock,
+  "mock-a1": FaClipboardCheck,
 };
 
 export const ExamPrep = () => {
@@ -33,7 +33,10 @@ export const ExamPrep = () => {
       ).length || 0;
       return `${sessions} sessions complete`;
     }
-    return "Coming next";
+    if (id === "mock-a1") {
+      return `${progress?.completedMockExams.length || 0} mocks complete`;
+    }
+    return "";
   };
 
   return (

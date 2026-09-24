@@ -26,8 +26,8 @@ export const ExamPrepAreas = [
   {
     id: "mock-a1",
     title: "Mock A1",
-    description: "A combined practice paper is planned for the next exam-prep phase.",
-    status: "locked",
+    description: "Complete a 40-question practice exam across four A1 skills.",
+    status: "available",
   },
 ];
 

@@ -148,6 +148,49 @@ export const ProgressProvider = ({ children }) => {
     }));
   };
 
+  const recordMockCompletion = ({
+    mockId,
+    seed,
+    score,
+    total,
+    sectionScores,
+    route,
+  }) => {
+    const at = new Date().toISOString();
+    const percentage = total > 0 ? Math.round((score / total) * 100) : 0;
+    const result = {
+      mockId,
+      seed,
+      score,
+      total,
+      percentage,
+      sectionScores,
+      at,
+    };
+    const activity = {
+      type: "exam-prep",
+      area: "mock-a1",
+      route,
+      title: "Mock A1",
+      ...result,
+    };
+    persist((current) => ({
+      ...current,
+      lastActivity: activity,
+      completedMockExams: [...current.completedMockExams, result].slice(-50),
+      latestMockScore: result,
+      bestMockScore: Math.max(current.bestMockScore || 0, score),
+      bestMockSectionScores: sectionScores.reduce(
+        (best, section) => ({
+          ...best,
+          [section.id]: Math.max(best[section.id] || 0, section.score),
+        }),
+        current.bestMockSectionScores
+      ),
+      activityDates: recordStudyDate(current.activityDates),
+    }));
+  };
+
   const completeOnboarding = () =>
     persist((current) => ({ ...current, onboardingComplete: true }));
 
@@ -159,6 +202,7 @@ export const ProgressProvider = ({ children }) => {
       recordGrammarCompletion,
       recordGrammarAnswer,
       recordExamPrepCompletion,
+      recordMockCompletion,
       completeOnboarding,
     }}>
       {children}
