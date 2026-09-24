@@ -38,9 +38,10 @@ test("Update now requests activation and reloads once after controller change", 
     value: {
       addEventListener: jest.fn((event, listener, options) => {
         expect(event).toBe("controllerchange");
-        expect(options).toEqual({ once: true });
+        expect(options).toBeUndefined();
         controllerChange = listener;
       }),
+      removeEventListener: jest.fn(),
     },
   });
 
@@ -53,6 +54,83 @@ test("Update now requests activation and reloads once after controller change", 
   controllerChange();
   expect(reloadPage).toHaveBeenCalledTimes(1);
 
+  Object.defineProperty(navigator, "serviceWorker", {
+    configurable: true,
+    value: originalServiceWorker,
+  });
+});
+
+test("activated waiting worker is a safe reload fallback when controllerchange is missed", () => {
+  const reloadPage = jest.fn();
+  let stateChange;
+  const waiting = {
+    state: "installed",
+    postMessage: jest.fn(),
+    addEventListener: jest.fn((event, listener) => {
+      expect(event).toBe("statechange");
+      stateChange = listener;
+    }),
+  };
+  const originalServiceWorker = navigator.serviceWorker;
+  Object.defineProperty(navigator, "serviceWorker", {
+    configurable: true,
+    value: {
+      addEventListener: jest.fn(),
+      removeEventListener: jest.fn(),
+    },
+  });
+
+  setWaitingRegistration({ waiting });
+  activateWaitingServiceWorker(reloadPage);
+  waiting.state = "activated";
+  stateChange();
+  stateChange();
+
+  expect(waiting.postMessage).toHaveBeenCalledWith({ type: "SKIP_WAITING" });
+  expect(reloadPage).toHaveBeenCalledTimes(1);
+  Object.defineProperty(navigator, "serviceWorker", {
+    configurable: true,
+    value: originalServiceWorker,
+  });
+});
+
+test("activation is harmless when no waiting worker exists", () => {
+  expect(() => activateWaitingServiceWorker(jest.fn())).not.toThrow();
+});
+
+test("toast clears on takeover and stays absent in the updated page state", () => {
+  let controllerChange;
+  const originalServiceWorker = navigator.serviceWorker;
+  Object.defineProperty(navigator, "serviceWorker", {
+    configurable: true,
+    value: {
+      addEventListener: jest.fn((event, listener) => {
+        controllerChange = listener;
+      }),
+      removeEventListener: jest.fn(),
+    },
+  });
+  const registration = { waiting: { postMessage: jest.fn() } };
+  setWaitingRegistration(registration);
+  const view = render(
+    <LanguageProvider>
+      <UpdateNotification />
+    </LanguageProvider>
+  );
+  expect(screen.getByText("New version available")).toBeTruthy();
+
+  activateWaitingServiceWorker(jest.fn());
+  act(() => controllerChange());
+  expect(screen.queryByText("New version available")).toBeNull();
+
+  view.unmount();
+  resetServiceWorkerUpdateForTests();
+  render(
+    <LanguageProvider>
+      <UpdateNotification />
+    </LanguageProvider>
+  );
+  expect(screen.queryByText("New version available")).toBeNull();
   Object.defineProperty(navigator, "serviceWorker", {
     configurable: true,
     value: originalServiceWorker,

@@ -1,13 +1,18 @@
 let waitingRegistration = null;
 let reloadRequested = false;
+let reloadTriggered = false;
 const listeners = new Set();
 
 export const getWaitingRegistration = () => waitingRegistration;
 
+const notifyListeners = () => {
+  listeners.forEach((listener) => listener(waitingRegistration));
+};
+
 export const setWaitingRegistration = (registration) => {
   if (!registration?.waiting) return;
   waitingRegistration = registration;
-  listeners.forEach((listener) => listener(waitingRegistration));
+  notifyListeners();
 };
 
 export const subscribeToServiceWorkerUpdate = (listener) => {
@@ -20,19 +25,28 @@ export const activateWaitingServiceWorker = (
 ) => {
   if (!waitingRegistration?.waiting || reloadRequested) return;
   reloadRequested = true;
-  let reloaded = false;
+  const waitingWorker = waitingRegistration.waiting;
 
-  navigator.serviceWorker.addEventListener("controllerchange", () => {
-    if (reloaded) return;
-    reloaded = true;
+  const reloadOnce = () => {
+    if (reloadTriggered) return;
+    reloadTriggered = true;
+    waitingRegistration = null;
+    notifyListeners();
+    navigator.serviceWorker.removeEventListener?.("controllerchange", reloadOnce);
     reloadPage();
-  }, { once: true });
+  };
 
-  waitingRegistration.waiting.postMessage({ type: "SKIP_WAITING" });
+  navigator.serviceWorker.addEventListener("controllerchange", reloadOnce);
+  waitingWorker.addEventListener?.("statechange", () => {
+    if (waitingWorker.state === "activated") reloadOnce();
+  });
+
+  waitingWorker.postMessage({ type: "SKIP_WAITING" });
 };
 
 export const resetServiceWorkerUpdateForTests = () => {
   waitingRegistration = null;
   reloadRequested = false;
+  reloadTriggered = false;
   listeners.clear();
 };
