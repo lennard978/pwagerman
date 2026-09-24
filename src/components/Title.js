@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import { theme } from "../styles/theme";
 
-export const Title = ({ title }) => {
+export const Title = ({ title, reserveSpace = false }) => {
   return (
     <>
-      <Spacer aria-hidden="true" />
+      {reserveSpace && <Spacer aria-hidden="true" data-testid="fixed-title-offset" />}
       <Container>
         <H2>{title}</H2>
       </Container>
@@ -13,7 +13,8 @@ export const Title = ({ title }) => {
 };
 
 const Spacer = styled.div`
-  block-size: 0;
+  flex: 0 0 3.5rem;
+  inline-size: 100%;
 `;
 
 const Container = styled.div`

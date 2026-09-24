@@ -186,6 +186,7 @@ test("Lessons 4 through 6 render in the shared Lesson engine", () => {
     );
 
     expect(screen.getByText(lesson.items[0].source)).toBeTruthy();
+    expect(screen.getByTestId("fixed-title-offset")).toBeTruthy();
     rendered.unmount();
   });
 });
@@ -210,6 +211,7 @@ test("Write renders an English prompt and Serbian answer", () => {
   expect(screen.getByText("ć")).toBeTruthy();
   expect(screen.queryByTestId("write-answer-space")).toBeNull();
   expect(screen.queryByTestId("write-pool-space")).toBeNull();
+  expect(screen.getAllByTestId("write-letter-tile").length).toBeGreaterThanOrEqual(8);
 });
 
 test("Write filled answer tiles expose an explicit readable state", () => {
@@ -340,6 +342,8 @@ test("Pair renders English source and Serbian target values", () => {
 
   expect(screen.getByRole("button", { name: "house" })).toBeTruthy();
   expect(screen.getAllByRole("button", { name: "kuća" })[0]).toBeTruthy();
+  expect(screen.getByTestId("fixed-title-offset")).toBeTruthy();
+  expect(screen.getByTestId("pair-board")).toBeTruthy();
 });
 
 test("Pair shows no more than ten vocabulary pairs per round", () => {

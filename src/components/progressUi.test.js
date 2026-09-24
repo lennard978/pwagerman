@@ -10,6 +10,8 @@ import { MemoryRouter, Route, Routes } from "react-router-dom";
 import { Home } from "../screen/home/Home";
 import { Lesson } from "../screen/lesson/Lesson";
 import { Test } from "../screen/test/Test";
+import { Cards } from "../screen/cards/Cards";
+import { Curriculum } from "../data/data";
 
 jest.mock("../services/tts/ttsProvider", () => ({ speak: jest.fn() }));
 jest.mock("react-speech-kit", () => ({
@@ -119,6 +121,60 @@ test("completing a lesson persists the category and makes Home offer Continue le
   render(<Providers><MemoryRouter><Home /></MemoryRouter></Providers>);
   expect(screen.getByText("Continue learning")).toBeTruthy();
   expect(screen.getByText("1 / 35")).toBeTruthy();
+});
+
+test("Lesson reserves fixed-header space and groups completion actions compactly", () => {
+  const data = [{
+    id: "lesson-1",
+    titleKey: "lessons.greetings.title",
+    items: [{ id: "word-1", source: "hello", target: "zdravo" }],
+  }];
+  render(
+    <Providers>
+      <MemoryRouter initialEntries={["/chooselesson/0"]}>
+        <Routes>
+          <Route path="/chooselesson/:userId" element={<Lesson data={data} />} />
+        </Routes>
+      </MemoryRouter>
+    </Providers>
+  );
+
+  const offset = screen.getByTestId("fixed-title-offset");
+  const firstCard = screen.getByText("hello").closest("div");
+  const actions = screen.getByTestId("lesson-completion-actions");
+  expect(offset.compareDocumentPosition(firstCard) & Node.DOCUMENT_POSITION_FOLLOWING)
+    .toBeTruthy();
+  expect(actions.contains(screen.getByRole("link", { name: "Complete lesson" }))).toBe(true);
+  expect(actions.contains(screen.getByRole("link", { name: "Go Back" }))).toBe(true);
+});
+
+test("Cards use icon-only accessible Favorite and Known controls", () => {
+  const data = [{
+    ...Curriculum[0],
+    items: Curriculum[0].items.slice(0, 2),
+  }];
+  render(
+    <Providers>
+      <MemoryRouter initialEntries={["/choosecards/0"]}>
+        <Routes>
+          <Route path="/choosecards/:userId" element={<Cards data={data} />} />
+        </Routes>
+      </MemoryRouter>
+    </Providers>
+  );
+
+  const favorite = screen.getByRole("button", { name: "Add to favorites" });
+  const known = screen.getByRole("button", { name: "Mark as Known" });
+  expect(screen.queryByText("Mark as Known")).toBeNull();
+  expect(favorite.getAttribute("aria-pressed")).toBe("false");
+  expect(known.getAttribute("aria-pressed")).toBe("false");
+  fireEvent.click(favorite);
+  fireEvent.click(known);
+  expect(screen.getByRole("button", { name: "Remove from favorites" })
+    .getAttribute("aria-pressed")).toBe("true");
+  expect(screen.getByRole("button", { name: "Move to Learning" })
+    .getAttribute("aria-pressed")).toBe("true");
+  expect(screen.getByRole("button", { name: "Next Word" })).toBeTruthy();
 });
 
 test("a wrong Test answer persists a recent mistake and completed practice session", () => {

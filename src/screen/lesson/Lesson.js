@@ -19,7 +19,7 @@ export const Lesson = ({ data }) => {
   const lesson = data[userId];
   return (
     <Wrapper>
-      <Title title={`${t("navigation.lesson")} ${number + 1}`} />
+      <Title title={`${t("navigation.lesson")} ${number + 1}`} reserveSpace />
       {lesson.items.length === 0 && <EmptyExercise message={t("myWords.emptyHint")} />}
       {lesson.items.map((item, index) => {
         return (
@@ -43,32 +43,34 @@ export const Lesson = ({ data }) => {
           </Container>
         );
       })}
-      {lesson.items.length > 0 && (
-        <CompleteLink
-          to="/learn"
-          onClick={() => progress?.recordCompletion({
-            type: "lesson",
-            categoryId: lesson.id,
-            route: `/chooselesson/${userId}`,
-            titleKey: lesson.titleKey,
-          })}
-        >
-          {t("exercise.completeLesson")}
-        </CompleteLink>
-      )}
-      <BackBtn title={t("actions.goBack")} to="/chooselesson" />
+      <CompletionActions data-testid="lesson-completion-actions">
+        {lesson.items.length > 0 && (
+          <CompleteLink
+            to="/learn"
+            onClick={() => progress?.recordCompletion({
+              type: "lesson",
+              categoryId: lesson.id,
+              route: `/chooselesson/${userId}`,
+              titleKey: lesson.titleKey,
+            })}
+          >
+            {t("exercise.completeLesson")}
+          </CompleteLink>
+        )}
+        <BackBtn title={t("actions.goBack")} to="/chooselesson" />
+      </CompletionActions>
     </Wrapper>
   );
 };
 
 const Wrapper = styled.div`
   padding-top: 0.75rem;
-  padding-bottom: 7rem;
+  padding-bottom: 2rem;
   inline-size: min(100%, 42rem);
   padding-inline: 1rem;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
 `;
 
@@ -121,4 +123,15 @@ const CardActions = styled.div`
   padding-top: 0.75rem;
   border-top: 1px solid ${theme.colors.border};
 `;
-const CompleteLink = styled(Link)`min-block-size: 2.75rem; display: inline-flex; align-items: center; margin-top: 0.75rem; padding-inline: 1.25rem; color: white; background: ${theme.colors.primary}; border-radius: ${theme.radius.small}; text-decoration: none; font-weight: 700;`;
+const CompletionActions = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.125rem;
+  margin-top: 0.75rem;
+
+  & > a {
+    margin-top: 0;
+  }
+`;
+const CompleteLink = styled(Link)`min-block-size: 2.75rem; display: inline-flex; align-items: center; padding-inline: 1.25rem; color: white; background: ${theme.colors.primary}; border-radius: ${theme.radius.small}; text-decoration: none; font-weight: 700;`;

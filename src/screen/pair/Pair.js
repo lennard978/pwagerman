@@ -92,7 +92,7 @@ export const Pair = ({ data }) => {
 
   return (
     <Container>
-      <Title title={`${t("navigation.pair")} ${number + 1}`} />
+      <Title title={`${t("navigation.pair")} ${number + 1}`} reserveSpace />
       {roundItems.length < 2 ? <EmptyExercise message={t("myWords.minimum")} /> : <>
         {source.length === 0 ? (
           <Completion>
@@ -100,10 +100,10 @@ export const Pair = ({ data }) => {
             <BackLink to="/choosepair">{t("actions.backToPair")}</BackLink>
           </Completion>
         ) : (
-          <>
+          <Board data-testid="pair-board">
             <Row>{sourceList}</Row>
             <Row>{targetList}</Row>
-          </>
+          </Board>
         )}
       </>}
     </Container>
@@ -112,22 +112,35 @@ export const Pair = ({ data }) => {
 
 const Container = styled.div`
   display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  gap: 1rem;
+  flex-direction: column;
   inline-size: min(100%, 42rem);
-  padding: 0.75rem 1rem 7rem;
+  min-block-size: calc(100dvh - ${theme.navHeight});
+  padding: 0 1rem 2rem;
+`;
+
+const Board = styled.div`
+  flex: 1;
+  min-block-size: 0;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding-block: 0.75rem;
+
+  @media (max-height: 42rem) {
+    align-items: flex-start;
+  }
 `;
 
 const Row = styled.div`
   flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  display: grid;
+  align-content: center;
+  gap: clamp(0.5rem, 1.25vh, 0.8rem);
   min-inline-size: 0;
 `;
 
 const PairButton = styled(Btn)`
+  margin: 0;
   border-color: ${(props) => (props.$wrong ? theme.colors.error : props.$selected ? theme.colors.primary : theme.colors.border)};
   background: ${(props) => (props.$wrong ? theme.colors.errorSoft : props.$selected ? theme.colors.primarySoft : theme.colors.surface)};
   transform: ${(props) => props.$selected ? "scale(0.98)" : "scale(1)"};

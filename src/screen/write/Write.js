@@ -118,6 +118,7 @@ export const Write = ({ data }) => {
           return (
             <TargetLetter
               type="button"
+              data-testid="write-letter-tile"
               $filled={Boolean(item)}
               $resultState={resultState}
               data-result-state={resultState}
@@ -139,6 +140,7 @@ export const Write = ({ data }) => {
           return (
             <TargetLetter
               type="button"
+              data-testid="write-letter-tile"
               data-filled={false}
               data-tile-id={item.id}
               onClick={() => selectLetter(item)}
@@ -194,12 +196,13 @@ const PromptRow = styled.div`
 `;
 
 const TileRow = styled.div`
+  --write-tile-size: clamp(3rem, 15vw, 3.625rem);
   inline-size: 100%;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  gap: 0.35rem;
+  gap: clamp(0.25rem, 1.2vw, 0.45rem);
   margin-inline: auto;
   padding-inline: 0.25rem;
 `;
@@ -224,10 +227,12 @@ const TargetLetter = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  min-inline-size: 2.5rem;
-  min-block-size: 2.75rem;
+  inline-size: var(--write-tile-size);
+  block-size: var(--write-tile-size);
+  min-inline-size: var(--write-tile-size);
+  min-block-size: var(--write-tile-size);
   color: ${(props) => props.$resultState !== "idle" && props.$filled ? "#ffffff" : theme.colors.text};
-  padding: 0.5rem;
+  padding: 0;
   border: 1px solid ${(props) => {
     if (props.$resultState === "correct" && props.$filled) return theme.colors.success;
     if (props.$resultState === "incorrect" && props.$filled) return theme.colors.error;
@@ -241,7 +246,7 @@ const TargetLetter = styled.button`
   }};
   border-radius: ${theme.radius.small};
   text-transform: none;
-  font-size: 1rem;
+  font-size: clamp(1.15rem, 5vw, 1.4rem);
   font-weight: 700;
   text-shadow: ${(props) => props.$filled ? "0 1px 1px rgba(0, 0, 0, 0.2)" : "none"};
   overflow-wrap: anywhere;
@@ -255,8 +260,8 @@ const TargetLetter = styled.button`
 `;
 
 const Space = styled.span`
-  flex: 0 0 0.8rem;
-  min-block-size: 2.75rem;
+  flex: 0 0 clamp(0.65rem, 3vw, 1rem);
+  min-block-size: var(--write-tile-size);
 `;
 
 const Feedback = styled.p`

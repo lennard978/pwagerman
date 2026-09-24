@@ -4,18 +4,20 @@ import { useLanguage } from "../i18n/LanguageProvider";
 import { useMyWords } from "../i18n/MyWordsProvider";
 import { theme } from "../styles/theme";
 
-export const WordStatusActions = ({ word, compact = false }) => {
+export const WordStatusActions = ({ word, compact = false, variant = "default" }) => {
   const { t } = useLanguage();
   const vocabulary = useMyWords();
   if (!vocabulary) return null;
   const { allWords, toggleFavorite, toggleKnown } = vocabulary;
   const currentWord = allWords.find((item) => item.id === word.id) || word;
 
+  const iconOnly = compact || variant === "card";
+
   return (
-    <Actions $compact={compact}>
+    <Actions $variant={variant}>
       <Action
         type="button"
-        $compact={compact}
+        $compact={iconOnly}
         $active={currentWord.favorite}
         aria-pressed={currentWord.favorite}
         aria-label={currentWord.favorite ? t("vocabulary.unfavorite") : t("vocabulary.favorite")}
@@ -26,7 +28,7 @@ export const WordStatusActions = ({ word, compact = false }) => {
       </Action>
       <Action
         type="button"
-        $compact={compact}
+        $compact={iconOnly}
         $active={currentWord.status === "known"}
         aria-pressed={currentWord.status === "known"}
         aria-label={currentWord.status === "known" ? t("vocabulary.markLearning") : t("vocabulary.markKnown")}
@@ -34,7 +36,7 @@ export const WordStatusActions = ({ word, compact = false }) => {
         onClick={() => toggleKnown(currentWord)}
       >
         <FaCheck aria-hidden="true" />
-        {!compact && <span>{currentWord.status === "known" ? t("vocabulary.known") : t("vocabulary.markKnown")}</span>}
+        {!iconOnly && <span>{currentWord.status === "known" ? t("vocabulary.known") : t("vocabulary.markKnown")}</span>}
       </Action>
     </Actions>
   );
@@ -43,8 +45,8 @@ export const WordStatusActions = ({ word, compact = false }) => {
 const Actions = styled.div`
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
-  justify-content: flex-start;
+  gap: ${(props) => props.$variant === "card" ? "0.75rem" : "0.5rem"};
+  justify-content: ${(props) => props.$variant === "card" ? "center" : "flex-start"};
 `;
 
 const Action = styled.button`

@@ -75,22 +75,24 @@ export const Cards = ({ data }) => {
             <Text>{currentItem.target}</Text>
           </TargetWord>
         </AnimateBox>
-        <WordStatusActions word={currentItem} />
-        {cardIndex === wordList.length - 1 ? (
-          <BackLink
-            to="/choosecards"
-            onClick={() => progress?.recordCompletion({
-              type: "cards",
-              categoryId: lesson.id,
-              route: `/choosecards/${userId}`,
-              titleKey: lesson.titleKey,
-            })}
-          >
-            {t("actions.backToCards")}
-          </BackLink>
-        ) : (
-          <Btn onClick={nextWord}>{t("actions.nextWord")}</Btn>
-        )}
+        <CardActions>
+          <WordStatusActions word={currentItem} variant="card" />
+          {cardIndex === wordList.length - 1 ? (
+            <BackLink
+              to="/choosecards"
+              onClick={() => progress?.recordCompletion({
+                type: "cards",
+                categoryId: lesson.id,
+                route: `/choosecards/${userId}`,
+                titleKey: lesson.titleKey,
+              })}
+            >
+              {t("actions.backToCards")}
+            </BackLink>
+          ) : (
+            <Btn onClick={nextWord}>{t("actions.nextWord")}</Btn>
+          )}
+        </CardActions>
       </Container>
       )}
     </Wrapper>
@@ -175,6 +177,18 @@ const AnimateBox = styled.button`
   &:focus-visible {
     outline: 3px solid ${theme.colors.primarySoft};
     outline-offset: 3px;
+  }
+`;
+
+const CardActions = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+
+  & > button,
+  & > a {
+    margin: 0;
   }
 `;
 
