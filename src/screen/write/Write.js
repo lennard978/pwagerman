@@ -2,13 +2,18 @@ import { useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useSpeechSynthesis } from "react-speech-kit";
 import styled from "styled-components";
-import { Title } from "../../components/Title";
 import { useLanguage } from "../../i18n/LanguageProvider";
 import { theme } from "../../styles/theme";
 import { EmptyExercise } from "../../components/EmptyExercise";
 import { speak } from "../../services/tts/ttsProvider";
 import { useProgress } from "../../i18n/ProgressProvider";
 import { createBoundedRound, EXERCISE_ROUND_LIMITS } from "../../data/exerciseRounds";
+import {
+  PracticeActionArea,
+  PracticeLayout,
+  PracticePrimaryButton,
+  PracticeStage,
+} from "../../components/practice/PracticeLayout";
 
 export const Write = ({ data }) => {
   const { userId } = useParams();
@@ -104,9 +109,9 @@ export const Write = ({ data }) => {
   };
 
   return (
-    <Container>
-      <Title title={`${t("navigation.write")} ${number + 1}`} />
+    <PracticeLayout title={`${t("navigation.write")} ${number + 1}`}>
       {wordList.length === 0 ? <EmptyExercise message={t("myWords.minimum")} /> : <>
+      <WriteStage data-testid="write-exercise-content">
       <PromptRow>
         <H2>{sourceWord}</H2>
       </PromptRow>
@@ -157,37 +162,37 @@ export const Write = ({ data }) => {
         </Feedback>
       )}
       {count === wordList.length - 1 ? (
-        <BackLink
-          to="/choosewrite"
-          onClick={() => {
-            if (resultState === "correct") {
-              progress?.recordCompletion({
-                type: "write",
-                categoryId: lesson.id,
-                route: `/choosewrite/${userId}`,
-                titleKey: lesson.titleKey,
-              });
-            }
-          }}
-        >
-          {t("actions.backToWrite")}
-        </BackLink>
+        <PracticeActionArea>
+          <BackLink
+            to="/choosewrite"
+            onClick={() => {
+              if (resultState === "correct") {
+                progress?.recordCompletion({
+                  type: "write",
+                  categoryId: lesson.id,
+                  route: `/choosewrite/${userId}`,
+                  titleKey: lesson.titleKey,
+                });
+              }
+            }}
+          >
+            {t("actions.backToWrite")}
+          </BackLink>
+        </PracticeActionArea>
       ) : (
-        <Button onClick={nextWord}>{t("actions.next")}</Button>
+        <PracticeActionArea>
+          <Button onClick={nextWord}>{t("actions.next")}</Button>
+        </PracticeActionArea>
       )}
+      </WriteStage>
       </>}
-    </Container>
+    </PracticeLayout>
   );
 };
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  padding-top: 0.75rem;
-  padding-bottom: 7rem;
-  inline-size: min(100%, 42rem);
-  padding-inline: 1rem;
+const WriteStage = styled(PracticeStage)`
+  align-items: center;
+  gap: clamp(0.85rem, 2.4vh, 1.35rem);
 `;
 
 const PromptRow = styled.div`
@@ -275,38 +280,17 @@ const Feedback = styled.p`
   font-weight: 800;
 `;
 
-const Button = styled.button`
-  min-block-size: 2.75rem;
+const Button = styled(PracticePrimaryButton)`
   text-transform: none;
   font-size: 0.95rem;
-  font-weight: 700;
-  color: white;
-  margin: 1rem 5px 0;
-  padding-inline: 1.5rem;
-  border: 1px solid ${theme.colors.primary};
   box-shadow: ${theme.shadow.soft};
-  background: ${theme.colors.primary};
-  border-radius: ${theme.radius.small};
-  cursor: pointer;
   min-inline-size: 5rem;
-  align-self: center;
-  transition: transform 160ms ease, background-color 180ms ease, opacity 180ms ease;
-  &:active {
-    background: ${theme.colors.primaryPressed};
-    transform: scale(0.98);
-  }
-  &:disabled {
-    opacity: 0.45;
-    cursor: not-allowed;
-  }
 `;
 
 const BackLink = styled(Link)`
   min-block-size: 2.75rem;
   display: inline-flex;
   align-items: center;
-  align-self: center;
-  margin: 1rem 5px 0;
   padding-inline: 1.5rem;
   color: white;
   background: ${theme.colors.primary};

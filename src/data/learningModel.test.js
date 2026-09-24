@@ -10,7 +10,7 @@ import {
   Lesson6,
 } from "./data";
 import { Test1, Test2, Test3, Test4, Test5, Test6, Tests } from "./test";
-import { Cards } from "../screen/cards/Cards";
+import { Cards, cardsSizeConstraints } from "../screen/cards/Cards";
 import { ChooseLesson } from "../screen/lesson/ChooseLesson";
 import { Lesson } from "../screen/lesson/Lesson";
 import { Pair } from "../screen/pair/Pair";
@@ -24,6 +24,7 @@ import { LanguageProvider } from "../i18n/LanguageProvider";
 import { Curriculum } from "./data";
 import { createBoundedRound, EXERCISE_ROUND_LIMITS } from "./exerciseRounds";
 import { progressWord } from "./learningProgress";
+import { practiceTokens } from "../components/practice/PracticeLayout";
 
 const mockSpeak = jest.fn();
 
@@ -212,6 +213,10 @@ test("Write renders an English prompt and Serbian answer", () => {
   expect(screen.queryByTestId("write-answer-space")).toBeNull();
   expect(screen.queryByTestId("write-pool-space")).toBeNull();
   expect(screen.getAllByTestId("write-letter-tile").length).toBeGreaterThanOrEqual(8);
+  const offset = screen.getByTestId("fixed-title-offset");
+  const content = screen.getByTestId("write-exercise-content");
+  expect(offset.compareDocumentPosition(content) & Node.DOCUMENT_POSITION_FOLLOWING)
+    .toBeTruthy();
 });
 
 test("Write filled answer tiles expose an explicit readable state", () => {
@@ -343,7 +348,7 @@ test("Pair renders English source and Serbian target values", () => {
   expect(screen.getByRole("button", { name: "house" })).toBeTruthy();
   expect(screen.getAllByRole("button", { name: "kuća" })[0]).toBeTruthy();
   expect(screen.getByTestId("fixed-title-offset")).toBeTruthy();
-  expect(screen.getByTestId("pair-board")).toBeTruthy();
+  expect(screen.getByTestId("pair-board").dataset.shortHeightFallback).toBe("scroll");
 });
 
 test("Pair shows no more than ten vocabulary pairs per round", () => {
@@ -400,6 +405,12 @@ test("Cards render English on the front and Serbian on the back", () => {
 
   expect(screen.getByText(/^(house|water|chair|city)$/)).toBeTruthy();
   expect(screen.getByText("kuća")).toBeTruthy();
+  expect(screen.getByTestId("fixed-title-offset")).toBeTruthy();
+  expect(screen.getByTestId("practice-flashcard")).toBeTruthy();
+  expect(cardsSizeConstraints).toEqual({
+    inlineSize: "min(88%, 34rem)",
+    blockSize: "clamp(260px, 36dvh, 320px)",
+  });
 });
 
 test("Cards speak once each time they flip to Serbian", () => {
@@ -468,6 +479,8 @@ test("Test receives multiple-choice options from generic question data", () => {
 
   expect(screen.getByText("house")).toBeTruthy();
   expect(screen.getByTestId("test-exercise-content")).toBeTruthy();
+  expect(screen.getByTestId("fixed-title-offset")).toBeTruthy();
+  expect(practiceTokens.controlSize).toBe("3rem");
   ["kuća", "voda", "stolica"].forEach((option) => {
     expect(screen.getByRole("button", { name: option })).toBeTruthy();
   });
@@ -515,6 +528,8 @@ test("Quiz presents an English prompt with Serbian choices and completes", () =>
   );
 
   expect(screen.getByText(/^(house|water|chair|city)$/)).toBeTruthy();
+  expect(screen.getByTestId("fixed-title-offset")).toBeTruthy();
+  expect(screen.getByTestId("quiz-exercise-content")).toBeTruthy();
   expect(screen.getAllByRole("button", { name: "kuća" })[0]).toBeTruthy();
   expect(screen.getAllByRole("button")).toHaveLength(8);
   ["kuća", "voda", "stolica", "grad"].forEach((answer) => {

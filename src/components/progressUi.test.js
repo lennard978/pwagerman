@@ -56,6 +56,8 @@ test("Review shows a clear empty state when there are no recent mistakes", () =>
   }));
   render(<Providers><Review /></Providers>);
   expect(screen.getByText("No recent mistakes. Keep practising!")).toBeTruthy();
+  expect(screen.getByTestId("fixed-title-offset")).toBeTruthy();
+  expect(screen.getByTestId("practice-content")).toBeTruthy();
 });
 
 test("Home credits Asenda Studio using the verified studio destination", () => {

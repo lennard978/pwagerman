@@ -1,6 +1,5 @@
 import { Link, useParams } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
-import { Title } from "../../components/Title";
 import styled, { keyframes } from "styled-components";
 import { Btn } from "../../components/style";
 import { useLanguage } from "../../i18n/LanguageProvider";
@@ -8,6 +7,10 @@ import { theme } from "../../styles/theme";
 import { EmptyExercise } from "../../components/EmptyExercise";
 import { useProgress } from "../../i18n/ProgressProvider";
 import { createBoundedRound, EXERCISE_ROUND_LIMITS } from "../../data/exerciseRounds";
+import {
+  PracticeLayout,
+  practiceTokens,
+} from "../../components/practice/PracticeLayout";
 
 export const Pair = ({ data }) => {
   const { userId } = useParams();
@@ -91,8 +94,7 @@ export const Pair = ({ data }) => {
   });
 
   return (
-    <Container>
-      <Title title={`${t("navigation.pair")} ${number + 1}`} reserveSpace />
+    <PracticeLayout title={`${t("navigation.pair")} ${number + 1}`}>
       {roundItems.length < 2 ? <EmptyExercise message={t("myWords.minimum")} /> : <>
         {source.length === 0 ? (
           <Completion>
@@ -100,31 +102,22 @@ export const Pair = ({ data }) => {
             <BackLink to="/choosepair">{t("actions.backToPair")}</BackLink>
           </Completion>
         ) : (
-          <Board data-testid="pair-board">
+          <Board data-testid="pair-board" data-short-height-fallback="scroll">
             <Row>{sourceList}</Row>
             <Row>{targetList}</Row>
           </Board>
         )}
       </>}
-    </Container>
+    </PracticeLayout>
   );
 };
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  inline-size: min(100%, 42rem);
-  min-block-size: calc(100dvh - ${theme.navHeight});
-  padding: 0 1rem 2rem;
-`;
 
 const Board = styled.div`
   flex: 1;
   min-block-size: 0;
   display: flex;
   align-items: center;
-  gap: 1rem;
-  padding-block: 0.75rem;
+  gap: ${practiceTokens.sectionGap};
 
   @media (max-height: 42rem) {
     align-items: flex-start;
@@ -141,6 +134,9 @@ const Row = styled.div`
 
 const PairButton = styled(Btn)`
   margin: 0;
+  min-block-size: 3rem;
+  border-radius: ${theme.radius.small};
+  box-shadow: ${theme.shadow.soft};
   border-color: ${(props) => (props.$wrong ? theme.colors.error : props.$selected ? theme.colors.primary : theme.colors.border)};
   background: ${(props) => (props.$wrong ? theme.colors.errorSoft : props.$selected ? theme.colors.primarySoft : theme.colors.surface)};
   transform: ${(props) => props.$selected ? "scale(0.98)" : "scale(1)"};

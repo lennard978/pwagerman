@@ -2,12 +2,24 @@ import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
 import { FaVolumeUp } from "react-icons/fa";
-import { Title } from "../../components/Title";
 import { useLanguage } from "../../i18n/LanguageProvider";
 import { theme } from "../../styles/theme";
 import { WordStatusActions } from "../../components/WordStatusActions";
 import { useProgress } from "../../i18n/ProgressProvider";
 import { CompactSoundButton } from "../../components/CompactSoundButton";
+import {
+  PracticeAnswerButton,
+  PracticeChoiceRow,
+  PracticeChoices,
+  PracticeLayout,
+  PracticePrimaryButton,
+  PracticeProgress,
+  PracticePrompt,
+  PracticeResultCard,
+  PracticeReviewItem,
+  PracticeReviewList,
+  PracticeStage,
+} from "../../components/practice/PracticeLayout";
 
 export const Test = ({ data }) => {
   const { userId } = useParams();
@@ -74,10 +86,9 @@ export const Test = ({ data }) => {
   const mistakes = answers.filter((answer) => !answer.correct);
 
   return (
-    <Wrapper>
-      <Title title={`${t("navigation.test")} ${Number(userId) + 1}`} />
+    <PracticeLayout title={`${t("navigation.test")} ${Number(userId) + 1}`}>
       {complete ? (
-        <ResultCard>
+        <ResultCard data-testid="test-result-card">
           <ResultTitle>{t("exercise.testComplete")}</ResultTitle>
           <Score>{score} / {questions.length} {t("exercise.score")}</Score>
           {mistakes.length === 0 ? (
@@ -126,7 +137,7 @@ export const Test = ({ data }) => {
           </PrimaryButton>
         </Content>
       )}
-    </Wrapper>
+    </PracticeLayout>
   );
 };
 
@@ -137,89 +148,15 @@ const revealResult = keyframes`
   to { opacity: 1; transform: translateY(0); }
 `;
 
-const Wrapper = styled.div`
-  inline-size: min(100%, 42rem);
-  min-block-size: 100vh;
-  padding: 0.75rem 1rem 7rem;
-`;
+const Content = styled(PracticeStage)``;
+const Progress = styled(PracticeProgress)``;
+const Question = styled(PracticePrompt)``;
+const Choices = styled(PracticeChoices)``;
+const ChoiceRow = styled(PracticeChoiceRow)``;
+const Answer = styled(PracticeAnswerButton)``;
+const PrimaryButton = styled(PracticePrimaryButton)``;
 
-const Content = styled.div`
-  min-block-size: calc(100vh - 8.75rem);
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  justify-content: center;
-  gap: 0.9rem;
-
-  @media (max-height: 600px) {
-    justify-content: flex-start;
-    padding-top: 1rem;
-  }
-`;
-
-const Progress = styled.p`
-  margin: 0;
-  color: ${theme.colors.textMuted};
-`;
-
-const Question = styled.h2`
-  margin: 0.75rem 0;
-  color: ${theme.colors.text};
-  font-size: clamp(1.35rem, 6vw, 1.9rem);
-  text-align: center;
-`;
-
-const Choices = styled.div`
-  display: grid;
-  gap: 0.6rem;
-`;
-
-const ChoiceRow = styled.div`
-  display: flex;
-  gap: 0.5rem;
-`;
-
-const Answer = styled.button`
-  flex: 1;
-  min-block-size: 2.75rem;
-  padding: 0.7rem 1rem;
-  color: ${theme.colors.text};
-  background: ${(props) => (props.$selected ? theme.colors.primarySoft : theme.colors.surface)};
-  border: 1px solid ${(props) => (props.$selected ? theme.colors.primary : theme.colors.border)};
-  border-radius: ${theme.radius.small};
-  box-shadow: ${theme.shadow.soft};
-  font-weight: 600;
-  cursor: pointer;
-  transition: color 180ms ease, background-color 180ms ease, border-color 180ms ease, transform 160ms ease;
-  &:active { transform: scale(0.985); }
-  &:focus-visible { outline: 3px solid ${theme.colors.primarySoft}; }
-`;
-
-const PrimaryButton = styled.button`
-  min-block-size: 2.75rem;
-  padding-inline: 1.5rem;
-  color: white;
-  background: ${theme.colors.primary};
-  border: 1px solid ${theme.colors.primary};
-  border-radius: ${theme.radius.small};
-  font-weight: 700;
-  cursor: pointer;
-  transition: transform 160ms ease, background-color 180ms ease, opacity 180ms ease;
-  &:disabled { opacity: 0.45; cursor: not-allowed; }
-  &:active { background: ${theme.colors.primaryPressed}; transform: scale(0.98); }
-`;
-
-const ResultCard = styled.section`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-  margin-top: 1.5rem;
-  padding: 1.5rem 1rem;
-  background: ${theme.colors.surface};
-  border: 1px solid ${theme.colors.border};
-  border-radius: ${theme.radius.large};
-  box-shadow: ${theme.shadow.soft};
+const ResultCard = styled(PracticeResultCard)`
   animation: ${revealResult} 220ms ease-out both;
 
   @media (prefers-reduced-motion: reduce) {
@@ -245,22 +182,14 @@ const Perfect = styled.p`
   font-weight: 700;
 `;
 
-const Review = styled.div`
-  inline-size: 100%;
-`;
+const Review = styled(PracticeReviewList)``;
 
 const ReviewTitle = styled.h3`
   margin: 0 0 0.75rem;
   color: ${theme.colors.text};
 `;
 
-const ReviewItem = styled.div`
-  margin-top: 0.65rem;
-  padding: 0.8rem;
-  background: ${(props) => props.$correct ? theme.colors.successSoft : theme.colors.errorSoft};
-  border: 1px solid ${(props) => props.$correct ? theme.colors.success : theme.colors.error};
-  border-radius: ${theme.radius.small};
-`;
+const ReviewItem = styled(PracticeReviewItem)``;
 
 const Prompt = styled.p`
   margin: 0 0 0.4rem;

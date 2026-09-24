@@ -1,13 +1,14 @@
 import styled from "styled-components";
 import SoundButton from "./SoundButton";
 import { theme } from "../styles/theme";
+import { practiceTokens } from "./practice/PracticeLayout";
 
 export const CompactSoundButton = styled(SoundButton)`
-  flex: 0 0 3rem;
-  inline-size: 3rem;
-  min-inline-size: 3rem;
-  block-size: 3rem;
-  min-block-size: 3rem;
+  flex: 0 0 ${practiceTokens.controlSize};
+  inline-size: ${practiceTokens.controlSize};
+  min-inline-size: ${practiceTokens.controlSize};
+  block-size: ${practiceTokens.controlSize};
+  min-block-size: ${practiceTokens.controlSize};
   display: inline-flex;
   align-items: center;
   justify-content: center;

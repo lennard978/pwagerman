@@ -60,6 +60,7 @@ const Card = styled(Link)`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: flex-start;
   gap: 0.55rem;
   padding: 1rem;
   color: ${theme.colors.text};
@@ -69,8 +70,9 @@ const Card = styled(Link)`
   box-shadow: ${theme.shadow.soft};
   text-decoration: none;
   transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
-  & svg { color: ${theme.colors.primary}; font-size: 1.45rem; }
-  & span { color: ${theme.colors.textMuted}; font-size: 0.82rem; line-height: 1.35; }
+  & svg { flex: 0 0 auto; color: ${theme.colors.primary}; font-size: 1.45rem; }
+  & strong { min-block-size: 1.2rem; }
+  & span { min-block-size: 2.25rem; color: ${theme.colors.textMuted}; font-size: 0.82rem; line-height: 1.35; }
   &:hover { border-color: ${theme.colors.primary}; transform: translateY(-2px); }
   &:active { transform: scale(0.98); }
   &:focus-visible { outline: 3px solid ${theme.colors.primarySoft}; outline-offset: 2px; }

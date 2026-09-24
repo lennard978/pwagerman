@@ -8,6 +8,11 @@ import { EmptyExercise } from "../../components/EmptyExercise";
 import { WordStatusActions } from "../../components/WordStatusActions";
 import { theme } from "../../styles/theme";
 import { CompactSoundButton } from "../../components/CompactSoundButton";
+import {
+  PracticeLayout,
+  PracticePrimaryButton,
+  PracticeSurface,
+} from "../../components/practice/PracticeLayout";
 
 export const Review = () => {
   const { t } = useLanguage();
@@ -41,9 +46,10 @@ export const Review = () => {
   };
 
   return (
-    <Wrapper>
-      <Heading>{t("navigation.review")}</Heading>
-      <Description>{t("review.description")}</Description>
+    <PracticeLayout title={t("navigation.review")}>
+      <Description data-testid="review-exercise-content">
+        {t("review.description")}
+      </Description>
       <Sources>
         {["mistakes", "favorites", "learning", "known"].map((name) => (
           <SourceButton key={name} type="button" $active={source === name} onClick={() => changeSource(name)}>
@@ -74,20 +80,18 @@ export const Review = () => {
           )}
         </Card>
       )}
-    </Wrapper>
+    </PracticeLayout>
   );
 };
 
-const Wrapper = styled.main`inline-size: min(100%, 42rem); min-block-size: 100vh; padding: 1rem 1rem 7rem;`;
-const Heading = styled.h1`margin: 0; color: ${theme.colors.text}; font-size: 1.8rem;`;
-const Description = styled.p`margin: 0.4rem 0 1rem; color: ${theme.colors.textMuted};`;
+const Description = styled.p`margin: 0 0 1rem; color: ${theme.colors.textMuted};`;
 const Sources = styled.div`display: flex; gap: 0.4rem; overflow-x: auto; padding-bottom: 0.3rem;`;
 const SourceButton = styled.button`flex: 0 0 auto; min-block-size: 2.75rem; padding-inline: 0.9rem; color: ${(p) => p.$active ? "white" : theme.colors.textMuted}; background: ${(p) => p.$active ? theme.colors.navy : theme.colors.surface}; border: 1px solid ${(p) => p.$active ? theme.colors.navy : theme.colors.border}; border-radius: ${theme.radius.pill}; font-weight: 700;`;
-const Card = styled.section`display: grid; justify-items: center; gap: 1rem; margin-top: 1rem; padding: 1.5rem 1rem; background: ${theme.colors.surface}; border: 1px solid ${theme.colors.border}; border-radius: ${theme.radius.large}; box-shadow: ${theme.shadow.soft}; text-align: center;`;
+const Card = styled(PracticeSurface)`display: grid; justify-items: center; gap: 1rem; margin-top: 1rem; padding: 1.5rem 1rem; text-align: center;`;
 const Progress = styled.p`justify-self: start; margin: 0; color: ${theme.colors.textMuted}; font-size: 0.8rem;`;
 const Prompt = styled.h2`margin: 1rem 0; color: ${theme.colors.navy}; font-size: clamp(1.5rem, 7vw, 2.2rem);`;
 const Answer = styled.p`margin: 0; color: ${theme.colors.primary}; font-size: 1.5rem; font-weight: 800;`;
-const Primary = styled.button`min-block-size: 2.75rem; padding-inline: 1.5rem; color: white; background: ${theme.colors.primary}; border: 0; border-radius: ${theme.radius.small}; font-weight: 700;`;
+const Primary = styled(PracticePrimaryButton)``;
 const Grade = styled.div`display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; inline-size: 100%;`;
 const Wrong = styled.button`min-block-size: 2.75rem; color: ${theme.colors.error}; background: ${theme.colors.errorSoft}; border: 1px solid ${theme.colors.error}; border-radius: ${theme.radius.small}; font-weight: 700;`;
 const Correct = styled.button`min-block-size: 2.75rem; color: ${theme.colors.success}; background: ${theme.colors.successSoft}; border: 1px solid ${theme.colors.success}; border-radius: ${theme.radius.small}; font-weight: 700;`;

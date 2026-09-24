@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useSpeechSynthesis } from "react-speech-kit";
-import { Title } from "../../components/Title";
 import styled from "styled-components";
 import { Btn } from "../../components/style";
 import { useLanguage } from "../../i18n/LanguageProvider";
@@ -11,6 +10,16 @@ import { speak } from "../../services/tts/ttsProvider";
 import { WordStatusActions } from "../../components/WordStatusActions";
 import { useProgress } from "../../i18n/ProgressProvider";
 import { createBoundedRound, EXERCISE_ROUND_LIMITS } from "../../data/exerciseRounds";
+import {
+  PracticeActionArea,
+  PracticeLayout,
+  PracticeStage,
+} from "../../components/practice/PracticeLayout";
+
+export const cardsSizeConstraints = {
+  inlineSize: "min(88%, 34rem)",
+  blockSize: "clamp(260px, 36dvh, 320px)",
+};
 
 export const Cards = ({ data }) => {
   const { userId } = useParams();
@@ -59,12 +68,13 @@ export const Cards = ({ data }) => {
     }
   };
   return (
-    <Wrapper>
-      <Title title={`${t("navigation.cards")} ${number + 1}`} />
+    <PracticeLayout title={`${t("navigation.cards")} ${number + 1}`}>
       {wordList.length === 0 ? <EmptyExercise message={t("myWords.minimum")} /> : (
-      <Container>
+      <CardStage data-testid="cards-exercise-content">
+        <CardGroup>
         <AnimateBox
           type="button"
+          data-testid="practice-flashcard"
           aria-label={flipped ? "Show English word" : "Show Serbian translation"}
           onClick={flipCard}
         >
@@ -93,28 +103,22 @@ export const Cards = ({ data }) => {
             <Btn onClick={nextWord}>{t("actions.nextWord")}</Btn>
           )}
         </CardActions>
-      </Container>
+        </CardGroup>
+      </CardStage>
       )}
-    </Wrapper>
+    </PracticeLayout>
   );
 };
 
-const Wrapper = styled.div`
-  padding-top: 0.75rem;
-  padding-bottom: 7rem;
-  display: flex;
-  inline-size: 100%;
-  justify-content: center;
+const CardStage = styled(PracticeStage)`
+  align-items: center;
 `;
 
-const Container = styled.div`
+const CardGroup = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   inline-size: 100%;
-  max-inline-size: 42rem;
-  padding-inline: 1rem;
 `;
 
 const SourceWord = styled.div`
@@ -158,10 +162,9 @@ const TargetWord = styled.div`
 const AnimateBox = styled.button`
   position: relative;
   display: block;
-  inline-size: 100%;
-  block-size: clamp(260px, 38vh, 340px);
-  max-inline-size: 34rem;
-  margin-bottom: 0.75rem;
+  inline-size: ${cardsSizeConstraints.inlineSize};
+  block-size: ${cardsSizeConstraints.blockSize};
+  margin-bottom: 1.25rem;
   cursor: pointer;
   perspective: 1000px;
   border-radius: ${theme.radius.large};
@@ -180,11 +183,7 @@ const AnimateBox = styled.button`
   }
 `;
 
-const CardActions = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.5rem;
+const CardActions = styled(PracticeActionArea)`
 
   & > button,
   & > a {
