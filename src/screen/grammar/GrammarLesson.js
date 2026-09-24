@@ -76,6 +76,21 @@ export const GrammarLesson = () => {
         </Examples>
       </Section>
 
+      {lesson.compare?.length > 0 && (
+        <CompareBox>
+          <SectionTitle>{t("grammar.compare")}</SectionTitle>
+          <CompareList>
+            {lesson.compare.map((item) => (
+              <CompareRow key={`${item.serbian}-${item.note}`}>
+                <strong>{item.serbian}</strong>
+                <span>{item.english}</span>
+                <CompareNote>{item.note}</CompareNote>
+              </CompareRow>
+            ))}
+          </CompareList>
+        </CompareBox>
+      )}
+
       <Mistake>
         <FaExclamationTriangle aria-hidden="true" />
         <div>
@@ -110,6 +125,10 @@ const RuleTable = styled.table`inline-size: 100%; min-inline-size: 30rem; border
 const Examples = styled.div`display: grid; gap: 0.55rem;`;
 const Example = styled.article`display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; padding: 0.8rem; background: ${theme.colors.surface}; border: 1px solid ${theme.colors.border}; border-radius: ${theme.radius.medium};`;
 const ExampleCopy = styled.div`min-inline-size: 0; display: grid; gap: 0.2rem; & strong { color: ${theme.colors.primaryPressed}; overflow-wrap: anywhere; } & span { color: ${theme.colors.textMuted}; font-size: 0.84rem; }`;
+const CompareBox = styled.aside`margin-top: 1rem; padding: 0.9rem; background: ${theme.colors.primarySoft}; border: 1px solid ${theme.colors.primary}; border-radius: ${theme.radius.medium};`;
+const CompareList = styled.div`display: grid; gap: 0.55rem;`;
+const CompareRow = styled.div`min-inline-size: 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: 0.15rem; padding: 0.7rem; background: ${theme.colors.surface}; border-radius: ${theme.radius.small}; & strong { color: ${theme.colors.primaryPressed}; overflow-wrap: anywhere; } & span { color: ${theme.colors.textMuted}; font-size: 0.84rem; }`;
+const CompareNote = styled.span`font-weight: 800; color: ${theme.colors.navy} !important;`;
 const Mistake = styled.aside`display: flex; align-items: flex-start; gap: 0.7rem; margin-top: 1rem; padding: 0.9rem; color: ${theme.colors.text}; background: #fff8e6; border: 1px solid #f3cc72; border-radius: ${theme.radius.medium}; & > svg { flex: 0 0 auto; margin-top: 0.15rem; color: #9a6700; } & strong { color: #7a4d00; } & p { margin: 0.25rem 0 0; color: ${theme.colors.textMuted}; line-height: 1.45; }`;
 const CompleteButton = styled.button`min-block-size: 3rem; display: inline-flex; align-items: center; gap: 0.5rem; margin-top: 1rem; padding-inline: 1rem; color: ${(props) => props.$completed ? theme.colors.success : "white"}; background: ${(props) => props.$completed ? theme.colors.successSoft : theme.colors.primary}; border: 1px solid ${(props) => props.$completed ? theme.colors.success : theme.colors.primary}; border-radius: ${theme.radius.small}; font-weight: 800;`;
 const BackLink = styled(Link)`min-block-size: 2.75rem; display: inline-flex; align-items: center; margin: 1rem 0 0 0.6rem; padding-inline: 1rem; color: ${theme.colors.text}; background: ${theme.colors.surface}; border: 1px solid ${theme.colors.border}; border-radius: ${theme.radius.small}; text-decoration: none; font-weight: 700;`;
