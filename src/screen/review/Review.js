@@ -5,9 +5,9 @@ import { useLanguage } from "../../i18n/LanguageProvider";
 import { useMyWords } from "../../i18n/MyWordsProvider";
 import { useProgress } from "../../i18n/ProgressProvider";
 import { EmptyExercise } from "../../components/EmptyExercise";
-import SoundButton from "../../components/SoundButton";
 import { WordStatusActions } from "../../components/WordStatusActions";
 import { theme } from "../../styles/theme";
+import { CompactSoundButton } from "../../components/CompactSoundButton";
 
 export const Review = () => {
   const { t } = useLanguage();
@@ -62,9 +62,9 @@ export const Review = () => {
           ) : (
             <>
               <Answer>{word.target}</Answer>
-              <Speaker text={word.target} lang="sr-RS" ariaLabel={`Hear Serbian pronunciation: ${word.target}`}>
-                <FaVolumeUp aria-hidden="true" /> {t("review.hear")}
-              </Speaker>
+              <CompactSoundButton text={word.target} lang="sr-RS" ariaLabel={`Hear Serbian pronunciation: ${word.target}`}>
+                <FaVolumeUp aria-hidden="true" />
+              </CompactSoundButton>
               <WordStatusActions word={word} />
               <Grade>
                 <Wrong type="button" onClick={() => grade(false)}>{t("review.again")}</Wrong>
@@ -88,7 +88,6 @@ const Progress = styled.p`justify-self: start; margin: 0; color: ${theme.colors.
 const Prompt = styled.h2`margin: 1rem 0; color: ${theme.colors.navy}; font-size: clamp(1.5rem, 7vw, 2.2rem);`;
 const Answer = styled.p`margin: 0; color: ${theme.colors.primary}; font-size: 1.5rem; font-weight: 800;`;
 const Primary = styled.button`min-block-size: 2.75rem; padding-inline: 1.5rem; color: white; background: ${theme.colors.primary}; border: 0; border-radius: ${theme.radius.small}; font-weight: 700;`;
-const Speaker = styled(SoundButton)`inline-size: auto; min-block-size: 2.75rem; display: inline-flex; align-items: center; gap: 0.4rem; padding-inline: 0.8rem; color: ${theme.colors.primary}; background: ${theme.colors.primarySoft}; border-radius: ${theme.radius.pill}; font-weight: 700;`;
 const Grade = styled.div`display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; inline-size: 100%;`;
 const Wrong = styled.button`min-block-size: 2.75rem; color: ${theme.colors.error}; background: ${theme.colors.errorSoft}; border: 1px solid ${theme.colors.error}; border-radius: ${theme.radius.small}; font-weight: 700;`;
 const Correct = styled.button`min-block-size: 2.75rem; color: ${theme.colors.success}; background: ${theme.colors.successSoft}; border: 1px solid ${theme.colors.success}; border-radius: ${theme.radius.small}; font-weight: 700;`;

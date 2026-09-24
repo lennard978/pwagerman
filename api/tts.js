@@ -1,5 +1,6 @@
 const MAX_TEXT_LENGTH = 300;
 const SUPPORTED_LANGUAGE = "sr-RS";
+const DEFAULT_VOICE_NAME = "sr-RS-Chirp3-HD-Aoede";
 
 const allowedOrigins = () =>
   (process.env.TTS_ALLOWED_ORIGINS ||
@@ -64,7 +65,7 @@ module.exports = async (request, response) => {
       input: { text },
       voice: {
         languageCode: SUPPORTED_LANGUAGE,
-        ...(process.env.GOOGLE_TTS_VOICE_NAME ? { name: process.env.GOOGLE_TTS_VOICE_NAME } : {}),
+        name: process.env.GOOGLE_TTS_VOICE_NAME || DEFAULT_VOICE_NAME,
       },
       audioConfig: { audioEncoding: "MP3" },
     });
@@ -78,4 +79,5 @@ module.exports = async (request, response) => {
 
 module.exports.MAX_TEXT_LENGTH = MAX_TEXT_LENGTH;
 module.exports.SUPPORTED_LANGUAGE = SUPPORTED_LANGUAGE;
+module.exports.DEFAULT_VOICE_NAME = DEFAULT_VOICE_NAME;
 module.exports._private = { allowedOrigins, readBody };

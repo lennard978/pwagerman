@@ -594,7 +594,9 @@ test("Lesson speaks the Serbian target", () => {
     </MemoryRouter>
   );
 
-  fireEvent.click(screen.getByText("kuća"));
+  fireEvent.click(screen.getByRole("button", {
+    name: "Hear Serbian pronunciation: kuća",
+  }));
 
   expect(mockSpeak).toHaveBeenCalledWith({
     rate: 0.92,

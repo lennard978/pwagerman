@@ -4,8 +4,8 @@ import { FaVolumeUp } from "react-icons/fa";
 import { useLanguage } from "../../i18n/LanguageProvider";
 import { useMyWords } from "../../i18n/MyWordsProvider";
 import { theme } from "../../styles/theme";
-import SoundButton from "../../components/SoundButton";
 import { WordStatusActions } from "../../components/WordStatusActions";
+import { CompactSoundButton } from "../../components/CompactSoundButton";
 
 const validFilters = ["all", "favorites", "learning", "known"];
 
@@ -108,13 +108,13 @@ export const MyWords = () => {
             </WordPair>
             <CardControls>
               <WordStatusActions word={word} compact />
-              <PronunciationButton
+              <CompactSoundButton
                 text={word.target}
                 lang="sr-RS"
                 ariaLabel={`Hear Serbian pronunciation: ${word.target}`}
               >
                 <FaVolumeUp aria-hidden="true" />
-              </PronunciationButton>
+              </CompactSoundButton>
               {word.kind === "custom" && (
                 <Actions>
                   <SecondaryButton type="button" onClick={() => edit(word)}>{t("myWords.edit")}</SecondaryButton>
@@ -154,6 +154,5 @@ const WordCard = styled.article`display: flex; justify-content: space-between; g
 const WordPair = styled.div`min-inline-size: 0; display: grid; gap: 0.2rem; color: ${theme.colors.text}; overflow-wrap: anywhere; & > span { color: ${theme.colors.primary}; font-weight: 700; }`;
 const Meta = styled.small`color: ${theme.colors.textMuted}; font-size: 0.7rem;`;
 const CardControls = styled.div`display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 0.4rem;`;
-const PronunciationButton = styled(SoundButton)`display: inline-flex; min-inline-size: 2.75rem; min-block-size: 2.75rem; align-items: center; justify-content: center; color: ${theme.colors.primary}; background: ${theme.colors.surfaceMuted}; border: 1px solid ${theme.colors.border}; border-radius: ${theme.radius.pill};`;
 const Empty = styled.div`display: grid; gap: 0.35rem; padding: 1.5rem; color: ${theme.colors.textMuted}; background: ${theme.colors.surfaceMuted}; border-radius: ${theme.radius.medium}; text-align: center;`;
 const LoadMore = styled.button`inline-size: 100%; min-block-size: 2.75rem; margin-top: 0.75rem; color: ${theme.colors.navy}; background: ${theme.colors.surface}; border: 1px solid ${theme.colors.border}; border-radius: ${theme.radius.small}; font-weight: 700;`;

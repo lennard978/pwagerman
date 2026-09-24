@@ -262,7 +262,7 @@ Server-only environment variables:
 GOOGLE_CLOUD_PROJECT_ID
 GOOGLE_CLOUD_CLIENT_EMAIL
 GOOGLE_CLOUD_PRIVATE_KEY
-GOOGLE_TTS_VOICE_NAME (optional)
+GOOGLE_TTS_VOICE_NAME (optional override; defaults to sr-RS-Chirp3-HD-Aoede)
 TTS_ALLOWED_ORIGINS (optional comma-separated override)
 ```
 
@@ -326,7 +326,7 @@ REACT_APP_TTS_ENDPOINT=https://<vercel-project>/api/tts
 6. Rebuild the GitHub Pages frontend after setting that variable. The frontend rebuild is required because Create React App embeds `REACT_APP_*` values at build time.
 7. Deploy the Vercel API and GitHub Pages frontend separately. This work did not deploy either one.
 
-The exact Chirp 3 HD Serbian voice name must be selected only after checking the voices available to the configured Google project; set it as `GOOGLE_TTS_VOICE_NAME` when verified. Leaving it unset uses the configured `sr-RS` language code without guessing a name.
+The endpoint uses `sr-RS-Chirp3-HD-Aoede` by default and continues to honor `GOOGLE_TTS_VOICE_NAME` as an explicit deployment override. The language code remains `sr-RS`.
 
 ## K. Git status
 

@@ -3,11 +3,11 @@ import { Link, useParams } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
 import { FaVolumeUp } from "react-icons/fa";
 import { Title } from "../../components/Title";
-import SoundButton from "../../components/SoundButton";
 import { useLanguage } from "../../i18n/LanguageProvider";
 import { theme } from "../../styles/theme";
 import { WordStatusActions } from "../../components/WordStatusActions";
 import { useProgress } from "../../i18n/ProgressProvider";
+import { CompactSoundButton } from "../../components/CompactSoundButton";
 
 export const Test = ({ data }) => {
   const { userId } = useParams();
@@ -114,13 +114,13 @@ export const Test = ({ data }) => {
                 >
                   {item}
                 </Answer>
-                <Speaker
+                <CompactSoundButton
                   text={item}
                   lang="sr-RS"
                   ariaLabel={`Hear Serbian pronunciation: ${item}`}
                 >
                   <FaVolumeUp aria-hidden="true" />
-                </Speaker>
+                </CompactSoundButton>
               </ChoiceRow>
             ))}
           </Choices>
@@ -196,22 +196,6 @@ const Answer = styled.button`
   transition: color 180ms ease, background-color 180ms ease, border-color 180ms ease, transform 160ms ease;
   &:active { transform: scale(0.985); }
   &:focus-visible { outline: 3px solid ${theme.colors.primarySoft}; }
-`;
-
-const Speaker = styled(SoundButton)`
-  flex: 0 0 2.75rem;
-  display: inline-flex;
-  inline-size: 2.75rem;
-  min-block-size: 2.75rem;
-  align-items: center;
-  justify-content: center;
-  color: ${theme.colors.primary};
-  background: ${theme.colors.surface};
-  border: 1px solid ${theme.colors.border};
-  border-radius: ${theme.radius.small};
-  box-shadow: ${theme.shadow.soft};
-  transition: transform 160ms ease, background-color 180ms ease;
-  &:active { transform: scale(0.94); }
 `;
 
 const PrimaryButton = styled.button`

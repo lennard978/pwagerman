@@ -3,12 +3,12 @@ import { Link, useParams } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
 import { FaVolumeUp } from "react-icons/fa";
 import { Title } from "../../components/Title";
-import SoundButton from "../../components/SoundButton";
 import { useLanguage } from "../../i18n/LanguageProvider";
 import { theme } from "../../styles/theme";
 import { EmptyExercise } from "../../components/EmptyExercise";
 import { WordStatusActions } from "../../components/WordStatusActions";
 import { useProgress } from "../../i18n/ProgressProvider";
+import { CompactSoundButton } from "../../components/CompactSoundButton";
 
 const shuffle = (items) => [...items].sort(() => Math.random() - 0.5);
 
@@ -135,13 +135,13 @@ export const Quiz = ({ data }) => {
                   >
                     {choice}
                   </Choice>
-                  <Speaker
+                  <CompactSoundButton
                     text={choice}
                     lang="sr-RS"
                     ariaLabel={`Hear Serbian pronunciation: ${choice}`}
                   >
                     <FaVolumeUp aria-hidden="true" />
-                  </Speaker>
+                  </CompactSoundButton>
                 </ChoiceRow>
               );
             })}
@@ -230,22 +230,6 @@ const Choice = styled.button`
     outline: 3px solid ${theme.colors.primarySoft};
     outline-offset: 2px;
   }
-`;
-
-const Speaker = styled(SoundButton)`
-  flex: 0 0 2.75rem;
-  display: inline-flex;
-  inline-size: 2.75rem;
-  min-block-size: 2.75rem;
-  align-items: center;
-  justify-content: center;
-  color: ${theme.colors.primary};
-  background: ${theme.colors.surface};
-  border: 1px solid ${theme.colors.border};
-  border-radius: ${theme.radius.small};
-  box-shadow: ${theme.shadow.soft};
-  transition: transform 160ms ease, background-color 180ms ease;
-  &:active { transform: scale(0.94); }
 `;
 
 const Feedback = styled.p`
