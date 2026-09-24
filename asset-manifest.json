@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/pwagerman/static/css/main.fe2c4152.css",
-    "main.js": "/pwagerman/static/js/main.822a7f9b.js",
+    "main.js": "/pwagerman/static/js/main.5d1cfcb4.js",
     "static/js/377.fe516479.chunk.js": "/pwagerman/static/js/377.fe516479.chunk.js",
     "service-worker.js": "/pwagerman/service-worker.js",
     "index.html": "/pwagerman/index.html",
     "main.fe2c4152.css.map": "/pwagerman/static/css/main.fe2c4152.css.map",
-    "main.822a7f9b.js.map": "/pwagerman/static/js/main.822a7f9b.js.map",
+    "main.5d1cfcb4.js.map": "/pwagerman/static/js/main.5d1cfcb4.js.map",
     "377.fe516479.chunk.js.map": "/pwagerman/static/js/377.fe516479.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.fe2c4152.css",
-    "static/js/main.822a7f9b.js"
+    "static/js/main.5d1cfcb4.js"
   ]
 }
