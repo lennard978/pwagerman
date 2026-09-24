@@ -3,20 +3,31 @@ import { theme } from "../styles/theme";
 
 export const Title = ({ title }) => {
   return (
-    <Container>
-      <H2>{title}</H2>
-    </Container>
+    <>
+      <Spacer aria-hidden="true" />
+      <Container>
+        <H2>{title}</H2>
+      </Container>
+    </>
   );
 };
 
+const Spacer = styled.div`
+  block-size: 0;
+`;
+
 const Container = styled.div`
   position: fixed;
-  top: 3.25rem;
+  top: 0;
   left: 0;
   inline-size: 100vw;
   z-index: 5;
   text-align: center;
-  padding: 0.9rem 1rem;
+  block-size: 3.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-inline: 1rem;
   background: ${theme.colors.surface};
   border-bottom: 1px solid ${theme.colors.border};
   box-shadow: 0 2px 12px rgba(31, 41, 51, 0.04);

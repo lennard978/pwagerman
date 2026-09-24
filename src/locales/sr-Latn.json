@@ -95,5 +95,18 @@
   "update": {
     "available": "Dostupna je nova verzija",
     "action": "Ažuriraj sada"
+  },
+  "install": {
+    "cta": "Instaliraj aplikaciju",
+    "close": "U redu",
+    "ios": {
+      "step1": "Dodirni Share u Safariju",
+      "step2": "Izaberi Add to Home Screen",
+      "step3": "Dodirni Add, pa otvori aplikaciju sa početnog ekrana"
+    },
+    "android": {
+      "step1": "Otvori meni u Chrome pregledaču",
+      "step2": "Izaberi Add to Home screen ili Install app"
+    }
   }
 }

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useLanguage } from "../../i18n/LanguageProvider";
 import { theme } from "../../styles/theme";
+import { InstallHelp } from "../../components/InstallHelp";
 
 export const Home = () => {
   const { t } = useLanguage();
@@ -15,6 +16,7 @@ export const Home = () => {
         {t("myWords.title")}
         <small>{t("myWords.description")}</small>
       </MyWordsLink>
+      <InstallHelp />
     </Container>
   );
 };

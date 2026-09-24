@@ -1,10 +1,12 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import {
   duplicateWord,
   loadMyWords,
+  loadMyWordsFromIndexedDb,
   MY_WORDS_MAX_LENGTH,
   normalizeWord,
   saveMyWords,
+  saveMyWordsToIndexedDb,
 } from "../data/myWords";
 
 const MyWordsContext = createContext(null);
@@ -12,9 +14,24 @@ const MyWordsContext = createContext(null);
 export const MyWordsProvider = ({ children }) => {
   const [words, setWords] = useState(() => loadMyWords());
 
+  // localStorage renders instantly; IndexedDB (when supported) is loaded in
+  // the background and takes over as the source of truth once ready, so a
+  // Safari/iOS storage weakness in one store doesn't lose saved words.
+  useEffect(() => {
+    let cancelled = false;
+    loadMyWordsFromIndexedDb().then((idbWords) => {
+      if (cancelled || idbWords === null) return;
+      setWords(idbWords);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
   const persist = (nextWords) => {
     setWords(nextWords);
     saveMyWords(nextWords);
+    saveMyWordsToIndexedDb(nextWords);
   };
 
   const addWord = (sourceValue, targetValue) => {

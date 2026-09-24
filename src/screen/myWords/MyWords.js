@@ -3,6 +3,8 @@ import styled from "styled-components";
 import { useLanguage } from "../../i18n/LanguageProvider";
 import { useMyWords } from "../../i18n/MyWordsProvider";
 import { theme } from "../../styles/theme";
+import SoundButton from "../../components/SoundButton";
+import { FaVolumeUp } from "react-icons/fa";
 
 export const MyWords = () => {
   const { t } = useLanguage();
@@ -65,7 +67,18 @@ export const MyWords = () => {
           </Empty>
         ) : words.map((word) => (
           <WordCard key={word.id}>
-            <WordPair><strong>{word.source}</strong><span>{word.target}</span></WordPair>
+            <WordPair>
+              <strong>{word.source}</strong>
+              <span>{word.target}</span>
+              <PronunciationButton
+                text={word.target}
+                lang="sr-RS"
+                ariaLabel={`Hear Serbian pronunciation: ${word.target}`}
+              >
+                <FaVolumeUp aria-hidden="true" />
+                <span>Hear</span>
+              </PronunciationButton>
+            </WordPair>
             <Actions>
               <SecondaryButton type="button" onClick={() => edit(word)}>{t("myWords.edit")}</SecondaryButton>
               <SecondaryButton type="button" onClick={() => window.confirm(t("myWords.deleteConfirm")) && deleteWord(word.id)}>{t("myWords.delete")}</SecondaryButton>
@@ -94,4 +107,15 @@ const Error = styled.p`margin: 0; color: ${theme.colors.error}; font-weight: 600
 const List = styled.div`display: grid; gap: 0.75rem; margin-top: 1rem;`;
 const WordCard = styled.article`display: flex; justify-content: space-between; gap: 0.75rem; align-items: center; padding: 1rem; background: ${theme.colors.surface}; border: 1px solid ${theme.colors.border}; border-radius: ${theme.radius.medium}; box-shadow: ${theme.shadow.soft};`;
 const WordPair = styled.div`display: grid; gap: 0.25rem; color: ${theme.colors.text}; & span { color: ${theme.colors.primary}; font-weight: 700; }`;
+const PronunciationButton = styled(SoundButton)`
+  display: inline-flex;
+  inline-size: auto;
+  align-items: center;
+  gap: 0.35rem;
+  margin-top: 0.15rem;
+  padding: 0.25rem 0.45rem;
+  color: ${theme.colors.primary};
+  border-radius: ${theme.radius.small};
+  &:hover { background: ${theme.colors.primarySoft}; }
+`;
 const Empty = styled.div`display: grid; gap: 0.35rem; padding: 1.5rem; color: ${theme.colors.textMuted}; background: ${theme.colors.surfaceMuted}; border-radius: ${theme.radius.medium}; text-align: center;`;
