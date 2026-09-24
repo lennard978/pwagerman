@@ -17,7 +17,7 @@ const createRound = (items) => {
   const questions = createBoundedRound(items, EXERCISE_ROUND_LIMITS.quiz);
   return questions.map((question) => {
     const distractors = shuffle(
-      items.filter((item) => item.source !== question.source)
+      items.filter((item) => item.target !== question.target)
     )
       .slice(0, 3)
       .map((item) => item.target);

@@ -247,6 +247,14 @@
     "connectors": {
       "title": "Svakodnevni veznici",
       "description": "Poveži kratke misli osnovnim veznicima."
+    },
+    "calendarSeasons": {
+      "title": "Kalendar i godišnja doba",
+      "description": "Nauči mesece, godišnja doba, vikend i osnovne kalendarske izraze."
+    },
+    "colours": {
+      "title": "Boje",
+      "description": "Opiši svakodnevne predmete pomoću osnovnih boja."
     }
   },
   "exercise": {

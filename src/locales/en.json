@@ -248,6 +248,14 @@
     "connectors": {
       "title": "Everyday Connectors",
       "description": "Join short ideas with essential connecting words."
+    },
+    "calendarSeasons": {
+      "title": "Calendar & Seasons",
+      "description": "Learn months, seasons, weekends, and basic calendar expressions."
+    },
+    "colours": {
+      "title": "Colours",
+      "description": "Describe everyday objects with essential colour words."
     }
   },
   "exercise": {

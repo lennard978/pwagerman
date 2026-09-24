@@ -53,9 +53,9 @@ test("lesson data directly uses source and target fields", () => {
     });
   });
 
-  expect(Lesson3.items).toContainEqual({ source: "house", target: "kuća" });
-  expect(Lesson2.items).toContainEqual({ source: "mother", target: "majka" });
-  expect(Lesson4.items).toContainEqual({ source: "water", target: "voda" });
+  expect(Lesson3.items).toContainEqual(expect.objectContaining({ source: "house", target: "kuća" }));
+  expect(Lesson2.items).toContainEqual(expect.objectContaining({ source: "mother", target: "majka" }));
+  expect(Lesson4.items).toContainEqual(expect.objectContaining({ source: "water", target: "voda" }));
 });
 
 test("defines six structured lessons with localized metadata", () => {
@@ -73,35 +73,28 @@ test("defines six structured lessons with localized metadata", () => {
 
 test("built-in vocabulary exposes scalable A1 metadata without changing stable IDs", () => {
   const allItems = Curriculum.flatMap((lesson) => lesson.items);
-  const phase2BLessonCounts = [
+  const phase2CLessonCounts = [
     20, 20, 20, 20, 20, 20, 7, 7, 7, 6, 6, 7, 6, 7, 7,
     7, 7, 7, 7, 7, 7, 7, 6, 5,
+    8, 7, 8, 7, 6, 7, 6, 6, 5,
   ];
-  const original240Ids = phase2BLessonCounts.flatMap((count, lessonIndex) =>
+  const original300Ids = phase2CLessonCounts.flatMap((count, lessonIndex) =>
     Array.from(
       { length: count },
       (_, itemIndex) => `lesson-${lessonIndex + 1}-word-${itemIndex + 1}`
     )
   );
+  const allIds = allItems.map((item) => item.id);
+  const originalIdSet = new Set(original300Ids);
 
-  expect(allItems).toHaveLength(300);
-  expect(Curriculum.slice(0, 24).flatMap((lesson) =>
-    lesson.items.map((item) => item.id)
-  )).toEqual(original240Ids);
-  expect(Curriculum.slice(15, 24).flatMap((lesson) => lesson.items)).toHaveLength(60);
-  expect(Curriculum.slice(24).flatMap((lesson) => lesson.items)).toHaveLength(60);
-  expect(Curriculum.slice(24).map((lesson) => [lesson.category, lesson.items.length]))
-    .toEqual([
-      ["high-frequency-verbs", 8],
-      ["daily-actions", 7],
-      ["time-frequency", 8],
-      ["common-adjectives-2", 7],
-      ["needs-preferences", 6],
-      ["feelings-states", 7],
-      ["communication-phrases", 6],
-      ["common-adverbs", 6],
-      ["everyday-connectors", 5],
-    ]);
+  expect(allItems).toHaveLength(356);
+  original300Ids.forEach((id) => expect(allIds).toContain(id));
+  expect(allIds.filter((id) => !originalIdSet.has(id))).toHaveLength(56);
+  expect(Curriculum.map((lesson) => lesson.items.length)).toEqual([
+    21, 22, 20, 20, 20, 20, 7, 7, 7, 6, 8, 11, 6, 8, 7,
+    11, 7, 7, 9, 10, 9, 11, 6, 5, 8, 7, 8, 7, 6, 7, 6, 6,
+    6, 23, 7,
+  ]);
   Curriculum.forEach((lesson) => {
     lesson.items.forEach((item, index) => {
       expect(item).toEqual(expect.objectContaining({
@@ -125,27 +118,22 @@ test("built-in vocabulary exposes scalable A1 metadata without changing stable I
   });
   expect(new Set(allItems.map((item) => item.id)).size).toBe(allItems.length);
   expect(new Set(Curriculum.map((lesson) => lesson.id)).size).toBe(Curriculum.length);
-  Curriculum.slice(0, 6).forEach((lesson) => {
-    expect(lesson.items).toHaveLength(20);
-    lesson.items.forEach((item, index) => {
-      expect(item.id).toBe(`${lesson.id}-word-${index + 1}`);
-    });
-  });
-  Curriculum.slice(6).flatMap((lesson) => lesson.items).forEach((item) => {
+  allItems.forEach((item) => {
     expect(item.partOfSpeech).toEqual(expect.any(String));
+    expect(item.partOfSpeech.length).toBeGreaterThan(0);
   });
-  Curriculum.slice(24).flatMap((lesson) => lesson.items).forEach((item) => {
+  allItems.filter((item) => !originalIdSet.has(item.id)).forEach((item) => {
     expect(item.sourceType).toBe("supplementary");
   });
 });
 
 test("new vocabulary keeps the progress identity required by Review and recent mistakes", () => {
-  const word = Curriculum[32].items[0];
+  const word = Curriculum[34].items[0];
 
   expect(progressWord(word)).toEqual({
-    id: "lesson-33-word-1",
-    source: "and",
-    target: "i",
+    id: "lesson-35-word-1",
+    source: "colour",
+    target: "boja",
     kind: "built-in",
   });
 });
@@ -159,9 +147,11 @@ test("has no duplicate vocabulary pairs across lessons", () => {
 });
 
 test("exercise rounds stay bounded as vocabulary categories grow", () => {
-  const items = Curriculum.flatMap((lesson) => lesson.items);
-  Object.values(EXERCISE_ROUND_LIMITS).forEach((limit) => {
-    expect(createBoundedRound(items, limit, () => 0.5)).toHaveLength(limit);
+  Curriculum.forEach((lesson) => {
+    Object.values(EXERCISE_ROUND_LIMITS).forEach((limit) => {
+      expect(createBoundedRound(lesson.items, limit, () => 0.5))
+        .toHaveLength(Math.min(limit, lesson.items.length));
+    });
   });
   expect(Math.max(...Tests.map((testSet) => testSet.questions.length)))
     .toBe(EXERCISE_ROUND_LIMITS.test);
@@ -636,6 +626,7 @@ test("active test data contains bounded questions for every curriculum category"
     expect(testSet.questions.length).toBeLessThanOrEqual(EXERCISE_ROUND_LIMITS.test);
     testSet.questions.forEach((question) => {
       expect(question.options).not.toEqual(["der", "die", "das"]);
+      expect(new Set(question.options).size).toBe(question.options.length);
       expect(question.prompt).toContain("Serbian");
       expect(lessonTargets).toContain(question.answer);
       question.options.forEach((option) => expect(lessonTargets).toContain(option));
@@ -650,11 +641,11 @@ test("Test chooser renders every bounded curriculum test", () => {
     </MemoryRouter>
   );
 
-  expect(screen.getAllByRole("link")).toHaveLength(33);
+  expect(screen.getAllByRole("link")).toHaveLength(35);
   expect(screen.getByText("Greetings & Introductions")).toBeTruthy();
   expect(screen.getByText("Travel & Places")).toBeTruthy();
   expect(screen.getByText("Common Verbs")).toBeTruthy();
-  expect(screen.getByText("Everyday Connectors")).toBeTruthy();
+  expect(screen.getByText("Colours")).toBeTruthy();
   expect(screen.getByText("Learn essential greetings and simple introductions.")).toBeTruthy();
 });
 
