@@ -15,6 +15,7 @@ export const WordStatusActions = ({ word, compact = false }) => {
     <Actions $compact={compact}>
       <Action
         type="button"
+        $compact={compact}
         $active={currentWord.favorite}
         aria-pressed={currentWord.favorite}
         aria-label={currentWord.favorite ? t("vocabulary.unfavorite") : t("vocabulary.favorite")}
@@ -25,6 +26,7 @@ export const WordStatusActions = ({ word, compact = false }) => {
       </Action>
       <Action
         type="button"
+        $compact={compact}
         $active={currentWord.status === "known"}
         aria-pressed={currentWord.status === "known"}
         aria-label={currentWord.status === "known" ? t("vocabulary.markLearning") : t("vocabulary.markKnown")}
@@ -41,22 +43,23 @@ export const WordStatusActions = ({ word, compact = false }) => {
 const Actions = styled.div`
   display: flex;
   flex-wrap: wrap;
-  gap: 0.4rem;
-  justify-content: ${(props) => (props.$compact ? "center" : "flex-start")};
+  gap: 0.5rem;
+  justify-content: flex-start;
 `;
 
 const Action = styled.button`
+  inline-size: ${(props) => (props.$compact ? "2.75rem" : "auto")};
   min-inline-size: 2.75rem;
   min-block-size: 2.75rem;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.35rem;
-  padding: 0.45rem 0.7rem;
+  padding: ${(props) => (props.$compact ? "0" : "0.45rem 0.7rem")};
   color: ${(props) => (props.$active ? theme.colors.primaryPressed : theme.colors.textMuted)};
   background: ${(props) => (props.$active ? theme.colors.primarySoft : theme.colors.surfaceMuted)};
   border: 1px solid ${(props) => (props.$active ? theme.colors.primary : theme.colors.border)};
-  border-radius: ${theme.radius.pill};
+  border-radius: ${(props) => (props.$compact ? theme.radius.small : theme.radius.pill)};
   font-weight: 700;
   cursor: pointer;
   transition: color 180ms ease, background-color 180ms ease, border-color 180ms ease, transform 160ms ease;

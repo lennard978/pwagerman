@@ -1,6 +1,12 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { LanguageProvider } from "../i18n/LanguageProvider";
-import { InstallHelp, isIosDevice, isStandaloneDisplay } from "./InstallHelp";
+import {
+  INSTALL_HELP_DISMISSED_KEY,
+  InstallHelp,
+  isIosDevice,
+  isMobileDevice,
+  isStandaloneDisplay,
+} from "./InstallHelp";
 
 const renderInstallHelp = () =>
   render(
@@ -10,8 +16,10 @@ const renderInstallHelp = () =>
   );
 
 afterEach(() => {
+  jest.restoreAllMocks();
   delete window.navigator.standalone;
   window.matchMedia = undefined;
+  localStorage.clear();
 });
 
 test("shows iOS install steps on an iPhone Safari user agent", () => {
@@ -21,9 +29,9 @@ test("shows iOS install steps on an iPhone Safari user agent", () => {
   window.matchMedia = jest.fn().mockReturnValue({ matches: false });
 
   renderInstallHelp();
-  fireEvent.click(screen.getByRole("button", { name: "Install app" }));
 
   expect(screen.getByText("Tap Share in Safari")).toBeTruthy();
+  expect(screen.getByText("Choose Add to Home Screen")).toBeTruthy();
 });
 
 test("hides the install help entirely when already running standalone", () => {
@@ -49,4 +57,33 @@ test("isStandaloneDisplay detects iOS navigator.standalone", () => {
   window.navigator.standalone = true;
 
   expect(isStandaloneDisplay()).toBe(true);
+});
+
+test("shows Android install steps and remembers dismissal", () => {
+  jest.spyOn(window.navigator, "userAgent", "get").mockReturnValue(
+    "Mozilla/5.0 (Linux; Android 14; Pixel 8) AppleWebKit/537.36 Chrome/126 Mobile"
+  );
+  window.matchMedia = jest.fn().mockReturnValue({ matches: false });
+
+  const view = renderInstallHelp();
+  expect(screen.getByText("Open the browser menu in Chrome")).toBeTruthy();
+  fireEvent.click(screen.getByRole("button", { name: "Got it" }));
+  expect(localStorage.getItem(INSTALL_HELP_DISMISSED_KEY)).toBe("true");
+  expect(screen.queryByText("Open the browser menu in Chrome")).toBeNull();
+
+  view.unmount();
+  renderInstallHelp();
+  expect(screen.queryByText("Open the browser menu in Chrome")).toBeNull();
+});
+
+test("does not show install help on desktop browsers", () => {
+  jest.spyOn(window.navigator, "userAgent", "get").mockReturnValue(
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/126"
+  );
+  window.matchMedia = jest.fn().mockReturnValue({ matches: false });
+
+  renderInstallHelp();
+
+  expect(screen.queryByText("Install app")).toBeNull();
+  expect(isMobileDevice()).toBe(false);
 });

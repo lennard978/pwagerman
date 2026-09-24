@@ -169,6 +169,7 @@ test("saved My Words pronounce the Serbian target without coupling Edit/Delete",
   expect(mockProviderSpeak).toHaveBeenCalledWith(expect.objectContaining({
     text: "kuća",
   }));
+  expect(screen.getAllByText("Lesson").length).toBeGreaterThan(0);
 });
 
 test("migrates existing localStorage words into IndexedDB once, keeping every entry", async () => {

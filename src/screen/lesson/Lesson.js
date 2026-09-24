@@ -37,7 +37,9 @@ export const Lesson = ({ data }) => {
                 <FaVolumeUp aria-hidden="true" />
               </CompactSoundButton>
             </VocabularyRow>
-            <WordStatusActions word={item} />
+            <CardActions>
+              <WordStatusActions word={item} compact />
+            </CardActions>
           </Container>
         );
       })}
@@ -112,5 +114,11 @@ const TargetParagraph = styled.p`
   color: ${theme.colors.primary};
   font-size: 1.15rem;
   font-weight: 800;
+`;
+const CardActions = styled.div`
+  display: flex;
+  align-items: center;
+  padding-top: 0.75rem;
+  border-top: 1px solid ${theme.colors.border};
 `;
 const CompleteLink = styled(Link)`min-block-size: 2.75rem; display: inline-flex; align-items: center; margin-top: 0.75rem; padding-inline: 1.25rem; color: white; background: ${theme.colors.primary}; border-radius: ${theme.radius.small}; text-decoration: none; font-weight: 700;`;

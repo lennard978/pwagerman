@@ -110,7 +110,7 @@
     "filters": "Vocabulary filters",
     "wordCount": "words",
     "custom": "My word",
-    "curriculum": "Curriculum",
+    "curriculum": "Lesson",
     "noMatches": "No words in this filter",
     "filterHint": "Change a word's status or choose another filter.",
     "showMore": "Show more words"
@@ -172,11 +172,13 @@
   },
   "update": {
     "available": "New version available",
-    "action": "Update now"
+    "action": "Update now",
+    "description": "Refresh to use the latest Serbian A1 improvements."
   },
   "install": {
     "cta": "Install app",
     "close": "Got it",
+    "description": "Add Serbian A1 to your Home Screen for quick, full-screen access.",
     "ios": {
       "step1": "Tap Share in Safari",
       "step2": "Choose Add to Home Screen",

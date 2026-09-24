@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { FaVolumeUp } from "react-icons/fa";
+import { FaPen, FaTrash, FaVolumeUp } from "react-icons/fa";
 import { useLanguage } from "../../i18n/LanguageProvider";
 import { useMyWords } from "../../i18n/MyWordsProvider";
 import { theme } from "../../styles/theme";
@@ -101,13 +101,12 @@ export const MyWords = () => {
           </Empty>
         ) : visibleWords.slice(0, visibleLimit).map((word) => (
           <WordCard key={word.id}>
-            <WordPair>
-              <strong>{word.source}</strong>
-              <span>{word.target}</span>
-              <Meta>{word.kind === "custom" ? t("myWords.custom") : t("myWords.curriculum")}</Meta>
-            </WordPair>
-            <CardControls>
-              <WordStatusActions word={word} compact />
+            <CardMain>
+              <WordPair>
+                <Meta>{word.kind === "custom" ? t("myWords.custom") : t("myWords.curriculum")}</Meta>
+                <strong>{word.source}</strong>
+                <span>{word.target}</span>
+              </WordPair>
               <CompactSoundButton
                 text={word.target}
                 lang="sr-RS"
@@ -115,13 +114,20 @@ export const MyWords = () => {
               >
                 <FaVolumeUp aria-hidden="true" />
               </CompactSoundButton>
+            </CardMain>
+            <CardActions>
+              <WordStatusActions word={word} compact />
               {word.kind === "custom" && (
-                <Actions>
-                  <SecondaryButton type="button" onClick={() => edit(word)}>{t("myWords.edit")}</SecondaryButton>
-                  <SecondaryButton type="button" onClick={() => window.confirm(t("myWords.deleteConfirm")) && deleteWord(word.id)}>{t("myWords.delete")}</SecondaryButton>
-                </Actions>
+                <CustomActions>
+                  <IconAction type="button" aria-label={t("myWords.edit")} title={t("myWords.edit")} onClick={() => edit(word)}>
+                    <FaPen aria-hidden="true" />
+                  </IconAction>
+                  <IconAction type="button" aria-label={t("myWords.delete")} title={t("myWords.delete")} $danger onClick={() => window.confirm(t("myWords.deleteConfirm")) && deleteWord(word.id)}>
+                    <FaTrash aria-hidden="true" />
+                  </IconAction>
+                </CustomActions>
               )}
-            </CardControls>
+            </CardActions>
           </WordCard>
         ))}
       </List>
@@ -150,9 +156,12 @@ const Filters = styled.div`display: flex; gap: 0.4rem; margin-top: 1rem; overflo
 const Filter = styled.button`flex: 0 0 auto; min-block-size: 2.75rem; padding: 0.5rem 0.9rem; color: ${(props) => props.$active ? "white" : theme.colors.textMuted}; background: ${(props) => props.$active ? theme.colors.navy : theme.colors.surface}; border: 1px solid ${(props) => props.$active ? theme.colors.navy : theme.colors.border}; border-radius: ${theme.radius.pill}; font-weight: 700;`;
 const Count = styled.p`margin: 0.6rem 0 0; color: ${theme.colors.textMuted}; font-size: 0.8rem;`;
 const List = styled.div`display: grid; gap: 0.75rem; margin-top: 0.6rem;`;
-const WordCard = styled.article`display: flex; justify-content: space-between; gap: 0.75rem; align-items: center; padding: 1rem; background: ${theme.colors.surface}; border: 1px solid ${theme.colors.border}; border-radius: ${theme.radius.medium}; box-shadow: ${theme.shadow.soft}; @media (max-width: 24rem) { align-items: stretch; flex-direction: column; }`;
-const WordPair = styled.div`min-inline-size: 0; display: grid; gap: 0.2rem; color: ${theme.colors.text}; overflow-wrap: anywhere; & > span { color: ${theme.colors.primary}; font-weight: 700; }`;
-const Meta = styled.small`color: ${theme.colors.textMuted}; font-size: 0.7rem;`;
-const CardControls = styled.div`display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 0.4rem;`;
+const WordCard = styled.article`display: grid; gap: 0.8rem; padding: 1rem; background: ${theme.colors.surface}; border: 1px solid ${theme.colors.border}; border-radius: ${theme.radius.medium}; box-shadow: ${theme.shadow.soft};`;
+const CardMain = styled.div`display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; min-inline-size: 0;`;
+const WordPair = styled.div`min-inline-size: 0; display: grid; gap: 0.18rem; color: ${theme.colors.text}; overflow-wrap: anywhere; & > strong { font-size: 1rem; } & > span { color: ${theme.colors.primary}; font-size: 1.15rem; font-weight: 800; }`;
+const Meta = styled.small`justify-self: start; margin-bottom: 0.1rem; padding: 0.15rem 0.45rem; color: ${theme.colors.textMuted}; background: ${theme.colors.surfaceMuted}; border-radius: ${theme.radius.pill}; font-size: 0.68rem; font-weight: 700;`;
+const CardActions = styled.div`display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; padding-top: 0.75rem; border-top: 1px solid ${theme.colors.border};`;
+const CustomActions = styled.div`display: flex; gap: 0.5rem; margin-inline-start: auto;`;
+const IconAction = styled.button`inline-size: 2.75rem; min-inline-size: 2.75rem; block-size: 2.75rem; display: inline-flex; align-items: center; justify-content: center; padding: 0; color: ${(props) => props.$danger ? theme.colors.error : theme.colors.textMuted}; background: ${(props) => props.$danger ? theme.colors.errorSoft : theme.colors.surfaceMuted}; border: 1px solid ${(props) => props.$danger ? theme.colors.error : theme.colors.border}; border-radius: ${theme.radius.small}; &:focus-visible { outline: 3px solid ${theme.colors.primarySoft}; outline-offset: 2px; }`;
 const Empty = styled.div`display: grid; gap: 0.35rem; padding: 1.5rem; color: ${theme.colors.textMuted}; background: ${theme.colors.surfaceMuted}; border-radius: ${theme.radius.medium}; text-align: center;`;
 const LoadMore = styled.button`inline-size: 100%; min-block-size: 2.75rem; margin-top: 0.75rem; color: ${theme.colors.navy}; background: ${theme.colors.surface}; border: 1px solid ${theme.colors.border}; border-radius: ${theme.radius.small}; font-weight: 700;`;

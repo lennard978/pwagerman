@@ -90,9 +90,6 @@ export const Test = ({ data }) => {
                 <Prompt>{answer.prompt}</Prompt>
                 <Detail $correct={answer.correct}>{t("exercise.yourAnswer")}: {answer.answer}</Detail>
                 <Correct>{t("exercise.correctAnswer")}: {answer.correctAnswer}</Correct>
-                <Status $correct={answer.correct}>
-                  {answer.correct ? t("exercise.correct") : t("exercise.incorrect")}
-                </Status>
                 <WordStatusActions word={answer.word} />
               </ReviewItem>
             ))}
@@ -279,12 +276,6 @@ const Detail = styled.p`
 const Correct = styled.p`
   margin: 0.2rem 0;
   color: ${theme.colors.success};
-`;
-
-const Status = styled.p`
-  margin: 0.4rem 0 0;
-  color: ${(props) => props.$correct ? theme.colors.success : theme.colors.error};
-  font-weight: 700;
 `;
 
 const BackLink = styled(Link)`

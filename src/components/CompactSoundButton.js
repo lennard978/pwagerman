@@ -3,11 +3,11 @@ import SoundButton from "./SoundButton";
 import { theme } from "../styles/theme";
 
 export const CompactSoundButton = styled(SoundButton)`
-  flex: 0 0 2.875rem;
-  inline-size: 2.875rem;
-  min-inline-size: 2.875rem;
-  block-size: 2.875rem;
-  min-block-size: 2.875rem;
+  flex: 0 0 3rem;
+  inline-size: 3rem;
+  min-inline-size: 3rem;
+  block-size: 3rem;
+  min-block-size: 3rem;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -26,5 +26,10 @@ export const CompactSoundButton = styled(SoundButton)`
 
   &:active {
     transform: scale(0.94);
+  }
+
+  &:focus-visible {
+    outline: 3px solid ${theme.colors.primarySoft};
+    outline-offset: 2px;
   }
 `;

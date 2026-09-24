@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import { FaSyncAlt } from "react-icons/fa";
 import { useLanguage } from "../i18n/LanguageProvider";
 import {
   activateWaitingServiceWorker,
@@ -18,7 +19,11 @@ export const UpdateNotification = () => {
 
   return (
     <Toast role="status" aria-live="polite">
-      <Message>{t("update.available")}</Message>
+      <UpdateIcon aria-hidden="true"><FaSyncAlt /></UpdateIcon>
+      <Copy>
+        <Message>{t("update.available")}</Message>
+        <Description>{t("update.description")}</Description>
+      </Copy>
       <UpdateButton type="button" onClick={activateWaitingServiceWorker}>
         {t("update.action")}
       </UpdateButton>
@@ -34,23 +39,55 @@ const Toast = styled.aside`
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  max-inline-size: calc(100% - 2rem);
-  padding: 0.75rem;
+  inline-size: min(28rem, calc(100% - 2rem));
+  padding: 0.85rem;
   color: ${theme.colors.text};
   background: ${theme.colors.surface};
-  border: 1px solid ${theme.colors.border};
-  border-radius: ${theme.radius.small};
+  border: 1px solid #fed7aa;
+  border-radius: ${theme.radius.medium};
   box-shadow: ${theme.shadow.soft};
+
+  @media (max-width: 24rem) {
+    right: 1rem;
+    align-items: stretch;
+    flex-wrap: wrap;
+  }
+`;
+
+const UpdateIcon = styled.span`
+  flex: 0 0 2.5rem;
+  inline-size: 2.5rem;
+  block-size: 2.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: ${theme.colors.primary};
+  background: ${theme.colors.primarySoft};
+  border-radius: ${theme.radius.small};
+`;
+
+const Copy = styled.div`
+  min-inline-size: 0;
+  flex: 1;
+  display: grid;
+  gap: 0.15rem;
 `;
 
 const Message = styled.p`
   margin: 0;
   font-size: 0.9rem;
-  font-weight: 600;
+  font-weight: 800;
+`;
+
+const Description = styled.p`
+  margin: 0;
+  color: ${theme.colors.textMuted};
+  font-size: 0.78rem;
+  line-height: 1.35;
 `;
 
 const UpdateButton = styled.button`
-  min-block-size: 2.5rem;
+  min-block-size: 2.75rem;
   flex: 0 0 auto;
   padding-inline: 0.9rem;
   color: white;
@@ -67,5 +104,9 @@ const UpdateButton = styled.button`
   &:focus-visible {
     outline: 3px solid ${theme.colors.primarySoft};
     outline-offset: 2px;
+  }
+
+  @media (max-width: 24rem) {
+    inline-size: 100%;
   }
 `;

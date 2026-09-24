@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 import { FaVolumeUp } from "react-icons/fa";
 import { Title } from "../../components/Title";
 import { useLanguage } from "../../i18n/LanguageProvider";
@@ -26,11 +26,6 @@ const createRound = (items) => {
     };
   });
 };
-
-const revealResult = keyframes`
-  from { opacity: 0; transform: translateY(4px); }
-  to { opacity: 1; transform: translateY(0); }
-`;
 
 export const Quiz = ({ data }) => {
   const { userId } = useParams();
@@ -102,9 +97,6 @@ export const Quiz = ({ data }) => {
                   {t("exercise.yourAnswer")}: {answer.answer}
                 </ReviewDetail>
                 <CorrectAnswer>{t("exercise.correctAnswer")}: {answer.correctAnswer}</CorrectAnswer>
-                <Status $correct={answer.correct}>
-                  {answer.correct ? t("exercise.correct") : t("exercise.incorrect")}
-                </Status>
                 <WordStatusActions word={answer.word} />
               </ReviewItem>
             ))}
@@ -129,6 +121,7 @@ export const Quiz = ({ data }) => {
                   <Choice
                     type="button"
                     disabled={Boolean(selected)}
+                    data-status={isCorrect ? "correct" : isWrong ? "incorrect" : undefined}
                     $correct={isCorrect}
                     $wrong={isWrong}
                     onClick={() => answer(choice)}
@@ -146,11 +139,6 @@ export const Quiz = ({ data }) => {
               );
             })}
           </Choices>
-          {selected && (
-            <Feedback $correct={selected === question.target}>
-              {selected === question.target ? t("exercise.correct") : t("exercise.incorrect")}
-            </Feedback>
-          )}
           {selected && (
             <PrimaryButton type="button" onClick={nextQuestion}>
               {t("actions.next")}
@@ -232,18 +220,6 @@ const Choice = styled.button`
   }
 `;
 
-const Feedback = styled.p`
-  margin: 0;
-  color: ${(props) => (props.$correct ? theme.colors.success : theme.colors.error)};
-  font-weight: 700;
-  text-align: center;
-  animation: ${revealResult} 220ms ease-out both;
-
-  @media (prefers-reduced-motion: reduce) {
-    animation: none;
-  }
-`;
-
 const ResultCard = styled.div`
   display: flex;
   flex-direction: column;
@@ -302,12 +278,6 @@ const ReviewDetail = styled.p`
 const CorrectAnswer = styled.p`
   margin: 0.2rem 0;
   color: ${theme.colors.success};
-`;
-
-const Status = styled.p`
-  margin: 0.4rem 0 0;
-  color: ${(props) => props.$correct ? theme.colors.success : theme.colors.error};
-  font-weight: 700;
 `;
 
 const PrimaryButton = styled.button`

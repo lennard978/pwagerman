@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useSpeechSynthesis } from "react-speech-kit";
 import styled from "styled-components";
@@ -23,6 +23,7 @@ export const Write = ({ data }) => {
   });
 
   const [resultState, setResultState] = useState("idle");
+  const hasSpokenAnswer = useRef(false);
 
   //Update wordList count
   let [count, setCount] = useState(0);
@@ -67,12 +68,15 @@ export const Write = ({ data }) => {
       if (wordList[count].target === list) {
         setResultState("correct");
         progress?.recordAnswer(wordList[count], true);
-        speak({
-          text: wordList[count].target,
-          lang: "sr-RS",
-          voices,
-          browserSpeak,
-        });
+        if (!hasSpokenAnswer.current) {
+          hasSpokenAnswer.current = true;
+          speak({
+            text: wordList[count].target,
+            lang: "sr-RS",
+            voices,
+            browserSpeak,
+          });
+        }
       } else {
         setResultState("incorrect");
         progress?.recordAnswer(wordList[count], false);
@@ -91,6 +95,7 @@ export const Write = ({ data }) => {
   const nextWord = () => {
     const nextCount = count + 1;
     setResultState("idle");
+    hasSpokenAnswer.current = false;
     setCount(nextCount);
     setSourceWord(wordList[nextCount].source);
     setShuffledTarget(createShuffledTarget(wordList[nextCount].target));
@@ -101,10 +106,10 @@ export const Write = ({ data }) => {
     <Container>
       <Title title={`${t("navigation.write")} ${number + 1}`} />
       {wordList.length === 0 ? <EmptyExercise message={t("myWords.minimum")} /> : <>
-      <Row>
+      <PromptRow>
         <H2>{sourceWord}</H2>
-      </Row>
-      <Row>
+      </PromptRow>
+      <TileRow>
         {targetAnswer.map((item, index) => {
           if (item?.type === "space") {
             return <Space key={item.id} data-testid="write-answer-space" aria-hidden="true" />;
@@ -124,8 +129,8 @@ export const Write = ({ data }) => {
             </TargetLetter>
           );
         })}
-      </Row>
-      <Row>
+      </TileRow>
+      <TileRow>
         {shuffledTarget.map((item) => {
           if (item.type === "space") {
             return <Space key={item.id} data-testid="write-pool-space" aria-hidden="true" />;
@@ -142,7 +147,12 @@ export const Write = ({ data }) => {
             </TargetLetter>
           );
         })}
-      </Row>
+      </TileRow>
+      {resultState !== "idle" && (
+        <Feedback role="status" $correct={resultState === "correct"}>
+          {resultState === "correct" ? t("exercise.correct") : t("exercise.incorrect")}
+        </Feedback>
+      )}
       {count === wordList.length - 1 ? (
         <BackLink
           to="/choosewrite"
@@ -177,14 +187,20 @@ const Container = styled.div`
   padding-inline: 1rem;
 `;
 
-const Row = styled.div`
+const PromptRow = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
+const TileRow = styled.div`
+  inline-size: 100%;
   display: flex;
   flex-wrap: wrap;
-  flex-direction: row;
   justify-content: center;
-  margin-inline: 1rem;
-  max-inline-size: 100%;
-  gap: 0.2rem;
+  align-items: center;
+  gap: 0.35rem;
+  margin-inline: auto;
+  padding-inline: 0.25rem;
 `;
 
 const H2 = styled.h3`
@@ -223,7 +239,6 @@ const TargetLetter = styled.button`
     return theme.colors.surface;
   }};
   border-radius: ${theme.radius.small};
-  margin: 0.2rem;
   text-transform: none;
   font-size: 1rem;
   font-weight: 700;
@@ -241,7 +256,17 @@ const TargetLetter = styled.button`
 const Space = styled.span`
   flex: 0 0 0.8rem;
   min-block-size: 2.75rem;
-  margin-block: 0.2rem;
+`;
+
+const Feedback = styled.p`
+  align-self: center;
+  margin: 0.5rem 0 0;
+  padding: 0.5rem 0.9rem;
+  color: ${(props) => props.$correct ? theme.colors.success : theme.colors.error};
+  background: ${(props) => props.$correct ? theme.colors.successSoft : theme.colors.errorSoft};
+  border: 1px solid ${(props) => props.$correct ? theme.colors.success : theme.colors.error};
+  border-radius: ${theme.radius.pill};
+  font-weight: 800;
 `;
 
 const Button = styled.button`

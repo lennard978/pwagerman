@@ -109,7 +109,7 @@
     "filters": "Filteri rečnika",
     "wordCount": "reči",
     "custom": "Moja reč",
-    "curriculum": "Program",
+    "curriculum": "Lekcija",
     "noMatches": "Nema reči u ovom filteru",
     "filterHint": "Promeni status reči ili izaberi drugi filter.",
     "showMore": "Prikaži još reči"
@@ -171,11 +171,13 @@
   },
   "update": {
     "available": "Dostupna je nova verzija",
-    "action": "Ažuriraj sada"
+    "action": "Ažuriraj sada",
+    "description": "Osveži aplikaciju da koristiš najnovija poboljšanja."
   },
   "install": {
     "cta": "Instaliraj aplikaciju",
     "close": "U redu",
+    "description": "Dodaj Serbian A1 na početni ekran za brz pristup preko celog ekrana.",
     "ios": {
       "step1": "Dodirni Share u Safariju",
       "step2": "Izaberi Add to Home Screen",

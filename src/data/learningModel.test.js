@@ -159,11 +159,13 @@ test("Write changes incorrect answers to correct and speaks once", () => {
 
   ["u", "k", "ć", "a"].forEach((letter) => fireEvent.click(screen.getByRole("button", { name: letter })));
   expect(screen.getAllByText(/^[ukća]$/).filter((tile) => tile.getAttribute("data-filled") === "true")[0].getAttribute("data-result-state")).toBe("incorrect");
+  expect(screen.getByRole("status").textContent).toBe("Not quite");
   expect(mockSpeak).not.toHaveBeenCalled();
 
   screen.getAllByText(/^[ukća]$/).filter((tile) => tile.getAttribute("data-filled") === "true").forEach((tile) => fireEvent.click(tile));
   ["k", "u", "ć", "a"].forEach((letter) => fireEvent.click(screen.getByRole("button", { name: letter })));
   expect(screen.getAllByText(/^[ukća]$/).filter((tile) => tile.getAttribute("data-filled") === "true")[0].getAttribute("data-result-state")).toBe("correct");
+  expect(screen.getByRole("status").textContent).toBe("Correct");
   expect(mockSpeak).toHaveBeenCalledTimes(1);
 });
 
@@ -434,8 +436,27 @@ test("Quiz presents an English prompt with Serbian choices and completes", () =>
     fireEvent.click(screen.getAllByRole("button", { name: answer })[0]);
     fireEvent.click(screen.getByRole("button", { name: "Next" }));
   });
+
   expect(screen.getByText("Quiz complete")).toBeTruthy();
   expect(screen.getByRole("link", { name: "Back to Quiz" }).getAttribute("href")).toBe("/choosequiz");
+});
+
+test("Quiz uses answer colors without an extra correctness label", () => {
+  renderWithLanguage(
+    <MemoryRouter initialEntries={["/quiz/0"]}>
+      <Routes>
+        <Route
+          path="/quiz/:userId"
+          element={<Quiz data={[{ items: [{ source: "house", target: "kuća" }] }]} />}
+        />
+      </Routes>
+    </MemoryRouter>
+  );
+
+  fireEvent.click(screen.getByRole("button", { name: "kuća" }));
+
+  expect(document.querySelector('[data-status="correct"]')).toBeTruthy();
+  expect(screen.queryByText("Correct")).toBeNull();
 });
 
 test("Test results review the learner answer and correct answer", () => {
@@ -456,6 +477,7 @@ test("Test results review the learner answer and correct answer", () => {
   expect(screen.getByText("Test complete")).toBeTruthy();
   expect(screen.getByText("Your answer: voda")).toBeTruthy();
   expect(screen.getByText("Correct answer: kuća")).toBeTruthy();
+  expect(screen.queryByText("Not quite")).toBeNull();
   expect(screen.getByRole("button", { name: "Retry Test" })).toBeTruthy();
 });
 
