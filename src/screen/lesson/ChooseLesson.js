@@ -8,7 +8,7 @@ export const ChooseLesson = ({ data }) => {
   return (
     <BtnList
       dataList={data}
-      title={t("navigation.lesson")}
+      title={t("navigation.learn")}
       nav="chooselesson"
     />
   );

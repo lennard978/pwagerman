@@ -1,6 +1,8 @@
 {
   "navigation": {
     "home": "Home",
+    "learn": "Learn",
+    "practice": "Practice",
     "lesson": "Lesson",
     "pair": "Pair",
     "write": "Write",
@@ -23,9 +25,35 @@
     "name": "Serbian A1",
     "tagline": "Learn practical Serbian step by step."
   },
+  "home": {
+    "continueLearning": "Continue learning",
+    "startLearning": "Start learning",
+    "chooseCategory": "Choose a curriculum category",
+    "progress": "Progress"
+  },
+  "practice": {
+    "description": "Choose an exercise, then select a curriculum category.",
+    "pair": "Match Serbian and English words.",
+    "write": "Type the Serbian translation.",
+    "cards": "Flip cards and hear pronunciation.",
+    "quiz": "Choose the correct translation.",
+    "test": "Check your knowledge and review answers."
+  },
+  "vocabulary": {
+    "all": "All",
+    "favorites": "Favorites",
+    "learning": "Learning",
+    "known": "Known",
+    "knownWords": "Known words",
+    "favorite": "Add to favorites",
+    "unfavorite": "Remove from favorites",
+    "markKnown": "Mark as Known",
+    "markLearning": "Move to Learning"
+  },
   "myWords": {
     "title": "My Words",
     "description": "Add and practise your own vocabulary.",
+    "libraryDescription": "Your curriculum and custom vocabulary in one place.",
     "add": "Add word",
     "english": "English",
     "serbian": "Serbian",
@@ -39,7 +67,14 @@
     "blank": "Both fields are required.",
     "length": "Each field must be 80 characters or fewer.",
     "minimum": "Add more words to use this exercise.",
-    "deleteConfirm": "Delete this word?"
+    "deleteConfirm": "Delete this word?",
+    "filters": "Vocabulary filters",
+    "wordCount": "words",
+    "custom": "My word",
+    "curriculum": "Curriculum",
+    "noMatches": "No words in this filter",
+    "filterHint": "Change a word's status or choose another filter.",
+    "showMore": "Show more words"
   },
   "lessons": {
     "greetings": {

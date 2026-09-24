@@ -1,11 +1,8 @@
 import {
   FaHome,
-  FaFile,
-  FaEye,
-  FaPen,
+  FaGraduationCap,
   FaBookOpen,
-  FaTrophy,
-  FaFolderPlus,
+  FaDumbbell,
 } from "react-icons/fa";
 import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
@@ -31,23 +28,14 @@ export default function Nav() {
           <NavLink to="/home" title={t("navigation.home")} active={location.pathname === "/home" || location.pathname === "/"}>
             <FaHome />
           </NavLink>
-          <NavLink to="/chooselesson" title={t("navigation.lesson")} active={location.pathname.startsWith("/chooselesson")}>
-            <FaFile />
+          <NavLink to="/learn" title={t("navigation.learn")} active={location.pathname === "/learn" || location.pathname.startsWith("/chooselesson")}>
+            <FaGraduationCap />
           </NavLink>
-          <NavLink to="/choosepair" title={t("navigation.pair")} active={location.pathname.startsWith("/choosepair")}>
-            <FaEye />
+          <NavLink to="/practice" title={t("navigation.practice")} active={practiceRoutes.some((route) => location.pathname.startsWith(route))}>
+            <FaDumbbell />
           </NavLink>
-          <NavLink to="/choosewrite" title={t("navigation.write")} active={location.pathname.startsWith("/choosewrite")}>
-            <FaPen />
-          </NavLink>
-          <NavLink to="/choosecards" title={t("navigation.cards")} active={location.pathname.startsWith("/choosecards")}>
-            <FaFolderPlus />
-          </NavLink>
-          <NavLink to="/choosetest" title={t("navigation.test")} active={location.pathname.startsWith("/choosetest")}>
+          <NavLink to="/my-words" title={t("navigation.myWords")} active={location.pathname.startsWith("/my-words")}>
             <FaBookOpen />
-          </NavLink>
-          <NavLink to="/choosequiz" title={t("navigation.quiz")} active={location.pathname.startsWith("/choosequiz")}>
-            <FaTrophy />
           </NavLink>
         </Row>
       </Container>
@@ -68,7 +56,7 @@ const Container = styled.div`
 
 const Row = styled.div`
   display: grid;
-  grid-template-columns: repeat(7, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   max-inline-size: 42rem;
   margin-inline: auto;
   padding: 0.35rem 0.25rem;
@@ -76,7 +64,7 @@ const Row = styled.div`
 
 const Paragraph = styled.p`
   min-inline-size: 0;
-  font-size: 0.68rem;
+  font-size: 0.75rem;
   color: ${(props) => (props.$active ? theme.colors.primary : theme.colors.textMuted)};
   margin: 0;
   transition: color 180ms ease;
@@ -92,7 +80,7 @@ const Button = styled(Link)`
   justify-content: center;
   align-items: center;
   color: ${(props) => (props.$active ? theme.colors.primary : theme.colors.textMuted)};
-  font-size: 1rem;
+  font-size: 1.15rem;
   transition: color 180ms ease, transform 160ms ease;
   &:focus-visible {
     outline: 3px solid ${theme.colors.primarySoft};
@@ -106,3 +94,11 @@ const Button = styled(Link)`
     transform: scale(0.97);
   }
 `;
+  const practiceRoutes = [
+    "/practice",
+    "/choosepair",
+    "/choosewrite",
+    "/choosecards",
+    "/choosetest",
+    "/choosequiz",
+  ];

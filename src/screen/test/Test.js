@@ -6,6 +6,7 @@ import { Title } from "../../components/Title";
 import SoundButton from "../../components/SoundButton";
 import { useLanguage } from "../../i18n/LanguageProvider";
 import { theme } from "../../styles/theme";
+import { WordStatusActions } from "../../components/WordStatusActions";
 
 export const Test = ({ data }) => {
   const { userId } = useParams();
@@ -29,6 +30,14 @@ export const Test = ({ data }) => {
       answer: currentAnswer,
       correctAnswer: question.answer,
       correct: currentAnswer === question.answer,
+      word: {
+        id: question.wordId,
+        source: question.source,
+        target: question.target,
+        status: question.status || "learning",
+        favorite: question.favorite || false,
+        kind: "built-in",
+      },
     };
     const nextAnswers = [...answers, record];
     setAnswers(nextAnswers);
@@ -75,6 +84,7 @@ export const Test = ({ data }) => {
                 <Status $correct={answer.correct}>
                   {answer.correct ? t("exercise.correct") : t("exercise.incorrect")}
                 </Status>
+                <WordStatusActions word={answer.word} />
               </ReviewItem>
             ))}
           </Review>

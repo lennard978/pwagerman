@@ -8,6 +8,7 @@ import { useLanguage } from "../../i18n/LanguageProvider";
 import { theme } from "../../styles/theme";
 import { EmptyExercise } from "../../components/EmptyExercise";
 import { speak } from "../../services/tts/ttsProvider";
+import { WordStatusActions } from "../../components/WordStatusActions";
 
 export const Cards = ({ data }) => {
   const { userId } = useParams();
@@ -62,6 +63,7 @@ export const Cards = ({ data }) => {
             <Text>{currentItem.target}</Text>
           </TargetWord>
         </AnimateBox>
+        <WordStatusActions word={currentItem} />
         {cardIndex === wordList.length - 1 ? (
           <BackLink to="/choosecards">{t("actions.backToCards")}</BackLink>
         ) : (

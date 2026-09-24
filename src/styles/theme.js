@@ -4,6 +4,7 @@ export const theme = {
     surface: "#ffffff",
     surfaceMuted: "#f1f3f2",
     text: "#1f2933",
+    navy: "#102a43",
     textMuted: "#667085",
     border: "#e4e7ec",
     primary: "#f97316",

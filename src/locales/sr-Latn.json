@@ -1,6 +1,8 @@
 {
   "navigation": {
     "home": "Početna",
+    "learn": "Učenje",
+    "practice": "Vežbanje",
     "lesson": "Lekcija",
     "pair": "Poveži",
     "write": "Pisanje",
@@ -22,9 +24,35 @@
     "name": "Srpski A1",
     "tagline": "Uči srpski korak po korak."
   },
+  "home": {
+    "continueLearning": "Nastavi učenje",
+    "startLearning": "Počni da učiš",
+    "chooseCategory": "Izaberi oblast",
+    "progress": "Napredak"
+  },
+  "practice": {
+    "description": "Izaberi vežbu, a zatim oblast.",
+    "pair": "Poveži srpske i engleske reči.",
+    "write": "Napiši prevod na srpskom.",
+    "cards": "Okreni kartice i poslušaj izgovor.",
+    "quiz": "Izaberi tačan prevod.",
+    "test": "Proveri znanje i pregledaj odgovore."
+  },
+  "vocabulary": {
+    "all": "Sve",
+    "favorites": "Omiljene",
+    "learning": "Učim",
+    "known": "Znam",
+    "knownWords": "Poznate reči",
+    "favorite": "Dodaj u omiljene",
+    "unfavorite": "Ukloni iz omiljenih",
+    "markKnown": "Označi kao poznato",
+    "markLearning": "Vrati u učenje"
+  },
   "myWords": {
     "title": "Moje reči",
     "description": "Dodaj i vežbaj svoj rečnik.",
+    "libraryDescription": "Reči iz lekcija i tvoj rečnik na jednom mestu.",
     "add": "Dodaj reč",
     "english": "Engleski",
     "serbian": "Srpski",
@@ -38,7 +66,14 @@
     "blank": "Oba polja su obavezna.",
     "length": "Svako polje može imati najviše 80 znakova.",
     "minimum": "Dodaj još reči da bi koristio ovu vežbu.",
-    "deleteConfirm": "Obrisati ovu reč?"
+    "deleteConfirm": "Obrisati ovu reč?",
+    "filters": "Filteri rečnika",
+    "wordCount": "reči",
+    "custom": "Moja reč",
+    "curriculum": "Program",
+    "noMatches": "Nema reči u ovom filteru",
+    "filterHint": "Promeni status reči ili izaberi drugi filter.",
+    "showMore": "Prikaži još reči"
   },
   "lessons": {
     "greetings": {

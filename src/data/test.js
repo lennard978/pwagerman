@@ -1,11 +1,4 @@
-import {
-  Lesson1,
-  Lesson2,
-  Lesson3,
-  Lesson4,
-  Lesson5,
-  Lesson6,
-} from "./data";
+import { Curriculum } from "./data";
 
 const createQuestion = (lesson, itemIndex) => {
   const item = lesson.items[itemIndex];
@@ -14,6 +7,9 @@ const createQuestion = (lesson, itemIndex) => {
   );
 
   return {
+    wordId: item.id,
+    source: item.source,
+    target: item.target,
     prompt: `"${item.source}" in Serbian is:`,
     options: [item.target, ...distractors],
     answer: item.target,
@@ -30,11 +26,11 @@ const createTest = (lesson) => ({
   ),
 });
 
-export const Test1 = createTest(Lesson1);
-export const Test2 = createTest(Lesson2);
-export const Test3 = createTest(Lesson3);
-export const Test4 = createTest(Lesson4);
-export const Test5 = createTest(Lesson5);
-export const Test6 = createTest(Lesson6);
+export const Test1 = createTest(Curriculum[0]);
+export const Test2 = createTest(Curriculum[1]);
+export const Test3 = createTest(Curriculum[2]);
+export const Test4 = createTest(Curriculum[3]);
+export const Test5 = createTest(Curriculum[4]);
+export const Test6 = createTest(Curriculum[5]);
 
 export const Tests = [Test1, Test2, Test3, Test4, Test5, Test6];

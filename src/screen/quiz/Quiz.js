@@ -7,6 +7,7 @@ import SoundButton from "../../components/SoundButton";
 import { useLanguage } from "../../i18n/LanguageProvider";
 import { theme } from "../../styles/theme";
 import { EmptyExercise } from "../../components/EmptyExercise";
+import { WordStatusActions } from "../../components/WordStatusActions";
 
 const shuffle = (items) => [...items].sort(() => Math.random() - 0.5);
 
@@ -53,6 +54,7 @@ export const Quiz = ({ data }) => {
       answer: choice,
       correctAnswer: question.target,
       correct: choice === question.target,
+      word: question,
     }]);
   };
 
@@ -93,6 +95,7 @@ export const Quiz = ({ data }) => {
                 <Status $correct={answer.correct}>
                   {answer.correct ? t("exercise.correct") : t("exercise.incorrect")}
                 </Status>
+                <WordStatusActions word={answer.word} />
               </ReviewItem>
             ))}
           </Review>

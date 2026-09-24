@@ -74,14 +74,14 @@ test("renders all active navigation labels in English", () => {
     "en"
   );
 
-  ["Home", "Lesson", "Pair", "Write", "Cards", "Test", "Quiz"].forEach(
+  ["Home", "Learn", "Practice", "My Words"].forEach(
     (label) => {
       expect(screen.getByRole("link", { name: label })).toBeTruthy();
     }
   );
 });
 
-test("keeps seven navigation links without a visible language selector", () => {
+test("keeps four navigation links without a visible language selector", () => {
   renderWithLanguage(
     <MemoryRouter>
       <Nav />
@@ -90,7 +90,7 @@ test("keeps seven navigation links without a visible language selector", () => {
   );
 
   expect(screen.queryByRole("combobox", { name: "Language" })).toBeNull();
-  expect(screen.getAllByRole("link")).toHaveLength(7);
+  expect(screen.getAllByRole("link")).toHaveLength(4);
 });
 
 test("renders all active navigation labels in Serbian Latin", () => {
@@ -101,7 +101,7 @@ test("renders all active navigation labels in Serbian Latin", () => {
     "sr-Latn"
   );
 
-  ["Početna", "Lekcija", "Poveži", "Pisanje", "Kartice", "Test", "Kviz"].forEach(
+  ["Početna", "Učenje", "Vežbanje", "Moje reči"].forEach(
     (label) => {
       expect(screen.getByRole("link", { name: label })).toBeTruthy();
     }

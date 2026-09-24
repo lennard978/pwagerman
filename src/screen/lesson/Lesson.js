@@ -7,6 +7,7 @@ import { BackBtn } from "../../components/BackBtn";
 import { useLanguage } from "../../i18n/LanguageProvider";
 import { theme } from "../../styles/theme";
 import { EmptyExercise } from "../../components/EmptyExercise";
+import { WordStatusActions } from "../../components/WordStatusActions";
 
 export const Lesson = ({ data }) => {
   const { userId } = useParams();
@@ -25,6 +26,7 @@ export const Lesson = ({ data }) => {
                 <TargetParagraph>{item.target}</TargetParagraph>
               </Row>
             </SoundButton>
+            <WordStatusActions word={item} />
           </Container>
         );
       })}
@@ -48,7 +50,15 @@ const Container = styled.div`
   inline-size: 100%;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: stretch;
+  flex-direction: column;
+  gap: 0.1rem;
+  margin: 0.45rem 0;
+  padding: 1rem;
+  background: ${theme.colors.surface};
+  border: 1px solid ${theme.colors.border};
+  border-radius: ${theme.radius.medium};
+  box-shadow: ${theme.shadow.soft};
 `;
 
 const Row = styled.div`
@@ -57,12 +67,11 @@ const Row = styled.div`
   align-items: flex-start;
   gap: 1rem;
   inline-size: 100%;
-  background: ${theme.colors.surface};
-  margin: 0.45rem 0;
-  padding: 1rem;
-  border: 1px solid ${theme.colors.border};
-  border-radius: ${theme.radius.medium};
-  box-shadow: ${theme.shadow.soft};
+  background: transparent;
+  margin: 0;
+  padding: 0 0 0.65rem;
+  border: 0;
+  box-shadow: none;
   cursor: pointer;
 `;
 

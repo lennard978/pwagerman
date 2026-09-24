@@ -171,3 +171,17 @@ export const Lesson6 = {
     { source: "near", target: "blizu" },
   ],
 };
+
+const lessons = [Lesson1, Lesson2, Lesson3, Lesson4, Lesson5, Lesson6];
+
+export const Curriculum = lessons.map((lesson) => ({
+  ...lesson,
+  items: lesson.items.map((item, index) => ({
+    ...item,
+    id: `${lesson.id}-word-${index + 1}`,
+    category: lesson.category,
+    status: "learning",
+    favorite: false,
+    kind: "built-in",
+  })),
+}));
