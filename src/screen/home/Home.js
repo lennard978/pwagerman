@@ -25,9 +25,17 @@ export const Home = () => {
   return (
     <Container>
       <Hero>
-        <Logo src={`${process.env.PUBLIC_URL}/serbian-a1-wordmark.png`} alt={t("app.name")} />
+        <Logo src={`${process.env.PUBLIC_URL}/serbian-a1-wordmark-compact.png`} alt={t("app.name")} />
         <Heading>{t("app.name")}</Heading>
         <Tagline>{t("app.tagline")}</Tagline>
+        <Attribution
+          href="https://asenda-studio.vercel.app"
+          target="_blank"
+          rel="noreferrer"
+        >
+          <AsendaMark aria-hidden="true">A</AsendaMark>
+          <span>Created by <strong>Asenda Studio</strong></span>
+        </Attribution>
       </Hero>
 
       <Section>
@@ -69,21 +77,54 @@ export const Home = () => {
 const Container = styled.main`
   inline-size: min(100%, 42rem);
   min-block-size: calc(100vh - ${theme.navHeight});
-  padding: 1rem 1rem 7rem;
+  padding: max(0.75rem, env(safe-area-inset-top)) 1rem 7rem;
 `;
 const Hero = styled.header`
   display: grid;
   justify-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 0 1.25rem;
+  gap: 0.45rem;
+  padding: 0.25rem 0 1.25rem;
 `;
-const Logo = styled.img`display: block; inline-size: min(100%, 18rem); block-size: auto;`;
+const Logo = styled.img`display: block; inline-size: min(100%, 14rem); block-size: auto;`;
 const Heading = styled.h1`margin: 0; color: ${theme.colors.navy}; font-size: clamp(1.7rem, 7vw, 2.3rem);`;
 const Tagline = styled.p`
   margin: 0;
   color: ${theme.colors.textMuted};
   line-height: 1.5;
   text-align: center;
+`;
+const Attribution = styled.a`
+  min-block-size: 2.25rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.2rem;
+  padding: 0.3rem 0.7rem;
+  color: ${theme.colors.textMuted};
+  background: ${theme.colors.surface};
+  border: 1px solid ${theme.colors.border};
+  border-radius: ${theme.radius.pill};
+  text-decoration: none;
+  font-size: 0.74rem;
+  line-height: 1;
+  & strong { color: ${theme.colors.navy}; }
+  &:focus-visible {
+    outline: 3px solid ${theme.colors.primarySoft};
+    outline-offset: 2px;
+  }
+`;
+const AsendaMark = styled.span`
+  inline-size: 1.4rem;
+  block-size: 1.4rem;
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  color: white;
+  background: #ff5a1f;
+  border-radius: 50%;
+  font-size: 0.72rem;
+  font-weight: 900;
+  transform: rotate(-8deg);
 `;
 const Section = styled.section`margin-top: 1rem;`;
 const Eyebrow = styled.h2`

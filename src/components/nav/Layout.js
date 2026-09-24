@@ -35,7 +35,6 @@ const Container = styled.div`
   min-block-size: 100vh;
   inline-size: 100%;
   min-inline-size: 0;
-  padding-top: 3.5rem;
   padding-bottom: ${theme.navHeight};
   display: flex;
   justify-content: center;

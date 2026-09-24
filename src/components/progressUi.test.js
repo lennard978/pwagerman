@@ -56,6 +56,20 @@ test("Review shows a clear empty state when there are no recent mistakes", () =>
   expect(screen.getByText("No recent mistakes. Keep practising!")).toBeTruthy();
 });
 
+test("Home credits Asenda Studio using the verified studio destination", () => {
+  localStorage.setItem(PROGRESS_STORAGE_KEY, JSON.stringify({
+    ...createDefaultProgress(),
+    onboardingComplete: true,
+  }));
+  render(<Providers><MemoryRouter><Home /></MemoryRouter></Providers>);
+
+  const attribution = screen.getByRole("link", { name: "Created by Asenda Studio" });
+  expect(attribution.getAttribute("href")).toBe("https://asenda-studio.vercel.app");
+  expect(screen.getByAltText("Serbian A1").getAttribute("src")).toContain(
+    "serbian-a1-wordmark-compact.png"
+  );
+});
+
 test("Review reveals a mistake, supports word statuses, and clears it when correct", async () => {
   localStorage.setItem(PROGRESS_STORAGE_KEY, JSON.stringify({
     ...createDefaultProgress(),
