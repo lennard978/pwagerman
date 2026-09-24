@@ -176,6 +176,42 @@
     "verbs": {
       "title": "Common Verbs",
       "description": "Use high-frequency verbs for basic communication."
+    },
+    "cityPlaces": {
+      "title": "City & Public Places",
+      "description": "Find useful services and common places around town."
+    },
+    "transport": {
+      "title": "Transport",
+      "description": "Learn common vehicles and public transport words."
+    },
+    "directions": {
+      "title": "Directions",
+      "description": "Understand simple routes and give basic directions."
+    },
+    "foodExpansion": {
+      "title": "Food & Drink Essentials",
+      "description": "Add common ingredients and everyday foods."
+    },
+    "household": {
+      "title": "Home & Household",
+      "description": "Learn useful household objects for daily life."
+    },
+    "adjectives": {
+      "title": "Common Adjectives",
+      "description": "Describe people, places, and things with basic adjectives."
+    },
+    "prepositions": {
+      "title": "Common Prepositions",
+      "description": "Connect places and movement with essential prepositions."
+    },
+    "survival": {
+      "title": "Survival Phrases",
+      "description": "Ask for help and handle common communication problems."
+    },
+    "social": {
+      "title": "Basic Social Phrases",
+      "description": "Use polite phrases for simple everyday interactions."
     }
   },
   "exercise": {

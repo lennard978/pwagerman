@@ -175,6 +175,42 @@
     "verbs": {
       "title": "Česti glagoli",
       "description": "Koristi česte glagole u osnovnoj komunikaciji."
+    },
+    "cityPlaces": {
+      "title": "Grad i javna mesta",
+      "description": "Nauči nazive korisnih službi i čestih mesta u gradu."
+    },
+    "transport": {
+      "title": "Prevoz",
+      "description": "Nauči česta prevozna sredstva i reči za javni prevoz."
+    },
+    "directions": {
+      "title": "Snalaženje i pravci",
+      "description": "Razumi jednostavna uputstva i objasni kako se stiže do nekog mesta."
+    },
+    "foodExpansion": {
+      "title": "Osnovne namirnice",
+      "description": "Nauči česte namirnice i svakodnevnu hranu."
+    },
+    "household": {
+      "title": "Dom i domaćinstvo",
+      "description": "Nauči korisne predmete za svakodnevni život kod kuće."
+    },
+    "adjectives": {
+      "title": "Česti pridevi",
+      "description": "Opiši ljude, mesta i predmete osnovnim pridevima."
+    },
+    "prepositions": {
+      "title": "Česti predlozi",
+      "description": "Koristi osnovne predloge za mesto i kretanje."
+    },
+    "survival": {
+      "title": "Neophodne fraze",
+      "description": "Zatraži pomoć i reši česte probleme u komunikaciji."
+    },
+    "social": {
+      "title": "Osnovne fraze u društvu",
+      "description": "Koristi ljubazne fraze u jednostavnim svakodnevnim situacijama."
     }
   },
   "exercise": {

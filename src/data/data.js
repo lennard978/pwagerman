@@ -478,10 +478,333 @@ export const Lesson15 = {
   ],
 };
 
+export const Lesson16 = {
+  id: "lesson-16",
+  titleKey: "lessons.cityPlaces.title",
+  descriptionKey: "lessons.cityPlaces.description",
+  category: "city-places",
+  items: [
+    { source: "bank", target: "banka", partOfSpeech: "noun" },
+    {
+      source: "post office", target: "pošta", partOfSpeech: "noun",
+      note: "Pošta can also mean mail or the postal service.",
+    },
+    { source: "hospital", target: "bolnica", partOfSpeech: "noun" },
+    { source: "school", target: "škola", partOfSpeech: "noun" },
+    { source: "park", target: "park", partOfSpeech: "noun" },
+    {
+      source: "open-air market", target: "pijaca", partOfSpeech: "noun",
+      note: "Pijaca is a market with stalls; supermarket is supermarket.",
+    },
+    { source: "museum", target: "muzej", partOfSpeech: "noun" },
+  ],
+};
+
+export const Lesson17 = {
+  id: "lesson-17",
+  titleKey: "lessons.transport.title",
+  descriptionKey: "lessons.transport.description",
+  category: "transport",
+  items: [
+    { source: "tram", target: "tramvaj", partOfSpeech: "noun" },
+    { source: "airplane", target: "avion", partOfSpeech: "noun" },
+    { source: "boat", target: "brod", partOfSpeech: "noun" },
+    { source: "motorcycle", target: "motocikl", partOfSpeech: "noun" },
+    {
+      source: "bus stop", target: "autobusko stajalište", partOfSpeech: "noun phrase",
+      note: "Stajalište is a stop; stanica is used for a larger station.",
+    },
+    { source: "platform", target: "peron", partOfSpeech: "noun" },
+    {
+      source: "driver", target: "vozač", partOfSpeech: "noun",
+      note: "Vozačica is the feminine form.",
+    },
+  ],
+};
+
+export const Lesson18 = {
+  id: "lesson-18",
+  titleKey: "lessons.directions.title",
+  descriptionKey: "lessons.directions.description",
+  category: "directions",
+  items: [
+    {
+      source: "straight ahead", target: "pravo", partOfSpeech: "adverb",
+      note: "Pravo can have other meanings, including right or law, depending on context.",
+      example: "Idite pravo.",
+      exampleTranslation: "Go straight ahead.",
+    },
+    {
+      source: "turn left", target: "skrenite levo", partOfSpeech: "direction phrase",
+      register: "formal singular or plural",
+      note: "Use skreni levo when speaking informally to one person.",
+      example: "Skrenite levo kod banke.",
+      exampleTranslation: "Turn left at the bank.",
+    },
+    {
+      source: "turn right", target: "skrenite desno", partOfSpeech: "direction phrase",
+      register: "formal singular or plural",
+      note: "Use skreni desno when speaking informally to one person.",
+      example: "Skrenite desno kod parka.",
+      exampleTranslation: "Turn right at the park.",
+    },
+    {
+      source: "at the corner", target: "na uglu", partOfSpeech: "prepositional phrase",
+      example: "Banka je na uglu.",
+      exampleTranslation: "The bank is at the corner.",
+    },
+    {
+      source: "traffic light", target: "semafor", partOfSpeech: "noun",
+      example: "Skrenite levo kod semafora.",
+      exampleTranslation: "Turn left at the traffic light.",
+    },
+    {
+      source: "crossroads", target: "raskrsnica", partOfSpeech: "noun",
+      example: "Stanica je posle raskrsnice.",
+      exampleTranslation: "The station is after the crossroads.",
+    },
+    {
+      source: "far", target: "daleko", partOfSpeech: "adverb",
+      example: "Aerodrom je daleko.",
+      exampleTranslation: "The airport is far away.",
+    },
+  ],
+};
+
+export const Lesson19 = {
+  id: "lesson-19",
+  titleKey: "lessons.foodExpansion.title",
+  descriptionKey: "lessons.foodExpansion.description",
+  category: "food-expansion",
+  items: [
+    {
+      source: "vegetables", target: "povrće", partOfSpeech: "collective noun",
+      note: "Povrće is normally treated as a singular collective noun.",
+    },
+    {
+      source: "fruit", target: "voće", partOfSpeech: "collective noun",
+      note: "Voće is normally treated as a singular collective noun.",
+    },
+    { source: "salad", target: "salata", partOfSpeech: "noun" },
+    { source: "chicken", target: "piletina", partOfSpeech: "noun" },
+    {
+      source: "fish", target: "riba", partOfSpeech: "noun",
+      example: "Jedem ribu.",
+      exampleTranslation: "I am eating fish.",
+    },
+    { source: "egg", target: "jaje", partOfSpeech: "noun" },
+    { source: "sugar", target: "šećer", partOfSpeech: "noun" },
+  ],
+};
+
+export const Lesson20 = {
+  id: "lesson-20",
+  titleKey: "lessons.household.title",
+  descriptionKey: "lessons.household.description",
+  category: "home-household",
+  items: [
+    { source: "fridge", target: "frižider", partOfSpeech: "noun" },
+    {
+      source: "stove", target: "šporet", partOfSpeech: "noun",
+      note: "Šporet is the common everyday word used in Serbia.",
+    },
+    { source: "washing machine", target: "veš-mašina", partOfSpeech: "noun" },
+    { source: "cup", target: "šolja", partOfSpeech: "noun" },
+    { source: "plate", target: "tanjir", partOfSpeech: "noun" },
+    { source: "spoon", target: "kašika", partOfSpeech: "noun" },
+    { source: "towel", target: "peškir", partOfSpeech: "noun" },
+  ],
+};
+
+export const Lesson21 = {
+  id: "lesson-21",
+  titleKey: "lessons.adjectives.title",
+  descriptionKey: "lessons.adjectives.description",
+  category: "common-adjectives",
+  items: [
+    {
+      source: "big", target: "velik", partOfSpeech: "adjective",
+      note: "Masculine singular form; feminine velika, neuter veliko.",
+      example: "Beograd je veliki grad.",
+      exampleTranslation: "Belgrade is a big city.",
+    },
+    {
+      source: "small", target: "mali", partOfSpeech: "adjective",
+      note: "Masculine singular form; feminine mala, neuter malo.",
+      example: "Ovo je mali stan.",
+      exampleTranslation: "This is a small apartment.",
+    },
+    {
+      source: "good", target: "dobar", partOfSpeech: "adjective",
+      note: "Masculine singular form; feminine dobra, neuter dobro.",
+      example: "Ovo je dobar restoran.",
+      exampleTranslation: "This is a good restaurant.",
+    },
+    {
+      source: "bad", target: "loš", partOfSpeech: "adjective",
+      note: "Masculine singular form; feminine loša, neuter loše.",
+      example: "Danas je loše vreme.",
+      exampleTranslation: "The weather is bad today.",
+    },
+    {
+      source: "new", target: "nov", partOfSpeech: "adjective",
+      note: "Masculine singular form; feminine nova, neuter novo.",
+      example: "Imam novi telefon.",
+      exampleTranslation: "I have a new phone.",
+    },
+    {
+      source: "old", target: "star", partOfSpeech: "adjective",
+      note: "Star can describe the age of a person or a thing; feminine stara, neuter staro.",
+      example: "Ovo je stara kuća.",
+      exampleTranslation: "This is an old house.",
+    },
+    {
+      source: "beautiful", target: "lep", partOfSpeech: "adjective",
+      note: "Masculine singular form; feminine lepa, neuter lepo.",
+      example: "Park je lep.",
+      exampleTranslation: "The park is beautiful.",
+    },
+  ],
+};
+
+export const Lesson22 = {
+  id: "lesson-22",
+  titleKey: "lessons.prepositions.title",
+  descriptionKey: "lessons.prepositions.description",
+  category: "common-prepositions",
+  items: [
+    {
+      source: "in / into", target: "u", partOfSpeech: "preposition",
+      note: "Use the locative for location and the accusative for movement into a place.",
+      example: "Živim u Beogradu.",
+      exampleTranslation: "I live in Belgrade.",
+    },
+    {
+      source: "on / onto", target: "na", partOfSpeech: "preposition",
+      note: "Use the locative for location and the accusative for movement onto or to a place.",
+      example: "Knjiga je na stolu.",
+      exampleTranslation: "The book is on the table.",
+    },
+    {
+      source: "from / out of", target: "iz", partOfSpeech: "preposition",
+      note: "Iz takes the genitive case.",
+      example: "Ja sam iz Srbije.",
+      exampleTranslation: "I am from Serbia.",
+    },
+    {
+      source: "with", target: "sa", partOfSpeech: "preposition",
+      note: "Sa takes the instrumental case; the shorter form s is also used.",
+      example: "Idem sa prijateljem.",
+      exampleTranslation: "I am going with a friend.",
+    },
+    {
+      source: "without", target: "bez", partOfSpeech: "preposition",
+      note: "Bez takes the genitive case.",
+      example: "Pijem kafu bez šećera.",
+      exampleTranslation: "I drink coffee without sugar.",
+    },
+    {
+      source: "in front of", target: "ispred", partOfSpeech: "preposition",
+      note: "Ispred takes the genitive case.",
+      example: "Auto je ispred kuće.",
+      exampleTranslation: "The car is in front of the house.",
+    },
+    {
+      source: "behind", target: "iza", partOfSpeech: "preposition",
+      note: "Iza takes the genitive case.",
+      example: "Park je iza škole.",
+      exampleTranslation: "The park is behind the school.",
+    },
+  ],
+};
+
+export const Lesson23 = {
+  id: "lesson-23",
+  titleKey: "lessons.survival.title",
+  descriptionKey: "lessons.survival.description",
+  category: "survival-phrases",
+  items: [
+    {
+      source: "I don't understand", target: "ne razumem", partOfSpeech: "phrase",
+      example: "Ne razumem ovu reč.",
+      exampleTranslation: "I don't understand this word.",
+    },
+    {
+      source: "please speak more slowly", target: "govorite sporije, molim vas", partOfSpeech: "phrase",
+      register: "formal singular or plural",
+      note: "Use govori sporije when speaking informally to one person.",
+      example: "Govorite sporije, molim vas. Ne razumem.",
+      exampleTranslation: "Please speak more slowly. I don't understand.",
+    },
+    {
+      source: "please repeat", target: "ponovite, molim vas", partOfSpeech: "phrase",
+      register: "formal singular or plural",
+      note: "Use ponovi when speaking informally to one person.",
+      example: "Ponovite, molim vas.",
+      exampleTranslation: "Please repeat.",
+    },
+    {
+      source: "do you speak English?", target: "da li govorite engleski?", partOfSpeech: "question",
+      register: "formal singular or plural",
+      note: "Use Da li govoriš engleski? when speaking informally to one person.",
+      example: "Izvinite, da li govorite engleski?",
+      exampleTranslation: "Excuse me, do you speak English?",
+    },
+    {
+      source: "I need help", target: "treba mi pomoć", partOfSpeech: "phrase",
+      example: "Izvinite, treba mi pomoć.",
+      exampleTranslation: "Excuse me, I need help.",
+    },
+    {
+      source: "where is the toilet?", target: "gde je toalet?", partOfSpeech: "question",
+      example: "Izvinite, gde je toalet?",
+      exampleTranslation: "Excuse me, where is the toilet?",
+    },
+  ],
+};
+
+export const Lesson24 = {
+  id: "lesson-24",
+  titleKey: "lessons.social.title",
+  descriptionKey: "lessons.social.description",
+  category: "social-phrases",
+  items: [
+    {
+      source: "excuse me", target: "izvinite", partOfSpeech: "phrase",
+      register: "formal singular or plural",
+      note: "Izvini is the informal singular form.",
+      example: "Izvinite, gde je banka?",
+      exampleTranslation: "Excuse me, where is the bank?",
+    },
+    {
+      source: "thank you very much", target: "hvala puno", partOfSpeech: "phrase",
+      note: "Mnogo vam hvala is another common, slightly fuller form.",
+      example: "Hvala puno na pomoći.",
+      exampleTranslation: "Thank you very much for the help.",
+    },
+    {
+      source: "of course", target: "naravno", partOfSpeech: "adverb",
+      example: "Naravno, mogu da pomognem.",
+      exampleTranslation: "Of course, I can help.",
+    },
+    {
+      source: "good luck", target: "srećno", partOfSpeech: "phrase",
+      example: "Srećno na testu!",
+      exampleTranslation: "Good luck on the test!",
+    },
+    {
+      source: "happy birthday", target: "srećan rođendan", partOfSpeech: "phrase",
+      example: "Srećan rođendan, Ana!",
+      exampleTranslation: "Happy birthday, Ana!",
+    },
+  ],
+};
+
 const lessons = [
   Lesson1, Lesson2, Lesson3, Lesson4, Lesson5, Lesson6,
   Lesson7, Lesson8, Lesson9, Lesson10, Lesson11, Lesson12,
-  Lesson13, Lesson14, Lesson15,
+  Lesson13, Lesson14, Lesson15, Lesson16, Lesson17, Lesson18,
+  Lesson19, Lesson20, Lesson21, Lesson22, Lesson23, Lesson24,
 ];
 
 export const Curriculum = lessons.map((lesson) => ({

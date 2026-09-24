@@ -2,7 +2,7 @@
 
 ## Status and claim boundary
 
-The app began with 120 app-authored English–Serbian pairs across six lessons. Phase 2A adds 60 reviewed supplementary entries across nine focused domains, bringing the current total to **180**. This remains **not** an official or complete Serbian A1 exam word list. No authoritative, complete public A1 word list from the University of Belgrade Center for Serbian as a Foreign Language was confirmed during this audit.
+The app began with 120 app-authored English–Serbian pairs across six lessons. Phase 2A added 60 reviewed supplementary entries, and Phase 2B adds another 60 across nine focused domains, bringing the current total from **180 to 240**. This remains **not** an official or complete Serbian A1 exam word list. No authoritative, complete public A1 word list from the University of Belgrade Center for Serbian as a Foreign Language was confirmed during this audit.
 
 The University of Belgrade describes its first-semester beginners' programme as CEFR A1 and states that it covers basic grammar and vocabulary for everyday communication, reading, and understanding. The Council of Europe A1 descriptor supports familiar everyday expressions, basic personal information, and simple interaction. Those sources define scope; they do not validate each pair in this app.
 
@@ -25,13 +25,45 @@ The University of Belgrade describes its first-semester beginners' programme as 
 | lesson-13 | Clothes | 6 | Added in reviewed batch 1 |
 | lesson-14 | Question words | 7 | Added in reviewed batch 1 |
 | lesson-15 | Common verbs | 7 | Added in reviewed batch 1 |
-| **Total** |  | **180** | **120 retained, 60 added, 0 silently replaced** |
+| lesson-16 | City and public places | 7 | Added in reviewed batch 2 |
+| lesson-17 | Transport | 7 | Added in reviewed batch 2 |
+| lesson-18 | Directions | 7 | Added in reviewed batch 2 |
+| lesson-19 | Food and drink essentials | 7 | Added in reviewed batch 2 |
+| lesson-20 | Home and household | 7 | Added in reviewed batch 2 |
+| lesson-21 | Common adjectives | 7 | Added in reviewed batch 2 |
+| lesson-22 | Common prepositions | 7 | Added in reviewed batch 2 |
+| lesson-23 | Survival phrases | 6 | Added in reviewed batch 2 |
+| lesson-24 | Basic social phrases | 5 | Added in reviewed batch 2 |
+| **Total** |  | **240** | **180 retained, 60 added, 0 silently replaced** |
 
 No exact duplicate English–Serbian pairs are present. Existing IDs (`lesson-N-word-N`) remain stable.
 
-## Corrections and review flags
+## Phase 2B review summary
 
-No target was replaced in this checkpoint because the public institutional source does not publish pair-level lexical validation. The following valid but context-sensitive pairs should receive usage/register metadata before a later vocabulary expansion:
+- Old total: **180**
+- New total: **240**
+- New source classification: **60 supplementary, 0 verified**
+- New entries with paired examples and translations: **33**
+- Exact duplicate pairs added: **0**
+- Duplicate candidates rejected during review: `coffee — kafa`, `milk — mleko`, `left — levo`, `right — desno`, `near — blizu`, `how are you? — kako si?`, and `nice to meet you — drago mi je`
+
+Context-sensitive additions document:
+
+- `pošta` as post office, mail, or the postal service
+- `pijaca` as an open-air market rather than a supermarket
+- `stajalište` as a stop versus a larger `stanica`
+- formal/plural `skrenite`, `govorite`, `ponovite`, and `izvinite`, with informal singular alternatives
+- polysemous `pravo`, `star`, and existing meanings of `vreme`
+- adjective gender agreement
+- collective-noun behavior of `povrće` and `voće`
+- locative/accusative alternation with `u` and `na`
+- genitive after `iz`, `bez`, `ispred`, and `iza`, and instrumental after `sa`
+
+The detailed entry inventory is in [`SERBIAN-A1-VOCABULARY-BATCH-2.md`](./SERBIAN-A1-VOCABULARY-BATCH-2.md).
+
+## Earlier corrections and review flags
+
+No original target was replaced because the public institutional source does not publish pair-level lexical validation. These original context-sensitive pairs now carry usage/register metadata:
 
 | Stable ID | Pair | Audit note |
 | --- | --- | --- |
@@ -47,32 +79,30 @@ These are **questionable only without context**, not established mistranslations
 
 ## Missing or thin A1 domains
 
-After reviewed batch 1, the curriculum still lacks or under-represents:
+After reviewed batch 2, the curriculum still lacks or under-represents:
 
 - dates and full time expressions: months, weekend, clock time
 - quantities and fuller shopping interactions
-- city services and common public places
-- transport questions and route directions
 - weather and seasons
 - colours and clothing interactions
 - additional high-frequency verbs and aspect pairs
-- high-frequency adjectives and opposites
-- common prepositions
-- essential repair and survival phrases
+- additional adjective opposites and possessives
+- transport questions and ticket-buying phrases
+- additional spatial prepositions and movement contrasts
 
 ## Controlled expansion proposal
 
 Plan toward **approximately 360 reviewed entries**, not an official total:
 
-- retain the original 120 stable entries and the reviewed 60-entry first batch
-- add approximately 180 further entries only in small reviewed batches
+- retain all 240 reviewed entries and their stable IDs
+- add approximately 120 further entries only in small reviewed batches
 - organize entries across roughly 18 functional domains
 - label every entry `sourceType: "verified"` only when a source directly supports that item; otherwise use `sourceType: "supplementary"`
 - add part of speech, register, examples, and translations only after review
 
 The number 360 is an app planning target chosen to give balanced A1 practice without uncontrolled bulk import. It is not an institutional lexical minimum or an exam guarantee.
 
-Batch details and per-entry metadata are recorded in [`SERBIAN-A1-VOCABULARY-BATCH-1.md`](./SERBIAN-A1-VOCABULARY-BATCH-1.md).
+Batch details and per-entry metadata are recorded in [`SERBIAN-A1-VOCABULARY-BATCH-1.md`](./SERBIAN-A1-VOCABULARY-BATCH-1.md) and [`SERBIAN-A1-VOCABULARY-BATCH-2.md`](./SERBIAN-A1-VOCABULARY-BATCH-2.md).
 
 ## Grammar scope decision
 

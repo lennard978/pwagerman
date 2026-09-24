@@ -72,8 +72,32 @@ test("defines six structured lessons with localized metadata", () => {
 
 test("built-in vocabulary exposes scalable A1 metadata without changing stable IDs", () => {
   const allItems = Curriculum.flatMap((lesson) => lesson.items);
-  expect(allItems).toHaveLength(180);
-  expect(Curriculum.slice(6).flatMap((lesson) => lesson.items)).toHaveLength(60);
+  const phase2ALessonCounts = [20, 20, 20, 20, 20, 20, 7, 7, 7, 6, 6, 7, 6, 7, 7];
+  const original180Ids = phase2ALessonCounts.flatMap((count, lessonIndex) =>
+    Array.from(
+      { length: count },
+      (_, itemIndex) => `lesson-${lessonIndex + 1}-word-${itemIndex + 1}`
+    )
+  );
+
+  expect(allItems).toHaveLength(240);
+  expect(Curriculum.slice(0, 15).flatMap((lesson) =>
+    lesson.items.map((item) => item.id)
+  )).toEqual(original180Ids);
+  expect(Curriculum.slice(6, 15).flatMap((lesson) => lesson.items)).toHaveLength(60);
+  expect(Curriculum.slice(15).flatMap((lesson) => lesson.items)).toHaveLength(60);
+  expect(Curriculum.slice(15).map((lesson) => [lesson.category, lesson.items.length]))
+    .toEqual([
+      ["city-places", 7],
+      ["transport", 7],
+      ["directions", 7],
+      ["food-expansion", 7],
+      ["home-household", 7],
+      ["common-adjectives", 7],
+      ["common-prepositions", 7],
+      ["survival-phrases", 6],
+      ["social-phrases", 5],
+    ]);
   Curriculum.forEach((lesson) => {
     lesson.items.forEach((item, index) => {
       expect(item).toEqual(expect.objectContaining({
@@ -89,9 +113,14 @@ test("built-in vocabulary exposes scalable A1 metadata without changing stable I
         expect(item.exampleTranslation).toEqual(expect.any(String));
         expect(item.exampleTranslation.length).toBeGreaterThan(0);
       }
+      if (item.exampleTranslation) {
+        expect(item.example).toEqual(expect.any(String));
+        expect(item.example.length).toBeGreaterThan(0);
+      }
     });
   });
   expect(new Set(allItems.map((item) => item.id)).size).toBe(allItems.length);
+  expect(new Set(Curriculum.map((lesson) => lesson.id)).size).toBe(Curriculum.length);
   Curriculum.slice(0, 6).forEach((lesson) => {
     expect(lesson.items).toHaveLength(20);
     lesson.items.forEach((item, index) => {
@@ -100,6 +129,9 @@ test("built-in vocabulary exposes scalable A1 metadata without changing stable I
   });
   Curriculum.slice(6).flatMap((lesson) => lesson.items).forEach((item) => {
     expect(item.partOfSpeech).toEqual(expect.any(String));
+  });
+  Curriculum.slice(15).flatMap((lesson) => lesson.items).forEach((item) => {
+    expect(item.sourceType).toBe("supplementary");
   });
 });
 
@@ -603,10 +635,11 @@ test("Test chooser renders every bounded curriculum test", () => {
     </MemoryRouter>
   );
 
-  expect(screen.getAllByRole("link")).toHaveLength(15);
+  expect(screen.getAllByRole("link")).toHaveLength(24);
   expect(screen.getByText("Greetings & Introductions")).toBeTruthy();
   expect(screen.getByText("Travel & Places")).toBeTruthy();
   expect(screen.getByText("Common Verbs")).toBeTruthy();
+  expect(screen.getByText("Basic Social Phrases")).toBeTruthy();
   expect(screen.getByText("Learn essential greetings and simple introductions.")).toBeTruthy();
 });
 
