@@ -7,10 +7,12 @@ import SoundButton from "../../components/SoundButton";
 import { useLanguage } from "../../i18n/LanguageProvider";
 import { theme } from "../../styles/theme";
 import { WordStatusActions } from "../../components/WordStatusActions";
+import { useProgress } from "../../i18n/ProgressProvider";
 
 export const Test = ({ data }) => {
   const { userId } = useParams();
   const { t } = useLanguage();
+  const progress = useProgress();
   const testData = data[userId];
   const questions = testData.questions || testData;
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -41,9 +43,16 @@ export const Test = ({ data }) => {
     };
     const nextAnswers = [...answers, record];
     setAnswers(nextAnswers);
+    progress?.recordAnswer(record.word, record.correct);
 
     if (currentQuestion === questions.length - 1) {
       setComplete(true);
+      progress?.recordCompletion({
+        type: "test",
+        categoryId: testData.id || userId,
+        route: `/choosetest/${userId}`,
+        titleKey: testData.titleKey,
+      });
       return;
     }
 

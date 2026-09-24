@@ -6,6 +6,7 @@ import {
   FaKeyboard,
   FaLayerGroup,
   FaQuestionCircle,
+  FaRedo,
 } from "react-icons/fa";
 import { useLanguage } from "../../i18n/LanguageProvider";
 import { theme } from "../../styles/theme";
@@ -18,6 +19,7 @@ export const Practice = () => {
     { key: "cards", to: "/choosecards", icon: FaLayerGroup },
     { key: "quiz", to: "/choosequiz", icon: FaQuestionCircle },
     { key: "test", to: "/choosetest", icon: FaBookOpen },
+    { key: "review", to: "/review", icon: FaRedo },
   ];
 
   return (

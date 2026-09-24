@@ -8,13 +8,16 @@ import { BrowserRouter } from "react-router-dom";
 import { LanguageProvider } from "./i18n/LanguageProvider";
 import { MyWordsProvider } from "./i18n/MyWordsProvider";
 import { setWaitingRegistration } from "./services/serviceWorkerUpdate";
+import { ProgressProvider } from "./i18n/ProgressProvider";
 
 ReactDOM.render(
   <LanguageProvider>
     <MyWordsProvider>
-      <BrowserRouter basename="/pwagerman">
-        <App />
-      </BrowserRouter>
+      <ProgressProvider>
+        <BrowserRouter basename="/pwagerman">
+          <App />
+        </BrowserRouter>
+      </ProgressProvider>
     </MyWordsProvider>
   </LanguageProvider>,
   document.getElementById("root")

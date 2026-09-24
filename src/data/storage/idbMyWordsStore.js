@@ -1,8 +1,9 @@
 // Minimal IndexedDB wrapper for My Words persistence, with a safe fallback contract.
 const DB_NAME = "serbian-a1-store";
-const DB_VERSION = 2;
+const DB_VERSION = 3;
 const STORE_NAME = "myWords";
 const STATUS_STORE_NAME = "wordStatuses";
+const PROGRESS_STORE_NAME = "learningProgress";
 
 const getIndexedDb = () => {
   try {
@@ -29,6 +30,9 @@ const openDb = (idbFactory = getIndexedDb()) =>
       if (!db.objectStoreNames.contains(STATUS_STORE_NAME)) {
         db.createObjectStore(STATUS_STORE_NAME, { keyPath: "id" });
       }
+      if (!db.objectStoreNames.contains(PROGRESS_STORE_NAME)) {
+        db.createObjectStore(PROGRESS_STORE_NAME, { keyPath: "id" });
+      }
     };
 
     request.onsuccess = () => resolve(request.result);
@@ -52,6 +56,27 @@ export const idbReplaceAllWordStatuses = async (statuses, idbFactory = getIndexe
     const store = tx.objectStore(STATUS_STORE_NAME);
     store.clear();
     statuses.forEach((status) => store.put(status));
+    tx.oncomplete = () => resolve();
+    tx.onerror = () => reject(tx.error);
+  });
+};
+
+export const idbGetProgress = async (idbFactory = getIndexedDb()) => {
+  const db = await openDb(idbFactory);
+  return new Promise((resolve, reject) => {
+    const request = db.transaction(PROGRESS_STORE_NAME, "readonly")
+      .objectStore(PROGRESS_STORE_NAME)
+      .get("current");
+    request.onsuccess = () => resolve(request.result || null);
+    request.onerror = () => reject(request.error);
+  });
+};
+
+export const idbSaveProgress = async (progress, idbFactory = getIndexedDb()) => {
+  const db = await openDb(idbFactory);
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction(PROGRESS_STORE_NAME, "readwrite");
+    tx.objectStore(PROGRESS_STORE_NAME).put({ ...progress, id: "current" });
     tx.oncomplete = () => resolve();
     tx.onerror = () => reject(tx.error);
   });

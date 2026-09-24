@@ -6,6 +6,8 @@ import { useLanguage } from "../../i18n/LanguageProvider";
 import { useMyWords } from "../../i18n/MyWordsProvider";
 import { theme } from "../../styles/theme";
 import { InstallHelp } from "../../components/InstallHelp";
+import { useProgress } from "../../i18n/ProgressProvider";
+import { getCurrentStreak } from "../../data/learningProgress";
 
 export const Home = () => {
   const { t } = useLanguage();
@@ -14,6 +16,10 @@ export const Home = () => {
   const words = vocabulary ? vocabulary.words : [];
   const known = allWords.filter((word) => word.status === "known").length;
   const favorites = allWords.filter((word) => word.favorite).length;
+  const progressContext = useProgress();
+  const progress = progressContext?.progress;
+  const streak = progress ? getCurrentStreak(progress.activityDates) : 0;
+  const destination = progress?.lastActivity?.route || "/learn";
 
   return (
     <Container>
@@ -24,10 +30,10 @@ export const Home = () => {
       </Hero>
 
       <Section>
-        <StartCard to="/learn">
+        <StartCard to={destination}>
           <div>
-            <strong>{t("home.startLearning")}</strong>
-            <span>{t("home.chooseCategory")}</span>
+            <strong>{progress?.lastActivity ? t("home.continueLearning") : t("home.startLearning")}</strong>
+            <span>{progress?.lastActivity ? t(`activity.${progress.lastActivity.type}`) : t("home.chooseCategory")}</span>
           </div>
           <FaArrowRight aria-hidden="true" />
         </StartCard>
@@ -44,6 +50,9 @@ export const Home = () => {
           <Stat to="/my-words?filter=known"><FaCheck aria-hidden="true" /><strong>{known}</strong><span>{t("vocabulary.knownWords")}</span></Stat>
           <Stat to="/my-words?filter=favorites"><FaStar aria-hidden="true" /><strong>{favorites}</strong><span>{t("vocabulary.favorites")}</span></Stat>
           <Stat to="/my-words"><FaBookOpen aria-hidden="true" /><strong>{words.length}</strong><span>{t("myWords.title")}</span></Stat>
+          <Stat to="/learn"><FaBookOpen aria-hidden="true" /><strong>{progress?.completedLessons.length || 0} / 6</strong><span>{t("home.completedTopics")}</span></Stat>
+          <Stat to="/practice"><FaCheck aria-hidden="true" /><strong>{progress?.completedExercises.length || 0}</strong><span>{t("home.practiceSessions")}</span></Stat>
+          {streak > 0 && <Stat as="div"><FaCheck aria-hidden="true" /><strong>{streak}</strong><span>{t("home.dayStreak")}</span></Stat>}
         </Stats>
       </Section>
 
@@ -113,7 +122,8 @@ const PracticeLink = styled(Link)`
 `;
 const Stats = styled.div`
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  @media (min-width: 30rem) { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   gap: 0.55rem;
 `;
 const Stat = styled(Link)`

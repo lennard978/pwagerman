@@ -1,16 +1,19 @@
 import { Link, useParams } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Title } from "../../components/Title";
 import styled, { keyframes } from "styled-components";
 import { Btn } from "../../components/style";
 import { useLanguage } from "../../i18n/LanguageProvider";
 import { theme } from "../../styles/theme";
 import { EmptyExercise } from "../../components/EmptyExercise";
+import { useProgress } from "../../i18n/ProgressProvider";
 
 export const Pair = ({ data }) => {
   const { userId } = useParams();
   const number = Number(userId);
   const { t } = useLanguage();
+  const progress = useProgress();
+  const lesson = data[userId];
 
   const wordList = data[userId].items;
   const roundItems = [...wordList]
@@ -26,6 +29,18 @@ export const Pair = ({ data }) => {
   const [selectedSource, setSelectedSource] = useState(null);
   const [selectedTarget, setSelectedTarget] = useState(null);
   const [wrongPair, setWrongPair] = useState(false);
+  const completionRecorded = useRef(false);
+  useEffect(() => {
+    if (roundItems.length >= 2 && source.length === 0 && !completionRecorded.current) {
+      completionRecorded.current = true;
+      progress?.recordCompletion({
+        type: "pair",
+        categoryId: lesson.id,
+        route: `/choosepair/${userId}`,
+        titleKey: lesson.titleKey,
+      });
+    }
+  }, [lesson.id, lesson.titleKey, progress, roundItems.length, source.length, userId]);
 
   const checkCorrect = (sourceItem, targetItem) => {
     if (sourceItem.source === targetItem.source) {

@@ -95,7 +95,7 @@ export const MyWordsProvider = ({ children }) => {
   );
 
   const updateVocabulary = (word, changes) => {
-    if (word.kind === "custom" || words.some((item) => item.id === word.id)) {
+    if (words.some((item) => item.id === word.id)) {
       persist(words.map((item) =>
         item.id === word.id ? withVocabularyDefaults({ ...item, ...changes }) : item
       ));

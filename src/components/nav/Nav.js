@@ -101,4 +101,5 @@ const Button = styled(Link)`
     "/choosecards",
     "/choosetest",
     "/choosequiz",
+    "/review",
   ];

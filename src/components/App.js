@@ -24,10 +24,14 @@ import { useMyWords } from "../i18n/MyWordsProvider";
 import { MyWords } from "../screen/myWords/MyWords";
 import { UpdateNotification } from "./UpdateNotification";
 import { Practice } from "../screen/practice/Practice";
+import { Review } from "../screen/review/Review";
+import { useProgress } from "../i18n/ProgressProvider";
+import { Onboarding } from "./Onboarding";
 
 function App() {
   useSpeechSynthesis();
   const { words, curriculumWords } = useMyWords();
+  const progressContext = useProgress();
   const customLesson = {
     id: "my-words",
     titleKey: "myWords.title",
@@ -42,6 +46,9 @@ function App() {
     ),
   }));
   const exerciseData = [...data, customLesson];
+  if (progressContext && !progressContext.progress.onboardingComplete) {
+    return <Onboarding />;
+  }
   return (
     <>
       <Nav />
@@ -52,6 +59,7 @@ function App() {
           <Route path="home" element={<Home />} />
           <Route path="learn" element={<ChooseLesson data={data} />} />
           <Route path="practice" element={<Practice />} />
+          <Route path="review" element={<Review />} />
           <Route path="my-words" element={<MyWords />} />
           <Route path="chooselesson" element={<ChooseLesson data={data} />} />
           <Route path="chooselesson/:userId" element={<Lesson data={data} />} />

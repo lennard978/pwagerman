@@ -9,6 +9,7 @@
     "cards": "Kartice",
     "test": "Test",
     "quiz": "Kviz",
+    "review": "Pregled",
     "myWords": "Moje reči"
   },
   "actions": {
@@ -25,9 +26,13 @@
     "tagline": "Uči srpski korak po korak."
   },
   "home": {
+    "continueLearning": "Nastavi učenje",
     "startLearning": "Počni da učiš",
     "chooseCategory": "Izaberi oblast",
-    "progress": "Napredak"
+    "progress": "Napredak",
+    "completedTopics": "Završene oblasti",
+    "practiceSessions": "Vežbanja",
+    "dayStreak": "dana u nizu"
   },
   "practice": {
     "description": "Izaberi vežbu, a zatim oblast.",
@@ -35,7 +40,42 @@
     "write": "Napiši prevod na srpskom.",
     "cards": "Okreni kartice i poslušaj izgovor.",
     "quiz": "Izaberi tačan prevod.",
-    "test": "Proveri znanje i pregledaj odgovore."
+    "test": "Proveri znanje i pregledaj odgovore.",
+    "review": "Ponovi sačuvane reči i nedavne greške."
+  },
+  "activity": {
+    "lesson": "Nastavi poslednju lekciju",
+    "pair": "Nastavi povezivanje",
+    "write": "Nastavi pisanje",
+    "cards": "Nastavi kartice",
+    "quiz": "Nastavi kviz",
+    "test": "Nastavi test",
+    "review": "Nastavi pregled reči"
+  },
+  "onboarding": {
+    "title": "Dobro došli u Srpski A1",
+    "learn": "Uči šest početnih oblasti uz izgovor.",
+    "practiceTitle": "Vežbanje i Moje reči",
+    "practice": "Ponavljaj, čuvaj omiljene reči, označi poznate i dodaj svoj rečnik.",
+    "continue": "Dalje",
+    "skip": "Preskoči"
+  },
+  "review": {
+    "description": "Izaberi skup i proveri svaku reč svojim tempom.",
+    "mistakes": "Nedavne greške",
+    "favorites": "Omiljene",
+    "learning": "Učim",
+    "known": "Znam",
+    "reveal": "Prikaži srpski",
+    "hear": "Poslušaj",
+    "again": "Ponovi",
+    "gotIt": "Znam",
+    "empty": {
+      "mistakes": "Nema nedavnih grešaka. Nastavi da vežbaš!",
+      "favorites": "Dodaj reči u omiljene da ih pregledaš ovde.",
+      "learning": "Nema reči za učenje.",
+      "known": "Označi reči kao poznate da ih pregledaš ovde."
+    }
   },
   "vocabulary": {
     "all": "Sve",
@@ -117,6 +157,9 @@
     "perfect": "Odlično - nema grešaka.",
     "yourAnswer": "Tvoj odgovor",
     "correctAnswer": "Tačan odgovor"
+    ,"completeLesson": "Završi lekciju"
+    ,"completeCards": "Završi kartice"
+    ,"completeWrite": "Završi pisanje"
   },
   "errors": {
     "pageNotFound": "Stranica nije pronađena (404)"

@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import SoundButton from "../../components/SoundButton";
 import { Title } from "../../components/Title";
 import styled from "styled-components";
@@ -8,16 +8,19 @@ import { useLanguage } from "../../i18n/LanguageProvider";
 import { theme } from "../../styles/theme";
 import { EmptyExercise } from "../../components/EmptyExercise";
 import { WordStatusActions } from "../../components/WordStatusActions";
+import { useProgress } from "../../i18n/ProgressProvider";
 
 export const Lesson = ({ data }) => {
   const { userId } = useParams();
   const number = Number(userId);
   const { t } = useLanguage();
+  const progress = useProgress();
+  const lesson = data[userId];
   return (
     <Wrapper>
       <Title title={`${t("navigation.lesson")} ${number + 1}`} />
-      {data[userId].items.length === 0 && <EmptyExercise message={t("myWords.emptyHint")} />}
-      {data[userId].items.map((item, index) => {
+      {lesson.items.length === 0 && <EmptyExercise message={t("myWords.emptyHint")} />}
+      {lesson.items.map((item, index) => {
         return (
           <Container key={index}>
             <SoundButton key={index} text={item.target} lang="sr-RS">
@@ -30,6 +33,19 @@ export const Lesson = ({ data }) => {
           </Container>
         );
       })}
+      {lesson.items.length > 0 && (
+        <CompleteLink
+          to="/learn"
+          onClick={() => progress?.recordCompletion({
+            type: "lesson",
+            categoryId: lesson.id,
+            route: `/chooselesson/${userId}`,
+            titleKey: lesson.titleKey,
+          })}
+        >
+          {t("exercise.completeLesson")}
+        </CompleteLink>
+      )}
       <BackBtn title={t("actions.goBack")} to="/chooselesson" />
     </Wrapper>
   );
@@ -90,3 +106,4 @@ const TargetParagraph = styled.p`
   font-size: 1.2rem;
   font-weight: 700;
 `;
+const CompleteLink = styled(Link)`min-block-size: 2.75rem; display: inline-flex; align-items: center; margin-top: 0.75rem; padding-inline: 1.25rem; color: white; background: ${theme.colors.primary}; border-radius: ${theme.radius.small}; text-decoration: none; font-weight: 700;`;

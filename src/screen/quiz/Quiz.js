@@ -8,6 +8,7 @@ import { useLanguage } from "../../i18n/LanguageProvider";
 import { theme } from "../../styles/theme";
 import { EmptyExercise } from "../../components/EmptyExercise";
 import { WordStatusActions } from "../../components/WordStatusActions";
+import { useProgress } from "../../i18n/ProgressProvider";
 
 const shuffle = (items) => [...items].sort(() => Math.random() - 0.5);
 
@@ -34,6 +35,8 @@ const revealResult = keyframes`
 export const Quiz = ({ data }) => {
   const { userId } = useParams();
   const { t } = useLanguage();
+  const progress = useProgress();
+  const lesson = data[userId];
   const items = data[userId].items;
   const [round, setRound] = useState(() => createRound(items));
   const [questionIndex, setQuestionIndex] = useState(0);
@@ -49,6 +52,7 @@ export const Quiz = ({ data }) => {
     if (choice === question.target) {
       setScore((currentScore) => currentScore + 1);
     }
+    progress?.recordAnswer(question, choice === question.target);
     setAnswers((currentAnswers) => [...currentAnswers, {
       prompt: question.source,
       answer: choice,
@@ -61,6 +65,12 @@ export const Quiz = ({ data }) => {
   const nextQuestion = () => {
     if (questionIndex === round.length - 1) {
       setComplete(true);
+      progress?.recordCompletion({
+        type: "quiz",
+        categoryId: lesson.id,
+        route: `/choosequiz/${userId}`,
+        titleKey: lesson.titleKey,
+      });
       return;
     }
     setQuestionIndex((currentIndex) => currentIndex + 1);

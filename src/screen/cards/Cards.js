@@ -9,11 +9,14 @@ import { theme } from "../../styles/theme";
 import { EmptyExercise } from "../../components/EmptyExercise";
 import { speak } from "../../services/tts/ttsProvider";
 import { WordStatusActions } from "../../components/WordStatusActions";
+import { useProgress } from "../../i18n/ProgressProvider";
 
 export const Cards = ({ data }) => {
   const { userId } = useParams();
   const number = Number(userId);
   const { t } = useLanguage();
+  const progress = useProgress();
+  const lesson = data[userId];
   const { speak: browserSpeak, voices } = useSpeechSynthesis();
   const wordList = data[userId].items;
 
@@ -65,7 +68,17 @@ export const Cards = ({ data }) => {
         </AnimateBox>
         <WordStatusActions word={currentItem} />
         {cardIndex === wordList.length - 1 ? (
-          <BackLink to="/choosecards">{t("actions.backToCards")}</BackLink>
+          <BackLink
+            to="/choosecards"
+            onClick={() => progress?.recordCompletion({
+              type: "cards",
+              categoryId: lesson.id,
+              route: `/choosecards/${userId}`,
+              titleKey: lesson.titleKey,
+            })}
+          >
+            {t("actions.backToCards")}
+          </BackLink>
         ) : (
           <Btn onClick={nextWord}>{t("actions.nextWord")}</Btn>
         )}

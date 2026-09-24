@@ -7,12 +7,15 @@ import { useLanguage } from "../../i18n/LanguageProvider";
 import { theme } from "../../styles/theme";
 import { EmptyExercise } from "../../components/EmptyExercise";
 import { speak } from "../../services/tts/ttsProvider";
+import { useProgress } from "../../i18n/ProgressProvider";
 
 export const Write = ({ data }) => {
   const { userId } = useParams();
   const number = Number(userId);
   const { t } = useLanguage();
   const { speak: browserSpeak, voices } = useSpeechSynthesis();
+  const progress = useProgress();
+  const lesson = data[userId];
 
   //Collect Data
   const wordList = data[userId].items.map((item) => {
@@ -63,6 +66,7 @@ export const Write = ({ data }) => {
     if (!nextAnswer.includes(null)) {
       if (wordList[count].target === list) {
         setResultState("correct");
+        progress?.recordAnswer(wordList[count], true);
         speak({
           text: wordList[count].target,
           lang: "sr-RS",
@@ -71,6 +75,7 @@ export const Write = ({ data }) => {
         });
       } else {
         setResultState("incorrect");
+        progress?.recordAnswer(wordList[count], false);
       }
     }
   };
@@ -139,7 +144,21 @@ export const Write = ({ data }) => {
         })}
       </Row>
       {count === wordList.length - 1 ? (
-        <BackLink to="/choosewrite">{t("actions.backToWrite")}</BackLink>
+        <BackLink
+          to="/choosewrite"
+          onClick={() => {
+            if (resultState === "correct") {
+              progress?.recordCompletion({
+                type: "write",
+                categoryId: lesson.id,
+                route: `/choosewrite/${userId}`,
+                titleKey: lesson.titleKey,
+              });
+            }
+          }}
+        >
+          {t("actions.backToWrite")}
+        </BackLink>
       ) : (
         <Button onClick={nextWord}>{t("actions.next")}</Button>
       )}

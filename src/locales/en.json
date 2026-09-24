@@ -9,6 +9,7 @@
     "cards": "Cards",
     "test": "Test",
     "quiz": "Quiz",
+    "review": "Review",
     "settings": "Settings",
     "myWords": "My Words"
   },
@@ -26,9 +27,13 @@
     "tagline": "Learn practical Serbian step by step."
   },
   "home": {
+    "continueLearning": "Continue learning",
     "startLearning": "Start learning",
     "chooseCategory": "Choose a curriculum category",
-    "progress": "Progress"
+    "progress": "Progress",
+    "completedTopics": "Completed topics",
+    "practiceSessions": "Practice sessions",
+    "dayStreak": "day streak"
   },
   "practice": {
     "description": "Choose an exercise, then select a curriculum category.",
@@ -36,7 +41,42 @@
     "write": "Type the Serbian translation.",
     "cards": "Flip cards and hear pronunciation.",
     "quiz": "Choose the correct translation.",
-    "test": "Check your knowledge and review answers."
+    "test": "Check your knowledge and review answers.",
+    "review": "Revisit saved words and recent mistakes."
+  },
+  "activity": {
+    "lesson": "Continue your last lesson",
+    "pair": "Continue with Pair practice",
+    "write": "Continue with Write practice",
+    "cards": "Continue with Cards",
+    "quiz": "Continue with Quiz",
+    "test": "Continue with Test",
+    "review": "Continue reviewing words"
+  },
+  "onboarding": {
+    "title": "Welcome to Serbian A1",
+    "learn": "Study six beginner topics with pronunciation.",
+    "practiceTitle": "Practice & My Words",
+    "practice": "Review, save favorites, mark known words, and add your own vocabulary.",
+    "continue": "Continue",
+    "skip": "Skip"
+  },
+  "review": {
+    "description": "Choose a focused set and check each word at your own pace.",
+    "mistakes": "Recent mistakes",
+    "favorites": "Favorites",
+    "learning": "Learning",
+    "known": "Known",
+    "reveal": "Reveal Serbian",
+    "hear": "Hear",
+    "again": "Review again",
+    "gotIt": "Got it",
+    "empty": {
+      "mistakes": "No recent mistakes. Keep practising!",
+      "favorites": "Favorite words to review them here.",
+      "learning": "No learning words available.",
+      "known": "Mark words as Known to review them here."
+    }
   },
   "vocabulary": {
     "all": "All",
@@ -118,6 +158,9 @@
     "perfect": "Perfect - no mistakes.",
     "yourAnswer": "Your answer",
     "correctAnswer": "Correct answer"
+    ,"completeLesson": "Complete lesson"
+    ,"completeCards": "Finish cards"
+    ,"completeWrite": "Finish writing"
   },
   "errors": {
     "pageNotFound": "Page not found (404)"
