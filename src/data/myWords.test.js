@@ -81,7 +81,7 @@ const Probe = () => {
 
 const VocabularyProbe = () => {
   const { allWords, toggleFavorite, toggleKnown } = useMyWords();
-  const word = allWords.find((item) => item.id === "lesson-24-word-1");
+  const word = allWords.find((item) => item.id === "lesson-33-word-1");
   return (
     <>
       <span data-testid="new-word-status">{word.status}</span>
@@ -176,7 +176,7 @@ test("new curriculum words use the existing Known and Favorite persistence", () 
   expect(screen.getByTestId("new-word-status").textContent).toBe("known");
   expect(screen.getByTestId("new-word-favorite").textContent).toBe("true");
   expect(JSON.parse(localStorage.getItem(WORD_STATUSES_STORAGE_KEY))).toContainEqual({
-    id: "lesson-24-word-1",
+    id: "lesson-33-word-1",
     status: "known",
     favorite: true,
   });

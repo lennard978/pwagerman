@@ -800,11 +800,444 @@ export const Lesson24 = {
   ],
 };
 
+export const Lesson25 = {
+  id: "lesson-25",
+  titleKey: "lessons.verbsExpansion.title",
+  descriptionKey: "lessons.verbsExpansion.description",
+  category: "high-frequency-verbs",
+  items: [
+    {
+      source: "to read", target: "čitati", partOfSpeech: "verb",
+      aspect: "imperfective",
+      example: "Čitam knjigu.",
+      exampleTranslation: "I am reading a book.",
+    },
+    {
+      source: "to write", target: "pisati", partOfSpeech: "verb",
+      aspect: "imperfective",
+      example: "Pišem poruku.",
+      exampleTranslation: "I am writing a message.",
+    },
+    {
+      source: "to wait", target: "čekati", partOfSpeech: "verb",
+      aspect: "imperfective",
+      example: "Čekam autobus.",
+      exampleTranslation: "I am waiting for the bus.",
+    },
+    {
+      source: "to help", target: "pomagati", partOfSpeech: "verb",
+      aspect: "imperfective",
+      note: "Pomoći is the perfective form for a completed act of helping.",
+      example: "Pomažem prijatelju.",
+      exampleTranslation: "I am helping a friend.",
+    },
+    {
+      source: "to open", target: "otvarati", partOfSpeech: "verb",
+      aspect: "imperfective",
+      note: "Otvoriti is the perfective form for opening something completely.",
+      example: "Otvaram prozor.",
+      exampleTranslation: "I am opening the window.",
+    },
+    {
+      source: "to close", target: "zatvarati", partOfSpeech: "verb",
+      aspect: "imperfective",
+      note: "Zatvoriti is the perfective form for closing something completely.",
+      example: "Zatvaram vrata.",
+      exampleTranslation: "I am closing the door.",
+    },
+    {
+      source: "to start / begin", target: "počinjati", partOfSpeech: "verb",
+      aspect: "imperfective",
+      note: "Početi is the perfective form.",
+      example: "Čas počinje u devet.",
+      exampleTranslation: "The class starts at nine.",
+    },
+    {
+      source: "to finish", target: "završavati", partOfSpeech: "verb",
+      aspect: "imperfective",
+      note: "Završiti is the perfective form.",
+      example: "Završavam posao u pet.",
+      exampleTranslation: "I finish work at five.",
+    },
+  ],
+};
+
+export const Lesson26 = {
+  id: "lesson-26",
+  titleKey: "lessons.dailyActions.title",
+  descriptionKey: "lessons.dailyActions.description",
+  category: "daily-actions",
+  items: [
+    {
+      source: "to shower", target: "tuširati se", partOfSpeech: "reflexive verb",
+      example: "Tuširam se ujutru.",
+      exampleTranslation: "I shower in the morning.",
+    },
+    {
+      source: "to get dressed", target: "oblačiti se", partOfSpeech: "reflexive verb",
+      aspect: "imperfective",
+      note: "The reflexive se is part of the verb in this meaning.",
+      example: "Oblačim se brzo.",
+      exampleTranslation: "I get dressed quickly.",
+    },
+    {
+      source: "to cook", target: "kuvati", partOfSpeech: "verb",
+      aspect: "imperfective",
+      example: "Kuvam ručak.",
+      exampleTranslation: "I am cooking lunch.",
+    },
+    {
+      source: "to clean", target: "čistiti", partOfSpeech: "verb",
+      aspect: "imperfective",
+      example: "Čistim stan.",
+      exampleTranslation: "I am cleaning the apartment.",
+    },
+    {
+      source: "to take a walk", target: "šetati", partOfSpeech: "verb",
+      aspect: "imperfective",
+      note: "Šetati means to walk for pleasure; ići peške means to go somewhere on foot.",
+      example: "Šetam u parku.",
+      exampleTranslation: "I am taking a walk in the park.",
+    },
+    {
+      source: "to return", target: "vraćati se", partOfSpeech: "reflexive verb",
+      aspect: "imperfective",
+      note: "Vratiti se is the perfective form.",
+      example: "Vraćam se kući.",
+      exampleTranslation: "I am returning home.",
+    },
+    {
+      source: "to rest", target: "odmarati se", partOfSpeech: "reflexive verb",
+      aspect: "imperfective",
+      example: "Odmaram se posle posla.",
+      exampleTranslation: "I rest after work.",
+    },
+  ],
+};
+
+export const Lesson27 = {
+  id: "lesson-27",
+  titleKey: "lessons.frequency.title",
+  descriptionKey: "lessons.frequency.description",
+  category: "time-frequency",
+  items: [
+    {
+      source: "now", target: "sada", partOfSpeech: "time adverb",
+      note: "Sad is the common shorter form in speech.",
+      example: "Radim sada.",
+      exampleTranslation: "I am working now.",
+    },
+    {
+      source: "later", target: "kasnije", partOfSpeech: "time adverb",
+      example: "Vidimo se kasnije.",
+      exampleTranslation: "See you later.",
+    },
+    {
+      source: "early", target: "rano", partOfSpeech: "time adverb",
+      example: "Ustajem rano.",
+      exampleTranslation: "I get up early.",
+    },
+    {
+      source: "late", target: "kasno", partOfSpeech: "time adverb",
+      example: "Dolazim kasno.",
+      exampleTranslation: "I arrive late.",
+    },
+    {
+      source: "always", target: "uvek", partOfSpeech: "frequency adverb",
+      example: "Uvek doručkujem.",
+      exampleTranslation: "I always have breakfast.",
+    },
+    {
+      source: "often", target: "često", partOfSpeech: "frequency adverb",
+      example: "Često idem autobusom.",
+      exampleTranslation: "I often go by bus.",
+    },
+    {
+      source: "sometimes", target: "ponekad", partOfSpeech: "frequency adverb",
+      example: "Ponekad kuvam večeru.",
+      exampleTranslation: "I sometimes cook dinner.",
+    },
+    {
+      source: "never", target: "nikada", partOfSpeech: "frequency adverb",
+      note: "Nikad is the common shorter form; Serbian also uses ne with this word.",
+      example: "Nikada ne pijem kafu.",
+      exampleTranslation: "I never drink coffee.",
+    },
+  ],
+};
+
+export const Lesson28 = {
+  id: "lesson-28",
+  titleKey: "lessons.adjectivesExpansion.title",
+  descriptionKey: "lessons.adjectivesExpansion.description",
+  category: "common-adjectives-2",
+  items: [
+    {
+      source: "easy", target: "lak", partOfSpeech: "adjective",
+      note: "Lak can also mean light in weight; feminine laka, neuter lako.",
+      example: "Ovaj test je lak.",
+      exampleTranslation: "This test is easy.",
+    },
+    {
+      source: "difficult", target: "težak", partOfSpeech: "adjective",
+      note: "Težak can also mean heavy; feminine teška, neuter teško.",
+      example: "Ovaj zadatak je težak.",
+      exampleTranslation: "This task is difficult.",
+    },
+    {
+      source: "important", target: "važan", partOfSpeech: "adjective",
+      note: "Masculine singular form; feminine važna, neuter važno.",
+      example: "Ovo je važno.",
+      exampleTranslation: "This is important.",
+    },
+    {
+      source: "possible", target: "moguć", partOfSpeech: "adjective",
+      note: "Masculine singular form; feminine moguća, neuter moguće.",
+      example: "To je moguće.",
+      exampleTranslation: "That is possible.",
+    },
+    {
+      source: "ready", target: "spreman", partOfSpeech: "adjective",
+      note: "A woman says spremna; the neuter form is spremno.",
+      example: "Spreman sam.",
+      exampleTranslation: "I am ready.",
+    },
+    {
+      source: "busy", target: "zauzet", partOfSpeech: "adjective",
+      note: "A woman says zauzeta; the neuter form is zauzeto.",
+      example: "Danas sam zauzet.",
+      exampleTranslation: "I am busy today.",
+    },
+    {
+      source: "free / available", target: "slobodan", partOfSpeech: "adjective",
+      note: "This means available or not occupied, not free of charge; feminine slobodna.",
+      example: "Sutra sam slobodan.",
+      exampleTranslation: "I am free tomorrow.",
+    },
+  ],
+};
+
+export const Lesson29 = {
+  id: "lesson-29",
+  titleKey: "lessons.needs.title",
+  descriptionKey: "lessons.needs.description",
+  category: "needs-preferences",
+  items: [
+    {
+      source: "to need", target: "trebati", partOfSpeech: "verb",
+      note: "For personal needs, Serbian commonly uses treba mi plus a noun.",
+      example: "Treba mi voda.",
+      exampleTranslation: "I need water.",
+    },
+    {
+      source: "to like / love", target: "voleti", partOfSpeech: "verb",
+      aspect: "imperfective",
+      note: "Voleti is used for liking things and for loving people.",
+      example: "Volim srpsku hranu.",
+      exampleTranslation: "I like Serbian food.",
+    },
+    {
+      source: "I would like...", target: "želeo bih...", partOfSpeech: "polite phrase",
+      note: "Želeo bih is used by a man; a woman says želela bih.",
+      example: "Želeo bih kafu, molim.",
+      exampleTranslation: "I would like coffee, please.",
+    },
+    {
+      source: "I prefer...", target: "više volim...", partOfSpeech: "preference phrase",
+      example: "Više volim čaj.",
+      exampleTranslation: "I prefer tea.",
+    },
+    {
+      source: "I don't want...", target: "ne želim...", partOfSpeech: "phrase",
+      example: "Ne želim šećer.",
+      exampleTranslation: "I don't want sugar.",
+    },
+    {
+      source: "that's enough", target: "dosta je", partOfSpeech: "phrase",
+      example: "Hvala, dosta je.",
+      exampleTranslation: "Thank you, that's enough.",
+    },
+  ],
+};
+
+export const Lesson30 = {
+  id: "lesson-30",
+  titleKey: "lessons.feelings.title",
+  descriptionKey: "lessons.feelings.description",
+  category: "feelings-states",
+  items: [
+    {
+      source: "hungry", target: "gladan", partOfSpeech: "adjective",
+      note: "A woman says gladna.",
+      example: "Gladan sam.",
+      exampleTranslation: "I am hungry.",
+    },
+    {
+      source: "thirsty", target: "žedan", partOfSpeech: "adjective",
+      note: "A woman says žedna.",
+      example: "Žedna sam.",
+      exampleTranslation: "I am thirsty.",
+    },
+    {
+      source: "tired", target: "umoran", partOfSpeech: "adjective",
+      note: "A woman says umorna.",
+      example: "Umoran sam danas.",
+      exampleTranslation: "I am tired today.",
+    },
+    {
+      source: "happy", target: "srećan", partOfSpeech: "adjective",
+      note: "Srećan can also mean lucky; a woman says srećna.",
+      example: "Danas sam srećna.",
+      exampleTranslation: "I am happy today.",
+    },
+    {
+      source: "sad", target: "tužan", partOfSpeech: "adjective",
+      note: "A woman says tužna.",
+      example: "On je tužan.",
+      exampleTranslation: "He is sad.",
+    },
+    {
+      source: "sick / ill", target: "bolestan", partOfSpeech: "adjective",
+      note: "A woman says bolesna.",
+      example: "Ona je bolesna.",
+      exampleTranslation: "She is sick.",
+    },
+    {
+      source: "angry", target: "ljut", partOfSpeech: "adjective",
+      note: "A woman says ljuta.",
+      example: "On je ljut.",
+      exampleTranslation: "He is angry.",
+    },
+  ],
+};
+
+export const Lesson31 = {
+  id: "lesson-31",
+  titleKey: "lessons.communication.title",
+  descriptionKey: "lessons.communication.description",
+  category: "communication-phrases",
+  items: [
+    {
+      source: "I don't know", target: "ne znam", partOfSpeech: "phrase",
+      example: "Ne znam odgovor.",
+      exampleTranslation: "I don't know the answer.",
+    },
+    {
+      source: "I understand", target: "razumem", partOfSpeech: "phrase",
+      example: "Da, razumem.",
+      exampleTranslation: "Yes, I understand.",
+    },
+    {
+      source: "what does this mean?", target: "šta ovo znači?", partOfSpeech: "question",
+      example: "Šta ovo znači na engleskom?",
+      exampleTranslation: "What does this mean in English?",
+    },
+    {
+      source: "how do you say this in Serbian?", target: "kako se ovo kaže na srpskom?", partOfSpeech: "question",
+      note: "Kaže se is a reflexive impersonal construction used for how something is said.",
+      example: "Kako se kaže \"water\" na srpskom?",
+      exampleTranslation: "How do you say \"water\" in Serbian?",
+    },
+    {
+      source: "please write it down", target: "zapišite, molim vas", partOfSpeech: "phrase",
+      register: "formal singular or plural",
+      note: "Use zapiši when speaking informally to one person.",
+      example: "Zapišite adresu, molim vas.",
+      exampleTranslation: "Please write down the address.",
+    },
+    {
+      source: "one moment, please", target: "samo trenutak, molim vas", partOfSpeech: "phrase",
+      example: "Samo trenutak, molim vas.",
+      exampleTranslation: "One moment, please.",
+    },
+  ],
+};
+
+export const Lesson32 = {
+  id: "lesson-32",
+  titleKey: "lessons.adverbs.title",
+  descriptionKey: "lessons.adverbs.description",
+  category: "common-adverbs",
+  items: [
+    {
+      source: "very", target: "veoma", partOfSpeech: "adverb",
+      note: "Vrlo is another common word for very.",
+      example: "Ovo je veoma važno.",
+      exampleTranslation: "This is very important.",
+    },
+    {
+      source: "a little", target: "malo", partOfSpeech: "adverb",
+      note: "Malo can express a small amount; it is also the neuter form of mali.",
+      example: "Govorim malo srpski.",
+      exampleTranslation: "I speak a little Serbian.",
+    },
+    {
+      source: "together", target: "zajedno", partOfSpeech: "adverb",
+      example: "Učimo zajedno.",
+      exampleTranslation: "We are learning together.",
+    },
+    {
+      source: "again", target: "ponovo", partOfSpeech: "adverb",
+      example: "Ponovo čitam knjigu.",
+      exampleTranslation: "I am reading the book again.",
+    },
+    {
+      source: "quickly", target: "brzo", partOfSpeech: "adverb",
+      note: "Brzo is an adverb; brz is the related masculine adjective.",
+      example: "On govori brzo.",
+      exampleTranslation: "He speaks quickly.",
+    },
+    {
+      source: "slowly", target: "polako", partOfSpeech: "adverb",
+      note: "Polako can also mean carefully or take it easy.",
+      example: "Govorite polako, molim vas.",
+      exampleTranslation: "Please speak slowly.",
+    },
+  ],
+};
+
+export const Lesson33 = {
+  id: "lesson-33",
+  titleKey: "lessons.connectors.title",
+  descriptionKey: "lessons.connectors.description",
+  category: "everyday-connectors",
+  items: [
+    {
+      source: "and", target: "i", partOfSpeech: "conjunction",
+      note: "I can also mean also depending on its position.",
+      example: "Imam kafu i čaj.",
+      exampleTranslation: "I have coffee and tea.",
+    },
+    {
+      source: "but", target: "ali", partOfSpeech: "conjunction",
+      example: "Stan je mali, ali lep.",
+      exampleTranslation: "The apartment is small but beautiful.",
+    },
+    {
+      source: "or", target: "ili", partOfSpeech: "conjunction",
+      example: "Kafa ili čaj?",
+      exampleTranslation: "Coffee or tea?",
+    },
+    {
+      source: "because", target: "jer", partOfSpeech: "conjunction",
+      example: "Učim srpski jer živim u Beogradu.",
+      exampleTranslation: "I am learning Serbian because I live in Belgrade.",
+    },
+    {
+      source: "then", target: "onda", partOfSpeech: "connector adverb",
+      example: "Prvo doručkujem, onda idem na posao.",
+      exampleTranslation: "First I have breakfast, then I go to work.",
+    },
+  ],
+};
+
 const lessons = [
   Lesson1, Lesson2, Lesson3, Lesson4, Lesson5, Lesson6,
   Lesson7, Lesson8, Lesson9, Lesson10, Lesson11, Lesson12,
   Lesson13, Lesson14, Lesson15, Lesson16, Lesson17, Lesson18,
   Lesson19, Lesson20, Lesson21, Lesson22, Lesson23, Lesson24,
+  Lesson25, Lesson26, Lesson27, Lesson28, Lesson29, Lesson30,
+  Lesson31, Lesson32, Lesson33,
 ];
 
 export const Curriculum = lessons.map((lesson) => ({

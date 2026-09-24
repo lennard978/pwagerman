@@ -2,7 +2,7 @@
 
 ## Status and claim boundary
 
-The app began with 120 app-authored English–Serbian pairs across six lessons. Phase 2A added 60 reviewed supplementary entries, and Phase 2B adds another 60 across nine focused domains, bringing the current total from **180 to 240**. This remains **not** an official or complete Serbian A1 exam word list. No authoritative, complete public A1 word list from the University of Belgrade Center for Serbian as a Foreign Language was confirmed during this audit.
+The app began with 120 app-authored English–Serbian pairs across six lessons. Phases 2A and 2B each added 60 reviewed supplementary entries. Phase 2C adds another 60 across nine functional domains, bringing the current total from **240 to 300**. This remains **not** an official or complete Serbian A1 exam word list. No authoritative, complete public A1 word list from the University of Belgrade Center for Serbian as a Foreign Language was confirmed during this audit.
 
 The University of Belgrade describes its first-semester beginners' programme as CEFR A1 and states that it covers basic grammar and vocabulary for everyday communication, reading, and understanding. The Council of Europe A1 descriptor supports familiar everyday expressions, basic personal information, and simple interaction. Those sources define scope; they do not validate each pair in this app.
 
@@ -34,9 +34,40 @@ The University of Belgrade describes its first-semester beginners' programme as 
 | lesson-22 | Common prepositions | 7 | Added in reviewed batch 2 |
 | lesson-23 | Survival phrases | 6 | Added in reviewed batch 2 |
 | lesson-24 | Basic social phrases | 5 | Added in reviewed batch 2 |
-| **Total** |  | **240** | **180 retained, 60 added, 0 silently replaced** |
+| lesson-25 | More common verbs | 8 | Added in reviewed batch 3 |
+| lesson-26 | Everyday actions | 7 | Added in reviewed batch 3 |
+| lesson-27 | Time and frequency | 8 | Added in reviewed batch 3 |
+| lesson-28 | More common adjectives | 7 | Added in reviewed batch 3 |
+| lesson-29 | Needs and preferences | 6 | Added in reviewed batch 3 |
+| lesson-30 | Feelings and states | 7 | Added in reviewed batch 3 |
+| lesson-31 | Communication phrases | 6 | Added in reviewed batch 3 |
+| lesson-32 | Common adverbs | 6 | Added in reviewed batch 3 |
+| lesson-33 | Everyday connectors | 5 | Added in reviewed batch 3 |
+| **Total** |  | **300** | **240 retained, 60 added, 0 silently replaced** |
 
 No exact duplicate English–Serbian pairs are present. Existing IDs (`lesson-N-word-N`) remain stable.
+
+## Phase 2C review summary
+
+- Old total: **240**
+- New total: **300**
+- New source classification: **60 supplementary, 0 verified**
+- New entries with paired examples and translations: **60**
+- Exact duplicate pairs added: **0**
+- Duplicate candidates rejected during review: `to want — želeti`, `to know — znati`, `to understand — razumeti`, `to speak — govoriti`, `to work — raditi`, `to sleep — spavati`, `cheap — jeftin`, and `expensive — skup`
+
+Context-sensitive additions document:
+
+- imperfective `pomagati`, `otvarati`, `zatvarati`, `počinjati`, `završavati`, and `vraćati se`, with concise perfective counterparts
+- reflexive `tuširati se`, `oblačiti se`, `vraćati se`, and `odmarati se`
+- shorter spoken forms `sad` and `nikad`, including required negation with `nikada`
+- adjective gender agreement and secondary meanings of `lak`, `težak`, `srećan`, and `slobodan`
+- the common impersonal need pattern `treba mi`
+- gendered polite forms `želeo bih` and `želela bih`
+- formal/plural `zapišite` and its informal singular alternative `zapiši`
+- adverb/adjective distinctions for `malo` and `brzo`
+
+The detailed entry inventory is in [`SERBIAN-A1-VOCABULARY-BATCH-3.md`](./SERBIAN-A1-VOCABULARY-BATCH-3.md).
 
 ## Phase 2B review summary
 
@@ -79,30 +110,31 @@ These are **questionable only without context**, not established mistranslations
 
 ## Missing or thin A1 domains
 
-After reviewed batch 2, the curriculum still lacks or under-represents:
+After reviewed batch 3, the curriculum still lacks or under-represents:
 
 - dates and full time expressions: months, weekend, clock time
 - quantities and fuller shopping interactions
 - weather and seasons
 - colours and clothing interactions
-- additional high-frequency verbs and aspect pairs
-- additional adjective opposites and possessives
+- possessive adjectives and pronouns
 - transport questions and ticket-buying phrases
 - additional spatial prepositions and movement contrasts
+- calendar vocabulary, seasons, and clock-time questions
+- colours and clothing interactions
 
 ## Controlled expansion proposal
 
 Plan toward **approximately 360 reviewed entries**, not an official total:
 
-- retain all 240 reviewed entries and their stable IDs
-- add approximately 120 further entries only in small reviewed batches
+- retain all 300 reviewed entries and their stable IDs
+- add approximately 60 further entries only in small reviewed batches
 - organize entries across roughly 18 functional domains
 - label every entry `sourceType: "verified"` only when a source directly supports that item; otherwise use `sourceType: "supplementary"`
 - add part of speech, register, examples, and translations only after review
 
 The number 360 is an app planning target chosen to give balanced A1 practice without uncontrolled bulk import. It is not an institutional lexical minimum or an exam guarantee.
 
-Batch details and per-entry metadata are recorded in [`SERBIAN-A1-VOCABULARY-BATCH-1.md`](./SERBIAN-A1-VOCABULARY-BATCH-1.md) and [`SERBIAN-A1-VOCABULARY-BATCH-2.md`](./SERBIAN-A1-VOCABULARY-BATCH-2.md).
+Batch details and per-entry metadata are recorded in [`SERBIAN-A1-VOCABULARY-BATCH-1.md`](./SERBIAN-A1-VOCABULARY-BATCH-1.md), [`SERBIAN-A1-VOCABULARY-BATCH-2.md`](./SERBIAN-A1-VOCABULARY-BATCH-2.md), and [`SERBIAN-A1-VOCABULARY-BATCH-3.md`](./SERBIAN-A1-VOCABULARY-BATCH-3.md).
 
 ## Grammar scope decision
 

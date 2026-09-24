@@ -41,18 +41,15 @@ const Container = styled.div`
 `;
 const Row = styled.div`
   inline-size: 100%;
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
   gap: 0.75rem;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
+  align-items: stretch;
 `;
 
 const Button = styled(Link)`
   box-sizing: border-box;
   inline-size: 100%;
-  max-inline-size: 42rem;
   min-block-size: 5.5rem;
   display: block;
   overflow-wrap: anywhere;

@@ -212,6 +212,42 @@
     "social": {
       "title": "Basic Social Phrases",
       "description": "Use polite phrases for simple everyday interactions."
+    },
+    "verbsExpansion": {
+      "title": "More Common Verbs",
+      "description": "Read, write, wait, help, and manage everyday actions."
+    },
+    "dailyActions": {
+      "title": "Everyday Actions",
+      "description": "Describe simple routines at home and during the day."
+    },
+    "frequency": {
+      "title": "Time & Frequency",
+      "description": "Say when and how often everyday actions happen."
+    },
+    "adjectivesExpansion": {
+      "title": "More Common Adjectives",
+      "description": "Describe difficulty, importance, readiness, and availability."
+    },
+    "needs": {
+      "title": "Needs & Preferences",
+      "description": "Express what you need, like, prefer, or do not want."
+    },
+    "feelings": {
+      "title": "Feelings & States",
+      "description": "Describe basic physical needs and everyday feelings."
+    },
+    "communication": {
+      "title": "Communication Phrases",
+      "description": "Ask about meaning and handle simple language situations."
+    },
+    "adverbs": {
+      "title": "Common Adverbs",
+      "description": "Add useful detail to simple actions and descriptions."
+    },
+    "connectors": {
+      "title": "Everyday Connectors",
+      "description": "Join short ideas with essential connecting words."
     }
   },
   "exercise": {

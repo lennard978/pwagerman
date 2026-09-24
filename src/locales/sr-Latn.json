@@ -211,6 +211,42 @@
     "social": {
       "title": "Osnovne fraze u društvu",
       "description": "Koristi ljubazne fraze u jednostavnim svakodnevnim situacijama."
+    },
+    "verbsExpansion": {
+      "title": "Još čestih glagola",
+      "description": "Čitaj, piši, čekaj, pomaži i obavljaj svakodnevne radnje."
+    },
+    "dailyActions": {
+      "title": "Svakodnevne radnje",
+      "description": "Opiši jednostavne navike kod kuće i tokom dana."
+    },
+    "frequency": {
+      "title": "Vreme i učestalost",
+      "description": "Reci kada i koliko često se svakodnevne radnje dešavaju."
+    },
+    "adjectivesExpansion": {
+      "title": "Još čestih prideva",
+      "description": "Opiši težinu, važnost, spremnost i dostupnost."
+    },
+    "needs": {
+      "title": "Potrebe i želje",
+      "description": "Izrazi šta ti treba, šta voliš, biraš ili ne želiš."
+    },
+    "feelings": {
+      "title": "Osećanja i stanja",
+      "description": "Opiši osnovne fizičke potrebe i svakodnevna osećanja."
+    },
+    "communication": {
+      "title": "Fraze za komunikaciju",
+      "description": "Pitaj za značenje i snađi se u jednostavnom razgovoru."
+    },
+    "adverbs": {
+      "title": "Česti prilozi",
+      "description": "Dodaj korisne detalje jednostavnim radnjama i opisima."
+    },
+    "connectors": {
+      "title": "Svakodnevni veznici",
+      "description": "Poveži kratke misli osnovnim veznicima."
     }
   },
   "exercise": {
