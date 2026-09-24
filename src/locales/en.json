@@ -56,7 +56,7 @@
   },
   "onboarding": {
     "title": "Welcome to Serbian A1",
-    "learn": "Study six beginner topics with pronunciation.",
+    "learn": "Study focused beginner topics with pronunciation.",
     "practiceTitle": "Practice & My Words",
     "practice": "Review, save favorites, mark known words, and add your own vocabulary.",
     "continue": "Continue",
@@ -140,6 +140,42 @@
     "travel": {
       "title": "Travel & Places",
       "description": "Use essential words for travel and getting around."
+    },
+    "personal": {
+      "title": "Personal Information",
+      "description": "Share basic details such as your name, address, country, and language."
+    },
+    "routine": {
+      "title": "Daily Routine",
+      "description": "Describe common actions in a simple day."
+    },
+    "shopping": {
+      "title": "Shopping & Money",
+      "description": "Ask about prices and use basic shopping words."
+    },
+    "jobs": {
+      "title": "Jobs & Work",
+      "description": "Name common jobs and workplaces."
+    },
+    "weather": {
+      "title": "Weather",
+      "description": "Talk about basic weather conditions."
+    },
+    "health": {
+      "title": "Body & Basic Health",
+      "description": "Name key body parts and express a simple health need."
+    },
+    "clothes": {
+      "title": "Clothes",
+      "description": "Learn everyday clothing and size vocabulary."
+    },
+    "questions": {
+      "title": "Question Words",
+      "description": "Build simple questions with essential interrogatives."
+    },
+    "verbs": {
+      "title": "Common Verbs",
+      "description": "Use high-frequency verbs for basic communication."
     }
   },
   "exercise": {

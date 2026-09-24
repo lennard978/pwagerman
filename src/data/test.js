@@ -1,4 +1,5 @@
 import { Curriculum } from "./data";
+import { EXERCISE_ROUND_LIMITS } from "./exerciseRounds";
 
 const createQuestion = (lesson, itemIndex) => {
   const item = lesson.items[itemIndex];
@@ -21,7 +22,10 @@ const createTest = (lesson) => ({
   titleKey: lesson.titleKey,
   descriptionKey: lesson.descriptionKey,
   category: lesson.category,
-  questions: [0, 3, 6, 9, 12, 15].map((itemIndex) =>
+  questions: Array.from(
+    { length: Math.min(EXERCISE_ROUND_LIMITS.test, lesson.items.length) },
+    (_, itemIndex) => itemIndex
+  ).map((itemIndex) =>
     createQuestion(lesson, itemIndex)
   ),
 });
@@ -33,4 +37,4 @@ export const Test4 = createTest(Curriculum[3]);
 export const Test5 = createTest(Curriculum[4]);
 export const Test6 = createTest(Curriculum[5]);
 
-export const Tests = [Test1, Test2, Test3, Test4, Test5, Test6];
+export const Tests = Curriculum.map(createTest);

@@ -22,6 +22,7 @@ import SoundButton, { selectBestVoice } from "../components/SoundButton";
 import { normalizeSpeechLanguage } from "../services/tts/ttsProvider";
 import { LanguageProvider } from "../i18n/LanguageProvider";
 import { Curriculum } from "./data";
+import { createBoundedRound, EXERCISE_ROUND_LIMITS } from "./exerciseRounds";
 
 const mockSpeak = jest.fn();
 
@@ -70,7 +71,9 @@ test("defines six structured lessons with localized metadata", () => {
 });
 
 test("built-in vocabulary exposes scalable A1 metadata without changing stable IDs", () => {
-  expect(Curriculum.flatMap((lesson) => lesson.items)).toHaveLength(120);
+  const allItems = Curriculum.flatMap((lesson) => lesson.items);
+  expect(allItems).toHaveLength(180);
+  expect(Curriculum.slice(6).flatMap((lesson) => lesson.items)).toHaveLength(60);
   Curriculum.forEach((lesson) => {
     lesson.items.forEach((item, index) => {
       expect(item).toEqual(expect.objectContaining({
@@ -81,17 +84,40 @@ test("built-in vocabulary exposes scalable A1 metadata without changing stable I
         source: expect.any(String),
         target: expect.any(String),
       }));
+      expect(["verified", "supplementary"]).toContain(item.sourceType);
+      if (item.example) {
+        expect(item.exampleTranslation).toEqual(expect.any(String));
+        expect(item.exampleTranslation.length).toBeGreaterThan(0);
+      }
     });
+  });
+  expect(new Set(allItems.map((item) => item.id)).size).toBe(allItems.length);
+  Curriculum.slice(0, 6).forEach((lesson) => {
+    expect(lesson.items).toHaveLength(20);
+    lesson.items.forEach((item, index) => {
+      expect(item.id).toBe(`${lesson.id}-word-${index + 1}`);
+    });
+  });
+  Curriculum.slice(6).flatMap((lesson) => lesson.items).forEach((item) => {
+    expect(item.partOfSpeech).toEqual(expect.any(String));
   });
 });
 
 test("has no duplicate vocabulary pairs across lessons", () => {
-  const lessons = [Lesson1, Lesson2, Lesson3, Lesson4, Lesson5, Lesson6];
-  const pairs = lessons.flatMap((lesson) =>
+  const pairs = Curriculum.flatMap((lesson) =>
     lesson.items.map((item) => `${item.source}\u0000${item.target}`)
   );
 
   expect(new Set(pairs).size).toBe(pairs.length);
+});
+
+test("exercise rounds stay bounded as vocabulary categories grow", () => {
+  const items = Curriculum.flatMap((lesson) => lesson.items);
+  Object.values(EXERCISE_ROUND_LIMITS).forEach((limit) => {
+    expect(createBoundedRound(items, limit, () => 0.5)).toHaveLength(limit);
+  });
+  expect(Math.max(...Tests.map((testSet) => testSet.questions.length)))
+    .toBe(EXERCISE_ROUND_LIMITS.test);
 });
 
 test("lesson chooser exposes all six lessons", () => {
@@ -549,17 +575,18 @@ test("Quiz speaker does not select and results review every answer", () => {
   expect(document.querySelectorAll('[data-status="correct"]')).toHaveLength(items.length);
 });
 
-test("active test data contains six curriculum-backed Serbian tests", () => {
-  const lessons = [Lesson1, Lesson2, Lesson3, Lesson4, Lesson5, Lesson6];
+test("active test data contains bounded questions for every curriculum category", () => {
   const testSets = [Test1, Test2, Test3, Test4, Test5, Test6];
 
-  expect(Tests).toEqual(testSets);
-  testSets.forEach((testSet, index) => {
-    const lesson = lessons[index];
+  expect(Tests.slice(0, 6)).toEqual(testSets);
+  expect(Tests).toHaveLength(Curriculum.length);
+  Tests.forEach((testSet, index) => {
+    const lesson = Curriculum[index];
     const lessonTargets = lesson.items.map((item) => item.target);
     expect(testSet.titleKey).toBe(lesson.titleKey);
     expect(testSet.descriptionKey).toBe(lesson.descriptionKey);
     expect(testSet.category).toBe(lesson.category);
+    expect(testSet.questions.length).toBeLessThanOrEqual(EXERCISE_ROUND_LIMITS.test);
     testSet.questions.forEach((question) => {
       expect(question.options).not.toEqual(["der", "die", "das"]);
       expect(question.prompt).toContain("Serbian");
@@ -569,16 +596,17 @@ test("active test data contains six curriculum-backed Serbian tests", () => {
   });
 });
 
-test("Test chooser renders the six shared curriculum cards", () => {
+test("Test chooser renders every bounded curriculum test", () => {
   renderWithLanguage(
     <MemoryRouter>
       <ChooseTest data={Tests} />
     </MemoryRouter>
   );
 
-  expect(screen.getAllByRole("link")).toHaveLength(6);
+  expect(screen.getAllByRole("link")).toHaveLength(15);
   expect(screen.getByText("Greetings & Introductions")).toBeTruthy();
   expect(screen.getByText("Travel & Places")).toBeTruthy();
+  expect(screen.getByText("Common Verbs")).toBeTruthy();
   expect(screen.getByText("Learn essential greetings and simple introductions.")).toBeTruthy();
 });
 

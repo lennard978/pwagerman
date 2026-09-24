@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useSpeechSynthesis } from "react-speech-kit";
 import { Title } from "../../components/Title";
@@ -10,6 +10,7 @@ import { EmptyExercise } from "../../components/EmptyExercise";
 import { speak } from "../../services/tts/ttsProvider";
 import { WordStatusActions } from "../../components/WordStatusActions";
 import { useProgress } from "../../i18n/ProgressProvider";
+import { createBoundedRound, EXERCISE_ROUND_LIMITS } from "../../data/exerciseRounds";
 
 export const Cards = ({ data }) => {
   const { userId } = useParams();
@@ -17,13 +18,21 @@ export const Cards = ({ data }) => {
   const { t } = useLanguage();
   const progress = useProgress();
   const lesson = data[userId];
+  const dataRef = useRef(data);
+  dataRef.current = data;
   const { speak: browserSpeak, voices } = useSpeechSynthesis();
-  const wordList = data[userId].items;
+  const [wordList, setWordList] = useState(() =>
+    createBoundedRound(data[userId].items, EXERCISE_ROUND_LIMITS.cards)
+  );
 
   const [cardIndex, setCardIndex] = useState(0);
   const [flipped, setFlipped] = useState(false);
 
   useEffect(() => {
+    setWordList(createBoundedRound(
+      dataRef.current[userId].items,
+      EXERCISE_ROUND_LIMITS.cards
+    ));
     setCardIndex(0);
     setFlipped(false);
   }, [userId]);

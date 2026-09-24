@@ -55,7 +55,7 @@
   },
   "onboarding": {
     "title": "Dobro došli u Srpski A1",
-    "learn": "Uči šest početnih oblasti uz izgovor.",
+    "learn": "Uči pažljivo izabrane početne oblasti uz izgovor.",
     "practiceTitle": "Vežbanje i Moje reči",
     "practice": "Ponavljaj, čuvaj omiljene reči, označi poznate i dodaj svoj rečnik.",
     "continue": "Dalje",
@@ -139,6 +139,42 @@
     "travel": {
       "title": "Putovanja i mesta",
       "description": "Koristi osnovne reči za putovanje i snalaženje."
+    },
+    "personal": {
+      "title": "Lični podaci",
+      "description": "Podeli osnovne podatke kao što su ime, adresa, zemlja i jezik."
+    },
+    "routine": {
+      "title": "Dnevna rutina",
+      "description": "Opiši uobičajene radnje tokom dana."
+    },
+    "shopping": {
+      "title": "Kupovina i novac",
+      "description": "Pitaj za cenu i koristi osnovne reči za kupovinu."
+    },
+    "jobs": {
+      "title": "Poslovi i rad",
+      "description": "Nauči česte nazive zanimanja i radnih mesta."
+    },
+    "weather": {
+      "title": "Vreme",
+      "description": "Razgovaraj o osnovnim vremenskim prilikama."
+    },
+    "health": {
+      "title": "Telo i osnovno zdravlje",
+      "description": "Nauči delove tela i izrazi jednostavnu zdravstvenu potrebu."
+    },
+    "clothes": {
+      "title": "Odeća",
+      "description": "Nauči svakodnevnu odeću i reči za veličinu."
+    },
+    "questions": {
+      "title": "Upitne reči",
+      "description": "Gradi jednostavna pitanja pomoću osnovnih upitnih reči."
+    },
+    "verbs": {
+      "title": "Česti glagoli",
+      "description": "Koristi česte glagole u osnovnoj komunikaciji."
     }
   },
   "exercise": {

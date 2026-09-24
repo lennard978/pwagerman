@@ -104,7 +104,7 @@ test("completing a lesson persists the category and makes Home offer Continue le
 
   render(<Providers><MemoryRouter><Home /></MemoryRouter></Providers>);
   expect(screen.getByText("Continue learning")).toBeTruthy();
-  expect(screen.getByText("1 / 6")).toBeTruthy();
+  expect(screen.getByText("1 / 15")).toBeTruthy();
 });
 
 test("a wrong Test answer persists a recent mistake and completed practice session", () => {

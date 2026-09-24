@@ -7,6 +7,7 @@ import { useLanguage } from "../../i18n/LanguageProvider";
 import { theme } from "../../styles/theme";
 import { EmptyExercise } from "../../components/EmptyExercise";
 import { useProgress } from "../../i18n/ProgressProvider";
+import { createBoundedRound, EXERCISE_ROUND_LIMITS } from "../../data/exerciseRounds";
 
 export const Pair = ({ data }) => {
   const { userId } = useParams();
@@ -16,9 +17,7 @@ export const Pair = ({ data }) => {
   const lesson = data[userId];
 
   const wordList = data[userId].items;
-  const roundItems = [...wordList]
-    .sort(() => Math.random() - 0.5)
-    .slice(0, 10);
+  const roundItems = createBoundedRound(wordList, EXERCISE_ROUND_LIMITS.pair);
   const [source, setSource] = useState(
     JSON.parse(JSON.stringify(roundItems)).sort(() => Math.random() - 0.5)
   );

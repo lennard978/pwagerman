@@ -8,6 +8,7 @@ import { theme } from "../../styles/theme";
 import { InstallHelp } from "../../components/InstallHelp";
 import { useProgress } from "../../i18n/ProgressProvider";
 import { getCurrentStreak } from "../../data/learningProgress";
+import { Curriculum } from "../../data/data";
 
 export const Home = () => {
   const { t } = useLanguage();
@@ -50,7 +51,7 @@ export const Home = () => {
           <Stat to="/my-words?filter=known"><FaCheck aria-hidden="true" /><strong>{known}</strong><span>{t("vocabulary.knownWords")}</span></Stat>
           <Stat to="/my-words?filter=favorites"><FaStar aria-hidden="true" /><strong>{favorites}</strong><span>{t("vocabulary.favorites")}</span></Stat>
           <Stat to="/my-words"><FaBookOpen aria-hidden="true" /><strong>{words.length}</strong><span>{t("myWords.title")}</span></Stat>
-          <Stat to="/learn"><FaBookOpen aria-hidden="true" /><strong>{progress?.completedLessons.length || 0} / 6</strong><span>{t("home.completedTopics")}</span></Stat>
+          <Stat to="/learn"><FaBookOpen aria-hidden="true" /><strong>{progress?.completedLessons.length || 0} / {Curriculum.length}</strong><span>{t("home.completedTopics")}</span></Stat>
           <Stat to="/practice"><FaCheck aria-hidden="true" /><strong>{progress?.completedExercises.length || 0}</strong><span>{t("home.practiceSessions")}</span></Stat>
           {streak > 0 && <Stat as="div"><FaCheck aria-hidden="true" /><strong>{streak}</strong><span>{t("home.dayStreak")}</span></Stat>}
         </Stats>

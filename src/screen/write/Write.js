@@ -8,6 +8,7 @@ import { theme } from "../../styles/theme";
 import { EmptyExercise } from "../../components/EmptyExercise";
 import { speak } from "../../services/tts/ttsProvider";
 import { useProgress } from "../../i18n/ProgressProvider";
+import { createBoundedRound, EXERCISE_ROUND_LIMITS } from "../../data/exerciseRounds";
 
 export const Write = ({ data }) => {
   const { userId } = useParams();
@@ -18,9 +19,9 @@ export const Write = ({ data }) => {
   const lesson = data[userId];
 
   //Collect Data
-  const wordList = data[userId].items.map((item) => {
-    return item;
-  });
+  const [wordList] = useState(() =>
+    createBoundedRound(data[userId].items, EXERCISE_ROUND_LIMITS.write)
+  );
 
   const [resultState, setResultState] = useState("idle");
   const hasSpokenAnswer = useRef(false);

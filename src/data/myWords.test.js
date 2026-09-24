@@ -79,6 +79,19 @@ const Probe = () => {
   return <span data-testid="count">{words.length}</span>;
 };
 
+const VocabularyProbe = () => {
+  const { allWords, toggleFavorite, toggleKnown } = useMyWords();
+  const word = allWords.find((item) => item.id === "lesson-15-word-1");
+  return (
+    <>
+      <span data-testid="new-word-status">{word.status}</span>
+      <span data-testid="new-word-favorite">{String(word.favorite)}</span>
+      <button onClick={() => toggleKnown(word)}>Toggle new Known</button>
+      <button onClick={() => toggleFavorite(word)}>Toggle new Favorite</button>
+    </>
+  );
+};
+
 beforeEach(() => {
   localStorage.clear();
   mockSpeak.mockClear();
@@ -150,6 +163,23 @@ test("malformed vocabulary statuses are filtered without losing valid records", 
   expect(loadWordStatuses()).toEqual([
     { id: "lesson-1-word-1", status: "known", favorite: true },
   ]);
+});
+
+test("new curriculum words use the existing Known and Favorite persistence", () => {
+  render(
+    <LanguageProvider><MyWordsProvider><VocabularyProbe /></MyWordsProvider></LanguageProvider>
+  );
+
+  fireEvent.click(screen.getByRole("button", { name: "Toggle new Known" }));
+  fireEvent.click(screen.getByRole("button", { name: "Toggle new Favorite" }));
+
+  expect(screen.getByTestId("new-word-status").textContent).toBe("known");
+  expect(screen.getByTestId("new-word-favorite").textContent).toBe("true");
+  expect(JSON.parse(localStorage.getItem(WORD_STATUSES_STORAGE_KEY))).toContainEqual({
+    id: "lesson-15-word-1",
+    status: "known",
+    favorite: true,
+  });
 });
 
 test("saved My Words pronounce the Serbian target without coupling Edit/Delete", () => {

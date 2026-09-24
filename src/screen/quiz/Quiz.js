@@ -9,11 +9,12 @@ import { EmptyExercise } from "../../components/EmptyExercise";
 import { WordStatusActions } from "../../components/WordStatusActions";
 import { useProgress } from "../../i18n/ProgressProvider";
 import { CompactSoundButton } from "../../components/CompactSoundButton";
+import { createBoundedRound, EXERCISE_ROUND_LIMITS } from "../../data/exerciseRounds";
 
 const shuffle = (items) => [...items].sort(() => Math.random() - 0.5);
 
 const createRound = (items) => {
-  const questions = shuffle(items).slice(0, Math.min(10, items.length));
+  const questions = createBoundedRound(items, EXERCISE_ROUND_LIMITS.quiz);
   return questions.map((question) => {
     const distractors = shuffle(
       items.filter((item) => item.source !== question.source)
