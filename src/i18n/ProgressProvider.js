@@ -69,6 +69,50 @@ export const ProgressProvider = ({ children }) => {
     });
   };
 
+  const recordGrammarCompletion = ({ lessonId, route, title }) => {
+    const at = new Date().toISOString();
+    const activity = {
+      type: "grammar",
+      categoryId: lessonId,
+      route,
+      title,
+      at,
+    };
+    persist((current) => ({
+      ...current,
+      lastActivity: activity,
+      completedGrammarLessons: [
+        ...new Set([...current.completedGrammarLessons, lessonId]),
+      ],
+      activityDates: recordStudyDate(current.activityDates),
+    }));
+  };
+
+  const recordGrammarAnswer = ({ lessonId, exerciseId, correct }) => {
+    const id = `${lessonId}:${exerciseId}`;
+    persist((current) => {
+      const existing = current.grammarMistakes.find((item) => item.id === id);
+      const grammarMistakes = correct
+        ? current.grammarMistakes.filter((item) => item.id !== id)
+        : [
+            ...current.grammarMistakes.filter((item) => item.id !== id),
+            {
+              id,
+              lessonId,
+              exerciseId,
+              count: (existing?.count || 0) + 1,
+              lastMissedAt: new Date().toISOString(),
+              reviewEligible: true,
+            },
+          ].slice(-100);
+      return {
+        ...current,
+        grammarMistakes,
+        activityDates: recordStudyDate(current.activityDates),
+      };
+    });
+  };
+
   const completeOnboarding = () =>
     persist((current) => ({ ...current, onboardingComplete: true }));
 
@@ -77,6 +121,8 @@ export const ProgressProvider = ({ children }) => {
       progress,
       recordCompletion,
       recordAnswer,
+      recordGrammarCompletion,
+      recordGrammarAnswer,
       completeOnboarding,
     }}>
       {children}

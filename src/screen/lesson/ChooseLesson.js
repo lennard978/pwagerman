@@ -10,6 +10,11 @@ export const ChooseLesson = ({ data }) => {
       dataList={data}
       title={t("navigation.learn")}
       nav="chooselesson"
+      leadingItem={{
+        to: "/grammar",
+        title: t("grammar.title"),
+        description: t("grammar.description"),
+      }}
     />
   );
 };

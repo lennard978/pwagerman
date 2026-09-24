@@ -51,7 +51,8 @@
     "cards": "Continue with Cards",
     "quiz": "Continue with Quiz",
     "test": "Continue with Test",
-    "review": "Continue reviewing words"
+    "review": "Continue reviewing words",
+    "grammar": "Continue your grammar lesson"
   },
   "onboarding": {
     "title": "Welcome to Serbian A1",
@@ -161,6 +162,31 @@
     ,"completeLesson": "Complete lesson"
     ,"completeCards": "Finish cards"
     ,"completeWrite": "Finish writing"
+  },
+  "grammar": {
+    "title": "Grammar",
+    "description": "Build Serbian step by step with concise rules, examples, and practice.",
+    "a1Scope": "A1 learning area",
+    "a1Grammar": "A1 grammar",
+    "openLesson": "Explanation, examples, and practice",
+    "planned": "Planned for a reviewed future lesson",
+    "rule": "Rule",
+    "examples": "Examples",
+    "commonMistake": "Common mistake",
+    "practice": "Practice",
+    "answer": "Your answer",
+    "check": "Check answer",
+    "choose": "Choose",
+    "match": "Match",
+    "orderedAnswer": "Ordered sentence",
+    "tapWords": "Tap the words in the correct order",
+    "reset": "Reset",
+    "complete": "Complete grammar lesson",
+    "completed": "Grammar lesson completed",
+    "hearExample": "Hear Serbian example",
+    "backToLearn": "Back to Learn",
+    "backToGrammar": "Back to Grammar",
+    "notFound": "Grammar lesson not found"
   },
   "errors": {
     "pageNotFound": "Page not found (404)"

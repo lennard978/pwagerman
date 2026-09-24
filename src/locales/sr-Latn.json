@@ -50,7 +50,8 @@
     "cards": "Nastavi kartice",
     "quiz": "Nastavi kviz",
     "test": "Nastavi test",
-    "review": "Nastavi pregled reči"
+    "review": "Nastavi pregled reči",
+    "grammar": "Nastavi lekciju gramatike"
   },
   "onboarding": {
     "title": "Dobro došli u Srpski A1",
@@ -160,6 +161,31 @@
     ,"completeLesson": "Završi lekciju"
     ,"completeCards": "Završi kartice"
     ,"completeWrite": "Završi pisanje"
+  },
+  "grammar": {
+    "title": "Gramatika",
+    "description": "Uči srpski korak po korak uz kratka pravila, primere i vežbe.",
+    "a1Scope": "A1 oblast učenja",
+    "a1Grammar": "A1 gramatika",
+    "openLesson": "Objašnjenje, primeri i vežbe",
+    "planned": "Planirano za buduću proverenu lekciju",
+    "rule": "Pravilo",
+    "examples": "Primeri",
+    "commonMistake": "Česta greška",
+    "practice": "Vežba",
+    "answer": "Tvoj odgovor",
+    "check": "Proveri odgovor",
+    "choose": "Izaberi",
+    "match": "Poveži",
+    "orderedAnswer": "Složena rečenica",
+    "tapWords": "Dodirni reči pravilnim redom",
+    "reset": "Počni ponovo",
+    "complete": "Završi lekciju gramatike",
+    "completed": "Lekcija gramatike je završena",
+    "hearExample": "Poslušaj primer na srpskom",
+    "backToLearn": "Nazad na Učenje",
+    "backToGrammar": "Nazad na gramatiku",
+    "notFound": "Lekcija gramatike nije pronađena"
   },
   "errors": {
     "pageNotFound": "Stranica nije pronađena (404)"

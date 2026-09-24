@@ -56,15 +56,27 @@ const createFakeIndexedDb = () => {
 };
 
 const Probe = () => {
-  const { progress, recordCompletion, recordAnswer, completeOnboarding } = useProgress();
+  const {
+    progress,
+    recordCompletion,
+    recordAnswer,
+    recordGrammarCompletion,
+    recordGrammarAnswer,
+    completeOnboarding,
+  } = useProgress();
   return (
     <>
       <span data-testid="lessons">{progress.completedLessons.length}</span>
       <span data-testid="mistakes">{progress.recentMistakes.length}</span>
+      <span data-testid="grammar-lessons">{progress.completedGrammarLessons.length}</span>
+      <span data-testid="grammar-mistakes">{progress.grammarMistakes.length}</span>
       <span data-testid="onboarding">{String(progress.onboardingComplete)}</span>
       <button onClick={() => recordCompletion({ type: "lesson", categoryId: "lesson-1", route: "/chooselesson/0" })}>Complete</button>
       <button onClick={() => recordAnswer({ id: "word-1", source: "house", target: "kuća" }, false)}>Wrong</button>
       <button onClick={() => recordAnswer({ id: "word-1", source: "house", target: "kuća" }, true)}>Correct</button>
+      <button onClick={() => recordGrammarCompletion({ lessonId: "noun-gender", route: "/grammar/noun-gender", title: "Noun gender" })}>Complete grammar</button>
+      <button onClick={() => recordGrammarAnswer({ lessonId: "noun-gender", exerciseId: "gender-choice", correct: false })}>Grammar wrong</button>
+      <button onClick={() => recordGrammarAnswer({ lessonId: "noun-gender", exerciseId: "gender-choice", correct: true })}>Grammar correct</button>
       <button onClick={completeOnboarding}>Onboard</button>
     </>
   );
@@ -90,12 +102,33 @@ test("malformed progress migrates to the versioned default without losing valid 
     onboardingComplete: true,
   }));
   expect(loadProgress()).toEqual(expect.objectContaining({
-    version: 1,
+    version: 2,
     completedLessons: ["lesson-2"],
     completedExercises: [],
+    completedGrammarLessons: [],
+    grammarMistakes: [],
     activityDates: ["2026-09-24"],
     onboardingComplete: true,
   }));
+});
+
+test("progress provider keeps grammar completion and mistakes separate from vocabulary review", () => {
+  render(<ProgressProvider><Probe /></ProgressProvider>);
+  fireEvent.click(screen.getByRole("button", { name: "Grammar wrong" }));
+  expect(screen.getByTestId("grammar-mistakes").textContent).toBe("1");
+  expect(screen.getByTestId("mistakes").textContent).toBe("0");
+
+  const savedMistake = JSON.parse(localStorage.getItem(PROGRESS_STORAGE_KEY)).grammarMistakes[0];
+  expect(savedMistake).toEqual(expect.objectContaining({
+    id: "noun-gender:gender-choice",
+    reviewEligible: true,
+  }));
+
+  fireEvent.click(screen.getByRole("button", { name: "Grammar correct" }));
+  fireEvent.click(screen.getByRole("button", { name: "Complete grammar" }));
+  expect(screen.getByTestId("grammar-mistakes").textContent).toBe("0");
+  expect(screen.getByTestId("grammar-lessons").textContent).toBe("1");
+  expect(JSON.parse(localStorage.getItem(PROGRESS_STORAGE_KEY)).lastActivity.type).toBe("grammar");
 });
 
 test("progress provider records completions, mistakes, corrections, and onboarding", () => {

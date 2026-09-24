@@ -21,6 +21,7 @@ import { Write } from "../screen/write/Write";
 import SoundButton, { selectBestVoice } from "../components/SoundButton";
 import { normalizeSpeechLanguage } from "../services/tts/ttsProvider";
 import { LanguageProvider } from "../i18n/LanguageProvider";
+import { Curriculum } from "./data";
 
 const mockSpeak = jest.fn();
 
@@ -68,6 +69,22 @@ test("defines six structured lessons with localized metadata", () => {
   });
 });
 
+test("built-in vocabulary exposes scalable A1 metadata without changing stable IDs", () => {
+  expect(Curriculum.flatMap((lesson) => lesson.items)).toHaveLength(120);
+  Curriculum.forEach((lesson) => {
+    lesson.items.forEach((item, index) => {
+      expect(item).toEqual(expect.objectContaining({
+        id: `${lesson.id}-word-${index + 1}`,
+        categoryId: lesson.id,
+        level: "A1",
+        sourceType: "supplementary",
+        source: expect.any(String),
+        target: expect.any(String),
+      }));
+    });
+  });
+});
+
 test("has no duplicate vocabulary pairs across lessons", () => {
   const lessons = [Lesson1, Lesson2, Lesson3, Lesson4, Lesson5, Lesson6];
   const pairs = lessons.flatMap((lesson) =>
@@ -86,7 +103,8 @@ test("lesson chooser exposes all six lessons", () => {
     </MemoryRouter>
   );
 
-  expect(screen.getAllByRole("link")).toHaveLength(6);
+  expect(screen.getAllByRole("link")).toHaveLength(7);
+  expect(screen.getByRole("link", { name: /Grammar/ })).toBeTruthy();
   expect(screen.getByText("Greetings & Introductions")).toBeTruthy();
   expect(screen.getByText("Travel & Places")).toBeTruthy();
 });

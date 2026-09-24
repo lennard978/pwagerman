@@ -179,7 +179,10 @@ export const Curriculum = lessons.map((lesson) => ({
   items: lesson.items.map((item, index) => ({
     ...item,
     id: `${lesson.id}-word-${index + 1}`,
+    categoryId: lesson.id,
     category: lesson.category,
+    level: "A1",
+    sourceType: "supplementary",
     status: "learning",
     favorite: false,
     kind: "built-in",

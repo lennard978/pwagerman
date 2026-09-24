@@ -27,6 +27,8 @@ import { Practice } from "../screen/practice/Practice";
 import { Review } from "../screen/review/Review";
 import { useProgress } from "../i18n/ProgressProvider";
 import { Onboarding } from "./Onboarding";
+import { GrammarList } from "../screen/grammar/GrammarList";
+import { GrammarLesson } from "../screen/grammar/GrammarLesson";
 
 function App() {
   useSpeechSynthesis();
@@ -58,6 +60,8 @@ function App() {
           <Route index element={<Home />} />
           <Route path="home" element={<Home />} />
           <Route path="learn" element={<ChooseLesson data={data} />} />
+          <Route path="grammar" element={<GrammarList />} />
+          <Route path="grammar/:lessonId" element={<GrammarLesson />} />
           <Route path="practice" element={<Practice />} />
           <Route path="review" element={<Review />} />
           <Route path="my-words" element={<MyWords />} />

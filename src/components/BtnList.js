@@ -3,12 +3,18 @@ import styled from "styled-components";
 import { useLanguage } from "../i18n/LanguageProvider";
 import { theme } from "../styles/theme";
 
-export const BtnList = ({ dataList, title, nav }) => {
+export const BtnList = ({ dataList, title, nav, leadingItem }) => {
   const { t } = useLanguage();
 
   return (
     <Container>
       <Row>
+        {leadingItem && (
+          <Button to={leadingItem.to}>
+            <ItemTitle>{leadingItem.title}</ItemTitle>
+            <Description>{leadingItem.description}</Description>
+          </Button>
+        )}
         {dataList.map((lesson, index) => (
           <Button key={lesson.id || index} to={`/${nav}/${index}`}>
             <ItemTitle>

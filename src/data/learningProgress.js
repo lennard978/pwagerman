@@ -10,7 +10,7 @@ import {
 } from "./myWords";
 
 export const PROGRESS_STORAGE_KEY = "serbian-a1.learningProgress.v1";
-export const PROGRESS_VERSION = 1;
+export const PROGRESS_VERSION = 2;
 
 const localDate = (date = new Date()) => {
   const year = date.getFullYear();
@@ -36,6 +36,8 @@ export const createDefaultProgress = (storage = window.localStorage) => ({
   lastActivity: null,
   completedLessons: [],
   completedExercises: [],
+  completedGrammarLessons: [],
+  grammarMistakes: [],
   recentMistakes: [],
   activityDates: [],
   onboardingComplete: existingUser(storage),
@@ -50,6 +52,10 @@ export const normalizeProgress = (value, storage = window.localStorage) => {
     version: PROGRESS_VERSION,
     completedLessons: Array.isArray(value.completedLessons) ? value.completedLessons : [],
     completedExercises: Array.isArray(value.completedExercises) ? value.completedExercises : [],
+    completedGrammarLessons: Array.isArray(value.completedGrammarLessons)
+      ? [...new Set(value.completedGrammarLessons)]
+      : [],
+    grammarMistakes: Array.isArray(value.grammarMistakes) ? value.grammarMistakes : [],
     recentMistakes: Array.isArray(value.recentMistakes) ? value.recentMistakes : [],
     activityDates: Array.isArray(value.activityDates) ? [...new Set(value.activityDates)] : [],
     onboardingComplete: typeof value.onboardingComplete === "boolean"
