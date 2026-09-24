@@ -113,6 +113,41 @@ export const ProgressProvider = ({ children }) => {
     });
   };
 
+  const recordExamPrepCompletion = ({ area, taskId, score, total, route, title }) => {
+    const at = new Date().toISOString();
+    const percentage = total > 0 ? Math.round((score / total) * 100) : 0;
+    const activity = {
+      type: "exam-prep",
+      area,
+      taskId,
+      route,
+      title,
+      score,
+      total,
+      percentage,
+      at,
+    };
+    persist((current) => ({
+      ...current,
+      lastActivity: activity,
+      completedExamReadingTasks: area === "reading"
+        ? [...new Set([...current.completedExamReadingTasks, taskId])]
+        : current.completedExamReadingTasks,
+      completedExamListeningTasks: area === "listening"
+        ? [...new Set([...current.completedExamListeningTasks, taskId])]
+        : current.completedExamListeningTasks,
+      completedExamPrepSessions: [
+        ...current.completedExamPrepSessions,
+        activity,
+      ].slice(-100),
+      examPrepBestScores: {
+        ...current.examPrepBestScores,
+        [area]: Math.max(current.examPrepBestScores[area] || 0, percentage),
+      },
+      activityDates: recordStudyDate(current.activityDates),
+    }));
+  };
+
   const completeOnboarding = () =>
     persist((current) => ({ ...current, onboardingComplete: true }));
 
@@ -123,6 +158,7 @@ export const ProgressProvider = ({ children }) => {
       recordAnswer,
       recordGrammarCompletion,
       recordGrammarAnswer,
+      recordExamPrepCompletion,
       completeOnboarding,
     }}>
       {children}

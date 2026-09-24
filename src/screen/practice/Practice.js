@@ -7,6 +7,7 @@ import {
   FaLayerGroup,
   FaQuestionCircle,
   FaRedo,
+  FaGraduationCap,
 } from "react-icons/fa";
 import { useLanguage } from "../../i18n/LanguageProvider";
 import { theme } from "../../styles/theme";
@@ -20,6 +21,7 @@ export const Practice = () => {
     { key: "quiz", to: "/choosequiz", icon: FaQuestionCircle },
     { key: "test", to: "/choosetest", icon: FaBookOpen },
     { key: "review", to: "/review", icon: FaRedo },
+    { key: "examPrep", to: "/exam-prep", icon: FaGraduationCap },
   ];
 
   return (

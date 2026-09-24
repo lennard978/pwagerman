@@ -10,7 +10,7 @@ import {
 } from "./myWords";
 
 export const PROGRESS_STORAGE_KEY = "serbian-a1.learningProgress.v1";
-export const PROGRESS_VERSION = 2;
+export const PROGRESS_VERSION = 3;
 
 const localDate = (date = new Date()) => {
   const year = date.getFullYear();
@@ -38,6 +38,10 @@ export const createDefaultProgress = (storage = window.localStorage) => ({
   completedExercises: [],
   completedGrammarLessons: [],
   grammarMistakes: [],
+  completedExamReadingTasks: [],
+  completedExamListeningTasks: [],
+  completedExamPrepSessions: [],
+  examPrepBestScores: {},
   recentMistakes: [],
   activityDates: [],
   onboardingComplete: existingUser(storage),
@@ -56,6 +60,20 @@ export const normalizeProgress = (value, storage = window.localStorage) => {
       ? [...new Set(value.completedGrammarLessons)]
       : [],
     grammarMistakes: Array.isArray(value.grammarMistakes) ? value.grammarMistakes : [],
+    completedExamReadingTasks: Array.isArray(value.completedExamReadingTasks)
+      ? [...new Set(value.completedExamReadingTasks)]
+      : [],
+    completedExamListeningTasks: Array.isArray(value.completedExamListeningTasks)
+      ? [...new Set(value.completedExamListeningTasks)]
+      : [],
+    completedExamPrepSessions: Array.isArray(value.completedExamPrepSessions)
+      ? value.completedExamPrepSessions
+      : [],
+    examPrepBestScores: value.examPrepBestScores &&
+      typeof value.examPrepBestScores === "object" &&
+      !Array.isArray(value.examPrepBestScores)
+      ? value.examPrepBestScores
+      : {},
     recentMistakes: Array.isArray(value.recentMistakes) ? value.recentMistakes : [],
     activityDates: Array.isArray(value.activityDates) ? [...new Set(value.activityDates)] : [],
     onboardingComplete: typeof value.onboardingComplete === "boolean"

@@ -29,6 +29,10 @@ import { useProgress } from "../i18n/ProgressProvider";
 import { Onboarding } from "./Onboarding";
 import { GrammarList } from "../screen/grammar/GrammarList";
 import { GrammarLesson } from "../screen/grammar/GrammarLesson";
+import { ExamPrep } from "../screen/examPrep/ExamPrep";
+import { ExamPrepTaskList } from "../screen/examPrep/ExamPrepTaskList";
+import { ExamPrepTask } from "../screen/examPrep/ExamPrepTask";
+import { ExamPrepReview } from "../screen/examPrep/ExamPrepReview";
 
 function App() {
   useSpeechSynthesis();
@@ -63,6 +67,10 @@ function App() {
           <Route path="grammar" element={<GrammarList />} />
           <Route path="grammar/:lessonId" element={<GrammarLesson />} />
           <Route path="practice" element={<Practice />} />
+          <Route path="exam-prep" element={<ExamPrep />} />
+          <Route path="exam-prep/vocabulary-grammar" element={<ExamPrepReview />} />
+          <Route path="exam-prep/:area" element={<ExamPrepTaskList />} />
+          <Route path="exam-prep/:area/:taskId" element={<ExamPrepTask />} />
           <Route path="review" element={<Review />} />
           <Route path="my-words" element={<MyWords />} />
           <Route path="chooselesson" element={<ChooseLesson data={data} />} />

@@ -10,7 +10,8 @@
     "test": "Test",
     "quiz": "Kviz",
     "review": "Pregled",
-    "myWords": "Moje reči"
+    "myWords": "Moje reči",
+    "examPrep": "Priprema za ispit"
   },
   "actions": {
     "next": "Dalje",
@@ -41,7 +42,8 @@
     "cards": "Okreni kartice i poslušaj izgovor.",
     "quiz": "Izaberi tačan prevod.",
     "test": "Proveri znanje i pregledaj odgovore.",
-    "review": "Ponovi sačuvane reči i nedavne greške."
+    "review": "Ponovi sačuvane reči i nedavne greške.",
+    "examPrep": "Vežbaj čitanje, slušanje, rečnik i gramatiku."
   },
   "activity": {
     "lesson": "Nastavi poslednju lekciju",
@@ -51,7 +53,8 @@
     "quiz": "Nastavi kviz",
     "test": "Nastavi test",
     "review": "Nastavi pregled reči",
-    "grammar": "Nastavi lekciju gramatike"
+    "grammar": "Nastavi lekciju gramatike",
+    "exam-prep": "Nastavi pripremu za ispit"
   },
   "onboarding": {
     "title": "Dobro došli u Srpski A1",

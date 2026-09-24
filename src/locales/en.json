@@ -11,7 +11,8 @@
     "quiz": "Quiz",
     "review": "Review",
     "settings": "Settings",
-    "myWords": "My Words"
+    "myWords": "My Words",
+    "examPrep": "Exam Prep"
   },
   "actions": {
     "next": "Next",
@@ -42,7 +43,8 @@
     "cards": "Flip cards and hear pronunciation.",
     "quiz": "Choose the correct translation.",
     "test": "Check your knowledge and review answers.",
-    "review": "Revisit saved words and recent mistakes."
+    "review": "Revisit saved words and recent mistakes.",
+    "examPrep": "Practise reading, listening, vocabulary, and grammar skills."
   },
   "activity": {
     "lesson": "Continue your last lesson",
@@ -52,7 +54,8 @@
     "quiz": "Continue with Quiz",
     "test": "Continue with Test",
     "review": "Continue reviewing words",
-    "grammar": "Continue your grammar lesson"
+    "grammar": "Continue your grammar lesson",
+    "exam-prep": "Continue your exam-prep practice"
   },
   "onboarding": {
     "title": "Welcome to Serbian A1",

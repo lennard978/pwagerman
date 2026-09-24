@@ -62,6 +62,7 @@ const Probe = () => {
     recordAnswer,
     recordGrammarCompletion,
     recordGrammarAnswer,
+    recordExamPrepCompletion,
     completeOnboarding,
   } = useProgress();
   return (
@@ -70,6 +71,9 @@ const Probe = () => {
       <span data-testid="mistakes">{progress.recentMistakes.length}</span>
       <span data-testid="grammar-lessons">{progress.completedGrammarLessons.length}</span>
       <span data-testid="grammar-mistakes">{progress.grammarMistakes.length}</span>
+      <span data-testid="exam-reading">{progress.completedExamReadingTasks.length}</span>
+      <span data-testid="exam-sessions">{progress.completedExamPrepSessions.length}</span>
+      <span data-testid="exam-best">{progress.examPrepBestScores.reading || 0}</span>
       <span data-testid="onboarding">{String(progress.onboardingComplete)}</span>
       <button onClick={() => recordCompletion({ type: "lesson", categoryId: "lesson-1", route: "/chooselesson/0" })}>Complete</button>
       <button onClick={() => recordAnswer({ id: "word-1", source: "house", target: "kuća" }, false)}>Wrong</button>
@@ -77,6 +81,14 @@ const Probe = () => {
       <button onClick={() => recordGrammarCompletion({ lessonId: "noun-gender", route: "/grammar/noun-gender", title: "Noun gender" })}>Complete grammar</button>
       <button onClick={() => recordGrammarAnswer({ lessonId: "noun-gender", exerciseId: "gender-choice", correct: false })}>Grammar wrong</button>
       <button onClick={() => recordGrammarAnswer({ lessonId: "noun-gender", exerciseId: "gender-choice", correct: true })}>Grammar correct</button>
+      <button onClick={() => recordExamPrepCompletion({
+        area: "reading",
+        taskId: "reading-introduction",
+        score: 3,
+        total: 4,
+        route: "/exam-prep/reading/reading-introduction",
+        title: "Ana introduces herself",
+      })}>Complete exam task</button>
       <button onClick={completeOnboarding}>Onboard</button>
     </>
   );
@@ -102,11 +114,15 @@ test("malformed progress migrates to the versioned default without losing valid 
     onboardingComplete: true,
   }));
   expect(loadProgress()).toEqual(expect.objectContaining({
-    version: 2,
+    version: 3,
     completedLessons: ["lesson-2"],
     completedExercises: [],
     completedGrammarLessons: [],
     grammarMistakes: [],
+    completedExamReadingTasks: [],
+    completedExamListeningTasks: [],
+    completedExamPrepSessions: [],
+    examPrepBestScores: {},
     activityDates: ["2026-09-24"],
     onboardingComplete: true,
   }));
@@ -142,6 +158,23 @@ test("progress provider records completions, mistakes, corrections, and onboardi
   expect(screen.getByTestId("mistakes").textContent).toBe("0");
   expect(screen.getByTestId("onboarding").textContent).toBe("true");
   expect(JSON.parse(localStorage.getItem(PROGRESS_STORAGE_KEY)).lastActivity.route).toBe("/chooselesson/0");
+});
+
+test("progress provider keeps exam prep completion and best scores isolated", () => {
+  render(<ProgressProvider><Probe /></ProgressProvider>);
+  fireEvent.click(screen.getByRole("button", { name: "Complete exam task" }));
+  expect(screen.getByTestId("exam-reading").textContent).toBe("1");
+  expect(screen.getByTestId("exam-sessions").textContent).toBe("1");
+  expect(screen.getByTestId("exam-best").textContent).toBe("75");
+
+  const saved = JSON.parse(localStorage.getItem(PROGRESS_STORAGE_KEY));
+  expect(saved.lastActivity).toEqual(expect.objectContaining({
+    type: "exam-prep",
+    area: "reading",
+    percentage: 75,
+  }));
+  expect(saved.recentMistakes).toEqual([]);
+  expect(saved.grammarMistakes).toEqual([]);
 });
 
 test("progress persists through IndexedDB with localStorage migration and reload", async () => {
