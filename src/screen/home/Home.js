@@ -24,7 +24,6 @@ export const Home = () => {
       </Hero>
 
       <Section>
-        <Eyebrow>{t("home.continueLearning")}</Eyebrow>
         <StartCard to="/learn">
           <div>
             <strong>{t("home.startLearning")}</strong>
