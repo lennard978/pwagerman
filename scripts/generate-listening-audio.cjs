@@ -72,12 +72,24 @@ const parseArgs = (argv) => {
 };
 
 const commandAvailable = (command) => spawnSync(command, ["-version"], { stdio: "ignore" }).status === 0;
+const applicationDefaultCredentialPaths = ({
+  env = process.env,
+  platform = process.platform,
+  homedir = os.homedir(),
+} = {}) => [
+  env.GOOGLE_APPLICATION_CREDENTIALS,
+  platform === "win32" && env.APPDATA
+    ? path.join(env.APPDATA, "gcloud", "application_default_credentials.json")
+    : path.join(homedir, ".config", "gcloud", "application_default_credentials.json"),
+].filter(Boolean);
+const applicationDefaultCredentialsAvailable = (options) =>
+  applicationDefaultCredentialPaths(options).some((filename) => fs.existsSync(filename));
 const generationPrerequisiteBlockers = () => {
   const explicitKeys = ["GOOGLE_CLOUD_PROJECT_ID", "GOOGLE_CLOUD_CLIENT_EMAIL", "GOOGLE_CLOUD_PRIVATE_KEY"];
   const explicitCount = explicitKeys.filter((key) => process.env[key]).length;
   const blockers = [];
   if (explicitCount > 0 && explicitCount < explicitKeys.length) blockers.push("google-credentials-incomplete");
-  else if (explicitCount === 0 && !process.env.GOOGLE_APPLICATION_CREDENTIALS) blockers.push("google-credentials-missing");
+  else if (explicitCount === 0 && !applicationDefaultCredentialsAvailable()) blockers.push("google-credentials-missing");
   if (!commandAvailable("ffmpeg")) blockers.push("ffmpeg-missing");
   if (!commandAvailable("ffprobe")) blockers.push("ffprobe-missing");
   return blockers;
@@ -132,7 +144,7 @@ const createClient = () => {
   const explicitKeys = ["GOOGLE_CLOUD_PROJECT_ID", "GOOGLE_CLOUD_CLIENT_EMAIL", "GOOGLE_CLOUD_PRIVATE_KEY"];
   const explicitCount = explicitKeys.filter((key) => process.env[key]).length;
   if (explicitCount > 0 && explicitCount < explicitKeys.length) throw new Error("google-credentials-incomplete");
-  if (explicitCount === 0 && !process.env.GOOGLE_APPLICATION_CREDENTIALS) throw new Error("google-credentials-missing");
+  if (explicitCount === 0 && !applicationDefaultCredentialsAvailable()) throw new Error("google-credentials-missing");
   // Loaded only by this local generation tool. It is never imported by React.
   // eslint-disable-next-line global-require
   const textToSpeech = require("@google-cloud/text-to-speech");
@@ -289,6 +301,8 @@ if (require.main === module) {
 module.exports = {
   parseArgs,
   commandAvailable,
+  applicationDefaultCredentialPaths,
+  applicationDefaultCredentialsAvailable,
   generationPrerequisiteBlockers,
   encodeTrack,
   createClient,

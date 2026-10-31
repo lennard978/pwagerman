@@ -51,11 +51,11 @@ test("checked-in manifest matches the current scripts and deterministic paths", 
   });
 });
 
-test("pending architecture validates but cannot claim production readiness", () => {
+test("generated architecture validates and claims production readiness", () => {
   const result = validateManifest(manifest, catalog, { requireDecodable: false });
   assert.equal(result.valid, true);
-  assert.equal(result.productionReady, false);
-  assert.equal(result.readyCount, 0);
+  assert.equal(result.productionReady, true);
+  assert.equal(result.readyCount, 24);
 });
 
 test("ready metadata cannot pass without its exact committed file", () => {

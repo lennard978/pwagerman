@@ -5,7 +5,13 @@ const fs = require("node:fs");
 const os = require("node:os");
 const path = require("node:path");
 const { VOICE_ROLES } = require("./config.cjs");
-const { generationPrerequisiteBlockers, parseArgs, recordIsCurrent, verifyProviderVoices } = require("../generate-listening-audio.cjs");
+const {
+  applicationDefaultCredentialsAvailable,
+  generationPrerequisiteBlockers,
+  parseArgs,
+  recordIsCurrent,
+  verifyProviderVoices,
+} = require("../generate-listening-audio.cjs");
 
 test("generation CLI supports plan, force, form, sync, and validation modes", () => {
   assert.deepEqual(parseArgs(["--form", "form-002", "--force", "--plan"]), {
@@ -25,6 +31,18 @@ test("provider voice preflight requires every configured de-DE voice", async () 
 test("prerequisite audit reports missing tools and credentials without exposing values", () => {
   const blockers = generationPrerequisiteBlockers();
   expectOrAssert(blockers);
+});
+
+test("standard gcloud ADC discovery does not require an environment variable", () => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), "listening-adc-discovery-"));
+  try {
+    const filename = path.join(root, "gcloud", "application_default_credentials.json");
+    fs.mkdirSync(path.dirname(filename), { recursive: true });
+    fs.writeFileSync(filename, "{}\n");
+    assert.equal(applicationDefaultCredentialsAvailable({ env: { APPDATA: root }, platform: "win32", homedir: root }), true);
+  } finally {
+    fs.rmSync(root, { recursive: true, force: true });
+  }
 });
 
 test("unchanged records require the exact physical MP3", () => {

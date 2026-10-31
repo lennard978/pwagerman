@@ -18,11 +18,11 @@ describe("German B1 Listening forms", () => {
     expect(form.parts[0].audio.every((audio) => form.parts[0].items.filter(({ audioRef }) => audioRef === audio.id).length === 2)).toBe(true);
   });
 
-  test("keeps simulations blocked until reviewed versioned audio exists", () => {
+  test("unlocks simulations when all reviewed versioned audio exists", () => {
     const validation = validateListeningForms(listeningForms);
     expect(listeningAudioManifest).toHaveLength(24);
-    expect(validation.audioReady).toBe(false);
-    expect(validation.audioBlockers).toHaveLength(24);
-    expect(listeningAudioManifest.every(({ assetStatus, assetChecksum }) => assetStatus === "pending-generation" && assetChecksum === null)).toBe(true);
+    expect(validation.audioReady).toBe(true);
+    expect(validation.audioBlockers).toHaveLength(0);
+    expect(listeningAudioManifest.every(({ assetStatus, assetChecksum }) => assetStatus === "ready" && /^[a-f0-9]{64}$/.test(assetChecksum))).toBe(true);
   });
 });

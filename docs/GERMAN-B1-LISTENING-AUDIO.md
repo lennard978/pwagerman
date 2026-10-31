@@ -1,12 +1,8 @@
 # German B1 production Listening audio
 
-Status: generation architecture complete; production audio generation blocked on this host.
+Status: **24 / 24 production assets ready**. Generated and objectively validated on 2026-10-31.
 
-The 24 learner scripts are original app-authored German practice material. The planned recordings are synthetic practice audio, not Goethe recordings and not official examiner voices.
-
-## Current operational blocker
-
-The Phase 9A audit found no configured local Google credential source (`GOOGLE_APPLICATION_CREDENTIALS` or the existing three `GOOGLE_CLOUD_*` variables). The host also has no `ffmpeg` or `ffprobe`. No production MP3 was invented, copied, or marked ready. Listening simulations and the Full B1 Mock therefore remain production-blocked.
+The 24 learner scripts are original app-authored German practice material. The recordings were synthesized with Google Cloud Text-to-Speech; they are not Goethe recordings or official examiner voices. Production Listening and the Full B1 Mock unlock from the validated manifest without a manual readiness flag.
 
 ## Script audit
 
@@ -29,9 +25,9 @@ Google's current supported-voices documentation lists these Chirp 3 HD voices fo
 
 ## Repeatable generation
 
-Prerequisites:
+Prerequisites for a future regeneration:
 
-- Google Cloud Text-to-Speech access through `GOOGLE_APPLICATION_CREDENTIALS`, or all of `GOOGLE_CLOUD_PROJECT_ID`, `GOOGLE_CLOUD_CLIENT_EMAIL`, and `GOOGLE_CLOUD_PRIVATE_KEY`;
+- Google Cloud Text-to-Speech access through standard Application Default Credentials, `GOOGLE_APPLICATION_CREDENTIALS`, or all of `GOOGLE_CLOUD_PROJECT_ID`, `GOOGLE_CLOUD_CLIENT_EMAIL`, and `GOOGLE_CLOUD_PRIVATE_KEY`;
 - `ffmpeg` and `ffprobe` on `PATH`;
 - the existing `@google-cloud/text-to-speech` dependency.
 
@@ -74,10 +70,25 @@ Part 3 maps every conversation to at least two distinct German voices. Part 4 ma
 
 ## PWA caching and preflight
 
-The existing cache remains `german-b1-listening-audio-v1`, bounded to 24 entries and 30 days with quota cleanup and old-version removal. Audio is not eagerly requested by application code during install. Before a simulation, only the selected form's eight tracks are checked and cached through normal cache-first requests; the UI reports `completed / 8` progress and the timer starts only after every file exposes valid browser metadata. Preparing all forms offline remains an explicit user action.
+The runtime cache remains `german-b1-listening-audio-v1`, bounded to 24 entries and 30 days with quota cleanup and old-version removal. Listening media is filtered out of the app-shell precache. The Listening hub explicitly prepares the next selected form's eight tracks and reports `completed / 8` progress. Before a practice or simulation starts, the same eight assets must expose valid browser metadata; the timer does not start on a preflight failure. A form is not claimed as offline-ready until its eight files have been cached.
 
-## Size and QA status
+When the browser is offline, preflight and playback resolve a prepared MP3 from Cache Storage as a revocable blob URL. This avoids depending on the service worker or browser implementing byte-range requests against an offline cached response. Automated tests cover cached resolution, cache misses, URL cleanup, preflight failure, and the rule that a failed start cannot consume a playback allowance.
 
-No audio exists yet, so total, average, largest, and per-form sizes are unavailable rather than estimated. After generation, the manifest and `GERMAN-B1-LISTENING-AUDIO-QA.md` report exact values. Every human-listen status remains `PENDING` until a reviewer checks pronunciation, pacing, naturalness, speaker distinction, clipping, numbers/times, German accuracy, pauses, and transcript identity.
+## Production inventory
 
-Physical Android/iPhone PWA, screen-lock, Bluetooth/headphone, and actual offline-playback checks remain pending until real assets exist.
+| Set | Assets | Bytes | MiB | Duration |
+|---|---:|---:|---:|---:|
+| Form 001 | 8 | 2,817,376 | 2.687 | 351.48 s |
+| Form 002 | 8 | 2,959,648 | 2.823 | 369.28 s |
+| Form 003 | 8 | 2,996,512 | 2.858 | 373.88 s |
+| **Total** | **24** | **8,773,536** | **8.367** | **1,094.64 s (18:14.64)** |
+
+Average file size is 365,564 bytes. The smallest asset is `form-001/part-1-track-05.mp3` at 132,908 bytes; the largest is `form-002/part-4.mp3` at 779,180 bytes.
+
+All 24 files are mono MP3 at 24 kHz and 64 kbit/s. `ffprobe` inspected every file. Manifest checksums, current normalized script hashes, byte sizes, durations, content/audio versions, stable mappings, and multi-speaker requirements all pass.
+
+## QA status
+
+Automated objective QA is `PASS` for all 24 rows in `GERMAN-B1-LISTENING-AUDIO-QA.md`. Browser smoke testing confirmed Form 001 playback starts and decodes in Parts 1–4 with the official 2/1/1/2 playback limits. Production Chrome also prepared all eight Form 001 tracks. A simulated-offline browser check exposed the prior range-response failure and led to the Cache Storage blob-URL fallback above; that fix passes unit and production-build verification. A final native-browser offline playback rerun remains pending because browser automation became unavailable during the service-worker reload.
+
+Human-listen status remains `PENDING` for every asset. Pronunciation, pacing, numbers/times, naturalness, speaker distinction, clipping, silence, pauses, and transcript identity must still be reviewed by a person. Physical Android Chrome/PWA, iPhone Safari/Home Screen, screen-lock, and Bluetooth/headset validation also remain pending.

@@ -12,16 +12,23 @@ import {
 } from "../core/listeningSession";
 import { formatExamTime } from "../core/ExamTimer";
 import { getListeningAudioManifestEntry, resolveListeningAudioUrl } from "./audioManifest";
+import { getCachedListeningAudioUrl } from "./audioCache";
 
 const secondsUntil = (iso) => iso ? Math.max(0, Math.ceil((new Date(iso).getTime() - Date.now()) / 1000)) : 0;
 
 export const ListeningAudioPlayer = ({ audio, preparationSeconds, session, updateSession }) => {
   const audioElement = useRef(null);
+  const cachedAudio = useRef(null);
   const lastSavedSecond = useRef(0);
   const state = session.playbackState[audio.id];
   const [preparationRemaining, setPreparationRemaining] = useState(() => secondsUntil(state.preparationEndsAt));
   const entry = getListeningAudioManifestEntry(audio.id);
+  const durationSeconds = entry?.durationSeconds || audio.durationSeconds;
   const remainingPlays = Math.max(0, audio.playbackLimit - state.playCount);
+  const releaseCachedAudio = () => {
+    cachedAudio.current?.revoke();
+    cachedAudio.current = null;
+  };
 
   useEffect(() => {
     if (state.status !== "pre-reading" || !state.preparationEndsAt) return undefined;
@@ -43,7 +50,17 @@ export const ListeningAudioPlayer = ({ audio, preparationSeconds, session, updat
   const play = async () => {
     const element = audioElement.current;
     if (!element || !entry) return;
-    if (!element.src) element.src = resolveListeningAudioUrl(entry);
+    if (!element.src) {
+      if (navigator.onLine) element.src = resolveListeningAudioUrl(entry);
+      else {
+        cachedAudio.current = await getCachedListeningAudioUrl(entry);
+        if (!cachedAudio.current) {
+          updateSession((current) => failListeningPlaybackStart(current, audio.id, "offline-uncached"));
+          return;
+        }
+        element.src = cachedAudio.current.url;
+      }
+    }
     if (state.inProgress && state.currentTime > 0) element.currentTime = state.currentTime;
     try { await element.play(); } catch (error) { updateSession((current) => failListeningPlaybackStart(current, audio.id, "autoplay-or-load-error")); }
   };
@@ -62,7 +79,7 @@ export const ListeningAudioPlayer = ({ audio, preparationSeconds, session, updat
           {state.status === "finished" && <Complete>Official playback complete</Complete>}
         </Controls>
       )}
-      <Progress aria-label={`Playback position ${Math.round(state.currentTime)} of ${audio.durationSeconds} seconds`}><i style={{ inlineSize: `${Math.min(100, (state.currentTime / audio.durationSeconds) * 100)}%` }} /></Progress>
+      <Progress aria-label={`Playback position ${Math.round(state.currentTime)} of ${Math.round(durationSeconds)} seconds`}><i style={{ inlineSize: `${Math.min(100, (state.currentTime / durationSeconds) * 100)}%` }} /></Progress>
       {state.lastError && <ErrorText role="alert">Playback was interrupted. Retry or resume without receiving an extra official play.</ErrorText>}
       <audio
         ref={audioElement}
@@ -78,8 +95,14 @@ export const ListeningAudioPlayer = ({ audio, preparationSeconds, session, updat
         onPause={(event) => {
           if (!event.currentTarget.ended && state.status === "playing") updateSession((current) => interruptListeningPlayback(current, audio.id, event.currentTarget.currentTime));
         }}
-        onEnded={() => updateSession((current) => finishListeningPlayback(current, audio))}
-        onError={() => updateSession((current) => failListeningPlaybackStart(current, audio.id, "decode-error"))}
+        onEnded={() => {
+          if (state.playCount >= audio.playbackLimit) releaseCachedAudio();
+          updateSession((current) => finishListeningPlayback(current, audio));
+        }}
+        onError={() => {
+          releaseCachedAudio();
+          updateSession((current) => failListeningPlaybackStart(current, audio.id, "decode-error"));
+        }}
       />
     </Player>
   );

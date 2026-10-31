@@ -17,14 +17,14 @@
         "locale": "de-DE"
       }
     ],
-    "durationSeconds": null,
-    "sha256": null,
-    "byteSize": null,
+    "durationSeconds": 19.84,
+    "sha256": "e5eed57f269a41c581c1160c15c06f01b8e1b481a0bc0da3da819025e3908ac6",
+    "byteSize": 159404,
     "contentVersion": "listening-v1",
     "audioVersion": "audio-v1",
     "scriptHash": "3bc93507cc6c7278a5599580c511b134c915a0c90d6f65c9723799261c48528e",
     "scriptChecksum": "fnv1a-7583e6f8",
-    "ready": false,
+    "ready": true,
     "humanQa": "PENDING"
   },
   {
@@ -45,14 +45,14 @@
         "locale": "de-DE"
       }
     ],
-    "durationSeconds": null,
-    "sha256": null,
-    "byteSize": null,
+    "durationSeconds": 16.64,
+    "sha256": "300f85f50316b19bab83be5e0790777047a8e2ae7b9bdc2b6c136d2b49261a5c",
+    "byteSize": 133868,
     "contentVersion": "listening-v1",
     "audioVersion": "audio-v1",
     "scriptHash": "aba9648a93200206a16dbb0c18d23bcfbfc1444046cda1605a28b36fe7af2262",
     "scriptChecksum": "fnv1a-f09afe07",
-    "ready": false,
+    "ready": true,
     "humanQa": "PENDING"
   },
   {
@@ -73,14 +73,14 @@
         "locale": "de-DE"
       }
     ],
-    "durationSeconds": null,
-    "sha256": null,
-    "byteSize": null,
+    "durationSeconds": 16.56,
+    "sha256": "b3af5daba7eec99e58b468cc67b24810e914cad4d82494913d6c9b65f96be2fb",
+    "byteSize": 133100,
     "contentVersion": "listening-v1",
     "audioVersion": "audio-v1",
     "scriptHash": "698273cd4317848957b8c18a709b7aad089f4d3b592e04d2050bd4e7f0d66909",
     "scriptChecksum": "fnv1a-4a0f7a2e",
-    "ready": false,
+    "ready": true,
     "humanQa": "PENDING"
   },
   {
@@ -101,14 +101,14 @@
         "locale": "de-DE"
       }
     ],
-    "durationSeconds": null,
-    "sha256": null,
-    "byteSize": null,
+    "durationSeconds": 18.32,
+    "sha256": "7395aed5ad76c044a3133564c117ff6476e358fb68337704453dfcbe5b467474",
+    "byteSize": 147308,
     "contentVersion": "listening-v1",
     "audioVersion": "audio-v1",
     "scriptHash": "60f838a39390e3fc99c8e0892dc55bbbcb2c647914f343ab2b28cd758a13ad1c",
     "scriptChecksum": "fnv1a-b36b14b4",
-    "ready": false,
+    "ready": true,
     "humanQa": "PENDING"
   },
   {
@@ -129,14 +129,14 @@
         "locale": "de-DE"
       }
     ],
-    "durationSeconds": null,
-    "sha256": null,
-    "byteSize": null,
+    "durationSeconds": 16.52,
+    "sha256": "4850756a7f60e9fb0c1b03464b104d5ede1f4e00fe30ab5ef0cd823b126f3ef3",
+    "byteSize": 132908,
     "contentVersion": "listening-v1",
     "audioVersion": "audio-v1",
     "scriptHash": "4b7606752a94c188f32b3eef91b9fff5864ca4d261d5740a20680216ec3f8ec0",
     "scriptChecksum": "fnv1a-25eb9215",
-    "ready": false,
+    "ready": true,
     "humanQa": "PENDING"
   },
   {
@@ -157,14 +157,14 @@
         "locale": "de-DE"
       }
     ],
-    "durationSeconds": null,
-    "sha256": null,
-    "byteSize": null,
+    "durationSeconds": 84.84,
+    "sha256": "e48f502f11c689456277e22a96c293e21d9e405770fe5de377d2d7c3abef168a",
+    "byteSize": 679340,
     "contentVersion": "listening-v1",
     "audioVersion": "audio-v1",
     "scriptHash": "331f65aa61939a6692bd80e4ad7b370f3292614cc7d765b089d01c8378466029",
     "scriptChecksum": "fnv1a-039afbf7",
-    "ready": false,
+    "ready": true,
     "humanQa": "PENDING"
   },
   {
@@ -193,14 +193,14 @@
         "locale": "de-DE"
       }
     ],
-    "durationSeconds": null,
-    "sha256": null,
-    "byteSize": null,
+    "durationSeconds": 82.2,
+    "sha256": "49826157ce9813ec30bc61df7686c0fa12a49fe0572ce74e0353884939a3c2da",
+    "byteSize": 658220,
     "contentVersion": "listening-v1",
     "audioVersion": "audio-v1",
     "scriptHash": "c36f4a3dbfa4b5f2c82e6948dd8eafd987f0d11ef58a3e71819d9084e57c66af",
     "scriptChecksum": "fnv1a-213bec7f",
-    "ready": false,
+    "ready": true,
     "humanQa": "PENDING"
   },
   {
@@ -237,14 +237,14 @@
         "locale": "de-DE"
       }
     ],
-    "durationSeconds": null,
-    "sha256": null,
-    "byteSize": null,
+    "durationSeconds": 96.56,
+    "sha256": "90ca07a239af68362e8b00a7a4c556e617a51a5eab8fab30e4b948c9cb33fd08",
+    "byteSize": 773228,
     "contentVersion": "listening-v1",
     "audioVersion": "audio-v1",
     "scriptHash": "14946a54ee802c641e5c9d19a82843a49081efb79bb9f5c40e3798706ec99988",
     "scriptChecksum": "fnv1a-5ff62f90",
-    "ready": false,
+    "ready": true,
     "humanQa": "PENDING"
   },
   {
@@ -265,14 +265,14 @@
         "locale": "de-DE"
       }
     ],
-    "durationSeconds": null,
-    "sha256": null,
-    "byteSize": null,
+    "durationSeconds": 18.64,
+    "sha256": "d2156fd52372069a7f9996c7563f71e15e3be6a1388467a6fea68e9c9b90a006",
+    "byteSize": 149804,
     "contentVersion": "listening-v1",
     "audioVersion": "audio-v1",
     "scriptHash": "f19a41f710a573e7d10a693647bde57872b2b854793f3278814152ad6948dbea",
     "scriptChecksum": "fnv1a-da414199",
-    "ready": false,
+    "ready": true,
     "humanQa": "PENDING"
   },
   {
@@ -293,14 +293,14 @@
         "locale": "de-DE"
       }
     ],
-    "durationSeconds": null,
-    "sha256": null,
-    "byteSize": null,
+    "durationSeconds": 19.08,
+    "sha256": "e6cfd385334a810dbf3ee68ca03e4d8e304e347a7298df047681e9c224dba078",
+    "byteSize": 153260,
     "contentVersion": "listening-v1",
     "audioVersion": "audio-v1",
     "scriptHash": "8948b1cc6a9230f7005a68f579a1990280e633a4f43b9486c18b58635bc95572",
     "scriptChecksum": "fnv1a-c0b63171",
-    "ready": false,
+    "ready": true,
     "humanQa": "PENDING"
   },
   {
@@ -321,14 +321,14 @@
         "locale": "de-DE"
       }
     ],
-    "durationSeconds": null,
-    "sha256": null,
-    "byteSize": null,
+    "durationSeconds": 19.76,
+    "sha256": "12256ac22a830dfdbdb387bce7a435e8f3bcad196e65c45dfd25c9a269b58a08",
+    "byteSize": 158828,
     "contentVersion": "listening-v1",
     "audioVersion": "audio-v1",
     "scriptHash": "f9b04c6b32ef90f7b4d625ceaf8a4b311a3a96e5d709502a6fe3c2abdbb5f295",
     "scriptChecksum": "fnv1a-a1579c2d",
-    "ready": false,
+    "ready": true,
     "humanQa": "PENDING"
   },
   {
@@ -349,14 +349,14 @@
         "locale": "de-DE"
       }
     ],
-    "durationSeconds": null,
-    "sha256": null,
-    "byteSize": null,
+    "durationSeconds": 17.88,
+    "sha256": "93dd62984d227e227c5cefd327a43f936062c2c7cc05a6ebd3bf0540d2876679",
+    "byteSize": 143660,
     "contentVersion": "listening-v1",
     "audioVersion": "audio-v1",
     "scriptHash": "7f0989c56acfcfea4dc5958cc8309e8872f22f3f5a650f9489d03a10b7dc28fc",
     "scriptChecksum": "fnv1a-daeede78",
-    "ready": false,
+    "ready": true,
     "humanQa": "PENDING"
   },
   {
@@ -377,14 +377,14 @@
         "locale": "de-DE"
       }
     ],
-    "durationSeconds": null,
-    "sha256": null,
-    "byteSize": null,
+    "durationSeconds": 19.84,
+    "sha256": "6cc9a37e0d0b2a9565f216ba2a24526fc7db029c946fcd06d313798a08b20de8",
+    "byteSize": 159404,
     "contentVersion": "listening-v1",
     "audioVersion": "audio-v1",
     "scriptHash": "fa1dee4422bf5156ae9837620121c9849cdbf7a0609fda337968c37c4804888c",
     "scriptChecksum": "fnv1a-d359f18a",
-    "ready": false,
+    "ready": true,
     "humanQa": "PENDING"
   },
   {
@@ -405,14 +405,14 @@
         "locale": "de-DE"
       }
     ],
-    "durationSeconds": null,
-    "sha256": null,
-    "byteSize": null,
+    "durationSeconds": 87.92,
+    "sha256": "83a698683f4c908ba7b26f8862781c768f0b8e549e42641ca0b50c5aa668a51c",
+    "byteSize": 704108,
     "contentVersion": "listening-v1",
     "audioVersion": "audio-v1",
     "scriptHash": "6c07b393231a080eea21748b60c9d2560346cab7295e4276432c6fcfdd69e27e",
     "scriptChecksum": "fnv1a-8657c6d3",
-    "ready": false,
+    "ready": true,
     "humanQa": "PENDING"
   },
   {
@@ -441,14 +441,14 @@
         "locale": "de-DE"
       }
     ],
-    "durationSeconds": null,
-    "sha256": null,
-    "byteSize": null,
+    "durationSeconds": 88.84,
+    "sha256": "d3d4f8d0e9648977675d414677d0a11c2d08bb8465595ed185069ed0df8af8b1",
+    "byteSize": 711404,
     "contentVersion": "listening-v1",
     "audioVersion": "audio-v1",
     "scriptHash": "e55e4da4d855bdae0f70a491b41aec93e880250e44164f3d2fb3251062c0b8ab",
     "scriptChecksum": "fnv1a-76a023f0",
-    "ready": false,
+    "ready": true,
     "humanQa": "PENDING"
   },
   {
@@ -485,17 +485,48 @@
         "locale": "de-DE"
       }
     ],
-    "durationSeconds": null,
-    "sha256": null,
-    "byteSize": null,
+    "durationSeconds": 97.32,
+    "sha256": "05d4dc24a9cd5563cc017738b296df1d23543b41b51809324086db2d30181bc6",
+    "byteSize": 779180,
     "contentVersion": "listening-v1",
     "audioVersion": "audio-v1",
     "scriptHash": "24f626561f8413408be043780fbf07e6cf17666d4922087bd7669fe8a738f37f",
     "scriptChecksum": "fnv1a-d7891016",
-    "ready": false,
+    "ready": true,
     "humanQa": "PENDING"
   },
   {
+    "audio": {
+      "id": "de-b1-listening-form-003-p1-audio-1",
+      "scriptId": "de-b1-listening-form-003-p1-audio-1-script",
+      "formId": "de-b1-listening-form-003",
+      "partNumber": 1,
+      "title": "Parcel pickup message",
+      "sourceType": "generated",
+      "assetPath": "/audio/listening/audio-v1/de-b1-listening-form-003-p1-audio-1.mp3",
+      "assetStatus": "pending-generation",
+      "assetChecksum": null,
+      "developmentFixture": false,
+      "durationSeconds": 36,
+      "locale": "de-DE",
+      "playbackLimit": 2,
+      "speakers": [
+        {
+          "id": "a",
+          "label": "Paketshopmitarbeiterin",
+          "voiceProfile": "voice-female-2"
+        }
+      ],
+      "segments": [
+        {
+          "speakerId": "a",
+          "text": "Guten Tag, hier ist der Paketshop am Markt. Ihr großes Paket liegt seit Montag bei uns. Da unser Lager sehr voll ist, können wir es nur noch bis morgen aufbewahren. Bitte holen Sie es bis neunzehn Uhr ab und bringen Sie einen Ausweis mit. Eine andere Person darf das Paket nur mit Ihrer schriftlichen Vollmacht abholen."
+        }
+      ],
+      "scriptChecksum": "fnv1a-2699babc",
+      "contentVersion": "listening-v1",
+      "audioVersion": "audio-v1"
+    },
     "audioId": "de-b1-listening-form-003-p1-audio-1",
     "formId": "de-b1-listening-form-003",
     "part": 1,
@@ -513,17 +544,48 @@
         "locale": "de-DE"
       }
     ],
-    "durationSeconds": null,
-    "sha256": null,
-    "byteSize": null,
     "contentVersion": "listening-v1",
     "audioVersion": "audio-v1",
     "scriptHash": "f303ddc70a4de8405d732e8d7bff351a59d3938ffa55b9edd17ccc9af360e2a0",
     "scriptChecksum": "fnv1a-2699babc",
-    "ready": false,
+    "durationSeconds": 18.48,
+    "sha256": "39496bd725d2b39f4b2e561c9f0c69d5ef10095409fc62fcd10a088ad5f107c6",
+    "byteSize": 148460,
+    "ready": true,
     "humanQa": "PENDING"
   },
   {
+    "audio": {
+      "id": "de-b1-listening-form-003-p1-audio-2",
+      "scriptId": "de-b1-listening-form-003-p1-audio-2-script",
+      "formId": "de-b1-listening-form-003",
+      "partNumber": 1,
+      "title": "Evening course message",
+      "sourceType": "generated",
+      "assetPath": "/audio/listening/audio-v1/de-b1-listening-form-003-p1-audio-2.mp3",
+      "assetStatus": "pending-generation",
+      "assetChecksum": null,
+      "developmentFixture": false,
+      "durationSeconds": 40,
+      "locale": "de-DE",
+      "playbackLimit": 2,
+      "speakers": [
+        {
+          "id": "a",
+          "label": "Kursleiterin",
+          "voiceProfile": "voice-female-1"
+        }
+      ],
+      "segments": [
+        {
+          "speakerId": "a",
+          "text": "Hallo zusammen, eine kurze Nachricht zum Computerkurs am Mittwoch. Wir beginnen diesmal eine halbe Stunde früher, also um siebzehn Uhr dreißig. Im ersten Teil üben wir Tabellen, danach können Sie eigene Fragen mitbringen. Die Laptops im Kursraum reichen für alle. Sie brauchen nur einen USB-Stick, wenn Sie Ihre Ergebnisse mitnehmen möchten."
+        }
+      ],
+      "scriptChecksum": "fnv1a-a478daf1",
+      "contentVersion": "listening-v1",
+      "audioVersion": "audio-v1"
+    },
     "audioId": "de-b1-listening-form-003-p1-audio-2",
     "formId": "de-b1-listening-form-003",
     "part": 1,
@@ -541,17 +603,48 @@
         "locale": "de-DE"
       }
     ],
-    "durationSeconds": null,
-    "sha256": null,
-    "byteSize": null,
     "contentVersion": "listening-v1",
     "audioVersion": "audio-v1",
     "scriptHash": "b837ffa925ea2ad318260c923876c105f7dc17f71202618dcaf40d300067957d",
     "scriptChecksum": "fnv1a-a478daf1",
-    "ready": false,
+    "durationSeconds": 19.68,
+    "sha256": "f393a3035faad398fa84b08038edc6d45541888cd2393b7fa3d4464a71761c81",
+    "byteSize": 158060,
+    "ready": true,
     "humanQa": "PENDING"
   },
   {
+    "audio": {
+      "id": "de-b1-listening-form-003-p1-audio-3",
+      "scriptId": "de-b1-listening-form-003-p1-audio-3-script",
+      "formId": "de-b1-listening-form-003",
+      "partNumber": 1,
+      "title": "Parking information",
+      "sourceType": "generated",
+      "assetPath": "/audio/listening/audio-v1/de-b1-listening-form-003-p1-audio-3.mp3",
+      "assetStatus": "pending-generation",
+      "assetChecksum": null,
+      "developmentFixture": false,
+      "durationSeconds": 35,
+      "locale": "de-DE",
+      "playbackLimit": 2,
+      "speakers": [
+        {
+          "id": "a",
+          "label": "Veranstaltungssprecher",
+          "voiceProfile": "voice-male-1"
+        }
+      ],
+      "segments": [
+        {
+          "speakerId": "a",
+          "text": "Hinweis für Besucher des Herbstmarkts: Der Parkplatz direkt am Rathaus ist heute für Händler reserviert. Kostenlose Parkplätze finden Sie an der Sporthalle. Von dort fährt alle fünfzehn Minuten ein Kleinbus zum Markt. Fahrräder können wie gewohnt am Haupteingang abgestellt werden."
+        }
+      ],
+      "scriptChecksum": "fnv1a-8064a226",
+      "contentVersion": "listening-v1",
+      "audioVersion": "audio-v1"
+    },
     "audioId": "de-b1-listening-form-003-p1-audio-3",
     "formId": "de-b1-listening-form-003",
     "part": 1,
@@ -569,17 +662,48 @@
         "locale": "de-DE"
       }
     ],
-    "durationSeconds": null,
-    "sha256": null,
-    "byteSize": null,
     "contentVersion": "listening-v1",
     "audioVersion": "audio-v1",
     "scriptHash": "9973826996707225b257e28ef62bb98788c6ab22759f3bb46a1f8e2bc6cb435c",
     "scriptChecksum": "fnv1a-8064a226",
-    "ready": false,
+    "durationSeconds": 17.12,
+    "sha256": "4150e15fd29104df6e7d61c5fcda18157ba5be53e861d2a72d726eb7ab8fe04a",
+    "byteSize": 137708,
+    "ready": true,
     "humanQa": "PENDING"
   },
   {
+    "audio": {
+      "id": "de-b1-listening-form-003-p1-audio-4",
+      "scriptId": "de-b1-listening-form-003-p1-audio-4-script",
+      "formId": "de-b1-listening-form-003",
+      "partNumber": 1,
+      "title": "Local radio cultural tip",
+      "sourceType": "generated",
+      "assetPath": "/audio/listening/audio-v1/de-b1-listening-form-003-p1-audio-4.mp3",
+      "assetStatus": "pending-generation",
+      "assetChecksum": null,
+      "developmentFixture": false,
+      "durationSeconds": 42,
+      "locale": "de-DE",
+      "playbackLimit": 2,
+      "speakers": [
+        {
+          "id": "a",
+          "label": "Radiomoderatorin",
+          "voiceProfile": "voice-female-2"
+        }
+      ],
+      "segments": [
+        {
+          "speakerId": "a",
+          "text": "Unser Kulturtipp für heute: Im alten Kino zeigt der Filmverein um zwanzig Uhr einen österreichischen Dokumentarfilm über Berghütten. Regisseurin Paula Kern beantwortet danach Fragen aus dem Publikum. Karten kosten neun Euro. Schülerinnen, Studenten und Rentner zahlen mit Nachweis sechs Euro. Die Bar öffnet bereits eine Stunde vor dem Film."
+        }
+      ],
+      "scriptChecksum": "fnv1a-1dc21ed3",
+      "contentVersion": "listening-v1",
+      "audioVersion": "audio-v1"
+    },
     "audioId": "de-b1-listening-form-003-p1-audio-4",
     "formId": "de-b1-listening-form-003",
     "part": 1,
@@ -597,17 +721,48 @@
         "locale": "de-DE"
       }
     ],
-    "durationSeconds": null,
-    "sha256": null,
-    "byteSize": null,
     "contentVersion": "listening-v1",
     "audioVersion": "audio-v1",
     "scriptHash": "1a2a7a813e6371f921b329c46074c8b200735da2135b89d1a2d3fd15b7f7a6bf",
     "scriptChecksum": "fnv1a-1dc21ed3",
-    "ready": false,
+    "durationSeconds": 21.44,
+    "sha256": "e27360d7d00f8191e1f0bbff206d01e16aa8aab6eb46ff6a671db3da02744385",
+    "byteSize": 172268,
+    "ready": true,
     "humanQa": "PENDING"
   },
   {
+    "audio": {
+      "id": "de-b1-listening-form-003-p1-audio-5",
+      "scriptId": "de-b1-listening-form-003-p1-audio-5-script",
+      "formId": "de-b1-listening-form-003",
+      "partNumber": 1,
+      "title": "Building maintenance voicemail",
+      "sourceType": "generated",
+      "assetPath": "/audio/listening/audio-v1/de-b1-listening-form-003-p1-audio-5.mp3",
+      "assetStatus": "pending-generation",
+      "assetChecksum": null,
+      "developmentFixture": false,
+      "durationSeconds": 39,
+      "locale": "de-DE",
+      "playbackLimit": 2,
+      "speakers": [
+        {
+          "id": "a",
+          "label": "Hausverwalter",
+          "voiceProfile": "voice-male-2"
+        }
+      ],
+      "segments": [
+        {
+          "speakerId": "a",
+          "text": "Guten Tag, Hausverwaltung Winter. Die Kontrolle der Rauchmelder in Ihrem Haus findet nicht am Montag, sondern am Dienstag zwischen neun und zwölf Uhr statt. Sie müssen nicht die ganze Zeit zu Hause bleiben. Hinterlassen Sie den Schlüssel bei einer Nachbarin oder vereinbaren Sie bis Freitag telefonisch einen festen Termin mit uns."
+        }
+      ],
+      "scriptChecksum": "fnv1a-8b08a515",
+      "contentVersion": "listening-v1",
+      "audioVersion": "audio-v1"
+    },
     "audioId": "de-b1-listening-form-003-p1-audio-5",
     "formId": "de-b1-listening-form-003",
     "part": 1,
@@ -625,17 +780,48 @@
         "locale": "de-DE"
       }
     ],
-    "durationSeconds": null,
-    "sha256": null,
-    "byteSize": null,
     "contentVersion": "listening-v1",
     "audioVersion": "audio-v1",
     "scriptHash": "f8354acb26bcaf684f3f8a0af52a41da896dbe76df25bab44a48704346c53085",
     "scriptChecksum": "fnv1a-8b08a515",
-    "ready": false,
+    "durationSeconds": 19.24,
+    "sha256": "eb1db99816c4a551b199e9ac1d728d38683b718fa3ba4da7dcc9a80b3fd7b368",
+    "byteSize": 154604,
+    "ready": true,
     "humanQa": "PENDING"
   },
   {
+    "audio": {
+      "id": "de-b1-listening-form-003-p2-audio-1",
+      "scriptId": "de-b1-listening-form-003-p2-audio-1-script",
+      "formId": "de-b1-listening-form-003",
+      "partNumber": 2,
+      "title": "Welcome to a community garden",
+      "sourceType": "generated",
+      "assetPath": "/audio/listening/audio-v1/de-b1-listening-form-003-p2-audio-1.mp3",
+      "assetStatus": "pending-generation",
+      "assetChecksum": null,
+      "developmentFixture": false,
+      "durationSeconds": 210,
+      "locale": "de-DE",
+      "playbackLimit": 1,
+      "speakers": [
+        {
+          "id": "a",
+          "label": "Gartenkoordinatorin",
+          "voiceProfile": "voice-female-1"
+        }
+      ],
+      "segments": [
+        {
+          "speakerId": "a",
+          "text": "Herzlich willkommen im Gemeinschaftsgarten Sonnenfeld. Schön, dass Sie beim Einführungstreffen dabei sind. Unser Garten gehört nicht einzelnen Personen; alle Mitglieder pflegen die Flächen gemeinsam und teilen später die Ernte. Geöffnet ist täglich von sieben Uhr bis Sonnenuntergang. Der Zahlencode für das Tor ändert sich jeden Monat und steht im internen Newsletter. Bitte geben Sie ihn nicht an Besucher weiter. Neue Mitglieder beginnen in den ersten vier Wochen im sogenannten Gartenteam. Dort lernen Sie, welche Pflanzen gerade gepflegt werden müssen und wo Werkzeug liegt. Eigene Geräte müssen Sie nicht mitbringen. Nach der Arbeit werden Spaten, Scheren und Gießkannen gereinigt und in den markierten Schuppen zurückgestellt. Wasser ist kostbar. Verwenden Sie deshalb morgens möglichst das gesammelte Regenwasser aus den großen Behältern. Nur wenn diese leer sind, öffnen Sie den normalen Wasseranschluss. Jeden zweiten Samstag treffen wir uns von zehn bis ungefähr dreizehn Uhr zu einer gemeinsamen Aktion. Dann bauen wir Wege, reparieren Beete oder schneiden Sträucher. Wer nicht kommen kann, trägt sich vorher aus der Liste aus. Mindestens einmal pro Monat sollte jedes Mitglied teilnehmen. Kinder sind willkommen, dürfen aber nicht allein im Werkzeugbereich spielen. Hunde bleiben außerhalb des Gartens, weil wir Lebensmittel anbauen. Im kleinen Holzhaus finden Sie eine Küche und ein Regal zum Tauschen von Samen. Lebensmittel aus der Ernte werden nicht verkauft. Ein Teil geht an alle Mitglieder, der Rest wird am Monatsende an die lokale Tafel gespendet. Fragen können Sie jederzeit in unserer Gruppen-App stellen. Dringende Schäden melden Sie bitte zusätzlich telefonisch."
+        }
+      ],
+      "scriptChecksum": "fnv1a-ed7ca775",
+      "contentVersion": "listening-v1",
+      "audioVersion": "audio-v1"
+    },
     "audioId": "de-b1-listening-form-003-p2-audio-1",
     "formId": "de-b1-listening-form-003",
     "part": 2,
@@ -653,17 +839,97 @@
         "locale": "de-DE"
       }
     ],
-    "durationSeconds": null,
-    "sha256": null,
-    "byteSize": null,
     "contentVersion": "listening-v1",
     "audioVersion": "audio-v1",
     "scriptHash": "ecd0302db0d38fe4ea9b99b3e04d8a820a51d9e317b214db7fac0183038fce42",
     "scriptChecksum": "fnv1a-ed7ca775",
-    "ready": false,
+    "durationSeconds": 96.92,
+    "sha256": "1069a9024e84fb084ed67afc0556d2703b148a66da71d58a3c5831de296f928a",
+    "byteSize": 776108,
+    "ready": true,
     "humanQa": "PENDING"
   },
   {
+    "audio": {
+      "id": "de-b1-listening-form-003-p3-audio-1",
+      "scriptId": "de-b1-listening-form-003-p3-audio-1-script",
+      "formId": "de-b1-listening-form-003",
+      "partNumber": 3,
+      "title": "Neighbours discussing a weekly market",
+      "sourceType": "generated",
+      "assetPath": "/audio/listening/audio-v1/de-b1-listening-form-003-p3-audio-1.mp3",
+      "assetStatus": "pending-generation",
+      "assetChecksum": null,
+      "developmentFixture": false,
+      "durationSeconds": 220,
+      "locale": "de-DE",
+      "playbackLimit": 1,
+      "speakers": [
+        {
+          "id": "a",
+          "label": "Elena",
+          "voiceProfile": "voice-female-2"
+        },
+        {
+          "id": "b",
+          "label": "Ralf",
+          "voiceProfile": "voice-male-1"
+        }
+      ],
+      "segments": [
+        {
+          "speakerId": "a",
+          "text": "Ralf, hast du den Brief von der Stadt gelesen? Der Wochenmarkt soll ab Mai auf den Platz vor unserem Haus ziehen."
+        },
+        {
+          "speakerId": "b",
+          "text": "Ja. Ich finde die Idee eigentlich gut. Im alten Gewerbegebiet war der Markt ohne Auto kaum erreichbar."
+        },
+        {
+          "speakerId": "a",
+          "text": "Das stimmt, aber hier beginnt der Aufbau schon um sechs Uhr morgens. Ich arbeite oft spät und habe Sorge wegen des Lärms."
+        },
+        {
+          "speakerId": "b",
+          "text": "Im Brief steht, dass die Händler erst ab sieben ihre Fahrzeuge entladen dürfen. Vorher werden nur die leeren Stände aufgebaut."
+        },
+        {
+          "speakerId": "a",
+          "text": "Das ist etwas besser. Wo sollen die Anwohner am Markttag parken? Der ganze Platz wird gesperrt."
+        },
+        {
+          "speakerId": "b",
+          "text": "Wir bekommen kostenlose Plätze im Parkhaus an der Bahnhofstraße. Es ist fünf Minuten zu Fuß, aber schwere Einkäufe werden dann umständlich."
+        },
+        {
+          "speakerId": "a",
+          "text": "Ich habe sowieso kein Auto. Für mich ist es praktisch, frisches Gemüse direkt vor der Tür zu kaufen."
+        },
+        {
+          "speakerId": "b",
+          "text": "Und die Bäckerei an der Ecke hofft auf mehr Kunden. Der Besitzer möchte draußen zusätzliche Tische aufstellen."
+        },
+        {
+          "speakerId": "a",
+          "text": "Hoffentlich bleibt der Platz sauber. Nach dem Straßenfest lag überall Müll."
+        },
+        {
+          "speakerId": "b",
+          "text": "Diesmal muss jeder Händler seinen Bereich reinigen. Die Stadt kontrolliert das nach Marktschluss."
+        },
+        {
+          "speakerId": "a",
+          "text": "Dann sollten wir es ausprobieren. Der Markt ist zunächst nur für sechs Monate geplant. Danach können die Anwohner Rückmeldung geben."
+        },
+        {
+          "speakerId": "b",
+          "text": "Genau. Ich gehe nächste Woche zur Informationsveranstaltung und frage noch nach den Fahrradständern."
+        }
+      ],
+      "scriptChecksum": "fnv1a-902de431",
+      "contentVersion": "listening-v1",
+      "audioVersion": "audio-v1"
+    },
     "audioId": "de-b1-listening-form-003-p3-audio-1",
     "formId": "de-b1-listening-form-003",
     "part": 3,
@@ -689,17 +955,102 @@
         "locale": "de-DE"
       }
     ],
-    "durationSeconds": null,
-    "sha256": null,
-    "byteSize": null,
     "contentVersion": "listening-v1",
     "audioVersion": "audio-v1",
     "scriptHash": "f81cf3f8315d6ba837a91dbe40f0bbdfeeafe1fb1ef44c12379179e5e6979e5e",
     "scriptChecksum": "fnv1a-902de431",
-    "ready": false,
+    "durationSeconds": 84.84,
+    "sha256": "7fe813c3969c79c960d75e8c4f4b677287ed41a2e132bc5d38b27c401d4caffc",
+    "byteSize": 679340,
+    "ready": true,
     "humanQa": "PENDING"
   },
   {
+    "audio": {
+      "id": "de-b1-listening-form-003-p4-audio-1",
+      "scriptId": "de-b1-listening-form-003-p4-audio-1-script",
+      "formId": "de-b1-listening-form-003",
+      "partNumber": 4,
+      "title": "Discussion: improving local public transport",
+      "sourceType": "generated",
+      "assetPath": "/audio/listening/audio-v1/de-b1-listening-form-003-p4-audio-1.mp3",
+      "assetStatus": "pending-generation",
+      "assetChecksum": null,
+      "developmentFixture": false,
+      "durationSeconds": 290,
+      "locale": "de-DE",
+      "playbackLimit": 2,
+      "speakers": [
+        {
+          "id": "a",
+          "label": "Moderatorin",
+          "voiceProfile": "voice-female-1"
+        },
+        {
+          "id": "b",
+          "label": "Clara",
+          "voiceProfile": "voice-female-2"
+        },
+        {
+          "id": "c",
+          "label": "Jonas",
+          "voiceProfile": "voice-male-2"
+        }
+      ],
+      "segments": [
+        {
+          "speakerId": "a",
+          "text": "Unser Thema heute: Wie wird der öffentliche Verkehr außerhalb großer Städte attraktiver? Clara arbeitet bei einem Verkehrsverbund, Jonas engagiert sich in einer Bürgerinitiative."
+        },
+        {
+          "speakerId": "b",
+          "text": "Viele wünschen sich häufigere Busse. Ein leerer großer Bus jede halbe Stunde ist aber teuer. Deshalb testen wir kleinere Fahrzeuge, die nur nach Bestellung fahren."
+        },
+        {
+          "speakerId": "c",
+          "text": "Solche Rufbusse helfen, wenn die Buchung einfach ist. In unserem Nachbarort geht das nur per App. Ältere Menschen ohne Smartphone werden dadurch ausgeschlossen."
+        },
+        {
+          "speakerId": "a",
+          "text": "Wäre eine telefonische Bestellung die Lösung?"
+        },
+        {
+          "speakerId": "c",
+          "text": "Ja, Telefon und App sollten parallel möglich sein. Außerdem darf man nicht zwei Stunden vorher buchen müssen. Spontane Wege gehören zum Alltag."
+        },
+        {
+          "speakerId": "b",
+          "text": "Wir planen eine Frist von dreißig Minuten. Ganz ohne Vorlauf kann die Software keine sinnvollen Routen bilden. Telefonische Buchung wird es ebenfalls geben."
+        },
+        {
+          "speakerId": "a",
+          "text": "Ein weiteres Problem sind Anschlüsse an die Bahn."
+        },
+        {
+          "speakerId": "b",
+          "text": "Genau. Fahrpläne müssen aufeinander abgestimmt werden. Wir wollen Verspätungsdaten direkt an die Busfahrer senden, damit sie in bestimmten Fällen kurz warten können."
+        },
+        {
+          "speakerId": "c",
+          "text": "Das begrüße ich. Trotzdem brauchen wir auch sichere Haltestellen mit Licht und Wetterschutz. Auf dem Land wartet man manchmal lange im Dunkeln."
+        },
+        {
+          "speakerId": "a",
+          "text": "Und wie sieht es mit den Preisen aus?"
+        },
+        {
+          "speakerId": "c",
+          "text": "Ein einfaches Ticket für die ganze Region wäre hilfreich. Heute braucht man für eine kurze Fahrt über die Kreisgrenze manchmal zwei Fahrkarten."
+        },
+        {
+          "speakerId": "b",
+          "text": "Der neue Tarif kommt nächstes Jahr. Er wird nicht jede Fahrt billiger machen, aber das System verständlicher. Gute Information ist genauso wichtig wie der Preis."
+        }
+      ],
+      "scriptChecksum": "fnv1a-546aad7b",
+      "contentVersion": "listening-v1",
+      "audioVersion": "audio-v1"
+    },
     "audioId": "de-b1-listening-form-003-p4-audio-1",
     "formId": "de-b1-listening-form-003",
     "part": 4,
@@ -733,14 +1084,14 @@
         "locale": "de-DE"
       }
     ],
-    "durationSeconds": null,
-    "sha256": null,
-    "byteSize": null,
     "contentVersion": "listening-v1",
     "audioVersion": "audio-v1",
     "scriptHash": "0311e59cacd15c4e83fdda8ca4bdb837d5d035dd877ca724d6571bd499b98014",
     "scriptChecksum": "fnv1a-546aad7b",
-    "ready": false,
+    "durationSeconds": 96.16,
+    "sha256": "db331e0a48f9317760cc5a2589c4144e24a60690962c56bdbc210703ada32428",
+    "byteSize": 769964,
+    "ready": true,
     "humanQa": "PENDING"
   }
 ]

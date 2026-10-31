@@ -36,7 +36,7 @@ describe("Listening audio preflight", () => {
   test.each([
     ["missing asset", { fetchImpl: async () => ({ ok: false }), audioFactory: audioFactory(), online: true }, "missing-asset"],
     ["decode failure", { fetchImpl: async () => ({ ok: true }), audioFactory: audioFactory({ event: "error" }), online: true }, "decode-error"],
-    ["uncached offline asset", { fetchImpl: jest.fn(), audioFactory: audioFactory({ event: "error" }), online: false }, "offline-uncached"],
+    ["uncached offline asset", { fetchImpl: jest.fn(), audioFactory: audioFactory({ event: "error" }), cacheResolver: async () => null, online: false }, "offline-uncached"],
   ])("rejects a %s before session creation", async (name, dependencies, reason) => {
     const result = await preflightListeningAudio(formFor(), { ...dependencies, manifest: [entryFor()] });
     expect(result.ready).toBe(false);
@@ -45,9 +45,13 @@ describe("Listening audio preflight", () => {
 
   test("allows a previously cached asset to decode while offline without a network probe", async () => {
     const fetchImpl = jest.fn();
-    const result = await preflightListeningAudio(formFor(), { fetchImpl, audioFactory: audioFactory(), manifest: [entryFor()], online: false });
+    const revoke = jest.fn();
+    const cacheResolver = jest.fn().mockResolvedValue({ url: "blob:cached-audio", revoke });
+    const result = await preflightListeningAudio(formFor(), { fetchImpl, audioFactory: audioFactory(), cacheResolver, manifest: [entryFor()], online: false });
     expect(result.ready).toBe(true);
     expect(fetchImpl).not.toHaveBeenCalled();
+    expect(cacheResolver).toHaveBeenCalledWith(expect.objectContaining({ audioId: "audio-1" }));
+    expect(revoke).toHaveBeenCalled();
   });
 
   test("verifies a shared controlled fixture URL only once", async () => {

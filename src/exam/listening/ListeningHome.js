@@ -5,6 +5,7 @@ import { useProgress } from "../../i18n/ProgressProvider";
 import { theme } from "../../styles/theme";
 import { GOETHE_B1_LISTENING_CONFIG, LISTENING_PART_CONFIG } from "../config/goetheB1Listening";
 import { loadListeningSession } from "../core/listeningPersistence";
+import { listeningForms } from "../data/listeningForms";
 import { listeningAudioManifest } from "./audioManifest";
 import { getListeningProductionReadiness } from "./manifestValidation";
 import { cacheListeningAudio } from "./audioCache";
@@ -16,10 +17,16 @@ export const ListeningHome = () => {
   const resumable = saved?.status === "active";
   const audioReady = getListeningProductionReadiness(listeningAudioManifest).productionReady;
   const developmentFixture = listeningAudioManifest.some(({ developmentFixture: fixture }) => fixture);
+  const offlineForm = listeningForms[listening.attemptHistory.length % listeningForms.length];
+  const offlineEntries = listeningAudioManifest.filter(({ formId }) => formId === offlineForm.id);
   const [offlineState, setOfflineState] = useState("idle");
+  const [offlineProgress, setOfflineProgress] = useState(0);
   const prepareOffline = async () => {
     setOfflineState("preparing");
-    const result = await cacheListeningAudio(listeningAudioManifest);
+    setOfflineProgress(0);
+    const result = await cacheListeningAudio(offlineEntries, {
+      onProgress: ({ completed }) => setOfflineProgress(completed),
+    });
     setOfflineState(result.cached ? "ready" : "error");
   };
   return (
@@ -28,7 +35,7 @@ export const ListeningHome = () => {
       <Hero><span>Goethe B1 · Hören</span><h1>Goethe B1 Listening Practice</h1><p>Listening practice aligned with the Goethe-Zertifikat B1 exam format.</p><Facts><b>~40 minutes</b><b>4 parts</b><b>30 questions</b></Facts></Hero>
       {!audioReady && <AudioNotice role="status"><strong>Versioned German audio production is pending</strong><p>The original scripts and player are ready, but scored attempts remain preflight-blocked until stable multi-voice assets are generated and checksummed. Runtime TTS is not used as exam audio.</p></AudioNotice>}
       {developmentFixture && <FixtureNotice role="status"><strong>Controlled development fixture active</strong><p>Silent test media is enabled for local UI verification only. It is not German listening content and cannot be enabled in a production build.</p></FixtureNotice>}
-      {audioReady && !developmentFixture && <OfflineCard><div><strong>Optional offline audio</strong><p>Download the complete versioned set before going offline. Availability is confirmed again before the timer starts.</p></div><button type="button" disabled={offlineState === "preparing"} onClick={prepareOffline}>{offlineState === "preparing" ? "Preparing…" : offlineState === "ready" ? "Audio ready offline" : "Prepare offline audio"}</button>{offlineState === "error" && <small role="alert">The complete audio set could not be cached. Stay online and try again.</small>}</OfflineCard>}
+      {audioReady && !developmentFixture && <OfflineCard><div><strong>Optional offline audio · {offlineForm.title}</strong><p>Download this form’s eight versioned tracks before going offline. Availability is confirmed again before the timer starts.</p></div><button type="button" disabled={offlineState === "preparing"} onClick={prepareOffline}>{offlineState === "preparing" ? `Preparing ${offlineProgress} / 8…` : offlineState === "ready" ? "8 / 8 tracks ready offline" : "Prepare 8 tracks offline"}</button>{offlineState === "error" && <small role="alert">This form’s eight audio tracks could not be cached. Stay online and try again.</small>}</OfflineCard>}
       {resumable && <Resume><div><strong>Listening simulation in progress</strong><p>The timer and official playback counts continue from the saved state.</p></div><Primary to="/exam/listening/simulation">Continue</Primary></Resume>}
       <Stats><div><span>Latest result</span><strong>{listening.latestResultScore === null ? "—" : `${listening.latestResultScore}/100`}</strong></div><div><span>Best result</span><strong>{listening.simulationsCompleted ? `${listening.bestResultScore}/100` : "—"}</strong></div><div><span>Simulations</span><strong>{listening.simulationsCompleted}</strong></div></Stats>
       <h2>Practice one part</h2>
