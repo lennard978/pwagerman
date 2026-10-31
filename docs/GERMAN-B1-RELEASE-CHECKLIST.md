@@ -28,7 +28,7 @@ Product status: release candidate; not merged; not deployed
 | Jest suite | PASS | 60 suites, 345 tests, 0 failures, 0 skipped. |
 | Audio pipeline | PASS | 11 tests; 24/24 assets ready; 8,773,536 MP3 bytes; checksums/script hashes/metadata valid. |
 | Production build | PASS | `main.6e6fceee.js`, 291.23 kB gzip; CSS 338 B gzip; basename `/pwagerman/`; fixture isolation pass. |
-| Production assets | PASS | 24 MP3s emitted; icons and German wordmarks emitted; retired Serbian wordmark PNGs removed. |
+| Production assets | PASS | 24 MP3s emitted; icons and optimized German SVG wordmarks emitted; the unreferenced design-source PNG is preserved under `docs/`, and retired Serbian wordmark PNGs are removed. |
 | Active runtime scan | PASS | No active `Serbian A1`, `Srpski`, `sr-RS`, `sr-Latn`, retired wordmark, or development-fixture markers. |
 | Route/deep-link files | PASS | Production root and route-restore shell resolve; each direct route returns the expected GitHub Pages 404 fallback that restores the route through `index.html`. |
 | Service-worker update state machine | PASS | Waiting worker, explicit update, `SKIP_WAITING`, controller takeover, and single reload covered by tests. |

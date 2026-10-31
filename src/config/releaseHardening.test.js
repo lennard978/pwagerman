@@ -30,6 +30,8 @@ test("release manifest and deep-link recovery match the German B1 GitHub Pages a
 test("production branding includes German assets and excludes retired Serbian wordmarks", () => {
   expect(fs.existsSync(publicPath("german-b1-wordmark.svg"))).toBe(true);
   expect(fs.existsSync(publicPath("german-b1-wordmark-compact.svg"))).toBe(true);
+  expect(fs.existsSync(publicPath("german-b1-brand-source.png"))).toBe(false);
+  expect(fs.existsSync(path.join(process.cwd(), "docs", "german-b1-brand-source.png"))).toBe(true);
   expect(fs.existsSync(publicPath("serbian-a1-wordmark.png"))).toBe(false);
   expect(fs.existsSync(publicPath("serbian-a1-wordmark-compact.png"))).toBe(false);
 });
