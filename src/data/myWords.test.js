@@ -81,7 +81,7 @@ const Probe = () => {
 
 const VocabularyProbe = () => {
   const { allWords, toggleFavorite, toggleKnown } = useMyWords();
-  const word = allWords.find((item) => item.id === "de-communication-meinung");
+  const word = allWords.find((item) => item.id === "de-b1-media-communication-meinung");
   return (
     <>
       <span data-testid="new-word-status">{word.status}</span>
@@ -132,36 +132,55 @@ test("My Words tolerates malformed storage and rejects exact duplicates", () => 
 
 test("My Words provider loads valid stored entries", () => {
   localStorage.setItem(MY_WORDS_STORAGE_KEY, JSON.stringify([
-    { id: "1", source: "house", target: "kuća", createdAt: "2026-01-01" },
+    { id: "1", source: "house", target: "Haus", createdAt: "2026-01-01" },
   ]));
   render(<LanguageProvider><MyWordsProvider><Probe /></MyWordsProvider></LanguageProvider>);
   expect(screen.getByTestId("count").textContent).toBe("1");
   expect(loadMyWords()[0]).toEqual(expect.objectContaining({
-    status: "learning",
-    favorite: false,
+    id: "1",
+    kind: "custom",
   }));
+  expect(loadMyWords()[0]).not.toHaveProperty("status");
+  expect(loadMyWords()[0]).not.toHaveProperty("favorite");
 });
 
-test("legacy words migrate with learning and favorite defaults", () => {
+test("legacy custom content is normalized without carrying mutable state", () => {
   localStorage.setItem(MY_WORDS_STORAGE_KEY, JSON.stringify([
-    { id: "legacy", source: "friend", target: "prijatelj", createdAt: "2025-01-01" },
-    { id: "known", source: "water", target: "voda", createdAt: "2025-01-02", status: "known", favorite: true },
+    { id: "legacy", source: "friend", target: "Freund", createdAt: "2025-01-01" },
+    { id: "known", source: "water", target: "Wasser", createdAt: "2025-01-02", status: "known", favorite: true },
   ]));
 
   expect(loadMyWords()).toEqual([
-    expect.objectContaining({ id: "legacy", status: "learning", favorite: false }),
-    expect.objectContaining({ id: "known", status: "known", favorite: true }),
+    expect.objectContaining({ id: "legacy", kind: "custom" }),
+    expect.objectContaining({ id: "known", kind: "custom" }),
   ]);
+  loadMyWords().forEach((word) => {
+    expect(word).not.toHaveProperty("status");
+    expect(word).not.toHaveProperty("favorite");
+  });
 });
 
 test("malformed vocabulary statuses are filtered without losing valid records", () => {
   localStorage.setItem(WORD_STATUSES_STORAGE_KEY, JSON.stringify([
-    { id: "lesson-1-word-1", status: "known", favorite: true },
+    { id: "de-b1-test-word", status: "known", favorite: true },
     { id: "invalid", status: "mastered", favorite: "yes" },
   ]));
 
   expect(loadWordStatuses()).toEqual([
-    { id: "lesson-1-word-1", status: "known", favorite: true },
+    expect.objectContaining({
+      id: "de-b1-test-word",
+      lexemeId: "de-b1-test-word",
+      status: "known",
+      favorite: true,
+      correctCount: 0,
+      incorrectCount: 0,
+    }),
+    expect.objectContaining({
+      id: "invalid",
+      lexemeId: "invalid",
+      status: "new",
+      favorite: false,
+    }),
   ]);
 });
 
@@ -176,20 +195,25 @@ test("new curriculum words use the existing Known and Favorite persistence", () 
   expect(screen.getByTestId("new-word-status").textContent).toBe("known");
   expect(screen.getByTestId("new-word-favorite").textContent).toBe("true");
   expect(JSON.parse(localStorage.getItem(WORD_STATUSES_STORAGE_KEY))).toContainEqual({
-    id: "de-communication-meinung",
+    id: "de-b1-media-communication-meinung",
+    lexemeId: "de-b1-media-communication-meinung",
     status: "known",
     favorite: true,
+    lastReviewedAt: null,
+    nextReviewAt: null,
+    correctCount: 0,
+    incorrectCount: 0,
   });
 });
 
 test("saved My Words pronounce the German target without coupling Edit/Delete", () => {
   localStorage.setItem(MY_WORDS_STORAGE_KEY, JSON.stringify([
-    { id: "1", source: "house", target: "kuća", createdAt: "2026-01-01" },
+    { id: "1", source: "house", target: "Haus", createdAt: "2026-01-01" },
   ]));
   render(<LanguageProvider><MyWordsProvider><MyWords /></MyWordsProvider></LanguageProvider>);
 
   const pronunciation = screen.getByRole("button", {
-    name: "Hear German pronunciation: kuća",
+    name: "Hear German pronunciation: Haus",
   });
   expect(screen.getByRole("button", { name: "Edit" })).toBeTruthy();
   expect(screen.getByRole("button", { name: "Delete" })).toBeTruthy();
@@ -197,15 +221,15 @@ test("saved My Words pronounce the German target without coupling Edit/Delete", 
   fireEvent.click(pronunciation);
 
   expect(mockProviderSpeak).toHaveBeenCalledWith(expect.objectContaining({
-    text: "kuća",
+    text: "Haus",
   }));
   expect(screen.getAllByText("Lesson").length).toBeGreaterThan(0);
 });
 
 test("migrates existing localStorage words into IndexedDB once, keeping every entry", async () => {
   localStorage.setItem(MY_WORDS_STORAGE_KEY, JSON.stringify([
-    { id: "1", source: "house", target: "kuća", createdAt: "2026-01-01" },
-    { id: "2", source: "dog", target: "pas", createdAt: "2026-01-02" },
+    { id: "1", source: "house", target: "Haus", createdAt: "2026-01-01" },
+    { id: "2", source: "dog", target: "Hund", createdAt: "2026-01-02" },
   ]));
   window.indexedDB = createFakeIndexedDb();
 
@@ -258,7 +282,7 @@ test("malformed IndexedDB entries are filtered while localStorage stays usable",
   window.indexedDB = fakeIdb;
   localStorage.setItem(
     MY_WORDS_STORAGE_KEY,
-    JSON.stringify([{ id: "1", source: "house", target: "kuća", createdAt: "2026-01-01" }, { bogus: true }])
+    JSON.stringify([{ id: "1", source: "house", target: "Haus", createdAt: "2026-01-01" }, { bogus: true }])
   );
 
   render(<LanguageProvider><MyWordsProvider><Probe /></MyWordsProvider></LanguageProvider>);

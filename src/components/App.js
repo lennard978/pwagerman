@@ -6,9 +6,8 @@ import { useSpeechSynthesis } from "react-speech-kit";
 import { Home } from "../screen/home/Home";
 import { Layout } from "./nav/Layout";
 import { NoMatch } from "./nav/NoMatch";
-import { ChooseLesson } from "../screen/lesson/ChooseLesson";
 import { Lesson } from "../screen/lesson/Lesson";
-import { GermanCurriculum } from "../data/germanFixtures";
+import { GermanCurriculum } from "../data/vocabulary/curriculum";
 import { ChoosePair } from "../screen/pair/ChoosePair";
 import { Pair } from "../screen/pair/Pair";
 import { ChooseWrite } from "../screen/write/ChooseWrite";
@@ -31,17 +30,18 @@ import { Learn } from "../screen/learn/Learn";
 import { GrammarFoundation } from "../screen/learn/GrammarFoundation";
 import { Exam } from "../screen/exam/Exam";
 import { ExamModule } from "../screen/exam/ExamModule";
+import { VocabularyLibrary } from "../screen/learn/VocabularyLibrary";
 
 function App() {
   useSpeechSynthesis();
-  const { words, curriculumWords } = useMyWords();
+  const { customWords, curriculumWords } = useMyWords();
   const progressContext = useProgress();
   const customLesson = {
     id: "my-words",
     titleKey: "myWords.title",
     descriptionKey: "myWords.description",
     category: "custom",
-    items: words,
+    items: customWords,
   };
   const data = GermanCurriculum.map((lesson) => ({
     ...lesson,
@@ -62,7 +62,7 @@ function App() {
           <Route index element={<Home />} />
           <Route path="home" element={<Home />} />
           <Route path="learn" element={<Learn />} />
-          <Route path="learn/vocabulary" element={<ChooseLesson data={data} />} />
+          <Route path="learn/vocabulary" element={<VocabularyLibrary data={data} />} />
           <Route path="learn/vocabulary/:lessonId" element={<Lesson data={data} />} />
           <Route path="learn/grammar" element={<GrammarFoundation />} />
           <Route path="learn/my-words" element={<MyWords />} />

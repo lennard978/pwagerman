@@ -16,6 +16,17 @@ import {
 } from "../../components/practice/PracticeLayout";
 import { TARGET_LANGUAGE } from "../../config/course";
 import { getContentPosition, resolveContentByRouteId } from "../../data/contentSelection";
+import { useMyWords } from "../../i18n/MyWordsProvider";
+
+export const createSpellingTokens = (value) => value.split("").map((char, index) => (
+  char === " " || char === "-"
+    ? { id: `fixed-${index}`, type: "fixed", char }
+    : { id: `${char}-${index}`, type: "letter", char }
+));
+
+export const createSpellingAnswer = (value) => createSpellingTokens(value).map((token) => (
+  token.type === "fixed" ? token : null
+));
 
 export const Write = ({ data }) => {
   const { lessonId, userId } = useParams();
@@ -23,6 +34,7 @@ export const Write = ({ data }) => {
   const { t } = useLanguage();
   const { speak: browserSpeak, voices } = useSpeechSynthesis();
   const progress = useProgress();
+  const { recordVocabularyAnswer } = useMyWords();
   const lesson = resolveContentByRouteId(data, routeId);
   const number = getContentPosition(data, lesson);
 
@@ -39,29 +51,21 @@ export const Write = ({ data }) => {
 
   const [sourceWord, setSourceWord] = useState(wordList[0]?.source || "");
 
-  const createTokens = (value) => value.split("").map((char, index) => (
-    char === " "
-      ? { id: `space-${index}`, type: "space", char }
-      : { id: `${char}-${index}-${Math.random()}`, type: "letter", char }
-  ));
   const shuffle = (v) => [...v].sort(() => Math.random() - 0.5);
   const createShuffledTarget = (value) => {
-    const tokens = createTokens(value);
+    const tokens = createSpellingTokens(value);
     const letters = shuffle(tokens.filter((token) => token.type === "letter"));
     let letterIndex = 0;
     return tokens.map((token) => (
-      token.type === "space" ? token : letters[letterIndex++]
+      token.type === "fixed" ? token : letters[letterIndex++]
     ));
   };
-  const createAnswer = (value) => createTokens(value).map((token) => (
-    token.type === "space" ? token : null
-  ));
   const [shuffledTarget, setShuffledTarget] = useState([
     ...createShuffledTarget(wordList[0]?.target || ""),
   ]);
 
   const [targetAnswer, setTargetAnswer] = useState(
-    createAnswer(wordList[0]?.target || "")
+    createSpellingAnswer(wordList[0]?.target || "")
   );
 
   //Add one for removing array item
@@ -77,6 +81,7 @@ export const Write = ({ data }) => {
       if (wordList[count].target === list) {
         setResultState("correct");
         progress?.recordAnswer(wordList[count], true);
+        recordVocabularyAnswer(wordList[count], true);
         if (!hasSpokenAnswer.current) {
           hasSpokenAnswer.current = true;
           speak({
@@ -89,6 +94,7 @@ export const Write = ({ data }) => {
       } else {
         setResultState("incorrect");
         progress?.recordAnswer(wordList[count], false);
+        recordVocabularyAnswer(wordList[count], false);
       }
     }
   };
@@ -108,7 +114,7 @@ export const Write = ({ data }) => {
     setCount(nextCount);
     setSourceWord(wordList[nextCount].source);
     setShuffledTarget(createShuffledTarget(wordList[nextCount].target));
-    setTargetAnswer(createAnswer(wordList[nextCount].target));
+    setTargetAnswer(createSpellingAnswer(wordList[nextCount].target));
   };
 
   return (
@@ -120,8 +126,8 @@ export const Write = ({ data }) => {
       </PromptRow>
       <TileRow>
         {targetAnswer.map((item, index) => {
-          if (item?.type === "space") {
-            return <Space key={item.id} data-testid="write-answer-space" aria-hidden="true" />;
+          if (item?.type === "fixed") {
+            return <FixedSeparator key={item.id} data-testid="write-answer-separator" aria-hidden="true">{item.char === " " ? "" : item.char}</FixedSeparator>;
           }
           return (
             <TargetLetter
@@ -142,8 +148,8 @@ export const Write = ({ data }) => {
       </TileRow>
       <TileRow>
         {shuffledTarget.map((item) => {
-          if (item.type === "space") {
-            return <Space key={item.id} data-testid="write-pool-space" aria-hidden="true" />;
+          if (item.type === "fixed") {
+            return <FixedSeparator key={item.id} data-testid="write-pool-separator" aria-hidden="true">{item.char === " " ? "" : item.char}</FixedSeparator>;
           }
           return (
             <TargetLetter
@@ -267,9 +273,14 @@ const TargetLetter = styled.button`
   }
 `;
 
-const Space = styled.span`
+const FixedSeparator = styled.span`
   flex: 0 0 clamp(0.65rem, 3vw, 1rem);
   min-block-size: var(--write-tile-size);
+  display: grid;
+  place-items: center;
+  color: ${theme.colors.textMuted};
+  font-size: 1.25rem;
+  font-weight: 800;
 `;
 
 const Feedback = styled.p`

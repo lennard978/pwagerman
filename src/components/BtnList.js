@@ -18,10 +18,10 @@ export const BtnList = ({ dataList, title, nav, leadingItem }) => {
         {dataList.map((lesson, index) => (
           <Button key={lesson.id || index} to={`/${nav}/${lesson.id || index}`}>
             <ItemTitle>
-              {lesson.titleKey ? t(lesson.titleKey) : `${title} ${index + 1}`}
+              {lesson.title || (lesson.titleKey ? t(lesson.titleKey) : `${title} ${index + 1}`)}
             </ItemTitle>
-            {lesson.descriptionKey && (
-              <Description>{t(lesson.descriptionKey)}</Description>
+            {(lesson.description || lesson.descriptionKey) && (
+              <Description>{lesson.description || t(lesson.descriptionKey)}</Description>
             )}
           </Button>
         ))}

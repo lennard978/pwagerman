@@ -14,10 +14,11 @@ import {
   PracticeSurface,
 } from "../../components/practice/PracticeLayout";
 import { TARGET_LANGUAGE, TARGET_LANGUAGE_NAME } from "../../config/course";
+import { formatLexemeTarget, getLexemeMetadata, getLexemeSpeechText } from "../../data/vocabulary/presentation";
 
 export const Review = () => {
   const { t } = useLanguage();
-  const { allWords } = useMyWords();
+  const { allWords, recordVocabularyAnswer } = useMyWords();
   const { progress, recordAnswer, recordCompletion } = useProgress();
   const [source, setSource] = useState("mistakes");
   const [index, setIndex] = useState(0);
@@ -27,14 +28,15 @@ export const Review = () => {
     if (source === "mistakes") return progress.recentMistakes.map((item) => item.word);
     if (source === "favorites") return allWords.filter((word) => word.favorite);
     if (source === "known") return allWords.filter((word) => word.status === "known");
-    return allWords.filter((word) => word.status !== "known");
+    return allWords.filter((word) => word.status === "learning");
   }, [allWords, progress.recentMistakes, source]);
   const word = items[index % Math.max(items.length, 1)];
 
   const grade = (correct) => {
     recordAnswer(word, correct);
+    recordVocabularyAnswer(word, correct);
     if (index === items.length - 1) {
-      recordCompletion({ type: "review", categoryId: source, route: "/review" });
+      recordCompletion({ type: "review", categoryId: source, route: "/practice/review" });
     }
     setIndex((value) => (value + 1) % items.length);
     setRevealed(false);
@@ -68,8 +70,9 @@ export const Review = () => {
             <Primary type="button" onClick={() => setRevealed(true)}>{t("review.reveal")}</Primary>
           ) : (
             <>
-              <Answer>{word.target}</Answer>
-              <CompactSoundButton text={word.target} lang={TARGET_LANGUAGE} ariaLabel={`Hear ${TARGET_LANGUAGE_NAME} pronunciation: ${word.target}`}>
+              <Answer>{formatLexemeTarget(word)}</Answer>
+              {getLexemeMetadata(word).slice(0, 2).map((line) => <Metadata key={line}>{line}</Metadata>)}
+              <CompactSoundButton text={getLexemeSpeechText(word)} lang={TARGET_LANGUAGE} ariaLabel={`Hear ${TARGET_LANGUAGE_NAME} pronunciation: ${formatLexemeTarget(word)}`}>
                 <FaVolumeUp aria-hidden="true" />
               </CompactSoundButton>
               <WordStatusActions word={word} />
@@ -92,6 +95,7 @@ const Card = styled(PracticeSurface)`display: grid; justify-items: center; gap: 
 const Progress = styled.p`justify-self: start; margin: 0; color: ${theme.colors.textMuted}; font-size: 0.8rem;`;
 const Prompt = styled.h2`margin: 1rem 0; color: ${theme.colors.navy}; font-size: clamp(1.5rem, 7vw, 2.2rem);`;
 const Answer = styled.p`margin: 0; color: ${theme.colors.primary}; font-size: 1.5rem; font-weight: 800;`;
+const Metadata = styled.p`margin: -0.35rem 0 0; color: ${theme.colors.textMuted}; font-size: 0.78rem;`;
 const Primary = styled(PracticePrimaryButton)``;
 const Grade = styled.div`display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; inline-size: 100%;`;
 const Wrong = styled.button`min-block-size: 2.75rem; color: ${theme.colors.error}; background: ${theme.colors.errorSoft}; border: 1px solid ${theme.colors.error}; border-radius: ${theme.radius.small}; font-weight: 700;`;

@@ -12,6 +12,7 @@ import {
   LanguageProvider,
   useLanguage,
 } from "../i18n/LanguageProvider";
+import { MyWordsProvider } from "../i18n/MyWordsProvider";
 
 const lessonData = [
   {
@@ -19,13 +20,15 @@ const lessonData = [
     titleKey: "lessons.greetings.title",
     descriptionKey: "lessons.greetings.description",
     category: "greetings",
-    items: [{ source: "house", target: "kuća" }],
+    items: [{ id: "test-house", source: "house", target: "das Haus" }],
   },
 ];
 
 const renderWithLanguage = (children, language) => {
   window.localStorage.setItem(LANGUAGE_STORAGE_KEY, language);
-  return render(<LanguageProvider>{children}</LanguageProvider>);
+  return render(
+    <LanguageProvider><MyWordsProvider>{children}</MyWordsProvider></LanguageProvider>
+  );
 };
 
 const RouteLanguageProbe = () => {

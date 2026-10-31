@@ -10,7 +10,7 @@ import { Practice } from "../screen/practice/Practice";
 import { Exam } from "../screen/exam/Exam";
 import { createDefaultProgress, PROGRESS_STORAGE_KEY } from "../data/learningProgress";
 import { loadMyWords, MY_WORDS_STORAGE_KEY } from "../data/myWords";
-import { GermanCurriculum } from "../data/germanFixtures";
+import { GermanCurriculum } from "../data/vocabulary/curriculum";
 import { resolveContentByRouteId } from "../data/contentSelection";
 
 const renderUi = (children, route = "/") => render(
@@ -79,7 +79,11 @@ test("Exam exposes independent modules, verified timing, scoring, and disclaimer
 });
 
 test("stable content slugs resolve without depending on array position", () => {
-  expect(resolveContentByRouteId(GermanCurriculum, "travel")).toBe(GermanCurriculum[0]);
-  expect(resolveContentByRouteId(GermanCurriculum, "communication")).toBe(GermanCurriculum[2]);
+  expect(resolveContentByRouteId(GermanCurriculum, "travel-transport")).toBe(
+    GermanCurriculum.find(({ id }) => id === "travel-transport")
+  );
+  expect(resolveContentByRouteId(GermanCurriculum, "media-communication")).toBe(
+    GermanCurriculum.find(({ id }) => id === "media-communication")
+  );
   expect(GermanCurriculum.every((lesson) => !/^\d+$/.test(lesson.id))).toBe(true);
 });

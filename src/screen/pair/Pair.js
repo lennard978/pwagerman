@@ -12,12 +12,17 @@ import {
   practiceTokens,
 } from "../../components/practice/PracticeLayout";
 import { getContentPosition, resolveContentByRouteId } from "../../data/contentSelection";
+import { useMyWords } from "../../i18n/MyWordsProvider";
+
+export const isCorrectLexemePair = (sourceItem, targetItem) =>
+  sourceItem.id === targetItem.id;
 
 export const Pair = ({ data }) => {
   const { lessonId, userId } = useParams();
   const routeId = lessonId || userId;
   const { t } = useLanguage();
   const progress = useProgress();
+  const { recordVocabularyAnswer } = useMyWords();
   const lesson = resolveContentByRouteId(data, routeId);
   const number = getContentPosition(data, lesson);
   const wordList = lesson.items;
@@ -46,13 +51,15 @@ export const Pair = ({ data }) => {
   }, [lesson.id, lesson.titleKey, progress, roundItems.length, source.length]);
 
   const checkCorrect = (sourceItem, targetItem) => {
-    if (sourceItem.source === targetItem.source) {
-      setSource(source.filter((item) => item !== sourceItem));
-      setTarget(target.filter((item) => item !== targetItem));
+    if (isCorrectLexemePair(sourceItem, targetItem)) {
+      setSource(source.filter((item) => item.id !== sourceItem.id));
+      setTarget(target.filter((item) => item.id !== targetItem.id));
+      recordVocabularyAnswer(sourceItem, true);
       setSelectedSource(null);
       setSelectedTarget(null);
       setWrongPair(false);
     } else {
+      recordVocabularyAnswer(sourceItem, false);
       setWrongPair(true);
     }
   };
@@ -69,25 +76,25 @@ export const Pair = ({ data }) => {
     if (selectedSource) checkCorrect(selectedSource, item);
   };
 
-  const sourceList = source.map((item, index) => {
+  const sourceList = source.map((item) => {
     return (
       <PairButton
         onClick={() => checkSource(item)}
         $selected={selectedSource === item}
         $wrong={wrongPair && selectedSource === item}
-        key={index}
+        key={item.id}
       >
         {item.source}
       </PairButton>
     );
   });
-  const targetList = target.map((item, index) => {
+  const targetList = target.map((item) => {
     return (
       <PairButton
         onClick={() => checkTarget(item)}
         $selected={selectedTarget === item}
         $wrong={wrongPair && selectedTarget === item}
-        key={index}
+        key={item.id}
       >
         {item.target}
       </PairButton>

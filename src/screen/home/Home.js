@@ -8,7 +8,8 @@ import { theme } from "../../styles/theme";
 import { InstallHelp } from "../../components/InstallHelp";
 import { useProgress } from "../../i18n/ProgressProvider";
 import { getCurrentStreak } from "../../data/learningProgress";
-import { GermanCurriculum } from "../../data/germanFixtures";
+import { GermanCurriculum, getVocabularyCategoryProgress } from "../../data/vocabulary/curriculum";
+import { isReviewDue } from "../../data/lexemeState";
 import { COURSE_CONFIG, getPublicAsset } from "../../config/course";
 
 export const Home = () => {
@@ -18,10 +19,18 @@ export const Home = () => {
   const words = vocabulary ? vocabulary.words : [];
   const known = allWords.filter((word) => word.status === "known").length;
   const favorites = allWords.filter((word) => word.favorite).length;
+  const learning = allWords.filter((word) => word.status === "learning").length;
+  const learned = known + learning;
+  const reviewDue = allWords.filter((word) => isReviewDue(word)).length;
   const progressContext = useProgress();
   const progress = progressContext?.progress;
   const streak = progress ? getCurrentStreak(progress.activityDates) : 0;
   const destination = progress?.lastActivity?.route || "/learn";
+  const categoryProgress = GermanCurriculum.map((category) =>
+    getVocabularyCategoryProgress(category, vocabulary?.wordStatuses || [], progress?.completedLessons || [])
+  );
+  const completedCategories = categoryProgress.filter((category) => category.complete).length;
+  const startedCategories = categoryProgress.filter((category) => category.started).length;
 
   return (
     <Container>
@@ -61,7 +70,11 @@ export const Home = () => {
           <Stat to="/learn/my-words?filter=known"><FaCheck aria-hidden="true" /><strong>{known}</strong><span>{t("vocabulary.knownWords")}</span></Stat>
           <Stat to="/learn/my-words?filter=favorites"><FaStar aria-hidden="true" /><strong>{favorites}</strong><span>{t("vocabulary.favorites")}</span></Stat>
           <Stat to="/learn/my-words"><FaBookOpen aria-hidden="true" /><strong>{words.length}</strong><span>{t("myWords.title")}</span></Stat>
-          <Stat to="/learn/vocabulary"><FaBookOpen aria-hidden="true" /><strong>{progress?.completedLessons.length || 0} / {GermanCurriculum.length}</strong><span>{t("home.completedTopics")}</span></Stat>
+          <Stat to="/learn/vocabulary"><FaBookOpen aria-hidden="true" /><strong>{startedCategories} / {GermanCurriculum.length}</strong><span>{t("vocabulary.categoriesStarted")}</span></Stat>
+          <Stat to="/learn/vocabulary?filter=learning"><FaBookOpen aria-hidden="true" /><strong>{learning}</strong><span>{t("vocabulary.learning")}</span></Stat>
+          <Stat to="/learn/vocabulary"><FaCheck aria-hidden="true" /><strong>{learned}</strong><span>{t("vocabulary.learnedWords")}</span></Stat>
+          <Stat to="/practice/review"><FaCheck aria-hidden="true" /><strong>{reviewDue}</strong><span>{t("vocabulary.reviewDue")}</span></Stat>
+          <Stat to="/learn/vocabulary"><FaCheck aria-hidden="true" /><strong>{completedCategories} / {GermanCurriculum.length}</strong><span>{t("vocabulary.categoriesComplete")}</span></Stat>
           <Stat to="/practice"><FaCheck aria-hidden="true" /><strong>{progress?.completedExercises.length || 0}</strong><span>{t("home.practiceSessions")}</span></Stat>
           {streak > 0 && <Stat as="div"><FaCheck aria-hidden="true" /><strong>{streak}</strong><span>{t("home.dayStreak")}</span></Stat>}
         </Stats>

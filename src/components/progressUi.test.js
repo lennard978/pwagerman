@@ -11,7 +11,7 @@ import { Home } from "../screen/home/Home";
 import { Lesson } from "../screen/lesson/Lesson";
 import { Test } from "../screen/test/Test";
 import { Cards } from "../screen/cards/Cards";
-import { GermanCurriculum } from "../data/germanFixtures";
+import { GermanCurriculum } from "../data/vocabulary/curriculum";
 
 jest.mock("../services/tts/ttsProvider", () => ({ speak: jest.fn() }));
 jest.mock("react-speech-kit", () => ({
@@ -102,13 +102,12 @@ test("completing a lesson persists the category and makes Home offer Continue le
     onboardingComplete: true,
   }));
   const data = [{
-    id: "lesson-1",
-    titleKey: "lessons.greetings.title",
-    items: [{ id: "word-1", source: "hello", target: "zdravo", status: "learning", favorite: false }],
+    ...GermanCurriculum[0],
+    items: GermanCurriculum[0].items.slice(0, 1),
   }];
   const { unmount } = render(
     <Providers>
-      <MemoryRouter initialEntries={["/chooselesson/0"]}>
+      <MemoryRouter initialEntries={[`/chooselesson/${data[0].id}`]}>
         <Routes>
           <Route path="/chooselesson/:userId" element={<Lesson data={data} />} />
           <Route path="/learn" element={<span>Learn</span>} />
@@ -117,12 +116,12 @@ test("completing a lesson persists the category and makes Home offer Continue le
     </Providers>
   );
   fireEvent.click(screen.getByRole("link", { name: "Complete lesson" }));
-  expect(JSON.parse(localStorage.getItem(PROGRESS_STORAGE_KEY)).completedLessons).toEqual(["lesson-1"]);
+  expect(JSON.parse(localStorage.getItem(PROGRESS_STORAGE_KEY)).completedLessons).toEqual([data[0].id]);
   unmount();
 
   render(<Providers><MemoryRouter><Home /></MemoryRouter></Providers>);
   expect(screen.getByText("Continue learning")).toBeTruthy();
-  expect(screen.getByText("1 / 3")).toBeTruthy();
+  expect(screen.getAllByText(`1 / ${GermanCurriculum.length}`)).toHaveLength(2);
 });
 
 test("Lesson reserves fixed-header space and groups completion actions compactly", () => {

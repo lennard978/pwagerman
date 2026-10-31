@@ -11,9 +11,14 @@ import {
   saveMyWordsToIndexedDb,
   saveWordStatuses,
   saveWordStatusesToIndexedDb,
-  withVocabularyDefaults,
+  normalizeCustomWord,
 } from "../data/myWords";
-import { GermanCurriculum } from "../data/germanFixtures";
+import { GermanCurriculum } from "../data/vocabulary/curriculum";
+import {
+  createLexemeState,
+  mergeLexemeState,
+  recordLexemeAnswer as updateAnswerState,
+} from "../data/lexemeState";
 
 const MyWordsContext = createContext(null);
 
@@ -51,7 +56,7 @@ export const MyWordsProvider = ({ children }) => {
     saveWordStatusesToIndexedDb(nextStatuses);
   };
 
-  const addWord = (sourceValue, targetValue) => {
+  const addWord = (sourceValue, targetValue, metadata = {}) => {
     const source = normalizeWord(sourceValue);
     const target = normalizeWord(targetValue);
     if (!source || !target) return { error: "blank" };
@@ -62,10 +67,13 @@ export const MyWordsProvider = ({ children }) => {
     const id = typeof crypto !== "undefined" && crypto.randomUUID
       ? crypto.randomUUID()
       : `${Date.now()}-${Math.random().toString(36).slice(2)}`;
-    const word = withVocabularyDefaults({
+    const word = normalizeCustomWord({
       id,
       source,
       target,
+      article: metadata.article || null,
+      plural: normalizeWord(metadata.plural) || null,
+      note: normalizeWord(metadata.note) || null,
       createdAt: new Date().toISOString(),
       kind: "custom",
     });
@@ -73,7 +81,7 @@ export const MyWordsProvider = ({ children }) => {
     return { word };
   };
 
-  const updateWord = (id, sourceValue, targetValue) => {
+  const updateWord = (id, sourceValue, targetValue, metadata = {}) => {
     const source = normalizeWord(sourceValue);
     const target = normalizeWord(targetValue);
     if (!source || !target) return { error: "blank" };
@@ -81,34 +89,34 @@ export const MyWordsProvider = ({ children }) => {
       return { error: "length" };
     }
     if (duplicateWord(words, source, target, id)) return { error: "duplicate" };
-    persist(words.map((word) => (word.id === id ? { ...word, source, target } : word)));
-    return { word: { id, source, target } };
+    const changes = {
+      source,
+      target,
+      article: metadata.article || null,
+      plural: normalizeWord(metadata.plural) || null,
+      note: normalizeWord(metadata.note) || null,
+    };
+    persist(words.map((word) => (word.id === id ? { ...word, ...changes } : word)));
+    return { word: { id, ...changes } };
   };
 
-  const deleteWord = (id) => persist(words.filter((word) => word.id !== id));
+  const deleteWord = (id) => {
+    persist(words.filter((word) => word.id !== id));
+    persistStatuses(wordStatuses.filter((entry) => entry.lexemeId !== id));
+  };
 
   const curriculumWords = GermanCurriculum.flatMap((lesson) =>
-    lesson.items.map((word) => {
-      const saved = wordStatuses.find((entry) => entry.id === word.id);
-      return saved ? { ...word, ...saved } : word;
-    })
+    lesson.items.map((word) => mergeLexemeState(word, wordStatuses))
   );
 
+  const customWords = words.map((word) => mergeLexemeState(word, wordStatuses));
+
   const updateVocabulary = (word, changes) => {
-    if (words.some((item) => item.id === word.id)) {
-      persist(words.map((item) =>
-        item.id === word.id ? withVocabularyDefaults({ ...item, ...changes }) : item
-      ));
-      return;
-    }
-    const current = wordStatuses.find((entry) => entry.id === word.id) || {
-      id: word.id,
-      status: "learning",
-      favorite: false,
-    };
+    const current = wordStatuses.find((entry) => entry.lexemeId === word.id) ||
+      createLexemeState(word.id);
     const next = { ...current, ...changes };
     persistStatuses([
-      ...wordStatuses.filter((entry) => entry.id !== word.id),
+      ...wordStatuses.filter((entry) => entry.lexemeId !== word.id),
       next,
     ]);
   };
@@ -121,15 +129,28 @@ export const MyWordsProvider = ({ children }) => {
       status: word.status === "known" ? "learning" : "known",
     });
 
+  const recordVocabularyAnswer = (word, correct, now) => {
+    const current = wordStatuses.find((entry) => entry.lexemeId === word.id) ||
+      createLexemeState(word.id);
+    const next = updateAnswerState(current, correct, now);
+    persistStatuses([
+      ...wordStatuses.filter((entry) => entry.lexemeId !== word.id),
+      next,
+    ]);
+  };
+
   const value = {
     words,
+    wordStatuses,
     curriculumWords,
-    allWords: [...words, ...curriculumWords],
+    customWords,
+    allWords: [...customWords, ...curriculumWords],
     addWord,
     updateWord,
     deleteWord,
     toggleFavorite,
     toggleKnown,
+    recordVocabularyAnswer,
   };
 
   return <MyWordsContext.Provider value={value}>{children}</MyWordsContext.Provider>;

@@ -17,6 +17,7 @@ import {
 } from "../../components/practice/PracticeLayout";
 import { TARGET_LANGUAGE, TARGET_LANGUAGE_NAME } from "../../config/course";
 import { getContentPosition, resolveContentByRouteId } from "../../data/contentSelection";
+import { formatLexemeTarget, getLexemeMetadata, getLexemeSpeechText } from "../../data/vocabulary/presentation";
 
 export const cardsSizeConstraints = {
   inlineSize: "min(88%, 34rem)",
@@ -61,7 +62,7 @@ export const Cards = ({ data }) => {
     setFlipped(showTarget);
     if (showTarget) {
       speak({
-        text: currentItem.target,
+        text: getLexemeSpeechText(currentItem),
         lang: TARGET_LANGUAGE,
         voices,
         browserSpeak,
@@ -83,7 +84,8 @@ export const Cards = ({ data }) => {
             <Text>{currentItem.source}</Text>
           </SourceWord>
           <TargetWord targetRotate={flipped ? "rotateY(0deg)" : "rotateY(180deg)"}>
-            <Text>{currentItem.target}</Text>
+            <Text>{formatLexemeTarget(currentItem)}</Text>
+            <CardMetadata>{getLexemeMetadata(currentItem).slice(0, 2).join(" · ")}</CardMetadata>
           </TargetWord>
         </AnimateBox>
         <CardActions>
@@ -201,6 +203,7 @@ const Text = styled.p`
   overflow-wrap: anywhere;
   font-weight: bold;
 `;
+const CardMetadata = styled.small`max-inline-size: 90%; color: ${theme.colors.textMuted}; font-size: 0.72rem; line-height: 1.35; text-align: center;`;
 
 const BackLink = styled(Link)`
   min-block-size: 2.75rem;

@@ -21,8 +21,9 @@ import { Write } from "../screen/write/Write";
 import SoundButton, { selectBestVoice } from "../components/SoundButton";
 import { normalizeSpeechLanguage } from "../services/tts/ttsProvider";
 import { LanguageProvider } from "../i18n/LanguageProvider";
+import { MyWordsProvider } from "../i18n/MyWordsProvider";
 import { Curriculum } from "./data";
-import { GermanCurriculum } from "./germanFixtures";
+import { GermanCurriculum } from "./vocabulary/curriculum";
 import { createBoundedRound, EXERCISE_ROUND_LIMITS } from "./exerciseRounds";
 import { progressWord } from "./learningProgress";
 import { practiceTokens } from "../components/practice/PracticeLayout";
@@ -37,7 +38,7 @@ jest.mock("react-speech-kit", () => ({
 }));
 
 const renderWithLanguage = (children) =>
-  render(<LanguageProvider>{children}</LanguageProvider>);
+  render(<LanguageProvider><MyWordsProvider>{children}</MyWordsProvider></LanguageProvider>);
 
 const CardRouteSwitch = () => {
   const navigate = useNavigate();
@@ -130,14 +131,16 @@ test("built-in vocabulary exposes scalable A1 metadata without changing stable I
 });
 
 test("new vocabulary keeps the progress identity required by Review and recent mistakes", () => {
-  const word = Curriculum[34].items[0];
+  const word = GermanCurriculum[0].items[0];
 
-  expect(progressWord(word)).toEqual({
-    id: "lesson-35-word-1",
-    source: "colour",
-    target: "boja",
+  expect(progressWord(word)).toEqual(expect.objectContaining({
+    id: word.id,
+    source: word.source,
+    target: word.target,
+    lemma: word.lemma,
+    article: word.article,
     kind: "built-in",
-  });
+  }));
 });
 
 test("has no duplicate vocabulary pairs across lessons", () => {
@@ -261,16 +264,18 @@ test("Write preserves a non-interactive word-boundary spacer in both rows", () =
   renderWithLanguage(
     <MemoryRouter initialEntries={["/write/0"]}>
       <Routes>
-        <Route path="/write/:userId" element={<Write data={[{ items: [{ source: "I love you", target: "volim te" }] }]} />} />
+        <Route path="/write/:userId" element={<Write data={[{ items: [{ id: "test-love", source: "I love you", target: "ich liebe dich" }] }]} />} />
       </Routes>
     </MemoryRouter>
   );
 
-  const answerSpace = screen.getByTestId("write-answer-space");
-  const poolSpace = screen.getByTestId("write-pool-space");
-  expect(answerSpace.closest("button")).toBeNull();
-  expect(poolSpace.closest("button")).toBeNull();
-  expect(screen.getAllByRole("button", { name: "?" })).toHaveLength(7);
+  const answerSpaces = screen.getAllByTestId("write-answer-separator");
+  const poolSpaces = screen.getAllByTestId("write-pool-separator");
+  expect(answerSpaces).toHaveLength(2);
+  expect(poolSpaces).toHaveLength(2);
+  answerSpaces.forEach((space) => expect(space.closest("button")).toBeNull());
+  poolSpaces.forEach((space) => expect(space.closest("button")).toBeNull());
+  expect(screen.getAllByRole("button", { name: "?" })).toHaveLength(12);
 });
 
 test("Write keeps duplicate letter IDs stable when returning an exact tile", () => {
@@ -312,19 +317,19 @@ test("Write evaluates the exact target with automatic spaces and speaks once", (
   renderWithLanguage(
     <MemoryRouter initialEntries={["/write/0"]}>
       <Routes>
-        <Route path="/write/:userId" element={<Write data={[{ items: [{ source: "I love you", target: "volim te" }] }]} />} />
+        <Route path="/write/:userId" element={<Write data={[{ items: [{ id: "test-love", source: "I love you", target: "ich liebe dich" }] }]} />} />
       </Routes>
     </MemoryRouter>
   );
 
-  "volimte".split("").forEach((letter) => {
+  "ichliebedich".split("").forEach((letter) => {
     const poolTile = screen.getAllByRole("button", { name: letter })
       .find((tile) => tile.getAttribute("data-filled") === "false");
     fireEvent.click(poolTile);
   });
 
-  expect(screen.getAllByRole("button", { name: /^[volimte]$/ })[0].getAttribute("data-result-state")).toBe("correct");
-  expect(screen.getByTestId("write-answer-space")).toBeTruthy();
+  expect(screen.getAllByRole("button", { name: /^[ichlbed]$/ })[0].getAttribute("data-result-state")).toBe("correct");
+  expect(screen.getAllByTestId("write-answer-separator")).toHaveLength(2);
   expect(mockSpeak).toHaveBeenCalledTimes(1);
 });
 
@@ -336,8 +341,8 @@ test("Pair renders English source and German target values", () => {
           path="/pair/:userId"
           element={
             <Pair data={[{ items: [
-              { source: "house", target: "kuća" },
-              { source: "water", target: "voda" },
+              { id: "test-house", source: "house", target: "kuća" },
+              { id: "test-water", source: "water", target: "voda" },
             ] }]} />
           }
         />
@@ -353,6 +358,7 @@ test("Pair renders English source and German target values", () => {
 
 test("Pair shows no more than ten vocabulary pairs per round", () => {
   const items = Array.from({ length: 12 }, (_, index) => ({
+    id: `test-word-${index}`,
     source: `word ${index}`,
     target: `reč ${index}`,
   }));
@@ -373,8 +379,8 @@ test("Pair completion links back to the existing selector", () => {
     <MemoryRouter initialEntries={["/pair/0"]}>
       <Routes>
         <Route path="/pair/:userId" element={<Pair data={[{ items: [
-          { source: "house", target: "kuća" },
-          { source: "water", target: "voda" },
+          { id: "test-house", source: "house", target: "kuća" },
+          { id: "test-water", source: "water", target: "voda" },
         ] }]} />} />
       </Routes>
     </MemoryRouter>
@@ -513,10 +519,10 @@ test("Quiz presents an English prompt with German choices and completes", () => 
               data={[
                 {
                   items: [
-                    { source: "house", target: "kuća" },
-                    { source: "water", target: "voda" },
-                    { source: "chair", target: "stolica" },
-                    { source: "city", target: "grad" },
+                    { id: "test-house", source: "house", target: "kuća" },
+                    { id: "test-water", source: "water", target: "voda" },
+                    { id: "test-chair", source: "chair", target: "stolica" },
+                    { id: "test-city", source: "city", target: "grad" },
                   ],
                 },
               ]}
@@ -632,13 +638,12 @@ test("Quiz speaker does not select and results review every answer", () => {
 });
 
 test("active test data contains bounded questions for every curriculum category", () => {
-  const testSets = [Test1, Test2, Test3];
-
-  expect(Tests).toEqual(testSets);
+  expect([Test1, Test2, Test3]).toEqual(Tests.slice(0, 3));
   expect(Tests).toHaveLength(GermanCurriculum.length);
   Tests.forEach((testSet, index) => {
     const lesson = GermanCurriculum[index];
     const lessonTargets = lesson.items.map((item) => item.target);
+    expect(testSet.id).toBe(`test-${lesson.id}`);
     expect(testSet.titleKey).toBe(lesson.titleKey);
     expect(testSet.descriptionKey).toBe(lesson.descriptionKey);
     expect(testSet.category).toBe(lesson.category);
@@ -660,10 +665,10 @@ test("Test chooser renders every bounded curriculum test", () => {
     </MemoryRouter>
   );
 
-  expect(screen.getAllByRole("link")).toHaveLength(3);
-  expect(screen.getByText("Travel & Places")).toBeTruthy();
-  expect(screen.getByText("Daily Life & Appointments")).toBeTruthy();
-  expect(screen.getByText("Communication Phrases")).toBeTruthy();
+  expect(screen.getAllByRole("link")).toHaveLength(GermanCurriculum.length);
+  expect(screen.getByText("Vocabulary Test 1")).toBeTruthy();
+  expect(screen.getByText("Vocabulary Test 9")).toBeTruthy();
+  expect(screen.getByText("Vocabulary Test 25")).toBeTruthy();
 });
 
 test("SoundButton selects a German voice from its explicit content language", () => {

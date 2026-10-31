@@ -22,12 +22,14 @@ import {
 } from "../../components/practice/PracticeLayout";
 import { TARGET_LANGUAGE, TARGET_LANGUAGE_NAME } from "../../config/course";
 import { getContentPosition, resolveContentByRouteId } from "../../data/contentSelection";
+import { useMyWords } from "../../i18n/MyWordsProvider";
 
 export const Test = ({ data }) => {
   const { lessonId, userId } = useParams();
   const routeId = lessonId || userId;
   const { t } = useLanguage();
   const progress = useProgress();
+  const { recordVocabularyAnswer } = useMyWords();
   const testData = resolveContentByRouteId(data, routeId);
   const number = getContentPosition(data, testData);
   const questions = testData.questions || testData;
@@ -60,6 +62,7 @@ export const Test = ({ data }) => {
     const nextAnswers = [...answers, record];
     setAnswers(nextAnswers);
     progress?.recordAnswer(record.word, record.correct);
+    recordVocabularyAnswer(record.word, record.correct);
 
     if (currentQuestion === questions.length - 1) {
       setComplete(true);

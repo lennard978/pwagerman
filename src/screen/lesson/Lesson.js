@@ -12,6 +12,7 @@ import { useProgress } from "../../i18n/ProgressProvider";
 import { CompactSoundButton } from "../../components/CompactSoundButton";
 import { TARGET_LANGUAGE, TARGET_LANGUAGE_NAME } from "../../config/course";
 import { getContentPosition, resolveContentByRouteId } from "../../data/contentSelection";
+import { formatLexemeTarget, getLexemeMetadata, getLexemeSpeechText } from "../../data/vocabulary/presentation";
 
 export const Lesson = ({ data }) => {
   const { lessonId, userId } = useParams();
@@ -22,24 +23,32 @@ export const Lesson = ({ data }) => {
   const number = getContentPosition(data, lesson);
   return (
     <Wrapper>
-      <Title title={`${t("navigation.lesson")} ${number}`} reserveSpace />
+      <Title title={lesson.title || `${t("navigation.lesson")} ${number}`} reserveSpace />
       {lesson.items.length === 0 && <EmptyExercise message={t("myWords.emptyHint")} />}
-      {lesson.items.map((item, index) => {
+      {lesson.items.map((item) => {
         return (
-          <Container key={index}>
+          <Container key={item.id}>
             <VocabularyRow>
               <Words>
                 <SourceParagraph>{item.source}</SourceParagraph>
-                <TargetParagraph>{item.target}</TargetParagraph>
+                <TargetParagraph>{formatLexemeTarget(item)}</TargetParagraph>
+                <PartOfSpeech>{item.partOfSpeech}</PartOfSpeech>
               </Words>
               <CompactSoundButton
-                text={item.target}
+                text={getLexemeSpeechText(item)}
                 lang={TARGET_LANGUAGE}
-                ariaLabel={`Hear ${TARGET_LANGUAGE_NAME} pronunciation: ${item.target}`}
+                ariaLabel={`Hear ${TARGET_LANGUAGE_NAME} pronunciation: ${formatLexemeTarget(item)}`}
               >
                 <FaVolumeUp aria-hidden="true" />
               </CompactSoundButton>
             </VocabularyRow>
+            <Details>
+              <summary>Example and grammar</summary>
+              <Example lang="de">{item.example}</Example>
+              <ExampleTranslation>{item.exampleTranslation}</ExampleTranslation>
+              {getLexemeMetadata(item).map((line) => <GrammarLine key={line}>{line}</GrammarLine>)}
+              {item.note && <GrammarLine>{item.note}</GrammarLine>}
+            </Details>
             <CardActions>
               <WordStatusActions word={item} compact />
             </CardActions>
@@ -120,6 +129,11 @@ const TargetParagraph = styled.p`
   font-size: 1.15rem;
   font-weight: 800;
 `;
+const PartOfSpeech = styled.small`justify-self: start; padding: 0.12rem 0.4rem; color: ${theme.colors.textMuted}; background: ${theme.colors.surfaceMuted}; border-radius: ${theme.radius.pill}; text-transform: capitalize;`;
+const Details = styled.details`inline-size: 100%; border-top: 1px solid ${theme.colors.border}; padding-top: 0.55rem; & summary { min-block-size: 2.75rem; display: flex; align-items: center; color: ${theme.colors.primaryPressed}; font-weight: 700; cursor: pointer; }`;
+const Example = styled.p`margin: 0.35rem 0 0; color: ${theme.colors.text}; line-height: 1.45;`;
+const ExampleTranslation = styled.p`margin: 0.2rem 0 0.45rem; color: ${theme.colors.textMuted}; font-size: 0.88rem; line-height: 1.45;`;
+const GrammarLine = styled.p`margin: 0.2rem 0; color: ${theme.colors.textMuted}; font-size: 0.78rem;`;
 const CardActions = styled.div`
   display: flex;
   align-items: center;

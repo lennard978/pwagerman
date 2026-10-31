@@ -24,20 +24,24 @@ import {
 } from "../../components/practice/PracticeLayout";
 import { TARGET_LANGUAGE, TARGET_LANGUAGE_NAME } from "../../config/course";
 import { getContentPosition, resolveContentByRouteId } from "../../data/contentSelection";
+import { useMyWords } from "../../i18n/MyWordsProvider";
 
 const shuffle = (items) => [...items].sort(() => Math.random() - 0.5);
 
-const createRound = (items) => {
+export const createQuizRound = (items) => {
   const questions = createBoundedRound(items, EXERCISE_ROUND_LIMITS.quiz);
   return questions.map((question) => {
-    const distractors = shuffle(
-      items.filter((item) => item.target !== question.target)
-    )
-      .slice(0, 3)
-      .map((item) => item.target);
+    const distractors = shuffle(items.filter((item) => item.id !== question.id))
+      .filter((item, index, candidates) =>
+        candidates.findIndex((candidate) => candidate.target === item.target) === index
+      )
+      .slice(0, 3);
     return {
       ...question,
-      choices: shuffle([question.target, ...distractors]),
+      choices: shuffle([question, ...distractors]).map((item) => ({
+        id: item.id,
+        target: item.target,
+      })),
     };
   });
 };
@@ -47,10 +51,11 @@ export const Quiz = ({ data }) => {
   const routeId = lessonId || userId;
   const { t } = useLanguage();
   const progress = useProgress();
+  const { recordVocabularyAnswer } = useMyWords();
   const lesson = resolveContentByRouteId(data, routeId);
   const number = getContentPosition(data, lesson);
   const items = lesson.items;
-  const [round, setRound] = useState(() => createRound(items));
+  const [round, setRound] = useState(() => createQuizRound(items));
   const [questionIndex, setQuestionIndex] = useState(0);
   const [selected, setSelected] = useState(null);
   const [score, setScore] = useState(0);
@@ -61,15 +66,17 @@ export const Quiz = ({ data }) => {
   const answer = (choice) => {
     if (selected) return;
     setSelected(choice);
-    if (choice === question.target) {
+    const correct = choice.id === question.id;
+    if (correct) {
       setScore((currentScore) => currentScore + 1);
     }
-    progress?.recordAnswer(question, choice === question.target);
+    progress?.recordAnswer(question, correct);
+    recordVocabularyAnswer(question, correct);
     setAnswers((currentAnswers) => [...currentAnswers, {
       prompt: question.source,
-      answer: choice,
+      answer: choice.target,
       correctAnswer: question.target,
-      correct: choice === question.target,
+      correct,
       word: question,
     }]);
   };
@@ -90,7 +97,7 @@ export const Quiz = ({ data }) => {
   };
 
   const restart = () => {
-    setRound(createRound(items));
+    setRound(createQuizRound(items));
     setQuestionIndex(0);
     setSelected(null);
     setScore(0);
@@ -130,10 +137,10 @@ export const Quiz = ({ data }) => {
           <Instruction>{t("exercise.chooseTranslation")}</Instruction>
           <Choices>
             {question.choices.map((choice) => {
-              const isCorrect = selected && choice === question.target;
-              const isWrong = selected === choice && !isCorrect;
+              const isCorrect = selected && choice.id === question.id;
+              const isWrong = selected?.id === choice.id && !isCorrect;
               return (
-                <ChoiceRow key={choice}>
+                <ChoiceRow key={choice.id}>
                   <Choice
                     type="button"
                     disabled={Boolean(selected)}
@@ -142,12 +149,12 @@ export const Quiz = ({ data }) => {
                     $wrong={isWrong}
                     onClick={() => answer(choice)}
                   >
-                    {choice}
+                    {choice.target}
                   </Choice>
                   <CompactSoundButton
-                    text={choice}
+                    text={choice.target}
                     lang={TARGET_LANGUAGE}
-                    ariaLabel={`Hear ${TARGET_LANGUAGE_NAME} pronunciation: ${choice}`}
+                    ariaLabel={`Hear ${TARGET_LANGUAGE_NAME} pronunciation: ${choice.target}`}
                   >
                     <FaVolumeUp aria-hidden="true" />
                   </CompactSoundButton>

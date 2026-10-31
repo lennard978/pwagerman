@@ -7,6 +7,7 @@ import { theme } from "../../styles/theme";
 import { WordStatusActions } from "../../components/WordStatusActions";
 import { CompactSoundButton } from "../../components/CompactSoundButton";
 import { TARGET_LANGUAGE, TARGET_LANGUAGE_NAME } from "../../config/course";
+import { formatLexemeTarget, getLexemeSpeechText } from "../../data/vocabulary/presentation";
 
 const validFilters = ["all", "favorites", "learning", "known"];
 
@@ -19,6 +20,9 @@ export const MyWords = () => {
   );
   const [source, setSource] = useState("");
   const [target, setTarget] = useState("");
+  const [article, setArticle] = useState("");
+  const [plural, setPlural] = useState("");
+  const [note, setNote] = useState("");
   const [editingId, setEditingId] = useState(null);
   const [error, setError] = useState("");
   const [visibleLimit, setVisibleLimit] = useState(20);
@@ -26,13 +30,16 @@ export const MyWords = () => {
   const visibleWords = allWords.filter((word) => {
     if (filter === "favorites") return word.favorite;
     if (filter === "known") return word.status === "known";
-    if (filter === "learning") return word.status !== "known";
+    if (filter === "learning") return word.status === "learning";
     return true;
   });
 
   const reset = () => {
     setSource("");
     setTarget("");
+    setArticle("");
+    setPlural("");
+    setNote("");
     setEditingId(null);
     setError("");
   };
@@ -40,8 +47,8 @@ export const MyWords = () => {
   const save = (event) => {
     event.preventDefault();
     const result = editingId
-      ? updateWord(editingId, source, target)
-      : addWord(source, target);
+      ? updateWord(editingId, source, target, { article, plural, note })
+      : addWord(source, target, { article, plural, note });
     if (result.error) {
       setError(t(`myWords.${result.error}`));
       return;
@@ -53,6 +60,9 @@ export const MyWords = () => {
     setEditingId(word.id);
     setSource(word.source);
     setTarget(word.target);
+    setArticle(word.article || "");
+    setPlural(word.plural || "");
+    setNote(word.note || "");
     setError("");
   };
 
@@ -68,9 +78,26 @@ export const MyWords = () => {
             <Input value={source} onChange={(event) => setSource(event.target.value)} />
           </Label>
           <Label>
-            {t("myWords.serbian")}
+            {t("myWords.german")}
             <Input value={target} onChange={(event) => setTarget(event.target.value)} />
           </Label>
+          <Label>
+            {t("myWords.article")}
+            <Select value={article} onChange={(event) => setArticle(event.target.value)}>
+              <option value="">—</option>
+              <option value="der">der</option>
+              <option value="die">die</option>
+              <option value="das">das</option>
+            </Select>
+          </Label>
+          <Label>
+            {t("myWords.plural")}
+            <Input value={plural} onChange={(event) => setPlural(event.target.value)} placeholder="die Termine" />
+          </Label>
+          <NoteLabel>
+            {t("myWords.note")}
+            <Input value={note} onChange={(event) => setNote(event.target.value)} />
+          </NoteLabel>
         </Fields>
         {error && <Error role="alert">{error}</Error>}
         <Actions>
@@ -106,12 +133,14 @@ export const MyWords = () => {
               <WordPair>
                 <Meta>{word.kind === "custom" ? t("myWords.custom") : t("myWords.curriculum")}</Meta>
                 <strong>{word.source}</strong>
-                <span>{word.target}</span>
+                <span>{formatLexemeTarget(word)}</span>
+                {word.plural && <WordNote>Plural: {word.plural}</WordNote>}
+                {word.note && <WordNote>{word.note}</WordNote>}
               </WordPair>
               <CompactSoundButton
-                text={word.target}
+                text={getLexemeSpeechText(word)}
                 lang={TARGET_LANGUAGE}
-                ariaLabel={`Hear ${TARGET_LANGUAGE_NAME} pronunciation: ${word.target}`}
+                ariaLabel={`Hear ${TARGET_LANGUAGE_NAME} pronunciation: ${formatLexemeTarget(word)}`}
               >
                 <FaVolumeUp aria-hidden="true" />
               </CompactSoundButton>
@@ -149,6 +178,8 @@ const FormTitle = styled.h2`margin: 0; color: ${theme.colors.text}; font-size: 1
 const Fields = styled.div`display: grid; gap: 0.75rem; @media (min-width: 36rem) { grid-template-columns: 1fr 1fr; }`;
 const Label = styled.label`display: grid; gap: 0.35rem; color: ${theme.colors.textMuted}; font-size: 0.85rem; font-weight: 600;`;
 const Input = styled.input`min-inline-size: 0; min-block-size: 2.75rem; padding: 0.6rem 0.75rem; color: ${theme.colors.text}; background: ${theme.colors.surface}; border: 1px solid ${theme.colors.border}; border-radius: ${theme.radius.small}; &:focus { outline: 3px solid ${theme.colors.primarySoft}; border-color: ${theme.colors.primary}; }`;
+const Select = styled.select`min-inline-size: 0; min-block-size: 2.75rem; padding: 0.6rem 0.75rem; color: ${theme.colors.text}; background: ${theme.colors.surface}; border: 1px solid ${theme.colors.border}; border-radius: ${theme.radius.small}; &:focus { outline: 3px solid ${theme.colors.primarySoft}; border-color: ${theme.colors.primary}; }`;
+const NoteLabel = styled(Label)`@media (min-width: 36rem) { grid-column: 1 / -1; }`;
 const Actions = styled.div`display: flex; flex-wrap: wrap; gap: 0.5rem;`;
 const PrimaryButton = styled.button`min-block-size: 2.75rem; padding-inline: 1.25rem; color: white; background: ${theme.colors.primary}; border: 0; border-radius: ${theme.radius.small}; font-weight: 700;`;
 const SecondaryButton = styled.button`min-block-size: 2.5rem; padding-inline: 0.75rem; color: ${theme.colors.text}; background: ${theme.colors.surfaceMuted}; border: 1px solid ${theme.colors.border}; border-radius: ${theme.radius.small}; font-weight: 600;`;
@@ -161,6 +192,7 @@ const WordCard = styled.article`display: grid; gap: 0.8rem; padding: 1rem; backg
 const CardMain = styled.div`display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; min-inline-size: 0;`;
 const WordPair = styled.div`min-inline-size: 0; display: grid; gap: 0.18rem; color: ${theme.colors.text}; overflow-wrap: anywhere; & > strong { font-size: 1rem; } & > span { color: ${theme.colors.primary}; font-size: 1.15rem; font-weight: 800; }`;
 const Meta = styled.small`justify-self: start; margin-bottom: 0.1rem; padding: 0.15rem 0.45rem; color: ${theme.colors.textMuted}; background: ${theme.colors.surfaceMuted}; border-radius: ${theme.radius.pill}; font-size: 0.68rem; font-weight: 700;`;
+const WordNote = styled.small`color: ${theme.colors.textMuted}; font-size: 0.76rem; font-weight: 500;`;
 const CardActions = styled.div`display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; padding-top: 0.75rem; border-top: 1px solid ${theme.colors.border};`;
 const CustomActions = styled.div`display: flex; gap: 0.5rem; margin-inline-start: auto;`;
 const IconAction = styled.button`inline-size: 2.75rem; min-inline-size: 2.75rem; block-size: 2.75rem; display: inline-flex; align-items: center; justify-content: center; padding: 0; color: ${(props) => props.$danger ? theme.colors.error : theme.colors.textMuted}; background: ${(props) => props.$danger ? theme.colors.errorSoft : theme.colors.surfaceMuted}; border: 1px solid ${(props) => props.$danger ? theme.colors.error : theme.colors.border}; border-radius: ${theme.radius.small}; &:focus-visible { outline: 3px solid ${theme.colors.primarySoft}; outline-offset: 2px; }`;

@@ -8,7 +8,7 @@
     "write": "Spelling",
     "spelling": "Spelling",
     "cards": "Cards",
-    "test": "Test",
+    "test": "Vocabulary Test",
     "quiz": "Quiz",
     "review": "Review",
     "settings": "Settings",
@@ -49,7 +49,7 @@
     "spelling": "Build the German translation from shuffled letters.",
     "cards": "Flip cards and hear pronunciation.",
     "quiz": "Choose the correct translation.",
-    "test": "Check your knowledge and review answers.",
+    "test": "Take a short vocabulary test and review answers.",
     "review": "Revisit saved words and recent mistakes.",
     "examPrep": "Practise reading, listening, vocabulary, and grammar skills.",
     "formDrills": "Prepare for future German grammar and form-focused drills."
@@ -94,12 +94,16 @@
     "all": "All",
     "favorites": "Favorites",
     "learning": "Learning",
+    "learnedWords": "Vocabulary learned",
     "known": "Known",
     "knownWords": "Known words",
     "favorite": "Add to favorites",
     "unfavorite": "Remove from favorites",
     "markKnown": "Mark as Known",
-    "markLearning": "Move to Learning"
+    "markLearning": "Move to Learning",
+    "reviewDue": "Review due",
+    "categoriesStarted": "Categories started",
+    "categoriesComplete": "Categories complete"
   },
   "myWords": {
     "title": "My Words",
@@ -107,7 +111,10 @@
     "libraryDescription": "Your curriculum and custom vocabulary in one place.",
     "add": "Add word",
     "english": "English",
-    "serbian": "German",
+    "german": "German",
+    "article": "Article (optional)",
+    "plural": "Plural (optional)",
+    "note": "Note (optional)",
     "save": "Save",
     "edit": "Edit",
     "delete": "Delete",
@@ -325,8 +332,7 @@
   },
   "language": {
     "label": "Language",
-    "english": "English",
-    "serbian": "German"
+    "english": "English"
   },
   "update": {
     "available": "New version available",
@@ -350,7 +356,7 @@
   "learn": {
     "description": "Choose vocabulary, grammar, or your personal word collection.",
     "vocabulary": "Vocabulary",
-    "vocabularyDescription": "Study temporary original German B1 fixture topics.",
+    "vocabularyDescription": "Explore 250 original German B1 lexemes with search, categories, examples, and progress.",
     "grammar": "Grammar",
     "grammarDescription": "Open the foundation for the reviewed B1 grammar curriculum.",
     "myWords": "My Words",

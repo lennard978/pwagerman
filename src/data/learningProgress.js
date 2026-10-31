@@ -159,6 +159,17 @@ export const progressWord = (word) => {
     source,
     target,
     kind: word.kind || "built-in",
+    lemma: word.lemma || target,
+    article: word.article || null,
+    plural: word.plural || null,
+    partOfSpeech: word.partOfSpeech || null,
+    separablePrefix: word.separablePrefix || null,
+    auxiliary: word.auxiliary || null,
+    pastParticiple: word.pastParticiple || null,
+    caseGovernment: word.caseGovernment || null,
+    prepositions: Array.isArray(word.prepositions) ? word.prepositions : [],
+    example: word.example || null,
+    exampleTranslation: word.exampleTranslation || null,
   };
 };
 

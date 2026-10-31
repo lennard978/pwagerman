@@ -6,18 +6,25 @@ import {
   isIndexedDbSupported,
 } from "./storage/idbMyWordsStore";
 import { STORAGE_CONFIG } from "../config/course";
+import { normalizeLexemeState } from "./lexemeState";
 
 export const MY_WORDS_STORAGE_KEY = STORAGE_CONFIG.myWords;
 export const MY_WORDS_MIGRATED_KEY = STORAGE_CONFIG.myWordsMigrated;
 export const MY_WORDS_MAX_LENGTH = 80;
 export const WORD_STATUSES_STORAGE_KEY = STORAGE_CONFIG.wordStatuses;
 
-export const withVocabularyDefaults = (word) => ({
-  ...word,
-  kind: word.kind === "built-in" ? "built-in" : "custom",
-  status: word.status === "known" ? "known" : "learning",
-  favorite: word.favorite === true,
-});
+export const normalizeCustomWord = (word) => {
+  return {
+    id: word.id,
+    source: word.source,
+    target: word.target,
+    createdAt: word.createdAt,
+    kind: "custom",
+    article: typeof word.article === "string" ? word.article : null,
+    plural: typeof word.plural === "string" ? word.plural : null,
+    note: typeof word.note === "string" ? word.note : null,
+  };
+};
 
 const isEntry = (entry) =>
   entry &&
@@ -31,7 +38,7 @@ export const loadMyWords = (storage = window.localStorage) => {
     const raw = storage.getItem(MY_WORDS_STORAGE_KEY);
     if (!raw) return [];
     const parsed = JSON.parse(raw);
-    return Array.isArray(parsed) ? parsed.filter(isEntry).map(withVocabularyDefaults) : [];
+    return Array.isArray(parsed) ? parsed.filter(isEntry).map(normalizeCustomWord) : [];
   } catch (error) {
     return [];
   }
@@ -75,7 +82,7 @@ export const loadMyWordsFromIndexedDb = async ({
     const migrated = await migrateMyWordsToIndexedDb({ storage, idbFactory });
     const words = migrated || (await idbGetAllWords(idbFactory));
     const normalized = Array.isArray(words)
-      ? words.filter(isEntry).map(withVocabularyDefaults)
+      ? words.filter(isEntry).map(normalizeCustomWord)
       : [];
     if (JSON.stringify(normalized) !== JSON.stringify(words)) {
       await idbReplaceAllWords(normalized, idbFactory);
@@ -96,16 +103,13 @@ export const saveMyWordsToIndexedDb = async (words, idbFactory) => {
   }
 };
 
-const isStatusEntry = (entry) =>
-  entry &&
-  typeof entry.id === "string" &&
-  (entry.status === "learning" || entry.status === "known") &&
-  typeof entry.favorite === "boolean";
+const normalizeStatusEntries = (entries) =>
+  entries.map(normalizeLexemeState).filter(Boolean);
 
 export const loadWordStatuses = (storage = window.localStorage) => {
   try {
     const parsed = JSON.parse(storage.getItem(WORD_STATUSES_STORAGE_KEY) || "[]");
-    return Array.isArray(parsed) ? parsed.filter(isStatusEntry) : [];
+    return Array.isArray(parsed) ? normalizeStatusEntries(parsed) : [];
   } catch (error) {
     return [];
   }
@@ -129,7 +133,7 @@ export const loadWordStatusesFromIndexedDb = async ({
         statuses = fallback;
       }
     }
-    return Array.isArray(statuses) ? statuses.filter(isStatusEntry) : [];
+    return Array.isArray(statuses) ? normalizeStatusEntries(statuses) : [];
   } catch (error) {
     return null;
   }

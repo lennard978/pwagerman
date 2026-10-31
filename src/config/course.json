@@ -10,7 +10,7 @@
   "provider": "Asenda Studio",
   "examReference": "Goethe-Zertifikat B1",
   "officialAffiliation": false,
-  "contentVersion": "foundation-1",
+  "contentVersion": "vocabulary-2",
   "tts": {
     "cacheVersion": "de-v1",
     "defaultVoice": "de-DE-Chirp3-HD-Aoede"

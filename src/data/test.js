@@ -1,4 +1,4 @@
-import { GermanCurriculum } from "./germanFixtures";
+import { GermanCurriculum } from "./vocabulary/curriculum";
 import { createBoundedRound, EXERCISE_ROUND_LIMITS } from "./exerciseRounds";
 
 const createQuestion = (lesson, item) => {

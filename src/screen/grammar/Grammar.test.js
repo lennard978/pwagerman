@@ -1,44 +1,4 @@
-import React from "react";
-import { fireEvent, render, screen } from "@testing-library/react";
-import { MemoryRouter } from "react-router-dom";
-import App from "../../components/App";
-import { createDefaultProgress, PROGRESS_STORAGE_KEY } from "../../data/learningProgress";
 import { GrammarLessons, GrammarSyllabus } from "../../data/grammar";
-import { LanguageProvider } from "../../i18n/LanguageProvider";
-import { MyWordsProvider } from "../../i18n/MyWordsProvider";
-import { ProgressProvider } from "../../i18n/ProgressProvider";
-
-const mockSpeak = jest.fn();
-
-jest.mock("../../services/tts/ttsProvider", () => ({
-  speak: (...args) => mockSpeak(...args),
-}));
-
-jest.mock("react-speech-kit", () => ({
-  useSpeechSynthesis: () => ({ speak: jest.fn(), voices: [{ lang: "sr-RS" }] }),
-}));
-
-const renderApp = (route) => render(
-  <LanguageProvider>
-    <MyWordsProvider>
-      <ProgressProvider>
-        <MemoryRouter initialEntries={[route]}>
-          <App />
-        </MemoryRouter>
-      </ProgressProvider>
-    </MyWordsProvider>
-  </LanguageProvider>
-);
-
-beforeEach(() => {
-  localStorage.clear();
-  delete window.indexedDB;
-  localStorage.setItem(PROGRESS_STORAGE_KEY, JSON.stringify({
-    ...createDefaultProgress(),
-    onboardingComplete: true,
-  }));
-  mockSpeak.mockClear();
-});
 
 test("grammar syllabus contains the complete nineteen-lesson A1 roadmap", () => {
   expect(GrammarSyllabus).toHaveLength(19);
@@ -75,7 +35,6 @@ test("grammar syllabus contains the complete nineteen-lesson A1 roadmap", () => 
   expect(GrammarLessons[0].source.evidence).toBe("verified-scope");
   expect(GrammarLessons[2].source.evidence).toBe("supplementary");
 });
-
 test("all grammar content is complete, unique, and deterministic", () => {
   expect(new Set(GrammarLessons.map(({ id }) => id)).size).toBe(GrammarLessons.length);
 
@@ -298,88 +257,4 @@ test("phase 2D lessons complete the roadmap with reviewed examples and mixed pra
     { serbian: "pet ljudi", english: "five people" },
   ]));
   expect(numbers.explanation).toContain("compound numbers have additional rules");
-});
-
-describe.skip("preserved Serbian grammar UI is inactive in the German B1 runtime", () => {
-test("Learn exposes Grammar without changing the four-tab navigation", () => {
-  renderApp("/learn");
-
-  expect(screen.getByRole("link", { name: /Grammar/ }).getAttribute("href")).toBe("/grammar");
-  expect(screen.getAllByRole("navigation")).toHaveLength(1);
-  expect(screen.getByRole("navigation").querySelectorAll("a")).toHaveLength(4);
-  ["Home", "Learn", "Practice", "My Words"].forEach((label) => {
-    expect(screen.getByRole("link", { name: label })).toBeTruthy();
-  });
-});
-
-test("grammar route renders the syllabus and routes into a lesson", () => {
-  renderApp("/grammar");
-
-  expect(screen.getByRole("heading", { name: "Grammar" })).toBeTruthy();
-  expect(screen.getByRole("link", { name: /Serbian Latin alphabet/ })).toBeTruthy();
-  expect(screen.getByRole("link", { name: /Plural basics/ })).toBeTruthy();
-  expect(screen.getByRole("link", { name: /The verb biti/ })).toBeTruthy();
-  expect(screen.getByRole("link", { name: /The verb imati/ })).toBeTruthy();
-  expect(screen.getByRole("link", { name: /Question formation/ })).toBeTruthy();
-  expect(screen.getByRole("link", { name: /Accusative/ })).toBeTruthy();
-  expect(screen.getByRole("link", { name: /Locative/ })).toBeTruthy();
-  expect(screen.getByRole("link", { name: /Instrumental/ })).toBeTruthy();
-  expect(screen.getByRole("link", { name: /Common prepositions/ })).toBeTruthy();
-  expect(screen.getByRole("link", { name: /Possessives/ })).toBeTruthy();
-  expect(screen.getByRole("link", { name: /Numbers and noun agreement/ })).toBeTruthy();
-  expect(screen.queryByText("Planned for a reviewed future lesson")).toBeNull();
-});
-
-test.each([
-  ["accusative", "Accusative", "Vidim čoveka."],
-  ["genitive", "Genitive", "Nema hleba."],
-  ["dative", "Dative", "Treba mi pomoć."],
-  ["locative", "Locative", "Živim u Srbiji."],
-  ["instrumental", "Instrumental", "Idem autobusom."],
-  ["common-prepositions", "Common prepositions", "Idem u školu."],
-  ["possessives", "Possessives", "Moj brat radi danas."],
-  ["number-agreement", "Numbers and noun agreement", "jedan student"],
-])("new grammar lesson %s renders its complete content", (lessonId, title, example) => {
-  renderApp(`/grammar/${lessonId}`);
-
-  expect(screen.getByRole("heading", { name: title })).toBeTruthy();
-  expect(screen.getByRole("heading", { name: "Rule" })).toBeTruthy();
-  expect(screen.getAllByText(example).length).toBeGreaterThan(0);
-  expect(screen.getByRole("heading", { name: "Compare" })).toBeTruthy();
-  expect(screen.getByText("Common mistake")).toBeTruthy();
-  expect(screen.getAllByText(/^Practice [1-8]$/)).toHaveLength(8);
-});
-
-test("new grammar examples use Serbian TTS and lesson completion persists", () => {
-  renderApp("/grammar/instrumental");
-
-  fireEvent.click(screen.getByRole("button", {
-    name: "Hear Serbian example: Idem autobusom.",
-  }));
-  expect(mockSpeak).toHaveBeenCalledWith(expect.objectContaining({
-    text: "Idem autobusom.",
-    lang: "sr-RS",
-  }));
-
-  fireEvent.click(screen.getByRole("button", { name: "Complete grammar lesson" }));
-  const saved = JSON.parse(localStorage.getItem(PROGRESS_STORAGE_KEY));
-  expect(saved.completedGrammarLessons).toContain("instrumental");
-  expect(saved.lastActivity.route).toBe("/grammar/instrumental");
-});
-
-test("grammar practice records a review-eligible mistake without adding a vocabulary mistake", () => {
-  renderApp("/grammar/instrumental");
-
-  fireEvent.click(screen.getByRole("button", { name: "Idem sa autobusom." }));
-
-  const saved = JSON.parse(localStorage.getItem(PROGRESS_STORAGE_KEY));
-  expect(saved.grammarMistakes).toEqual([
-    expect.objectContaining({
-      lessonId: "instrumental",
-      exerciseId: "instrumental-transport-choice",
-      reviewEligible: true,
-    }),
-  ]);
-  expect(saved.recentMistakes).toEqual([]);
-});
 });
