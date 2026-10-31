@@ -21,7 +21,7 @@ export const Exam = () => {
           <Card key={id} to={`/exam/${id}`}>
             <strong>{t(`exam.${id}`)}</strong>
             <span>{id === "reading" || id === "listening" ? `${moduleSummary(id)} · 30 questions` : moduleSummary(id)}</span>
-            <small>{id === "reading" || id === "listening" || id === "writing" ? "Practice available" : t("foundation.upcoming")}</small>
+            <small>{id === "reading" || id === "listening" || id === "writing" || id === "speaking" ? "Practice available" : t("foundation.upcoming")}</small>
           </Card>
         ))}
         <Card to="/exam/full-mock-b1">

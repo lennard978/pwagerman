@@ -28,6 +28,8 @@
     "listeningPracticeSession": "asenda.german-b1.listeningPracticeSession.v1",
     "writingSession": "asenda.german-b1.writingSession.v1",
     "writingPracticeSession": "asenda.german-b1.writingPracticeSession.v1",
+    "speakingSession": "asenda.german-b1.speakingSession.v1",
+    "speakingPracticeSession": "asenda.german-b1.speakingPracticeSession.v1",
     "installHelpDismissed": "asenda.german-b1.installHelp.dismissed.v1",
     "indexedDb": "asenda-german-b1"
   },

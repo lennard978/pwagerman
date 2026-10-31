@@ -1,0 +1,9 @@
+export const MAX_RECORDING_BYTES=15*1024*1024;
+export const MAX_TOTAL_RECORDING_BYTES=50*1024*1024;
+const DB="asenda-german-b1-speaking-recordings",STORE="recordings";
+const openDb=(factory=indexedDB)=>new Promise((resolve,reject)=>{const r=factory.open(DB,1);r.onupgradeneeded=()=>{if(!r.result.objectStoreNames.contains(STORE))r.result.createObjectStore(STORE,{keyPath:"recordingId"});};r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error);});
+const request=r=>new Promise((resolve,reject)=>{r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error);});
+export const listRecordings=async(factory=indexedDB)=>{const db=await openDb(factory);try{return await request(db.transaction(STORE,"readonly").objectStore(STORE).getAll());}finally{db.close();}};
+export const saveRecording=async({blob,...metadata},factory=indexedDB)=>{if(!blob||blob.size>MAX_RECORDING_BYTES)throw new Error("recording-size-limit");const current=await listRecordings(factory);if(current.reduce((n,x)=>n+(x.sizeBytes||x.blob?.size||0),0)+blob.size>MAX_TOTAL_RECORDING_BYTES)throw new Error("recording-storage-limit");const value={...metadata,sizeBytes:blob.size,mimeType:blob.type||metadata.mimeType,blob};const db=await openDb(factory);try{await request(db.transaction(STORE,"readwrite").objectStore(STORE).put(value));return{...metadata,sizeBytes:value.sizeBytes,mimeType:value.mimeType};}finally{db.close();}};
+export const getRecording=async(id,factory=indexedDB)=>{const db=await openDb(factory);try{return await request(db.transaction(STORE,"readonly").objectStore(STORE).get(id));}finally{db.close();}};
+export const deleteRecording=async(id,factory=indexedDB)=>{const db=await openDb(factory);try{await request(db.transaction(STORE,"readwrite").objectStore(STORE).delete(id));return true;}finally{db.close();}};

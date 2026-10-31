@@ -415,6 +415,71 @@ export const ProgressProvider = ({ children }) => {
     });
   };
 
+  const recordSpeakingAttempt = ({ session }) => {
+    const at = session.submittedAt || new Date().toISOString();
+    const attempt = {
+      id: session.sessionId,
+      formId: session.formId,
+      mode: session.mode,
+      partNumber: session.mode === "practice" ? session.currentPart : null,
+      selfAssessment: session.selfAssessment,
+      assessmentCompletedAt: session.assessmentCompletedAt || null,
+      recordingMetadata: session.recordingMetadata || [],
+      contentVersion: session.contentVersion,
+      rubricVersion: session.rubricVersion,
+      at,
+    };
+    persist((current) => {
+      const existingIndex = current.speakingProgress.attemptHistory.findIndex(({ id }) => id === attempt.id);
+      const isNew = existingIndex < 0;
+      const history = isNew
+        ? [...current.speakingProgress.attemptHistory, attempt]
+        : current.speakingProgress.attemptHistory.map((item, index) => index === existingIndex ? attempt : item);
+      const boundedHistory = history.slice(-20);
+      const assessed = boundedHistory.filter((item) => item.assessmentCompletedAt);
+      const dimensions = ["taskFulfilment", "interaction", "fluency", "vocabulary", "grammar", "pronunciation"];
+      const rubricTrends = Object.fromEntries(dimensions.map((dimension) => {
+        const values = assessed.map((item) => item.selfAssessment?.[dimension]).filter(Number.isInteger);
+        return [dimension, {
+          attempts: values.length,
+          average: values.length
+            ? Number((values.reduce((sum, value) => sum + value, 0) / values.length).toFixed(2))
+            : null,
+        }];
+      }));
+      const isPractice = session.mode === "practice";
+      return {
+        ...current,
+        lastActivity: {
+          type: "exam-speaking",
+          route: "/exam/speaking",
+          title: isPractice ? `B1 Speaking Part ${session.currentPart}` : `B1 Speaking ${session.mode.replace("-", " ")}`,
+          at,
+        },
+        speakingProgress: {
+          ...current.speakingProgress,
+          partPracticesCompleted: isNew && isPractice ? {
+            ...current.speakingProgress.partPracticesCompleted,
+            [session.currentPart]: (current.speakingProgress.partPracticesCompleted[session.currentPart] || 0) + 1,
+          } : current.speakingProgress.partPracticesCompleted,
+          soloSimulationsCompleted: current.speakingProgress.soloSimulationsCompleted + (isNew && session.mode === "solo-simulation" ? 1 : 0),
+          pairSimulationsCompleted: current.speakingProgress.pairSimulationsCompleted + (isNew && session.mode === "pair-simulation" ? 1 : 0),
+          latestDate: at,
+          recentSelfAssessment: session.assessmentCompletedAt
+            ? { id: attempt.id, values: session.selfAssessment, at: session.assessmentCompletedAt }
+            : current.speakingProgress.recentSelfAssessment,
+          rubricTrends,
+          recentRecordingMetadata: session.recordingMetadata?.length
+            ? Object.values([...current.speakingProgress.recentRecordingMetadata, ...session.recordingMetadata]
+              .reduce((items, metadata) => ({ ...items, [metadata.recordingId]: metadata }), {})).slice(-20)
+            : current.speakingProgress.recentRecordingMetadata,
+          attemptHistory: boundedHistory,
+        },
+        activityDates: recordStudyDate(current.activityDates),
+      };
+    });
+  };
+
   const completeOnboarding = () =>
     persist((current) => ({ ...current, onboardingComplete: true }));
 
@@ -432,6 +497,7 @@ export const ProgressProvider = ({ children }) => {
       recordReadingAttempt,
       recordListeningAttempt,
       recordWritingAttempt,
+      recordSpeakingAttempt,
       completeOnboarding,
     }}>
       {children}

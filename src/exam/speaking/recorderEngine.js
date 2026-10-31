@@ -1,0 +1,11 @@
+const MIME_TYPES=["audio/webm;codecs=opus","audio/webm","audio/mp4"];
+export const detectRecordingMime=(Ctor=window.MediaRecorder)=>MIME_TYPES.find(type=>Ctor?.isTypeSupported?.(type))||"";
+export const createRecorderController=({mediaDevices=navigator.mediaDevices,MediaRecorderCtor=window.MediaRecorder,maxDurationMs=300000,onState=()=>{},onElapsed=()=>{},onLimit=()=>{}}={})=>{
+ let recorder=null,stream=null,chunks=[],startedAt=0,timer=null,limited=false;
+ const cleanup=()=>{if(timer)clearInterval(timer);timer=null;stream?.getTracks?.().forEach(t=>t.stop());stream=null;};
+ const start=async()=>{if(!MediaRecorderCtor||!mediaDevices?.getUserMedia)throw new Error("recording-unsupported");onState("requesting-permission");try{stream=await mediaDevices.getUserMedia({audio:true});onState("ready");const mimeType=detectRecordingMime(MediaRecorderCtor);recorder=new MediaRecorderCtor(stream,mimeType?{mimeType}:undefined);chunks=[];limited=false;return await new Promise((resolve,reject)=>{recorder.ondataavailable=e=>{if(e.data?.size)chunks.push(e.data);};recorder.onerror=()=>{cleanup();onState("error");reject(new Error("recording-error"));};recorder.onstart=()=>{startedAt=Date.now();onState("recording");timer=setInterval(()=>{const elapsed=Date.now()-startedAt;if(elapsed>=maxDurationMs&&recorder.state==="recording"){limited=true;onElapsed(maxDurationMs);clearInterval(timer);timer=null;recorder.pause();onState("paused");onLimit();}else onElapsed(Math.min(elapsed,maxDurationMs));},250);resolve(true);};recorder.start();});}catch(e){cleanup();onState("error");throw e;}};
+ const stop=()=>new Promise(resolve=>{if(!recorder||recorder.state==="inactive")return resolve(null);recorder.onstop=()=>{const durationMs=Date.now()-startedAt;const blob=new Blob(chunks,{type:recorder.mimeType||"audio/webm"});cleanup();onState("stopped");resolve({blob,durationMs,mimeType:blob.type});};recorder.stop();});
+ const pause=()=>{if(recorder?.state==="recording"&&recorder.pause){recorder.pause();onState("paused");}};
+ const resume=()=>{if(!limited&&recorder?.state==="paused"&&recorder.resume){recorder.resume();onState("recording");}};
+ return{start,stop,pause,resume,destroy:cleanup,getState:()=>recorder?.state||"inactive"};
+};

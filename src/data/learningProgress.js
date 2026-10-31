@@ -12,7 +12,7 @@ import { STORAGE_CONFIG } from "../config/course";
 import { normalizeGrammarLessonStates } from "./grammar/state";
 
 export const PROGRESS_STORAGE_KEY = STORAGE_CONFIG.learningProgress;
-export const PROGRESS_VERSION = 8;
+export const PROGRESS_VERSION = 9;
 
 const localDate = (date = new Date()) => {
   const year = date.getFullYear();
@@ -75,6 +75,16 @@ export const createDefaultProgress = (storage = window.localStorage) => ({
     latestDate: null,
     recentWordCounts: [],
     rubricTrends: {},
+    attemptHistory: [],
+  },
+  speakingProgress: {
+    partPracticesCompleted: { 1: 0, 2: 0, 3: 0 },
+    soloSimulationsCompleted: 0,
+    pairSimulationsCompleted: 0,
+    latestDate: null,
+    recentSelfAssessment: null,
+    rubricTrends: {},
+    recentRecordingMetadata: [],
     attemptHistory: [],
   },
   recentMistakes: [],
@@ -187,6 +197,33 @@ export const normalizeProgress = (value, storage = window.localStorage) => {
         : {},
       attemptHistory: Array.isArray(value.writingProgress?.attemptHistory)
         ? value.writingProgress.attemptHistory.slice(-20)
+        : [],
+    },
+    speakingProgress: {
+      ...defaults.speakingProgress,
+      ...(value.speakingProgress && typeof value.speakingProgress === "object" && !Array.isArray(value.speakingProgress)
+        ? value.speakingProgress
+        : {}),
+      partPracticesCompleted: value.speakingProgress?.partPracticesCompleted && typeof value.speakingProgress.partPracticesCompleted === "object"
+        ? { ...defaults.speakingProgress.partPracticesCompleted, ...value.speakingProgress.partPracticesCompleted }
+        : defaults.speakingProgress.partPracticesCompleted,
+      soloSimulationsCompleted: Number.isFinite(value.speakingProgress?.soloSimulationsCompleted)
+        ? value.speakingProgress.soloSimulationsCompleted
+        : 0,
+      pairSimulationsCompleted: Number.isFinite(value.speakingProgress?.pairSimulationsCompleted)
+        ? value.speakingProgress.pairSimulationsCompleted
+        : 0,
+      recentSelfAssessment: value.speakingProgress?.recentSelfAssessment && typeof value.speakingProgress.recentSelfAssessment === "object"
+        ? value.speakingProgress.recentSelfAssessment
+        : null,
+      rubricTrends: value.speakingProgress?.rubricTrends && typeof value.speakingProgress.rubricTrends === "object"
+        ? value.speakingProgress.rubricTrends
+        : {},
+      recentRecordingMetadata: Array.isArray(value.speakingProgress?.recentRecordingMetadata)
+        ? value.speakingProgress.recentRecordingMetadata.slice(-20)
+        : [],
+      attemptHistory: Array.isArray(value.speakingProgress?.attemptHistory)
+        ? value.speakingProgress.attemptHistory.slice(-20)
         : [],
     },
     recentMistakes: Array.isArray(value.recentMistakes) ? value.recentMistakes : [],

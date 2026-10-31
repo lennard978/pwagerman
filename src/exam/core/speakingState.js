@@ -1,0 +1,18 @@
+import { SPEAKING_RUBRIC } from "../config/goetheB1Speaking";
+const iso=(d=new Date())=>new Date(d).toISOString();
+const id=(now)=>`speaking-${new Date(now).getTime()}-${Math.random().toString(36).slice(2,7)}`;
+const emptyAssessment=()=>Object.fromEntries(SPEAKING_RUBRIC.map(x=>[x.id,null]));
+export const createSpeakingSession=({form,mode="solo-simulation",partNumber=1,now=new Date()})=>({sessionId:id(now),module:"speaking",formId:form.id,mode,status:mode.includes("simulation")?"preparation":"active",preparationStartedAt:mode.includes("simulation")?iso(now):null,preparationDeadlineAt:mode.includes("simulation")?iso(new Date(new Date(now).getTime()+form.preparationSeconds*1000)):null,currentPart:mode.startsWith("practice")?partNumber:1,participantTurn:mode==="pair-simulation"?"both":"solo",pairStep:0,partStartedAt:mode.includes("simulation")?null:iso(now),notes:{part1:"",part2:Object.fromEntries([1,2,3,4,5].map(n=>[n,""])),part2B:Object.fromEntries([1,2,3,4,5].map(n=>[n,""])),part3:""},topicChoice:null,partnerTurn:0,recordingIds:[],recordingMetadata:[],selfAssessment:emptyAssessment(),submittedAt:null,contentVersion:form.contentVersion,rubricVersion:form.rubricVersion});
+export const updateSpeakingNote=(s,area,value,step=null)=>({...s,notes:{...s.notes,[area]:step?{...s.notes[area],[step]:value}:value}});
+export const chooseSpeakingTopic=(s,topicId)=>s.status==="submitted"?s:{...s,topicChoice:topicId};
+export const beginSpeaking=(s,now=new Date())=>({...s,status:"active",currentPart:1,participantTurn:s.mode==="pair-simulation"?"both":"solo",partStartedAt:iso(now)});
+export const nextPartnerTurn=(s,max)=>({...s,partnerTurn:Math.min(max-1,s.partnerTurn+1)});
+const pairSteps=[{part:1,turn:"both"},{part:2,turn:"A"},{part:3,turn:"B"},{part:2,turn:"B"},{part:3,turn:"A"}];
+export const advanceSpeaking=(s,now=new Date())=>{if(s.status!=="active")return s;if(s.mode==="pair-simulation"){const next=s.pairStep+1;if(next>=pairSteps.length)return submitSpeaking(s,now);return{...s,pairStep:next,currentPart:pairSteps[next].part,participantTurn:pairSteps[next].turn,partStartedAt:iso(now)};}if(s.currentPart>=3)return submitSpeaking(s,now);return{...s,currentPart:s.currentPart+1,partStartedAt:iso(now)};};
+export const submitSpeaking=(s,now=new Date())=>s.status==="submitted"?s:{...s,status:"submitted",submittedAt:iso(now)};
+export const setSpeakingAssessment=(s,key,value)=>s.status==="submitted"&&SPEAKING_RUBRIC.some(x=>x.id===key)&&[0,1,2,3].includes(Number(value))?{...s,selfAssessment:{...s.selfAssessment,[key]:Number(value)}}:s;
+export const completeSpeakingAssessment=(s,now=new Date())=>SPEAKING_RUBRIC.every(x=>Number.isInteger(s.selfAssessment[x.id]))?{...s,assessmentCompletedAt:iso(now)}:s;
+export const addSpeakingRecording=(s,metadata)=>({...s,recordingIds:[...new Set([...s.recordingIds,metadata.recordingId])],recordingMetadata:[...s.recordingMetadata.filter(x=>x.recordingId!==metadata.recordingId),metadata].slice(-12)});
+export const removeSpeakingRecording=(s,recordingId)=>({...s,recordingIds:s.recordingIds.filter(id=>id!==recordingId),recordingMetadata:s.recordingMetadata.filter(x=>x.recordingId!==recordingId)});
+export const getPreparationRemaining=(s,now=new Date())=>s.preparationDeadlineAt?Math.max(0,Math.ceil((new Date(s.preparationDeadlineAt)-new Date(now))/1000)):null;
+export const getPartElapsed=(s,now=new Date())=>s.partStartedAt?Math.max(0,Math.floor((new Date(now)-new Date(s.partStartedAt))/1000)):0;
