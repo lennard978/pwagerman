@@ -7,8 +7,26 @@ import {
   saveProgress,
   saveProgressToIndexedDb,
 } from "../data/learningProgress";
+import {
+  completeGrammarLessonState,
+  getGrammarState,
+  openGrammarLessonState,
+  recordGrammarStateAnswer,
+} from "../data/grammar/state";
+import { getGrammarCorrectAnswer } from "../data/grammar/exercises";
 
 const ProgressContext = createContext(null);
+
+const replaceGrammarState = (states, nextState) => [
+  ...states.filter(({ grammarLessonId }) => grammarLessonId !== nextState.grammarLessonId),
+  nextState,
+];
+
+const readableResponse = (response) => {
+  if (Array.isArray(response)) return response.join(" · ");
+  if (response && typeof response === "object") return Object.values(response).join(" · ");
+  return String(response ?? "");
+};
 
 export const ProgressProvider = ({ children }) => {
   const [progress, setProgress] = useState(() => loadProgress());
@@ -69,13 +87,27 @@ export const ProgressProvider = ({ children }) => {
     });
   };
 
-  const recordGrammarCompletion = ({ lessonId, route, title }) => {
+  const recordGrammarOpened = (grammarLessonId) => {
+    const at = new Date();
+    persist((current) => ({
+      ...current,
+      grammarLessonStates: replaceGrammarState(
+        current.grammarLessonStates,
+        openGrammarLessonState(getGrammarState(current.grammarLessonStates, grammarLessonId), at)
+      ),
+    }));
+  };
+
+  const recordGrammarCompletion = ({ lessonId, route, title, score = null, total = null, reviewed = false }) => {
     const at = new Date().toISOString();
     const activity = {
       type: "grammar",
       categoryId: lessonId,
       route,
       title,
+      score,
+      total,
+      reviewed,
       at,
     };
     persist((current) => ({
@@ -84,34 +116,60 @@ export const ProgressProvider = ({ children }) => {
       completedGrammarLessons: [
         ...new Set([...current.completedGrammarLessons, lessonId]),
       ],
+      grammarLessonStates: replaceGrammarState(
+        current.grammarLessonStates,
+        completeGrammarLessonState(getGrammarState(current.grammarLessonStates, lessonId), new Date(at))
+      ),
       activityDates: recordStudyDate(current.activityDates),
     }));
   };
 
-  const recordGrammarAnswer = ({ lessonId, exerciseId, correct }) => {
-    const id = `${lessonId}:${exerciseId}`;
+  const recordGrammarAnswer = ({ lessonId, exerciseId, exercise, learnerAnswer, correct }) => {
+    const resolvedExerciseId = exercise?.id || exerciseId;
+    const id = `${lessonId}:${resolvedExerciseId}`;
     persist((current) => {
       const existing = current.grammarMistakes.find((item) => item.id === id);
       const grammarMistakes = correct
-        ? current.grammarMistakes.filter((item) => item.id !== id)
+        ? current.grammarMistakes.map((item) => item.id === id
+          ? { ...item, resolvedAt: new Date().toISOString(), reviewEligible: false }
+          : item)
         : [
             ...current.grammarMistakes.filter((item) => item.id !== id),
             {
               id,
+              grammarLessonId: lessonId,
               lessonId,
-              exerciseId,
+              exerciseId: resolvedExerciseId,
+              prompt: exercise?.prompt || existing?.prompt || "Grammar practice question",
+              learnerAnswer: readableResponse(learnerAnswer),
+              correctAnswer: exercise ? getGrammarCorrectAnswer(exercise) : existing?.correctAnswer || "",
+              explanation: exercise?.explanation || existing?.explanation || "Review the lesson rule and try again.",
               count: (existing?.count || 0) + 1,
+              createdAt: existing?.createdAt || new Date().toISOString(),
               lastMissedAt: new Date().toISOString(),
+              resolvedAt: null,
               reviewEligible: true,
             },
           ].slice(-100);
+      const currentState = getGrammarState(current.grammarLessonStates, lessonId);
       return {
         ...current,
         grammarMistakes,
+        grammarLessonStates: replaceGrammarState(
+          current.grammarLessonStates,
+          recordGrammarStateAnswer(currentState, correct)
+        ),
         activityDates: recordStudyDate(current.activityDates),
       };
     });
   };
+
+  const resolveGrammarMistake = (mistakeId) => persist((current) => ({
+    ...current,
+    grammarMistakes: current.grammarMistakes.map((item) => item.id === mistakeId
+      ? { ...item, resolvedAt: new Date().toISOString(), reviewEligible: false }
+      : item),
+  }));
 
   const recordExamPrepCompletion = ({ area, taskId, score, total, route, title }) => {
     const at = new Date().toISOString();
@@ -199,8 +257,10 @@ export const ProgressProvider = ({ children }) => {
       progress,
       recordCompletion,
       recordAnswer,
+      recordGrammarOpened,
       recordGrammarCompletion,
       recordGrammarAnswer,
+      resolveGrammarMistake,
       recordExamPrepCompletion,
       recordMockCompletion,
       completeOnboarding,

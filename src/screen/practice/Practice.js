@@ -21,7 +21,8 @@ export const Practice = () => {
     { key: "quiz", to: "/practice/quiz", icon: FaQuestionCircle },
     { key: "test", to: "/practice/test", icon: FaBookOpen },
     { key: "review", to: "/practice/review", icon: FaRedo },
-    { key: "formDrills", to: "/learn/grammar", icon: FaLanguage },
+    { key: "grammarPractice", to: "/practice/grammar", icon: FaLanguage },
+    { key: "grammarReview", to: "/practice/grammar/review", icon: FaRedo },
   ];
 
   return (

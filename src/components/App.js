@@ -27,10 +27,15 @@ import { Review } from "../screen/review/Review";
 import { useProgress } from "../i18n/ProgressProvider";
 import { Onboarding } from "./Onboarding";
 import { Learn } from "../screen/learn/Learn";
-import { GrammarFoundation } from "../screen/learn/GrammarFoundation";
 import { Exam } from "../screen/exam/Exam";
 import { ExamModule } from "../screen/exam/ExamModule";
 import { VocabularyLibrary } from "../screen/learn/VocabularyLibrary";
+import { GermanGrammarList } from "../screen/grammar/GermanGrammarList";
+import { GermanGrammarLesson } from "../screen/grammar/GermanGrammarLesson";
+import { GermanGrammarPractice } from "../screen/grammar/GermanGrammarPractice";
+import { GrammarReview } from "../screen/grammar/GrammarReview";
+import { GrammarDiagnostic } from "../screen/grammar/GrammarDiagnostic";
+import { GrammarPracticeHub } from "../screen/grammar/GrammarPracticeHub";
 
 function App() {
   useSpeechSynthesis();
@@ -64,7 +69,11 @@ function App() {
           <Route path="learn" element={<Learn />} />
           <Route path="learn/vocabulary" element={<VocabularyLibrary data={data} />} />
           <Route path="learn/vocabulary/:lessonId" element={<Lesson data={data} />} />
-          <Route path="learn/grammar" element={<GrammarFoundation />} />
+          <Route path="learn/grammar" element={<GermanGrammarList />} />
+          <Route path="learn/grammar/diagnostic" element={<GrammarDiagnostic />} />
+          <Route path="learn/grammar/review" element={<GrammarReview />} />
+          <Route path="learn/grammar/:grammarLessonId/practice" element={<GermanGrammarPractice />} />
+          <Route path="learn/grammar/:grammarLessonId" element={<GermanGrammarLesson />} />
           <Route path="learn/my-words" element={<MyWords />} />
           <Route path="practice" element={<Practice />} />
           <Route path="practice/pair" element={<ChoosePair data={exerciseData} />} />
@@ -78,6 +87,8 @@ function App() {
           <Route path="practice/quiz" element={<ChooseQuiz data={exerciseData} />} />
           <Route path="practice/quiz/:lessonId" element={<Quiz data={exerciseData} />} />
           <Route path="practice/review" element={<Review />} />
+          <Route path="practice/grammar" element={<GrammarPracticeHub />} />
+          <Route path="practice/grammar/review" element={<GrammarReview />} />
           <Route path="exam" element={<Exam />} />
           <Route path="exam/:moduleId" element={<ExamModule />} />
           <Route path="my-words" element={<Navigate to="/learn/my-words" replace />} />

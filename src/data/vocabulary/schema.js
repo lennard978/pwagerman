@@ -40,6 +40,9 @@ export const validateLexeme = (lexeme, categoryIds = VOCABULARY_CATEGORY_IDS) =>
   if (!lexeme?.goetheCoverage || typeof lexeme.goetheCoverage.covered !== "boolean" || !isText(lexeme.goetheCoverage.referenceKey)) {
     errors.push("goetheCoverage must include covered and referenceKey");
   }
+  if (!Array.isArray(lexeme?.grammarRefs) || !lexeme.grammarRefs.every((id) => idPattern.test(id))) {
+    errors.push("grammarRefs must contain stable German B1 grammar IDs");
+  }
 
   if (lexeme?.partOfSpeech === "noun") {
     if (!NOUN_ARTICLES.includes(lexeme.article)) errors.push("noun article is invalid");
@@ -74,7 +77,7 @@ export const validateLexemeCollection = (lexemes) => {
   return errors;
 };
 
-const baseLexeme = ({ id, source, target, lemma, partOfSpeech, categoryId, example, exampleTranslation, note = null, examRelevant = true, referenceKey = lemma }) => ({
+const baseLexeme = ({ id, source, target, lemma, partOfSpeech, categoryId, example, exampleTranslation, note = null, examRelevant = true, referenceKey = lemma, grammarRefs = [] }) => ({
   id,
   source,
   target,
@@ -91,6 +94,7 @@ const baseLexeme = ({ id, source, target, lemma, partOfSpeech, categoryId, examp
   reflexiveCase: null,
   caseGovernment: null,
   prepositions: [],
+  grammarRefs,
   categoryId,
   subcategoryId: null,
   level: "B1",

@@ -130,10 +130,11 @@ test("malformed progress migrates to the versioned default without losing valid 
     onboardingComplete: true,
   }));
   expect(loadProgress()).toEqual(expect.objectContaining({
-    version: 4,
+    version: 5,
     completedLessons: ["lesson-2"],
     completedExercises: [],
     completedGrammarLessons: [],
+    grammarLessonStates: [],
     grammarMistakes: [],
     completedExamReadingTasks: [],
     completedExamListeningTasks: [],
@@ -162,9 +163,18 @@ test("progress provider keeps grammar completion and mistakes separate from voca
 
   fireEvent.click(screen.getByRole("button", { name: "Grammar correct" }));
   fireEvent.click(screen.getByRole("button", { name: "Complete grammar" }));
-  expect(screen.getByTestId("grammar-mistakes").textContent).toBe("0");
+  expect(screen.getByTestId("grammar-mistakes").textContent).toBe("1");
   expect(screen.getByTestId("grammar-lessons").textContent).toBe("1");
-  expect(JSON.parse(localStorage.getItem(PROGRESS_STORAGE_KEY)).lastActivity.type).toBe("grammar");
+  const saved = JSON.parse(localStorage.getItem(PROGRESS_STORAGE_KEY));
+  expect(saved.lastActivity.type).toBe("grammar");
+  expect(saved.grammarMistakes[0].resolvedAt).toBeTruthy();
+  expect(saved.grammarLessonStates[0]).toEqual(expect.objectContaining({
+    grammarLessonId: "noun-gender",
+    status: "completed",
+    correctCount: 1,
+    incorrectCount: 1,
+    masteryScore: 50,
+  }));
 });
 
 test("progress provider records completions, mistakes, corrections, and onboarding", () => {

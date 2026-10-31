@@ -9,9 +9,10 @@ import {
   WORD_STATUSES_STORAGE_KEY,
 } from "./myWords";
 import { STORAGE_CONFIG } from "../config/course";
+import { normalizeGrammarLessonStates } from "./grammar/state";
 
 export const PROGRESS_STORAGE_KEY = STORAGE_CONFIG.learningProgress;
-export const PROGRESS_VERSION = 4;
+export const PROGRESS_VERSION = 5;
 
 const localDate = (date = new Date()) => {
   const year = date.getFullYear();
@@ -38,6 +39,7 @@ export const createDefaultProgress = (storage = window.localStorage) => ({
   completedLessons: [],
   completedExercises: [],
   completedGrammarLessons: [],
+  grammarLessonStates: [],
   grammarMistakes: [],
   completedExamReadingTasks: [],
   completedExamListeningTasks: [],
@@ -64,6 +66,7 @@ export const normalizeProgress = (value, storage = window.localStorage) => {
     completedGrammarLessons: Array.isArray(value.completedGrammarLessons)
       ? [...new Set(value.completedGrammarLessons)]
       : [],
+    grammarLessonStates: normalizeGrammarLessonStates(value.grammarLessonStates),
     grammarMistakes: Array.isArray(value.grammarMistakes) ? value.grammarMistakes : [],
     completedExamReadingTasks: Array.isArray(value.completedExamReadingTasks)
       ? [...new Set(value.completedExamReadingTasks)]

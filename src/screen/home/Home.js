@@ -11,6 +11,7 @@ import { getCurrentStreak } from "../../data/learningProgress";
 import { GermanCurriculum, getVocabularyCategoryProgress } from "../../data/vocabulary/curriculum";
 import { isReviewDue } from "../../data/lexemeState";
 import { COURSE_CONFIG, getPublicAsset } from "../../config/course";
+import { GERMAN_B1_GRAMMAR_LESSONS, getGrammarProgressSummary } from "../../data/grammar/index";
 
 export const Home = () => {
   const { t } = useLanguage();
@@ -31,6 +32,11 @@ export const Home = () => {
   );
   const completedCategories = categoryProgress.filter((category) => category.complete).length;
   const startedCategories = categoryProgress.filter((category) => category.started).length;
+  const grammarProgress = getGrammarProgressSummary(
+    GERMAN_B1_GRAMMAR_LESSONS,
+    progress?.grammarLessonStates || [],
+    progress?.grammarMistakes || []
+  );
 
   return (
     <Container>
@@ -77,6 +83,18 @@ export const Home = () => {
           <Stat to="/learn/vocabulary"><FaCheck aria-hidden="true" /><strong>{completedCategories} / {GermanCurriculum.length}</strong><span>{t("vocabulary.categoriesComplete")}</span></Stat>
           <Stat to="/practice"><FaCheck aria-hidden="true" /><strong>{progress?.completedExercises.length || 0}</strong><span>{t("home.practiceSessions")}</span></Stat>
           {streak > 0 && <Stat as="div"><FaCheck aria-hidden="true" /><strong>{streak}</strong><span>{t("home.dayStreak")}</span></Stat>}
+        </Stats>
+      </Section>
+
+      <Section>
+        <Eyebrow>Grammar progress</Eyebrow>
+        <Stats>
+          <Stat to="/learn/grammar"><FaBookOpen aria-hidden="true" /><strong>{grammarProgress.started} / 24</strong><span>Lessons started</span></Stat>
+          <Stat to="/learn/grammar"><FaCheck aria-hidden="true" /><strong>{grammarProgress.completed} / 24</strong><span>Lessons completed</span></Stat>
+          <Stat to="/learn/grammar"><FaCheck aria-hidden="true" /><strong>{grammarProgress.foundationCompleted} / 10</strong><span>Foundation reviewed</span></Stat>
+          <Stat to="/learn/grammar"><FaCheck aria-hidden="true" /><strong>{grammarProgress.coreCompleted} / 14</strong><span>B1 Core completed</span></Stat>
+          <Stat to="/learn/grammar/review"><FaBookOpen aria-hidden="true" /><strong>{grammarProgress.unresolvedMistakes}</strong><span>Grammar mistakes</span></Stat>
+          <Stat to="/learn/grammar/review"><FaCheck aria-hidden="true" /><strong>{grammarProgress.averageMastery}%</strong><span>Average mastery</span></Stat>
         </Stats>
       </Section>
 

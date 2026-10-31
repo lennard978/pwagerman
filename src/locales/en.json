@@ -15,7 +15,9 @@
     "myWords": "My Words",
     "examPrep": "Exam Prep",
     "exam": "Exam",
-    "formDrills": "German-form drills"
+    "formDrills": "German-form drills",
+    "grammarPractice": "Grammar Practice",
+    "grammarReview": "Grammar Review"
   },
   "actions": {
     "next": "Next",
@@ -52,7 +54,9 @@
     "test": "Take a short vocabulary test and review answers.",
     "review": "Revisit saved words and recent mistakes.",
     "examPrep": "Practise reading, listening, vocabulary, and grammar skills.",
-    "formDrills": "Prepare for future German grammar and form-focused drills."
+    "formDrills": "Prepare for future German grammar and form-focused drills.",
+    "grammarPractice": "Practise cases, verb forms, word order, connectors, and adjective endings.",
+    "grammarReview": "Review grammar mistakes, incomplete lessons, and low-mastery topics."
   },
   "activity": {
     "lesson": "Continue your last lesson",
@@ -358,7 +362,7 @@
     "vocabulary": "Vocabulary",
     "vocabularyDescription": "Explore 250 original German B1 lexemes with search, categories, examples, and progress.",
     "grammar": "Grammar",
-    "grammarDescription": "Open the foundation for the reviewed B1 grammar curriculum.",
+    "grammarDescription": "Study 10 Foundation Review and 14 B1 Core lessons with examples, practice, progress, and review.",
     "myWords": "My Words",
     "myWordsDescription": "Add and manage your own English–German vocabulary."
   },
