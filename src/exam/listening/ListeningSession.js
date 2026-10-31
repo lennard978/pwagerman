@@ -19,6 +19,7 @@ import { preflightListeningAudio } from "./audioPreflight";
 import { ListeningPart } from "./ListeningPart";
 import { ListeningResults } from "./ListeningResults";
 import { ListeningReview } from "./ListeningReview";
+import { MockModuleReturn } from "../mock/MockModuleReturn";
 
 export const ListeningSession = ({ mode, preflightAudio = preflightListeningAudio }) => {
   const params = useParams();
@@ -128,7 +129,7 @@ export const ListeningSession = ({ mode, preflightAudio = preflightListeningAudi
   };
 
   if (session.status === "submitted") {
-    return <Page>{reviewOpen ? <ListeningReview form={form} session={session} onClose={() => setReviewOpen(false)} /> : <ListeningResults session={session} onReview={() => setReviewOpen(true)} onRestart={restart} onNewSet={startNewSet} />}</Page>;
+    return <Page>{reviewOpen ? <ListeningReview form={form} session={session} onClose={() => setReviewOpen(false)} /> : <><ListeningResults session={session} onReview={() => setReviewOpen(true)} onRestart={restart} onNewSet={startNewSet} /><MockModuleReturn moduleId="listening" sessionId={session.sessionId} /></>}</Page>;
   }
 
   return (

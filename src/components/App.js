@@ -45,6 +45,9 @@ import { WritingSession } from "../exam/writing/WritingSession";
 import { WritingPhraseBank } from "../exam/writing/WritingPhraseBank";
 import { SpeakingHome } from "../exam/speaking/SpeakingHome";
 import { SpeakingSession } from "../exam/speaking/SpeakingSession";
+import { MockB1Home } from "../exam/mock/MockB1Home";
+import { MockB1Session } from "../exam/mock/MockB1Session";
+import { ReadinessDashboard } from "../exam/mock/ReadinessDashboard";
 
 function App() {
   useSpeechSynthesis();
@@ -113,6 +116,9 @@ function App() {
           <Route path="exam/speaking/practice/:partNumber" element={<SpeakingSession mode="practice" />} />
           <Route path="exam/speaking/solo-simulation" element={<SpeakingSession mode="solo-simulation" />} />
           <Route path="exam/speaking/pair-simulation" element={<SpeakingSession mode="pair-simulation" />} />
+          <Route path="exam/full-mock-b1" element={<MockB1Home />} />
+          <Route path="exam/full-mock-b1/session" element={<MockB1Session />} />
+          <Route path="exam/readiness" element={<ReadinessDashboard />} />
           <Route path="exam/:moduleId" element={<ExamModule />} />
           <Route path="my-words" element={<Navigate to="/learn/my-words" replace />} />
           <Route path="review" element={<Navigate to="/practice/review" replace />} />

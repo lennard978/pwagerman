@@ -16,6 +16,7 @@ import { getReadingForm, readingForms } from "../data/readingForms";
 import { ReadingPart } from "./ReadingPart";
 import { ReadingResults } from "./ReadingResults";
 import { ReadingReview } from "./ReadingReview";
+import { MockModuleReturn } from "../mock/MockModuleReturn";
 
 const getInitialSession = ({ mode, partNumber, startFresh, attemptCount }) => {
   const saved = loadReadingSession(undefined, mode);
@@ -129,6 +130,7 @@ export const ReadingSession = ({ mode }) => {
         {reviewOpen
           ? <ReadingReview form={form} session={session} onClose={() => setReviewOpen(false)} />
           : <ReadingResults session={session} onReview={() => setReviewOpen(true)} onRestart={restart} onNewSet={startNewSet} />}
+        {!reviewOpen && <MockModuleReturn moduleId="reading" sessionId={session.sessionId} />}
       </Page>
     );
   }

@@ -14,6 +14,7 @@ import {
   recordGrammarStateAnswer,
 } from "../data/grammar/state";
 import { getGrammarCorrectAnswer } from "../data/grammar/exercises";
+import { getReadinessIndicators } from "../exam/core/readiness";
 
 const ProgressContext = createContext(null);
 
@@ -480,6 +481,51 @@ export const ProgressProvider = ({ children }) => {
     });
   };
 
+  const recordB1MockAttempt = ({ session, event }) => {
+    const at = session.completedAt || session.abandonedAt || session.startedAt || new Date().toISOString();
+    const snapshot = {
+      sessionId: session.sessionId,
+      mockId: session.mockId,
+      status: session.status,
+      startedAt: session.startedAt,
+      completedAt: session.completedAt || null,
+      abandonedAt: session.abandonedAt || null,
+      modules: session.modules,
+      contentVersion: session.contentVersion,
+      scoringVersion: session.scoringVersion,
+      at,
+    };
+    persist((current) => {
+      const previous = current.mockProgress.recentHistory.find(({ sessionId }) => sessionId === session.sessionId);
+      const history = event === "started"
+        ? current.mockProgress.recentHistory
+        : [...current.mockProgress.recentHistory.filter(({ sessionId }) => sessionId !== session.sessionId), snapshot].slice(-20);
+      const next = {
+        ...current,
+        lastActivity: { type: "exam-mock-b1", route: "/exam/full-mock-b1", title: "Full B1 Practice Mock", at },
+        mockProgress: {
+          ...current.mockProgress,
+          mocksStarted: current.mockProgress.mocksStarted + (event === "started" ? 1 : 0),
+          mocksCompleted: current.mockProgress.mocksCompleted + (event === "completed" && previous?.status !== "completed" ? 1 : 0),
+          mocksAbandoned: current.mockProgress.mocksAbandoned + (event === "abandoned" && previous?.status !== "abandoned" ? 1 : 0),
+          latestMock: event === "started" ? current.mockProgress.latestMock : snapshot,
+          recentHistory: history,
+          objectiveThresholdsMet: event === "completed" ? {
+            reading: current.mockProgress.objectiveThresholdsMet.reading + (session.modules.reading.result?.passed ? 1 : 0),
+            listening: current.mockProgress.objectiveThresholdsMet.listening + (session.modules.listening.result?.passed ? 1 : 0),
+          } : current.mockProgress.objectiveThresholdsMet,
+          selfAssessmentsCompleted: event === "completed" ? {
+            writing: current.mockProgress.selfAssessmentsCompleted.writing + (session.modules.writing.result?.scoreStatus === "self-assessed" ? 1 : 0),
+            speaking: current.mockProgress.selfAssessmentsCompleted.speaking + (session.modules.speaking.result?.scoreStatus === "self-assessed" ? 1 : 0),
+          } : current.mockProgress.selfAssessmentsCompleted,
+        },
+        activityDates: recordStudyDate(current.activityDates),
+      };
+      next.mockProgress.readinessIndicators = getReadinessIndicators(next);
+      return next;
+    });
+  };
+
   const completeOnboarding = () =>
     persist((current) => ({ ...current, onboardingComplete: true }));
 
@@ -498,6 +544,7 @@ export const ProgressProvider = ({ children }) => {
       recordListeningAttempt,
       recordWritingAttempt,
       recordSpeakingAttempt,
+      recordB1MockAttempt,
       completeOnboarding,
     }}>
       {children}

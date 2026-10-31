@@ -23,6 +23,7 @@ import { WritingEditor } from "./WritingEditor";
 import { WritingInstructions } from "./WritingInstructions";
 import { WritingResults } from "./WritingResults";
 import { WritingReview } from "./WritingReview";
+import { MockModuleReturn } from "../mock/MockModuleReturn";
 
 const practiceForm = (task) => {
   const base = writingForms[0];
@@ -129,7 +130,7 @@ export const WritingSession = ({ mode }) => {
 
   if (session.status === "submitted") return <Page>{reviewOpen
     ? <WritingReview form={form} session={session} onClose={() => setReviewOpen(false)} onCreateRevision={(taskId) => updateSession((value) => createWritingRevision(value, taskId))} onUpdateRevision={(id, text) => updateSession((value) => updateWritingRevision(value, id, text))} />
-    : <WritingResults form={form} session={session} onAssess={(id, value) => updateSession((current) => setWritingAssessment(current, id, value))} onCompleteAssessment={() => updateSession((current) => completeWritingAssessment(current))} onReview={() => setReviewOpen(true)} onRestart={restart} onNewPrompt={startNext} />}</Page>;
+    : <><WritingResults form={form} session={session} onAssess={(id, value) => updateSession((current) => setWritingAssessment(current, id, value))} onCompleteAssessment={() => updateSession((current) => completeWritingAssessment(current))} onReview={() => setReviewOpen(true)} onRestart={restart} onNewPrompt={startNext} /><MockModuleReturn moduleId="writing" sessionId={session.sessionId} /></>}</Page>;
 
   if (session.status === "abandoned") return <Page><Abandoned><h1>Writing draft archived</h1><p>Your text was preserved on this device. Start a new session when you are ready.</p><Link to="/exam/writing">Return to Writing home</Link></Abandoned></Page>;
 

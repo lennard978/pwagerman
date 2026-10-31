@@ -12,6 +12,7 @@ import { GermanCurriculum, getVocabularyCategoryProgress } from "../../data/voca
 import { isReviewDue } from "../../data/lexemeState";
 import { COURSE_CONFIG, getPublicAsset } from "../../config/course";
 import { GERMAN_B1_GRAMMAR_LESSONS, getGrammarProgressSummary } from "../../data/grammar/index";
+import { loadMockSession } from "../../exam/core/mockPersistence";
 
 export const Home = () => {
   const { t } = useLanguage();
@@ -37,6 +38,8 @@ export const Home = () => {
     progress?.grammarLessonStates || [],
     progress?.grammarMistakes || []
   );
+  const activeMock = loadMockSession();
+  const mockResumable = activeMock && ["instructions", "active"].includes(activeMock.status);
 
   return (
     <Container>
@@ -102,6 +105,16 @@ export const Home = () => {
         <strong>{t("home.examReadiness")}</strong>
         <span>{t("home.examReadinessDescription")}</span>
       </MyWordsLink>
+      <ExamPreparation>
+        <div><strong>Exam Preparation</strong><span>{mockResumable ? `Active mock · ${Object.values(activeMock.modules).filter(({ status }) => status === "completed").length}/4 modules` : "Independent module practice and Full B1 Mock"}</span></div>
+        <Snapshot aria-label="Latest exam practice snapshot">
+          <span>Reading <b>{progress?.readingProgress.latestResultScore ?? "—"}</b></span>
+          <span>Listening <b>{progress?.listeningProgress.latestResultScore ?? "—"}</b></span>
+          <span>Writing <b>{progress?.writingProgress.simulationsCompleted || 0}</b></span>
+          <span>Speaking <b>{(progress?.speakingProgress.soloSimulationsCompleted || 0) + (progress?.speakingProgress.pairSimulationsCompleted || 0)}</b></span>
+        </Snapshot>
+        <ExamLinks><Link to={mockResumable ? "/exam/full-mock-b1/session" : "/exam/full-mock-b1"}>{mockResumable ? "Continue active mock" : "Full B1 Practice Mock"}</Link><Link to="/exam/readiness">Readiness dashboard</Link></ExamLinks>
+      </ExamPreparation>
       <Disclaimer>{t("app.disclaimer")}</Disclaimer>
       <InstallHelp />
     </Container>
@@ -233,4 +246,7 @@ const MyWordsLink = styled(Link)`
   text-decoration: none;
   & span { color: ${theme.colors.textMuted}; font-size: 0.85rem; }
 `;
+const ExamPreparation = styled.section`display:grid;gap:.7rem;margin-top:1rem;padding:1rem;border:1px solid ${theme.colors.border};border-radius:${theme.radius.medium};background:${theme.colors.surface};box-shadow:${theme.shadow.soft};>div>strong,>div>span{display:block;}>div>span{margin-top:.2rem;color:${theme.colors.textMuted};font-size:.82rem;}`;
+const Snapshot = styled.div`display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr));gap:.35rem;span{min-inline-size:0;padding:.45rem;border-radius:${theme.radius.small};background:${theme.colors.surfaceMuted};color:${theme.colors.textMuted};font-size:.7rem;text-align:center;}b{display:block;color:${theme.colors.text};font-size:.9rem;}@media(max-width:24rem){grid-template-columns:repeat(2,minmax(0,1fr));}`;
+const ExamLinks = styled.div`display:flex!important;flex-wrap:wrap;gap:.45rem;a{min-block-size:2.5rem;display:inline-flex;align-items:center;padding:.55rem .7rem;border-radius:${theme.radius.small};background:${theme.colors.primarySoft};color:${theme.colors.primaryPressed};font-size:.8rem;font-weight:900;text-decoration:none;}`;
 const Disclaimer = styled.p`margin: 0.9rem 0 0; color: ${theme.colors.textMuted}; font-size: 0.72rem; line-height: 1.45; text-align: center;`;

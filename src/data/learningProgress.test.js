@@ -130,7 +130,7 @@ test("malformed progress migrates to the versioned default without losing valid 
     onboardingComplete: true,
   }));
   expect(loadProgress()).toEqual(expect.objectContaining({
-    version: 9,
+    version: 10,
     completedLessons: ["lesson-2"],
     completedExercises: [],
     completedGrammarLessons: [],
@@ -173,6 +173,14 @@ test("malformed progress migrates to the versioned default without losing valid 
       rubricTrends: {},
       recentRecordingMetadata: [],
       attemptHistory: [],
+    }),
+    mockProgress: expect.objectContaining({
+      version: 1,
+      mocksStarted: 0,
+      mocksCompleted: 0,
+      mocksAbandoned: 0,
+      latestMock: null,
+      recentHistory: [],
     }),
     activityDates: ["2026-09-24"],
     onboardingComplete: true,

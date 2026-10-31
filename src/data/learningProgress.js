@@ -12,7 +12,7 @@ import { STORAGE_CONFIG } from "../config/course";
 import { normalizeGrammarLessonStates } from "./grammar/state";
 
 export const PROGRESS_STORAGE_KEY = STORAGE_CONFIG.learningProgress;
-export const PROGRESS_VERSION = 9;
+export const PROGRESS_VERSION = 10;
 
 const localDate = (date = new Date()) => {
   const year = date.getFullYear();
@@ -86,6 +86,17 @@ export const createDefaultProgress = (storage = window.localStorage) => ({
     rubricTrends: {},
     recentRecordingMetadata: [],
     attemptHistory: [],
+  },
+  mockProgress: {
+    version: 1,
+    mocksStarted: 0,
+    mocksCompleted: 0,
+    mocksAbandoned: 0,
+    latestMock: null,
+    recentHistory: [],
+    objectiveThresholdsMet: { reading: 0, listening: 0 },
+    selfAssessmentsCompleted: { writing: 0, speaking: 0 },
+    readinessIndicators: {},
   },
   recentMistakes: [],
   activityDates: [],
@@ -225,6 +236,27 @@ export const normalizeProgress = (value, storage = window.localStorage) => {
       attemptHistory: Array.isArray(value.speakingProgress?.attemptHistory)
         ? value.speakingProgress.attemptHistory.slice(-20)
         : [],
+    },
+    mockProgress: {
+      ...defaults.mockProgress,
+      ...(value.mockProgress && typeof value.mockProgress === "object" && !Array.isArray(value.mockProgress)
+        ? value.mockProgress
+        : {}),
+      version: 1,
+      mocksStarted: Number.isFinite(value.mockProgress?.mocksStarted) ? value.mockProgress.mocksStarted : 0,
+      mocksCompleted: Number.isFinite(value.mockProgress?.mocksCompleted) ? value.mockProgress.mocksCompleted : 0,
+      mocksAbandoned: Number.isFinite(value.mockProgress?.mocksAbandoned) ? value.mockProgress.mocksAbandoned : 0,
+      latestMock: value.mockProgress?.latestMock && typeof value.mockProgress.latestMock === "object" ? value.mockProgress.latestMock : null,
+      recentHistory: Array.isArray(value.mockProgress?.recentHistory) ? value.mockProgress.recentHistory.slice(-20) : [],
+      objectiveThresholdsMet: value.mockProgress?.objectiveThresholdsMet && typeof value.mockProgress.objectiveThresholdsMet === "object"
+        ? { ...defaults.mockProgress.objectiveThresholdsMet, ...value.mockProgress.objectiveThresholdsMet }
+        : defaults.mockProgress.objectiveThresholdsMet,
+      selfAssessmentsCompleted: value.mockProgress?.selfAssessmentsCompleted && typeof value.mockProgress.selfAssessmentsCompleted === "object"
+        ? { ...defaults.mockProgress.selfAssessmentsCompleted, ...value.mockProgress.selfAssessmentsCompleted }
+        : defaults.mockProgress.selfAssessmentsCompleted,
+      readinessIndicators: value.mockProgress?.readinessIndicators && typeof value.mockProgress.readinessIndicators === "object"
+        ? value.mockProgress.readinessIndicators
+        : {},
     },
     recentMistakes: Array.isArray(value.recentMistakes) ? value.recentMistakes : [],
     activityDates: Array.isArray(value.activityDates) ? [...new Set(value.activityDates)] : [],

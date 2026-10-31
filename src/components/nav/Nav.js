@@ -21,7 +21,7 @@ export default function Nav() {
   const { t } = useLanguage();
   const location = useLocation();
 
-  if (["/exam/reading/simulation", "/exam/listening/simulation", "/exam/writing/simulation", "/exam/speaking/solo-simulation", "/exam/speaking/pair-simulation"].includes(location.pathname)) return null;
+  if (["/exam/reading/simulation", "/exam/listening/simulation", "/exam/writing/simulation", "/exam/speaking/solo-simulation", "/exam/speaking/pair-simulation", "/exam/full-mock-b1/session"].includes(location.pathname)) return null;
 
   return (
     <>

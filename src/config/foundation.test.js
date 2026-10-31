@@ -4,6 +4,7 @@ import { MemoryRouter } from "react-router-dom";
 import { COURSE_CONFIG, STORAGE_CONFIG, TARGET_LANGUAGE, TTS_CONFIG } from "./course";
 import { B1_EXAM_CONFIG } from "./exam";
 import { LanguageProvider } from "../i18n/LanguageProvider";
+import { ProgressProvider } from "../i18n/ProgressProvider";
 import Nav from "../components/nav/Nav";
 import { Learn } from "../screen/learn/Learn";
 import { Practice } from "../screen/practice/Practice";
@@ -14,7 +15,7 @@ import { GermanCurriculum } from "../data/vocabulary/curriculum";
 import { resolveContentByRouteId } from "../data/contentSelection";
 
 const renderUi = (children, route = "/") => render(
-  <LanguageProvider><MemoryRouter initialEntries={[route]}>{children}</MemoryRouter></LanguageProvider>
+  <LanguageProvider><ProgressProvider><MemoryRouter initialEntries={[route]}>{children}</MemoryRouter></ProgressProvider></LanguageProvider>
 );
 
 test("central course config separates English UI, German content, and German speech", () => {
@@ -67,7 +68,7 @@ test("Learn nests My Words and Practice calls the letter-tile mode Spelling", ()
 test("Exam exposes independent modules, verified timing, scoring, and disclaimer", () => {
   renderUi(<Exam />, "/exam");
   ["Reading", "Listening", "Writing", "Speaking", "Full Mock B1"].forEach((name) => {
-    expect(screen.getByRole("link", { name: new RegExp(name) })).toBeTruthy();
+    expect(screen.getByRole("link", { name: new RegExp(`^${name}\\b`) })).toBeTruthy();
   });
   expect(screen.getByText("Independent preparation tool. Not affiliated with or endorsed by the Goethe-Institut.")).toBeTruthy();
   expect(B1_EXAM_CONFIG.reading).toEqual(expect.objectContaining({ durationMinutes: 65, parts: 5 }));
