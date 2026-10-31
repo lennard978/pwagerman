@@ -139,10 +139,11 @@ test("toast clears on takeover and stays absent in the updated page state", () =
 
 test("notification button uses the same activation path", () => {
   const postMessage = jest.fn();
+  let controllerChange;
   const originalServiceWorker = navigator.serviceWorker;
   Object.defineProperty(navigator, "serviceWorker", {
     configurable: true,
-    value: { addEventListener: jest.fn() },
+    value: { addEventListener: jest.fn((event, listener) => { controllerChange = listener; }) },
   });
   setWaitingRegistration({ waiting: { postMessage } });
 
@@ -154,6 +155,7 @@ test("notification button uses the same activation path", () => {
   fireEvent.click(screen.getByRole("button", { name: "Update now" }));
 
   expect(postMessage).toHaveBeenCalledWith({ type: "SKIP_WAITING" });
+  expect(controllerChange).toEqual(expect.any(Function));
   Object.defineProperty(navigator, "serviceWorker", {
     configurable: true,
     value: originalServiceWorker,

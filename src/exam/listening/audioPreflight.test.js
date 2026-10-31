@@ -54,6 +54,22 @@ describe("Listening audio preflight", () => {
     expect(revoke).toHaveBeenCalled();
   });
 
+  test("uses a prepared cache entry when the browser reports online but the origin is unavailable", async () => {
+    const fetchImpl = jest.fn().mockRejectedValue(new Error("origin unavailable"));
+    const revoke = jest.fn();
+    const cacheResolver = jest.fn().mockResolvedValue({ url: "blob:prepared-audio", revoke });
+    const result = await preflightListeningAudio(formFor(), {
+      fetchImpl,
+      audioFactory: audioFactory(),
+      cacheResolver,
+      manifest: [entryFor()],
+      online: true,
+    });
+    expect(result).toMatchObject({ ready: true, errors: [] });
+    expect(fetchImpl).not.toHaveBeenCalled();
+    expect(revoke).toHaveBeenCalled();
+  });
+
   test("verifies a shared controlled fixture URL only once", async () => {
     const fetchImpl = jest.fn().mockResolvedValue({ ok: true });
     const factory = audioFactory();

@@ -43,3 +43,22 @@ export const getCachedListeningAudioUrl = async (entry, {
     revoke: () => urlApi.revokeObjectURL(objectUrl),
   };
 };
+
+export const resolveListeningAudioSource = async (entry, {
+  online = navigator.onLine,
+  cacheResolver = getCachedListeningAudioUrl,
+} = {}) => {
+  try {
+    const cached = await cacheResolver(entry);
+    if (cached) return { ...cached, source: "cache" };
+  } catch (error) {
+    // Cache Storage may be unavailable or blocked. Network playback can still
+    // proceed when the browser reports a usable connection.
+  }
+  if (!online) return null;
+  return {
+    url: resolveListeningAudioUrl(entry),
+    revoke: () => {},
+    source: "network",
+  };
+};

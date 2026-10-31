@@ -24,7 +24,7 @@ export const UpdateNotification = () => {
         <Message>{t("update.available")}</Message>
         <Description>{t("update.description")}</Description>
       </Copy>
-      <UpdateButton type="button" onClick={activateWaitingServiceWorker}>
+      <UpdateButton type="button" onClick={() => activateWaitingServiceWorker()}>
         {t("update.action")}
       </UpdateButton>
     </Toast>

@@ -2,6 +2,7 @@ import {
   cacheListeningAudio,
   cleanupOldListeningAudioCaches,
   getCachedListeningAudioUrl,
+  resolveListeningAudioSource,
 } from "./audioCache";
 import {
   LISTENING_AUDIO_CACHE_MAX_ENTRIES,
@@ -72,5 +73,29 @@ describe("Listening audio cache", () => {
       urlApi,
     })).resolves.toBeNull();
     expect(urlApi.createObjectURL).not.toHaveBeenCalled();
+  });
+
+  test("prefers a prepared cache entry even when the browser still reports online", async () => {
+    const revoke = jest.fn();
+    const cacheResolver = jest.fn().mockResolvedValue({ url: "blob:prepared-audio", revoke });
+    await expect(resolveListeningAudioSource(entry(), { online: true, cacheResolver })).resolves.toEqual({
+      url: "blob:prepared-audio",
+      revoke,
+      source: "cache",
+    });
+  });
+
+  test("uses the versioned network URL only when no prepared cache entry exists", async () => {
+    const cacheResolver = jest.fn().mockResolvedValue(null);
+    const source = await resolveListeningAudioSource(entry(), { online: true, cacheResolver });
+    expect(source).toMatchObject({ url: "/audio/listening/audio-v1/audio-1.mp3", source: "network" });
+    expect(source.revoke).toEqual(expect.any(Function));
+  });
+
+  test("fails closed when neither prepared cache nor a connection is available", async () => {
+    await expect(resolveListeningAudioSource(entry(), {
+      online: false,
+      cacheResolver: jest.fn().mockResolvedValue(null),
+    })).resolves.toBeNull();
   });
 });

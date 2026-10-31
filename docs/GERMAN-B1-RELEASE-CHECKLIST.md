@@ -4,9 +4,11 @@ Audit date: 2026-10-31
 
 Audited branch: `feature/german-b1-foundation`
 
-Starting commit: `36198f752fa16772ec55e7abe7e36a726a051e66`
+Phase 9D starting commit: `c16e74ad562560403fc14d64294f1541fa5d4d18`
 
-Product status: release candidate; not merged; not deployed
+Product status: release candidate; German TTS backend deployed; frontend not merged or deployed
+
+Phase 9D.1 deployment verification: 2026-10-31
 
 ## Release inventory
 
@@ -25,16 +27,21 @@ Product status: release candidate; not merged; not deployed
 | Gate | Result | Evidence |
 |---|---|---|
 | Content/data validation | PASS | 800 lexemes, 25 categories, 24 grammar lessons; module/form/reference tests pass. |
-| Jest suite | PASS | 60 suites, 345 tests, 0 failures, 0 skipped. |
+| Jest suite | PASS | 61 suites, 353 tests, 0 failures, 0 skipped. |
 | Audio pipeline | PASS | 11 tests; 24/24 assets ready; 8,773,536 MP3 bytes; checksums/script hashes/metadata valid. |
-| Production build | PASS | `main.6e6fceee.js`, 291.23 kB gzip; CSS 338 B gzip; basename `/pwagerman/`; fixture isolation pass. |
+| Production build | PASS | `main.bf5d6d9c.js`, 291.44 kB gzip; CSS 338 B gzip; basename `/pwagerman/`; fixture isolation pass; built with the verified public endpoint value. |
 | Production assets | PASS | 24 MP3s emitted; icons and optimized German SVG wordmarks emitted; the unreferenced design-source PNG is preserved under `docs/`, and retired Serbian wordmark PNGs are removed. |
 | Active runtime scan | PASS | No active `Serbian A1`, `Srpski`, `sr-RS`, `sr-Latn`, retired wordmark, or development-fixture markers. |
-| Route/deep-link files | PASS | Production root and route-restore shell resolve; each direct route returns the expected GitHub Pages 404 fallback that restores the route through `index.html`. |
-| Service-worker update state machine | PASS | Waiting worker, explicit update, `SKIP_WAITING`, controller takeover, and single reload covered by tests. |
+| Production browser matrix | PASS | Actual production build: 72/72 route/viewport combinations across 12 high-risk routes and six requested viewports had no horizontal overflow or visibly clipped controls. |
+| Route/deep-link files | PASS | Twelve direct routes loaded/reloaded with the same heading; back/forward passed; a clean-origin nested URL restored through `404.html` to the intended route. The actual mock route is `/exam/full-mock-b1`. |
+| Production console | PASS | Clean-origin representative Home, Learn, Vocabulary, Exam, and Listening flows produced zero console errors or warnings. |
+| Prepared Listening cache | PASS WITH COMBINED EVIDENCE | Browser prepared 8/8 tracks, reloaded offline, passed cached preflight, resumed interrupted playback, and started all eight MP3s through the service worker without a range-response error. Replay/scoring/results/review contracts remain covered by the passing Listening UI/session tests. |
+| Service-worker update state machine | PASS | Two local production-worker revisions verified notification, `Update now`, `SKIP_WAITING`, takeover, one reload, no loop, and no new console error; automated coverage remains green. |
 | Storage failure handling | PASS | Malformed records, unavailable IndexedDB/localStorage, quota failures, and versioned normalization covered. |
 | Storage bounds | PASS | Attempts/history 20, mistakes 100, exercises 200, exam sessions 100, mocks 50, activity dates 365, recordings 15 MiB each/50 MiB total, audio cache 24. |
-| TTS request validation | PASS | `de-DE` only, 300-character limit, origin allowlist, fixed configured voice, controlled errors, and 30 requests/client/minute in-process limiter. |
+| Local TTS request validation | PASS | Current source accepts `de-DE` only, enforces 300 characters, origin allowlist, fixed server-side voice, controlled errors, and a 30 requests/client/minute in-process defense. |
+| Production TTS | PASS | Endpoint `https://serbian-a1-tts-one.vercel.app/api/tts` serves the promoted, staged-and-tested deployment `dpl_DhRoqdRwXQHgzsAihrgrkAgioZWB`. Live `de-DE` returned HTTP 200 `audio/mpeg` and a valid 4.344-second MP3; live `sr-RS` returned HTTP 400. Fixed voice: `de-DE-Chirp3-HD-Aoede`. |
+| Distributed TTS rate limit | PASS | Published Vercel rule `rate-limit-tts` (`rule_observe_tts_post_traffic_DwtTxg`): path exactly `/api/tts`, method exactly `POST`, fixed-window 30 requests/60 seconds keyed by IP, exceeded action `rate_limit`/HTTP 429. Firewall telemetry recorded the controlled rate-limit action. The application limiter remains defense in depth. |
 | Privacy disclosure | PASS | Product page covers localStorage/IndexedDB, optional local recording/no upload, TTS network use, and offline limits. |
 | Recovery | PASS | Application error boundary and invalid-route recovery preserve local data. |
 
@@ -46,9 +53,8 @@ Product status: release candidate; not merged; not deployed
 | Expert linguistic review | HUMAN QA PENDING | Native German and preferably B1-teacher review of the 800-lexeme curriculum plus representative grammar and all original exam forms. Automated validation is not linguistic certification. |
 | Android browser/PWA | PHYSICAL CHECK PENDING | Install/update takeover, TTS, prepared-form offline audio, microphone, recording/playback, screen lock, and headset/Bluetooth. |
 | iOS Safari/Home Screen | PHYSICAL CHECK PENDING | Add to Home Screen, standalone/update behavior, install help, TTS, Listening, microphone, recording/playback, Writing keyboard, and persistence. |
-| Production-build interactive browser rerun | PHYSICAL CHECK PENDING | The Windows browser-control safety layer blocked the final local navigation. Re-run core routes, responsive matrix, console, back navigation, direct reload, and one prepared Listening form offline in a human-controlled browser. |
-| Production TTS endpoint | BLOCKER | Confirm the exact existing endpoint for `REACT_APP_TTS_ENDPOINT`; it is intentionally not stored in this repository. Verify production CORS and a real `de-DE` request. |
-| Distributed TTS abuse control | BLOCKER | The new in-process limiter is useful but not a cross-instance serverless cost boundary. Configure hosting/provider rate limiting, quota/budget alerts, and monitoring before publishing the endpoint. |
+| Production TTS endpoint | CLOSED | Staged production deployment passed German audio, negative, fixed-voice, CORS, and frontend-compatibility gates before promotion. Post-promotion browser checks for noun/article, verb, grammar, and My Words produced live HTTP 200 cloud requests without fallback errors. |
+| Distributed TTS abuse control | CLOSED | The log-only baseline was published and observed first. The same exact-scope rule was then converted to 30 requests/60 seconds/IP, inspected, published, and validated through Vercel 429 telemetry. GET remains 405, OPTIONS remains 204, and unrelated paths remain outside the rule. |
 
 ## Human audio QA procedure
 
@@ -72,15 +78,22 @@ Product status: release candidate; not merged; not deployed
 - Speaking recordings are created only after an explicit microphone action, stay in IndexedDB, are not uploaded, and have delete and size-limit controls.
 - The development WAV remains a test fixture but is removed by the production build and has no active runtime reference.
 - No unsafe HTML injection API is used. Runtime external destinations are limited to the configured TTS endpoint and the Asenda attribution link.
+- The configured GitHub Pages URL returned HTTP 404 during Phase 9D. That response carried GitHub's restrictive error-page CSP, not an application policy. The repository contains no meta CSP, and GitHub Pages does not provide repository-configured response headers; no potentially breaking meta policy was added. Re-audit response headers after the German build is actually deployed.
+- The privacy page accurately states that selected German text and `de-DE` may be sent to the configured TTS service, recordings remain local, Listening tracks may be cached, progress is local, and uncached/network features are not fully offline.
 
 ## Release blockers and follow-ups
 
-Blockers: all 24 audio tracks need human listening QA; the exact production TTS endpoint and real request must be verified; distributed TTS abuse/cost controls must be enabled. Physical Android/iOS and the final human-controlled production-browser matrix remain pending gates.
+Software blockers: none identified after Phase 9D.1. Production German TTS, the fixed voice, live frontend cloud speech, and the distributed Vercel rate limit are verified. The Phase 9D production-browser matrix, deep links, console, service-worker update, and prepared-audio cache rerun remain passed.
 
-Non-blocking follow-ups after those gates: refresh the Browserslist database in a dependency-maintenance change, consider route-level splitting if the main bundle grows materially beyond the current 291.23 kB gzip, and remove source maps from public hosting if deployment policy does not need them.
+External blockers: all 24 audio tracks still need human listening QA; native-German/B1 content review remains pending; physical Android and iOS checks remain pending.
+
+Non-blocking follow-ups after those gates: refresh the Browserslist database in a dependency-maintenance change, consider route-level splitting if the main bundle grows materially beyond the current 291.44 kB gzip, and remove source maps from public hosting if deployment policy does not need them.
 
 ## Merge and deployment status
 
-- Merge: **NOT EXECUTED**. The feature branch is a clean fast-forward candidate from `master` at the audit start.
-- Deployment: **NOT EXECUTED**. No `gh-pages` update was made.
-- Use the merge and deployment commands from the Phase 9C final report only after every blocker above is closed.
+- Phase 9D.1 commit/push: pending the final repository scope and secret audit performed immediately after this checklist update.
+- Merge: **NOT EXECUTED**.
+- Backend deployment: **EXECUTED** for the existing Vercel TTS project only; the previous production deployment remains the rollback target.
+- Firewall publication: **EXECUTED** for the exact `POST /api/tts` rule above.
+- Frontend deployment: **NOT EXECUTED**. No `gh-pages` update was made.
+- Merge only after the remaining human and physical gates are closed.

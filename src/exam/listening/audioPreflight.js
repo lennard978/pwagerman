@@ -1,5 +1,5 @@
 import { listeningAudioManifest, resolveListeningAudioUrl } from "./audioManifest";
-import { getCachedListeningAudioUrl } from "./audioCache";
+import { getCachedListeningAudioUrl, resolveListeningAudioSource } from "./audioCache";
 
 const loadMetadata = (url, audioFactory, timeoutMs) => new Promise((resolve) => {
   const audio = audioFactory();
@@ -55,8 +55,13 @@ export const preflightListeningAudio = async (form, {
     }
     const url = resolveListeningAudioUrl(entry);
     if (verifiedUrls.get(url) === true) { reportProgress(entry); continue; }
-    let playable = { url, revoke: () => {} };
-    if (online) {
+    const playable = await resolveListeningAudioSource(entry, { online, cacheResolver });
+    if (!playable) {
+      errors.push({ audioId: entry.audioId, reason: "offline-uncached" });
+      reportProgress(entry);
+      continue;
+    }
+    if (playable.source === "network") {
       try {
         const response = await fetchImpl(url, { method: "HEAD", cache: "no-store" });
         if (!response.ok) { errors.push({ audioId: entry.audioId, reason: "missing-asset" }); reportProgress(entry); continue; }
@@ -65,24 +70,13 @@ export const preflightListeningAudio = async (form, {
         reportProgress(entry);
         continue;
       }
-    } else {
-      try {
-        playable = await cacheResolver(entry);
-      } catch (error) {
-        playable = null;
-      }
-      if (!playable) {
-        errors.push({ audioId: entry.audioId, reason: "offline-uncached" });
-        reportProgress(entry);
-        continue;
-      }
     }
     try {
       const metadata = await loadMetadata(playable.url, audioFactory, timeoutMs);
-      if (!metadata.ok) errors.push({ audioId: entry.audioId, reason: online ? metadata.reason : "offline-uncached" });
+      if (!metadata.ok) errors.push({ audioId: entry.audioId, reason: playable.source === "network" ? metadata.reason : "offline-uncached" });
       else verifiedUrls.set(url, true);
     } catch (error) {
-      errors.push({ audioId: entry.audioId, reason: online ? "decode-error" : "offline-uncached" });
+      errors.push({ audioId: entry.audioId, reason: playable.source === "network" ? "decode-error" : "offline-uncached" });
     } finally {
       playable.revoke();
     }

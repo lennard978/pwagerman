@@ -40,6 +40,25 @@ describe("Listening module UI", () => {
     expect(screen.getByText(/Transcript, subtitles, translation/i)).toBeInTheDocument();
   });
 
+  test("distinguishes completed recordings from upcoming locked recordings", () => {
+    const form = listeningForms[0];
+    const part = form.parts[0];
+    const session = createListeningSession({ form, mode: "practice" });
+    const first = part.audio[0];
+    const second = part.audio[1];
+    session.playbackState[first.id] = {
+      ...session.playbackState[first.id],
+      status: "finished",
+      playCount: first.playbackLimit,
+    };
+
+    render(<ListeningPart part={part} session={session} updateSession={() => {}} onAnswer={() => {}} />);
+
+    expect(screen.getByText(first.title).parentElement).toHaveTextContent(/Playback completed/i);
+    expect(screen.getByText(second.title).closest("section")).toHaveTextContent(/allowed plays used/i);
+    expect(screen.getAllByText(/Available after the previous recording is completed/i)).toHaveLength(part.audio.length - 2);
+  });
+
   test("reveals speaker-labelled transcript and item evidence only after submission", () => {
     const form = listeningForms[0];
     const session = submitListeningSession(createListeningSession({ form, mode: "practice" }), form);
