@@ -1,4 +1,5 @@
 import { noun, term, verb } from "./schema";
+import { EXPANDED_GERMAN_B1_LEXEMES } from "./expandedLexemes";
 
 // Every translation and example below is original app-authored content.
 // The Goethe B1 Wortliste is used only as a lexical coverage reference.
@@ -6,10 +7,10 @@ export const GERMAN_B1_LEXEMES = Object.freeze([
   // Personal information & identity
   noun("personal-identity", "name", "name", "Name", "der", "masculine", "die Namen", "Bitte schreiben Sie Ihren Namen auf das Formular.", "Please write your name on the form."),
   noun("personal-identity", "vorname", "first name", "Vorname", "der", "masculine", "die Vornamen", "Mein Vorname wird ohne Bindestrich geschrieben.", "My first name is written without a hyphen."),
-  noun("personal-identity", "nachname", "last name", "Nachname", "der", "masculine", "die Nachnamen", "Unsere Nachnamen sind zufällig gleich.", "Our last names happen to be the same."),
+  noun("personal-identity", "nachname", "last name", "Nachname", "der", "masculine", "die Nachnamen", "Unsere Nachnamen sind zufällig gleich.", "Our last names happen to be the same.", { referenceKey: "Name" }),
   noun("personal-identity", "adresse", "address", "Adresse", "die", "feminine", "die Adressen", "Ich muss der Bank meine neue Adresse mitteilen.", "I need to tell the bank my new address."),
-  noun("personal-identity", "geburtsort", "place of birth", "Geburtsort", "der", "masculine", "die Geburtsorte", "Als Geburtsort steht Bonn in meinem Ausweis.", "Bonn is listed as my place of birth on my ID."),
-  noun("personal-identity", "staatsangehoerigkeit", "nationality / citizenship", "Staatsangehörigkeit", "die", "feminine", "die Staatsangehörigkeiten", "Im Antrag wird nach der Staatsangehörigkeit gefragt.", "The application asks for your nationality."),
+  noun("personal-identity", "geburtsort", "place of birth", "Geburtsort", "der", "masculine", "die Geburtsorte", "Als Geburtsort steht Bonn in meinem Ausweis.", "Bonn is listed as my place of birth on my ID.", { referenceKey: "Geburt" }),
+  noun("personal-identity", "staatsangehoerigkeit", "nationality / citizenship", "Staatsangehörigkeit", "die", "feminine", "die Staatsangehörigkeiten", "Im Antrag wird nach der Staatsangehörigkeit gefragt.", "The application asks for your nationality.", { referenceKey: "Staat" }),
   noun("personal-identity", "ausweis", "identity card", "Ausweis", "der", "masculine", "die Ausweise", "Am Eingang müssen alle Gäste ihren Ausweis zeigen.", "All guests have to show their identity card at the entrance."),
   noun("personal-identity", "unterschrift", "signature", "Unterschrift", "die", "feminine", "die Unterschriften", "Unter dem Vertrag fehlt noch Ihre Unterschrift.", "Your signature is still missing under the contract."),
   noun("personal-identity", "person", "person", "Person", "die", "feminine", "die Personen", "Für die Führung sind zwölf Personen angemeldet.", "Twelve people are registered for the tour."),
@@ -19,7 +20,7 @@ export const GERMAN_B1_LEXEMES = Object.freeze([
   noun("family-relationships", "familie", "family", "Familie", "die", "feminine", "die Familien", "Meine Familie trifft sich meistens am Sonntag.", "My family usually meets on Sunday."),
   noun("family-relationships", "eltern", "parents", "Eltern", "die", "plural", "plural-only", "Ihre Eltern wohnen inzwischen auf dem Land.", "Her parents now live in the countryside."),
   noun("family-relationships", "beziehung", "relationship", "Beziehung", "die", "feminine", "die Beziehungen", "Eine gute Beziehung braucht Vertrauen und Zeit.", "A good relationship needs trust and time."),
-  noun("family-relationships", "ehepartner", "spouse", "Ehepartner", "der", "masculine", "die Ehepartner", "Mein Ehepartner arbeitet derzeit im Ausland.", "My spouse is currently working abroad."),
+  noun("family-relationships", "ehepartner", "spouse", "Ehepartner", "der", "masculine", "die Ehepartner", "Mein Ehepartner arbeitet derzeit im Ausland.", "My spouse is currently working abroad.", { referenceKey: "Partner" }),
   noun("family-relationships", "kind", "child", "Kind", "das", "neuter", "die Kinder", "Jedes Kind bekommt beim Fest ein kleines Geschenk.", "Every child gets a small gift at the celebration."),
   noun("family-relationships", "verwandte", "relative", "Verwandte", "der", "masculine", "die Verwandten", "Ein Verwandter hat uns beim Umzug geholfen.", "A relative helped us move."),
   noun("family-relationships", "partner", "partner", "Partner", "der", "masculine", "die Partner", "Ihr Partner übernimmt heute das Kochen.", "Her partner is taking care of the cooking today."),
@@ -37,7 +38,7 @@ export const GERMAN_B1_LEXEMES = Object.freeze([
   noun("home-living", "moebel", "furniture", "Möbel", "die", "plural", "plural-only", "Die Möbel passen nicht alle durch die schmale Tür.", "The furniture does not all fit through the narrow door."),
   verb("home-living", "umziehen", "to move house", "umziehen", "Wir ziehen nächsten Monat in eine größere Wohnung um.", "We are moving to a larger apartment next month.", { separablePrefix: "um", auxiliary: "sein", pastParticiple: "umgezogen", preterite: "zog um" }),
   verb("home-living", "mieten", "to rent", "mieten", "Für den Sommer mieten wir ein kleines Haus am See.", "We are renting a small house by the lake for the summer.", { auxiliary: "haben", pastParticiple: "gemietet", preterite: "mietete" }),
-  verb("home-living", "renovieren", "to renovate", "renovieren", "Die Familie renoviert zuerst Küche und Bad.", "The family is renovating the kitchen and bathroom first.", { auxiliary: "haben", pastParticiple: "renoviert", preterite: "renovierte" }),
+  verb("home-living", "renovieren", "to renovate", "renovieren", "Die Familie renoviert zuerst Küche und Bad.", "The family is renovating the kitchen and bathroom first.", { auxiliary: "haben", pastParticiple: "renoviert", preterite: "renovierte", referenceKey: "Wohnung" }),
 
   // Daily life & routines
   noun("daily-life", "alltag", "everyday life", "Alltag", "der", "masculine", "no-plural", "Im Alltag fahre ich meistens mit dem Fahrrad.", "In everyday life, I usually travel by bicycle."),
@@ -49,12 +50,12 @@ export const GERMAN_B1_LEXEMES = Object.freeze([
   verb("daily-life", "erledigen", "to take care of / complete", "erledigen", "Ich erledige die Einkäufe auf dem Heimweg.", "I take care of the shopping on the way home.", { auxiliary: "haben", pastParticiple: "erledigt", preterite: "erledigte" }),
   verb("daily-life", "sich-beeilen", "to hurry", "sich beeilen", "Wir müssen uns beeilen, sonst verpassen wir den Bus.", "We have to hurry or we will miss the bus.", { reflexive: true, reflexiveCase: "accusative", auxiliary: "haben", pastParticiple: "beeilt", preterite: "beeilte sich" }),
   verb("daily-life", "einkaufen", "to shop for groceries", "einkaufen", "Am Samstag kaufen wir für die ganze Woche ein.", "On Saturday, we shop for the whole week.", { separablePrefix: "ein", auxiliary: "haben", pastParticiple: "eingekauft", preterite: "kaufte ein" }),
-  verb("daily-life", "vorbereiten", "to prepare", "vorbereiten", "Ich bereite am Abend schon das Frühstück vor.", "I prepare breakfast the evening before.", { separablePrefix: "vor", auxiliary: "haben", pastParticiple: "vorbereitet", preterite: "bereitete vor" }),
+  verb("daily-life", "vorbereiten", "to prepare", "vorbereiten", "Ich bereite am Abend schon das Frühstück vor.", "I prepare breakfast the evening before.", { separablePrefix: "vor", auxiliary: "haben", pastParticiple: "vorbereitet", preterite: "bereitete vor", referenceKey: "Vorbereitung" }),
 
   // Food & eating out
   noun("food-eating-out", "mahlzeit", "meal", "Mahlzeit", "die", "feminine", "die Mahlzeiten", "Eine warme Mahlzeit ist im Preis enthalten.", "A hot meal is included in the price."),
   noun("food-eating-out", "speisekarte", "menu", "Speisekarte", "die", "feminine", "die Speisekarten", "Auf der Speisekarte sind vegetarische Gerichte markiert.", "Vegetarian dishes are marked on the menu."),
-  noun("food-eating-out", "bestellung", "order", "Bestellung", "die", "feminine", "die Bestellungen", "Unsere Bestellung kommt in ungefähr zwanzig Minuten.", "Our order will arrive in about twenty minutes."),
+  noun("food-eating-out", "bestellung", "order", "Bestellung", "die", "feminine", "die Bestellungen", "Unsere Bestellung kommt in ungefähr zwanzig Minuten.", "Our order will arrive in about twenty minutes.", { referenceKey: "bestellen" }),
   noun("food-eating-out", "rechnung", "bill / invoice", "Rechnung", "die", "feminine", "die Rechnungen", "Könnten wir bitte getrennte Rechnungen bekommen?", "Could we please have separate bills?"),
   noun("food-eating-out", "gericht", "dish", "Gericht", "das", "neuter", "die Gerichte", "Das Gericht wird mit Reis und Gemüse serviert.", "The dish is served with rice and vegetables."),
   noun("food-eating-out", "getraenk", "drink", "Getränk", "das", "neuter", "die Getränke", "Zu jedem Mittagessen gehört ein alkoholfreies Getränk.", "A non-alcoholic drink comes with every lunch."),
@@ -94,7 +95,7 @@ export const GERMAN_B1_LEXEMES = Object.freeze([
   noun("school-education", "aufgabe", "task / exercise", "Aufgabe", "die", "feminine", "die Aufgaben", "Lesen Sie zuerst die Aufgabe und dann den Text.", "Read the task first and then the text."),
   noun("school-education", "loesung", "solution / answer", "Lösung", "die", "feminine", "die Lösungen", "Vergleichen Sie Ihre Lösung mit dem Beispiel.", "Compare your answer with the example."),
   noun("school-education", "note", "grade", "Note", "die", "feminine", "die Noten", "Für den Vortrag bekam er eine gute Note.", "He received a good grade for the presentation."),
-  noun("school-education", "kurs", "course", "Kurs", "der", "masculine", "die Kurse", "Der Kurs findet zweimal pro Woche statt.", "The course takes place twice a week."),
+  noun("school-education", "kurs", "course", "Kurs", "der", "masculine", "die Kurse", "Der Kurs findet zweimal pro Woche statt.", "The course takes place twice a week.", { referenceKey: "Unterricht" }),
   verb("school-education", "lernen", "to learn / study", "lernen", "Ich lerne jeden Abend eine halbe Stunde Deutsch.", "I study German for half an hour every evening.", { auxiliary: "haben", pastParticiple: "gelernt", preterite: "lernte" }),
   verb("school-education", "bestehen", "to pass an exam", "bestehen", "Sie hat die Prüfung beim ersten Versuch bestanden.", "She passed the exam on her first attempt.", { auxiliary: "haben", pastParticiple: "bestanden", preterite: "bestand", caseGovernment: "accusative" }),
   verb("school-education", "teilnehmen", "to participate", "teilnehmen", "Ich nehme an einem Online-Kurs teil.", "I am participating in an online course.", { separablePrefix: "teil", auxiliary: "haben", pastParticiple: "teilgenommen", preterite: "nahm teil", prepositions: ["an + dative"], caseGovernment: "an + dative", grammarRefs: ["de-b1-prepositional-verbs"] }),
@@ -163,9 +164,9 @@ export const GERMAN_B1_LEXEMES = Object.freeze([
   noun("technology-internet", "computer", "computer", "Computer", "der", "masculine", "die Computer", "Der Computer startet nach dem Update automatisch neu.", "The computer restarts automatically after the update."),
   noun("technology-internet", "bildschirm", "screen", "Bildschirm", "der", "masculine", "die Bildschirme", "Auf dem kleinen Bildschirm ist der Text schwer zu lesen.", "The text is hard to read on the small screen."),
   noun("technology-internet", "datei", "file", "Datei", "die", "feminine", "die Dateien", "Speichern Sie die Datei unter einem neuen Namen.", "Save the file under a new name."),
-  noun("technology-internet", "passwort", "password", "Passwort", "das", "neuter", "die Passwörter", "Ein sicheres Passwort sollte nicht zu kurz sein.", "A secure password should not be too short."),
-  noun("technology-internet", "webseite", "website", "Webseite", "die", "feminine", "die Webseiten", "Auf der Webseite finden Sie alle Öffnungszeiten.", "You can find all opening hours on the website."),
-  verb("technology-internet", "herunterladen", "to download", "herunterladen", "Die Anleitung können Sie kostenlos herunterladen.", "You can download the instructions free of charge.", { separablePrefix: "herunter", auxiliary: "haben", pastParticiple: "heruntergeladen", preterite: "lud herunter" }),
+  noun("technology-internet", "passwort", "password", "Passwort", "das", "neuter", "die Passwörter", "Ein sicheres Passwort sollte nicht zu kurz sein.", "A secure password should not be too short.", { referenceKey: "Internet" }),
+  noun("technology-internet", "webseite", "website", "Webseite", "die", "feminine", "die Webseiten", "Auf der Webseite finden Sie alle Öffnungszeiten.", "You can find all opening hours on the website.", { referenceKey: "Homepage" }),
+  verb("technology-internet", "herunterladen", "to download", "herunterladen", "Die Anleitung können Sie kostenlos herunterladen.", "You can download the instructions free of charge.", { separablePrefix: "herunter", auxiliary: "haben", pastParticiple: "heruntergeladen", preterite: "lud herunter", referenceKey: "Internet" }),
   verb("technology-internet", "speichern", "to save", "speichern", "Vergiss nicht, deine Änderungen zu speichern.", "Do not forget to save your changes.", { auxiliary: "haben", pastParticiple: "gespeichert", preterite: "speicherte" }),
   verb("technology-internet", "loeschen", "to delete", "löschen", "Alte Nachrichten werden nach einem Jahr gelöscht.", "Old messages are deleted after one year.", { auxiliary: "haben", pastParticiple: "gelöscht", preterite: "löschte" }),
   term("technology-internet", "online", "online", "online", "adverb", "Den Antrag kann man vollständig online stellen.", "The application can be submitted entirely online."),
@@ -177,7 +178,7 @@ export const GERMAN_B1_LEXEMES = Object.freeze([
   noun("leisure-sport", "verein", "club / association", "Verein", "der", "masculine", "die Vereine", "Unser Verein sucht noch Helfer für das Turnier.", "Our club is still looking for helpers for the tournament."),
   noun("leisure-sport", "mannschaft", "team", "Mannschaft", "die", "feminine", "die Mannschaften", "Die Mannschaft trainiert dreimal pro Woche.", "The team trains three times a week."),
   noun("leisure-sport", "training", "training session", "Training", "das", "neuter", "die Trainings", "Nach dem Training dehnen wir uns gemeinsam.", "After training, we stretch together."),
-  verb("leisure-sport", "sich-treffen", "to meet", "sich treffen", "Wir treffen uns am Samstag im Park.", "We are meeting in the park on Saturday.", { reflexive: true, reflexiveCase: "accusative", auxiliary: "haben", pastParticiple: "getroffen", preterite: "traf sich" }),
+  verb("leisure-sport", "sich-treffen", "to meet", "sich treffen", "Wir treffen uns am Samstag im Park.", "We are meeting in the park on Saturday.", { reflexive: true, reflexiveCase: "accusative", auxiliary: "haben", pastParticiple: "getroffen", preterite: "traf sich", referenceKey: "treffen" }),
   verb("leisure-sport", "wandern", "to hike", "wandern", "Am Wochenende sind wir durch den Wald gewandert.", "At the weekend, we hiked through the forest.", { auxiliary: "sein", pastParticiple: "gewandert", preterite: "wanderte" }),
   verb("leisure-sport", "gewinnen", "to win", "gewinnen", "Unsere Mannschaft hat das letzte Spiel gewonnen.", "Our team won the last match.", { auxiliary: "haben", pastParticiple: "gewonnen", preterite: "gewann" }),
   verb("leisure-sport", "verlieren", "to lose", "verlieren", "Auch wenn wir verlieren, bleiben wir fair.", "Even if we lose, we remain fair.", { auxiliary: "haben", pastParticiple: "verloren", preterite: "verlor" }),
@@ -192,7 +193,7 @@ export const GERMAN_B1_LEXEMES = Object.freeze([
   verb("holidays-accommodation", "buchen", "to book", "buchen", "Wir haben das Zimmer direkt beim Hotel gebucht.", "We booked the room directly with the hotel.", { auxiliary: "haben", pastParticiple: "gebucht", preterite: "buchte" }),
   verb("holidays-accommodation", "uebernachten", "to stay overnight", "übernachten", "Auf der Rückfahrt übernachten wir in Nürnberg.", "We are staying overnight in Nuremberg on the return journey.", { auxiliary: "haben", pastParticiple: "übernachtet", preterite: "übernachtete" }),
   verb("holidays-accommodation", "besichtigen", "to visit / tour a sight", "besichtigen", "Am Vormittag besichtigen wir die historische Altstadt.", "In the morning, we are touring the historic old town.", { auxiliary: "haben", pastParticiple: "besichtigt", preterite: "besichtigte" }),
-  term("holidays-accommodation", "ausgebucht", "fully booked", "ausgebucht", "adjective", "Am Feiertagswochenende sind viele Hotels ausgebucht.", "Many hotels are fully booked over the holiday weekend."),
+  term("holidays-accommodation", "ausgebucht", "fully booked", "ausgebucht", "adjective", "Am Feiertagswochenende sind viele Hotels ausgebucht.", "Many hotels are fully booked over the holiday weekend.", { referenceKey: "buchen" }),
   term("holidays-accommodation", "inklusive", "included", "inklusive", "preposition", "Das Frühstück ist inklusive, Getränke kosten extra.", "Breakfast is included; drinks cost extra."),
 
   // Environment & weather
@@ -203,19 +204,19 @@ export const GERMAN_B1_LEXEMES = Object.freeze([
   noun("environment-weather", "klima", "climate", "Klima", "das", "neuter", "die Klimata", "Das Klima in der Region ist mild und feucht.", "The climate in the region is mild and humid."),
   noun("environment-weather", "wetter", "weather", "Wetter", "das", "neuter", "no-plural", "Bei schlechtem Wetter findet das Fest drinnen statt.", "In bad weather, the festival takes place indoors."),
   verb("environment-weather", "schuetzen", "to protect", "schützen", "Bäume schützen den Platz im Sommer vor großer Hitze.", "Trees protect the square from intense heat in summer.", { auxiliary: "haben", pastParticiple: "geschützt", preterite: "schützte", prepositions: ["vor + dative"] }),
-  verb("environment-weather", "recyceln", "to recycle", "recyceln", "Die Firma recycelt alte Geräte und Verpackungen.", "The company recycles old devices and packaging.", { auxiliary: "haben", pastParticiple: "recycelt", preterite: "recycelte" }),
+  verb("environment-weather", "recyceln", "to recycle", "recyceln", "Die Firma recycelt alte Geräte und Verpackungen.", "The company recycles old devices and packaging.", { auxiliary: "haben", pastParticiple: "recycelt", preterite: "recycelte", referenceKey: "Müll" }),
   verb("environment-weather", "regnen", "to rain", "regnen", "Morgen soll es den ganzen Vormittag regnen.", "It is supposed to rain all morning tomorrow.", { auxiliary: "haben", pastParticiple: "geregnet", preterite: "regnete" }),
-  term("environment-weather", "sonnig", "sunny", "sonnig", "adjective", "Am Wochenende bleibt es trocken und sonnig.", "It will remain dry and sunny at the weekend."),
+  term("environment-weather", "sonnig", "sunny", "sonnig", "adjective", "Am Wochenende bleibt es trocken und sonnig.", "It will remain dry and sunny at the weekend.", { referenceKey: "Sonne" }),
 
   // Society & community
   noun("society-community", "gesellschaft", "society", "Gesellschaft", "die", "feminine", "die Gesellschaften", "Digitale Angebote verändern unsere Gesellschaft.", "Digital services are changing our society."),
   noun("society-community", "gemeinschaft", "community", "Gemeinschaft", "die", "feminine", "die Gemeinschaften", "Der Garten wird von der ganzen Gemeinschaft genutzt.", "The garden is used by the whole community."),
-  noun("society-community", "nachbarschaft", "neighbourhood", "Nachbarschaft", "die", "feminine", "die Nachbarschaften", "In unserer Nachbarschaft gibt es ein monatliches Treffen.", "There is a monthly meeting in our neighbourhood."),
+  noun("society-community", "nachbarschaft", "neighbourhood", "Nachbarschaft", "die", "feminine", "die Nachbarschaften", "In unserer Nachbarschaft gibt es ein monatliches Treffen.", "There is a monthly meeting in our neighbourhood.", { referenceKey: "Nachbar" }),
   noun("society-community", "veranstaltung", "event", "Veranstaltung", "die", "feminine", "die Veranstaltungen", "Die Veranstaltung ist kostenlos, aber eine Anmeldung ist nötig.", "The event is free, but registration is required."),
   noun("society-community", "mitglied", "member", "Mitglied", "das", "neuter", "die Mitglieder", "Jedes Mitglied darf einen Vorschlag machen.", "Every member may make a suggestion."),
   verb("society-community", "unterstuetzen", "to support", "unterstützen", "Freiwillige unterstützen ältere Menschen beim Einkaufen.", "Volunteers help older people with their shopping.", { auxiliary: "haben", pastParticiple: "unterstützt", preterite: "unterstützte" }),
   verb("society-community", "helfen", "to help", "helfen", "Könnten Sie mir bitte mit diesem Formular helfen?", "Could you please help me with this form?", { auxiliary: "haben", pastParticiple: "geholfen", preterite: "half", caseGovernment: "dative", prepositions: ["bei + dative"] }),
-  verb("society-community", "sich-engagieren", "to get involved / volunteer", "sich engagieren", "Viele Jugendliche engagieren sich für den Umweltschutz.", "Many young people get involved in environmental protection.", { reflexive: true, reflexiveCase: "accusative", auxiliary: "haben", pastParticiple: "engagiert", preterite: "engagierte sich", prepositions: ["für + accusative"] }),
+  verb("society-community", "sich-engagieren", "to get involved / volunteer", "sich engagieren", "Viele Jugendliche engagieren sich für den Umweltschutz.", "Many young people get involved in environmental protection.", { reflexive: true, reflexiveCase: "accusative", auxiliary: "haben", pastParticiple: "engagiert", preterite: "engagierte sich", prepositions: ["für + accusative"], referenceKey: "unterstützen" }),
   term("society-community", "gemeinsam", "together / joint", "gemeinsam", "adjective", "Gemeinsam finden wir leichter eine gute Lösung.", "Together, we can find a good solution more easily."),
   term("society-community", "freiwillig", "voluntary / voluntarily", "freiwillig", "adjective", "Sie arbeitet einmal pro Woche freiwillig im Tierheim.", "She volunteers at the animal shelter once a week."),
 
@@ -229,7 +230,7 @@ export const GERMAN_B1_LEXEMES = Object.freeze([
   verb("feelings-opinions", "sich-aergern", "to be annoyed", "sich ärgern", "Er ärgert sich über die ständige Verspätung.", "He is annoyed about the constant delay.", { reflexive: true, reflexiveCase: "accusative", auxiliary: "haben", pastParticiple: "geärgert", preterite: "ärgerte sich", prepositions: ["über + accusative"], grammarRefs: ["de-b1-prepositional-verbs", "de-b1-separable-reflexive-verbs"] }),
   verb("feelings-opinions", "glauben", "to believe / think", "glauben", "Ich glaube, dass dieser Plan gut funktionieren kann.", "I think that this plan can work well.", { auxiliary: "haben", pastParticiple: "geglaubt", preterite: "glaubte" }),
   term("feelings-opinions", "zufrieden", "satisfied", "zufrieden", "adjective", "Mit dem Ergebnis sind beide Seiten zufrieden.", "Both sides are satisfied with the result.", { prepositions: ["mit + dative"] }),
-  term("feelings-opinions", "enttaeuscht", "disappointed", "enttäuscht", "adjective", "Wir waren von dem schlechten Service enttäuscht.", "We were disappointed by the poor service."),
+  term("feelings-opinions", "enttaeuscht", "disappointed", "enttäuscht", "adjective", "Wir waren von dem schlechten Service enttäuscht.", "We were disappointed by the poor service.", { referenceKey: "Enttäuschung" }),
 
   // Problems & solutions
   noun("problems-solutions", "problem", "problem", "Problem", "das", "neuter", "die Probleme", "Das Problem tritt nur bei älteren Geräten auf.", "The problem occurs only on older devices."),
@@ -240,7 +241,7 @@ export const GERMAN_B1_LEXEMES = Object.freeze([
   noun("problems-solutions", "entscheidung", "decision", "Entscheidung", "die", "feminine", "die Entscheidungen", "Für diese wichtige Entscheidung brauche ich noch Zeit.", "I still need time for this important decision."),
   verb("problems-solutions", "loesen", "to solve", "lösen", "Gemeinsam konnten wir das technische Problem lösen.", "Together, we were able to solve the technical problem.", { auxiliary: "haben", pastParticiple: "gelöst", preterite: "löste" }),
   verb("problems-solutions", "vermeiden", "to avoid", "vermeiden", "Mit einer Reservierung lassen sich lange Wartezeiten vermeiden.", "Long waiting times can be avoided with a reservation.", { auxiliary: "haben", pastParticiple: "vermieden", preterite: "vermied" }),
-  verb("problems-solutions", "verbessern", "to improve", "verbessern", "Wir möchten den Service Schritt für Schritt verbessern.", "We would like to improve the service step by step.", { auxiliary: "haben", pastParticiple: "verbessert", preterite: "verbesserte" }),
+  verb("problems-solutions", "verbessern", "to improve", "verbessern", "Wir möchten den Service Schritt für Schritt verbessern.", "We would like to improve the service step by step.", { auxiliary: "haben", pastParticiple: "verbessert", preterite: "verbesserte", referenceKey: "gut" }),
   verb("problems-solutions", "sich-beschweren", "to complain", "sich beschweren", "Der Gast beschwerte sich über das laute Zimmer.", "The guest complained about the noisy room.", { reflexive: true, reflexiveCase: "accusative", auxiliary: "haben", pastParticiple: "beschwert", preterite: "beschwerte sich", prepositions: ["über + accusative", "bei + dative"] }),
 
   // Plans, goals & time
@@ -253,7 +254,7 @@ export const GERMAN_B1_LEXEMES = Object.freeze([
   verb("plans-goals-time", "erreichen", "to reach / achieve", "erreichen", "Mit regelmäßigem Üben kann man dieses Ziel erreichen.", "With regular practice, you can achieve this goal.", { auxiliary: "haben", pastParticiple: "erreicht", preterite: "erreichte" }),
   verb("plans-goals-time", "vorhaben", "to intend / plan to do", "vorhaben", "Was hast du für das lange Wochenende vor?", "What are you planning for the long weekend?", { separablePrefix: "vor", auxiliary: "haben", pastParticiple: "vorgehabt", preterite: "hatte vor" }),
   term("plans-goals-time", "rechtzeitig", "in time", "rechtzeitig", "adverb", "Bitte kommen Sie rechtzeitig zum vereinbarten Termin.", "Please arrive in time for the scheduled appointment."),
-  term("plans-goals-time", "demnaechst", "soon / in the near future", "demnächst", "adverb", "Die neue Bibliothek wird demnächst eröffnet.", "The new library will open soon."),
+  term("plans-goals-time", "demnaechst", "soon / in the near future", "demnächst", "adverb", "Die neue Bibliothek wird demnächst eröffnet.", "The new library will open soon.", { referenceKey: "bald" }),
 
   // High-frequency verbs
   verb("high-frequency-verbs", "anfangen", "to begin", "anfangen", "Der Film fängt heute eine halbe Stunde später an.", "The film starts half an hour later today.", { separablePrefix: "an", auxiliary: "haben", pastParticiple: "angefangen", preterite: "fing an" }),
@@ -292,16 +293,17 @@ export const GERMAN_B1_LEXEMES = Object.freeze([
   term("connectors-prepositions", "ausserhalb", "outside", "außerhalb", "preposition", "Außerhalb der Stadt sind die Mieten oft niedriger.", "Rents are often lower outside the city."),
 
   // Functional exam phrases
-  term("functional-exam-phrases", "meiner-meinung-nach", "in my opinion", "Meiner Meinung nach", "phrase", "Meiner Meinung nach sollte es mehr Fahrradwege geben.", "In my opinion, there should be more cycle paths."),
-  term("functional-exam-phrases", "ich-bin-der-ansicht", "I take the view that", "Ich bin der Ansicht, dass ...", "phrase", "Ich bin der Ansicht, dass flexible Arbeitszeiten viele Vorteile haben.", "I take the view that flexible working hours have many advantages.", { lemma: "Ich bin der Ansicht" }),
+  term("functional-exam-phrases", "meiner-meinung-nach", "in my opinion", "Meiner Meinung nach", "phrase", "Meiner Meinung nach sollte es mehr Fahrradwege geben.", "In my opinion, there should be more cycle paths.", { referenceKey: "Meinung" }),
+  term("functional-exam-phrases", "ich-bin-der-ansicht", "I take the view that", "Ich bin der Ansicht, dass ...", "phrase", "Ich bin der Ansicht, dass flexible Arbeitszeiten viele Vorteile haben.", "I take the view that flexible working hours have many advantages.", { lemma: "Ich bin der Ansicht", referenceKey: "Meinung" }),
   term("functional-exam-phrases", "ich-stimme-zu", "I agree", "Ich stimme zu.", "phrase", "Ich stimme zu, weil der Vorschlag praktisch und günstig ist.", "I agree because the proposal is practical and affordable.", { lemma: "zustimmen" }),
   term("functional-exam-phrases", "ich-widerspreche", "I disagree", "Ich widerspreche.", "phrase", "Ich widerspreche, denn die Zahlen zeigen etwas anderes.", "I disagree because the figures show something different.", { lemma: "widersprechen" }),
-  term("functional-exam-phrases", "zum-beispiel", "for example", "Zum Beispiel", "phrase", "Zum Beispiel könnte die Stadt am Bahnhof mehr Fahrradplätze bauen.", "For example, the city could build more bicycle parking at the station."),
-  term("functional-exam-phrases", "einerseits-andererseits", "on the one hand ... on the other hand", "Einerseits ... andererseits", "phrase", "Einerseits ist das Auto bequem, andererseits ist es teuer.", "On the one hand, the car is convenient; on the other hand, it is expensive.", { grammarRefs: ["de-b1-cohesive-connectors"] }),
-  term("functional-exam-phrases", "zusammenfassend", "to sum up", "Zusammenfassend", "phrase", "Zusammenfassend bietet der Plan mehr Vorteile als Nachteile.", "To sum up, the plan offers more advantages than disadvantages."),
-  term("functional-exam-phrases", "koennten-sie-bitte", "could you please ...", "Könnten Sie bitte ...?", "phrase", "Könnten Sie bitte meinen Termin auf Dienstag verschieben?", "Could you please move my appointment to Tuesday?", { lemma: "Könnten Sie bitte" }),
-  term("functional-exam-phrases", "ich-wuerde-gern", "I would like to ...", "Ich würde gern ...", "phrase", "Ich würde gern mehr über den Abendkurs erfahren.", "I would like to learn more about the evening course.", { lemma: "Ich würde gern" }),
-  term("functional-exam-phrases", "vielen-dank-im-voraus", "thank you in advance", "Vielen Dank im Voraus.", "phrase", "Vielen Dank im Voraus für Ihre schnelle Antwort.", "Thank you in advance for your prompt reply.", { lemma: "Vielen Dank im Voraus" }),
+  term("functional-exam-phrases", "zum-beispiel", "for example", "Zum Beispiel", "phrase", "Zum Beispiel könnte die Stadt am Bahnhof mehr Fahrradplätze bauen.", "For example, the city could build more bicycle parking at the station.", { referenceKey: "Beispiel" }),
+  term("functional-exam-phrases", "einerseits-andererseits", "on the one hand ... on the other hand", "Einerseits ... andererseits", "phrase", "Einerseits ist das Auto bequem, andererseits ist es teuer.", "On the one hand, the car is convenient; on the other hand, it is expensive.", { grammarRefs: ["de-b1-cohesive-connectors"], referenceKey: "einerseits" }),
+  term("functional-exam-phrases", "zusammenfassend", "to sum up", "Zusammenfassend", "phrase", "Zusammenfassend bietet der Plan mehr Vorteile als Nachteile.", "To sum up, the plan offers more advantages than disadvantages.", { referenceKey: "zusammenfassen" }),
+  term("functional-exam-phrases", "koennten-sie-bitte", "could you please ...", "Könnten Sie bitte ...?", "phrase", "Könnten Sie bitte meinen Termin auf Dienstag verschieben?", "Could you please move my appointment to Tuesday?", { lemma: "Könnten Sie bitte", referenceKey: "bitten" }),
+  term("functional-exam-phrases", "ich-wuerde-gern", "I would like to ...", "Ich würde gern ...", "phrase", "Ich würde gern mehr über den Abendkurs erfahren.", "I would like to learn more about the evening course.", { lemma: "Ich würde gern", referenceKey: "gern" }),
+  term("functional-exam-phrases", "vielen-dank-im-voraus", "thank you in advance", "Vielen Dank im Voraus.", "phrase", "Vielen Dank im Voraus für Ihre schnelle Antwort.", "Thank you in advance for your prompt reply.", { lemma: "Vielen Dank im Voraus", referenceKey: "Dank" }),
+  ...EXPANDED_GERMAN_B1_LEXEMES,
 ]);
 
 export const GERMAN_B1_LEXEME_COUNT = GERMAN_B1_LEXEMES.length;

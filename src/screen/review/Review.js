@@ -16,20 +16,31 @@ import {
 import { TARGET_LANGUAGE, TARGET_LANGUAGE_NAME } from "../../config/course";
 import { formatLexemeTarget, getLexemeMetadata, getLexemeSpeechText } from "../../data/vocabulary/presentation";
 
+export const REVIEW_SESSION_LIMIT = 20;
+export const createReviewSession = (candidates, offset = 0) => {
+  if (candidates.length <= REVIEW_SESSION_LIMIT) return candidates;
+  return Array.from({ length: REVIEW_SESSION_LIMIT }, (_, itemIndex) =>
+    candidates[(offset + itemIndex) % candidates.length]
+  );
+};
+
 export const Review = () => {
   const { t } = useLanguage();
   const { allWords, recordVocabularyAnswer } = useMyWords();
   const { progress, recordAnswer, recordCompletion } = useProgress();
   const [source, setSource] = useState("mistakes");
   const [index, setIndex] = useState(0);
+  const [offset, setOffset] = useState(0);
   const [revealed, setRevealed] = useState(false);
+  const [sessionComplete, setSessionComplete] = useState(false);
 
-  const items = useMemo(() => {
+  const candidates = useMemo(() => {
     if (source === "mistakes") return progress.recentMistakes.map((item) => item.word);
     if (source === "favorites") return allWords.filter((word) => word.favorite);
     if (source === "known") return allWords.filter((word) => word.status === "known");
     return allWords.filter((word) => word.status === "learning");
   }, [allWords, progress.recentMistakes, source]);
+  const items = useMemo(() => createReviewSession(candidates, offset), [candidates, offset]);
   const word = items[index % Math.max(items.length, 1)];
 
   const grade = (correct) => {
@@ -37,15 +48,26 @@ export const Review = () => {
     recordVocabularyAnswer(word, correct);
     if (index === items.length - 1) {
       recordCompletion({ type: "review", categoryId: source, route: "/practice/review" });
+      setSessionComplete(true);
+    } else {
+      setIndex((value) => value + 1);
     }
-    setIndex((value) => (value + 1) % items.length);
     setRevealed(false);
   };
 
   const changeSource = (next) => {
     setSource(next);
     setIndex(0);
+    setOffset(0);
     setRevealed(false);
+    setSessionComplete(false);
+  };
+
+  const continueReview = () => {
+    setOffset((value) => candidates.length ? (value + REVIEW_SESSION_LIMIT) % candidates.length : 0);
+    setIndex(0);
+    setRevealed(false);
+    setSessionComplete(false);
   };
 
   return (
@@ -62,6 +84,12 @@ export const Review = () => {
       </Sources>
       {items.length === 0 ? (
         <EmptyExercise message={t(`review.empty.${source}`)} />
+      ) : sessionComplete ? (
+        <Card>
+          <Answer>Review session complete</Answer>
+          <Metadata>{items.length} words reviewed in this bounded session.</Metadata>
+          <Primary type="button" onClick={continueReview}>Continue review</Primary>
+        </Card>
       ) : (
         <Card>
           <Progress>{index + 1} / {items.length}</Progress>

@@ -40,7 +40,7 @@ export const VocabularyLibrary = ({ data }) => {
     <Wrapper>
       <Header>
         <h1>Vocabulary</h1>
-        <p>Browse 250 original German B1 lexemes across practical exam-relevant categories.</p>
+        <p>Browse {lexemes.length} original German B1 lexemes across practical exam-relevant categories.</p>
       </Header>
       <SearchLabel>
         <span>Search English or German</span>

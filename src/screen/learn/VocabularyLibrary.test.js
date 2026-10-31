@@ -21,10 +21,11 @@ const data = GermanCurriculum.map((category, categoryIndex) => ({
   ])),
 }));
 
-test("shows balanced category counts and progress", () => {
+test("shows dynamic category and total counts with progress", () => {
   render(<MemoryRouter><VocabularyLibrary data={data} /></MemoryRouter>);
   expect(screen.getByRole("heading", { name: "Vocabulary" })).toBeTruthy();
-  expect(screen.getByRole("link", { name: /Personal information & identity/ }).textContent).toContain("10 words");
+  expect(screen.getByText(/Browse 800 original German B1 lexemes/)).toBeTruthy();
+  expect(screen.getByRole("link", { name: /Personal information & identity/ }).textContent).toContain("20 words");
   expect(screen.getByRole("link", { name: /Personal information & identity/ }).textContent).toContain("1 known");
 });
 
@@ -40,4 +41,11 @@ test("searches English and German and filters by state", () => {
   expect(screen.getByText("1 matching words")).toBeTruthy();
   fireEvent.click(screen.getByRole("button", { name: "Favorites" }));
   expect(screen.getByText("1 matching words")).toBeTruthy();
+});
+
+test("keeps large search results incrementally rendered", () => {
+  const { container } = render(<MemoryRouter><VocabularyLibrary data={data} /></MemoryRouter>);
+  fireEvent.change(screen.getByRole("searchbox"), { target: { value: "e" } });
+  expect(screen.getByRole("button", { name: "Show more" })).toBeTruthy();
+  expect(container.querySelectorAll("details")).toHaveLength(30);
 });

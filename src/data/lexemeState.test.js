@@ -44,3 +44,11 @@ test("merges state at runtime without changing static lexeme content", () => {
   expect(merged).toMatchObject({ status: "known", favorite: true });
   expect(Object.prototype.hasOwnProperty.call(lexeme, "status")).toBe(false);
 });
+
+test("uses a sparse state map without eagerly creating rows", () => {
+  const state = createLexemeState("de-b1-known", { status: "known" });
+  const stateMap = new Map([[state.lexemeId, state]]);
+  expect(mergeLexemeState({ id: "de-b1-known" }, stateMap).status).toBe("known");
+  expect(mergeLexemeState({ id: "de-b1-unmutated" }, stateMap).status).toBe("new");
+  expect(stateMap.size).toBe(1);
+});

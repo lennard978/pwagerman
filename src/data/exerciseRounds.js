@@ -3,7 +3,7 @@ export const EXERCISE_ROUND_LIMITS = {
   write: 10,
   cards: 12,
   quiz: 10,
-  test: 6,
+  test: 10,
 };
 
 export const createBoundedRound = (

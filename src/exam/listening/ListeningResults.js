@@ -22,7 +22,7 @@ export const ListeningResults = ({ session, onReview, onRestart, onNewSet }) => 
       {score.recommendation && (
         <Recommendation>
           <div><span>Recommended next step</span><strong>{score.recommendation.title}</strong><p>Use these internal lessons as focused follow-up, not as a diagnosis.</p></div>
-          <Links>{score.recommendation.grammarRefs.map((lessonId) => { const lesson = getGermanGrammarLesson(lessonId); return lesson ? <Link key={lessonId} to={`/learn/grammar/${lessonId}`}>{lesson.title}</Link> : null; })}</Links>
+          <Links>{score.recommendation.grammarRefs.map((lessonId) => { const lesson = getGermanGrammarLesson(lessonId); return lesson ? <Link key={lessonId} to={`/learn/grammar/${lessonId}`}>{lesson.title}</Link> : null; })}{score.recommendation.vocabularyCategoryIds?.map((categoryId) => <Link key={categoryId} to={`/learn/vocabulary/${categoryId}`}>Related vocabulary</Link>)}</Links>
         </Recommendation>
       )}
       <Actions><Primary type="button" onClick={onReview}>Review answers and transcripts</Primary><Secondary type="button" onClick={onRestart}>{simulation ? "Start another form" : "Retry this set"}</Secondary>{!simulation && <Secondary type="button" onClick={onNewSet}>New set</Secondary>}<Secondary as={Link} to="/exam/listening">Listening home</Secondary></Actions>

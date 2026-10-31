@@ -34,6 +34,9 @@ export const ReadingResults = ({ session, onReview, onRestart, onNewSet }) => {
               const lesson = getGermanGrammarLesson(lessonId);
               return lesson ? <Link key={lessonId} to={`/learn/grammar/${lessonId}`}>{lesson.title}</Link> : null;
             })}
+            {score.recommendation.vocabularyCategoryIds?.map((categoryId) => (
+              <Link key={categoryId} to={`/learn/vocabulary/${categoryId}`}>Related vocabulary</Link>
+            ))}
             <Link to="/practice/grammar">Grammar practice →</Link>
           </RecommendationLinks>
         </Recommendation>

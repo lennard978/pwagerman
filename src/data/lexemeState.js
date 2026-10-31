@@ -21,7 +21,9 @@ export const mergeLexemeState = (lexeme, states) => ({
   ...lexeme,
   ...createLexemeState(
     lexeme.id,
-    states.find((state) => state.lexemeId === lexeme.id) || {}
+    (states instanceof Map
+      ? states.get(lexeme.id)
+      : states.find((state) => state.lexemeId === lexeme.id)) || {}
   ),
 });
 

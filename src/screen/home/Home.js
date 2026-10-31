@@ -23,6 +23,7 @@ export const Home = () => {
   const favorites = allWords.filter((word) => word.favorite).length;
   const learning = allWords.filter((word) => word.status === "learning").length;
   const learned = known + learning;
+  const availableVocabulary = GermanCurriculum.reduce((total, category) => total + category.items.length, 0);
   const reviewDue = allWords.filter((word) => isReviewDue(word)).length;
   const progressContext = useProgress();
   const progress = progressContext?.progress;
@@ -76,6 +77,7 @@ export const Home = () => {
       <Section>
         <Eyebrow>{t("home.progress")}</Eyebrow>
         <Stats>
+          <Stat to="/learn/vocabulary"><FaBookOpen aria-hidden="true" /><strong>{availableVocabulary}</strong><span>Vocabulary available</span></Stat>
           <Stat to="/learn/my-words?filter=known"><FaCheck aria-hidden="true" /><strong>{known}</strong><span>{t("vocabulary.knownWords")}</span></Stat>
           <Stat to="/learn/my-words?filter=favorites"><FaStar aria-hidden="true" /><strong>{favorites}</strong><span>{t("vocabulary.favorites")}</span></Stat>
           <Stat to="/learn/my-words"><FaBookOpen aria-hidden="true" /><strong>{words.length}</strong><span>{t("myWords.title")}</span></Stat>

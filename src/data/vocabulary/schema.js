@@ -1,4 +1,5 @@
 import { VOCABULARY_CATEGORY_IDS } from "./categories";
+import { GERMAN_B1_GRAMMAR_LESSONS } from "../grammar/lessons";
 
 export const LEXEME_PARTS_OF_SPEECH = Object.freeze([
   "noun",
@@ -20,6 +21,7 @@ export const NOUN_GENDERS = Object.freeze([
 ]);
 export const EXPLICIT_PLURAL_VALUES = Object.freeze(["no-plural", "plural-only"]);
 
+const malformedUnicode = /\uFFFD|Ã.|Â.|â[\u0080-\u00BF]/u;
 const isText = (value) => typeof value === "string" && value.trim().length > 0;
 const isNullableText = (value) => value === null || typeof value === "string";
 const idPattern = /^de-b1-[a-z0-9]+(?:-[a-z0-9]+)*$/;
@@ -29,6 +31,9 @@ export const validateLexeme = (lexeme, categoryIds = VOCABULARY_CATEGORY_IDS) =>
   const requiredText = ["id", "source", "target", "lemma", "partOfSpeech", "categoryId", "level", "sourceType", "example", "exampleTranslation"];
   requiredText.forEach((field) => {
     if (!isText(lexeme?.[field])) errors.push(`${field} is required`);
+    if (typeof lexeme?.[field] === "string" && malformedUnicode.test(lexeme[field])) {
+      errors.push(`${field} contains malformed Unicode`);
+    }
   });
 
   if (isText(lexeme?.id) && !idPattern.test(lexeme.id)) errors.push("id must be a stable slug-like German B1 ID");
@@ -42,6 +47,11 @@ export const validateLexeme = (lexeme, categoryIds = VOCABULARY_CATEGORY_IDS) =>
   }
   if (!Array.isArray(lexeme?.grammarRefs) || !lexeme.grammarRefs.every((id) => idPattern.test(id))) {
     errors.push("grammarRefs must contain stable German B1 grammar IDs");
+  } else {
+    const knownGrammarIds = new Set(GERMAN_B1_GRAMMAR_LESSONS.map(({ id }) => id));
+    lexeme.grammarRefs.forEach((id) => {
+      if (!knownGrammarIds.has(id)) errors.push(`grammarRefs contains unknown lesson ${id}`);
+    });
   }
 
   if (lexeme?.partOfSpeech === "noun") {

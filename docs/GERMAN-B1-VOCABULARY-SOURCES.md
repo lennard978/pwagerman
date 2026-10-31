@@ -4,45 +4,46 @@ Last reviewed: 2026-10-31
 
 ## Official reference boundary
 
-The [Goethe-Zertifikat B1 Wortliste](https://www.goethe.de/pro/relaunch/prf/de/Goethe-Zertifikat_B1_Wortliste.pdf) is used only as a coverage and level reference. Its introduction describes the B1 vocabulary base as approximately 2,400 lexical units and explains that the list is intended as information about the expected level.
+The current [Goethe-Zertifikat B1 Wortliste](https://www.goethe.de/pro/relaunch/prf/id/Goethe-Zertifikat_B1_Wortliste.pdf) is used only as a coverage and level reference. The PDF describes the underlying B1 vocabulary as approximately 2,400 lexical units; the repository's reproducible normalization produces 3,176 units from 3,218 raw lexical records, so 2,400 is not treated as an exact machine target.
 
-This repository does not reproduce the PDF, its formatting, annotations, example sentences, or a bulk transcription of its entries. Developer coverage records contain only normalized reference keys needed to map independently authored app lexemes.
+Reference fingerprint: SHA-256 `8860f7f0c916831b2365f66239a3ceba3be81ddba28e1224846ca8420807fe42` (104 pages, retrieved 2026-10-31 from the current official Goethe URL).
 
-The official preparation page is also recorded in [GERMAN-B1-SOURCES.md](./GERMAN-B1-SOURCES.md).
+The repository does not include the PDF, official layout, official example sentences, or explanatory prose. The machine-readable inventory retains only lexical entries and the minimum lexical metadata needed for coverage review: articles, lemmas, plural/inflection notation, variants, regional markers, and app mappings.
 
 ## App-authored content
 
-All English meanings, German example sentences, English example translations, categories, notes, exercises, and UI presentation are original-curated content for this application. Production lexemes use `sourceType: "original-curated"`.
+All English meanings, German example sentences, English example translations, learner notes, categories, exercises, and UI presentation are original content authored for this application. Every production record uses `sourceType: "original-curated"`.
 
 Allowed product wording:
 
 > Vocabulary coverage aligned with the Goethe-Zertifikat B1 Wortliste.
 
-Required disclaimer:
+Required positioning:
 
 > Independent preparation tool. Not affiliated with or endorsed by the Goethe-Institut.
 
-The app must not be described as an official Goethe vocabulary product.
+The app must not be described as official or as providing 100% Goethe coverage.
 
-## Review method
+## Extraction and normalization method
 
-1. Select a high-frequency, exam-relevant lexical item from practical B1 domains.
-2. Confirm its lemma and useful learner form against reputable German usage and the official coverage reference.
-3. Write an original learner-friendly English gloss.
-4. Write an original A2/B1-accessible German example and accurate English translation.
-5. Add noun or verb metadata needed for learning.
-6. Run machine validation for IDs, categories, metadata, examples, duplicates, and encoding.
-7. Record a normalized coverage key without copying official example material.
+1. Extract the alphabetical lexical section and machine-readable thematic word groups from the official PDF.
+2. Normalize Unicode with NFKC and retain each raw record with a stable raw ID and source page/section.
+3. Separate noun article, lemma, plural notation, and a mechanically expanded plural form where the notation is deterministic.
+4. Preserve reflexive markers, separable markers, slash variants, arrow-linked variants, and Germany/Austria/Switzerland markers.
+5. Keep homographs distinct by normalized lemma, article, and part of speech; merge only matching identities and retain every contributing raw ID.
+6. Map app lexemes by explicit reference key, then classify normalized units as `covered`, `partially-covered`, `variant-covered`, or `uncovered`.
+7. Validate identifiers, metadata, examples, grammar references, Unicode, and reference mappings automatically.
+
+The extractor is intentionally conservative. Ambiguous source notation remains visible in `rawEntry`/`pluralNotation` rather than being silently interpreted. The generated sample report is automated and is not a claim of complete linguistic human review.
 
 ## Current production batch
 
-- Production lexemes: 250
-- Categories: 25
-- Lexemes per category: 10
-- Original examples with English translations: 250
-- Nouns with article, gender, and plural metadata: 124
-- Verbs with supported B1 form metadata: 73
-- Adjectives, adverbs, connectors, prepositions, and functional phrases: 53
+- Production lexemes: 800 (250 retained + 550 Phase 9B entries)
+- Categories: 25, weighted by practical and exam relevance rather than equal size
+- Original German examples and English translations: 800 pairs
+- Nouns with article, gender, and plural metadata: 473
+- Verbs with auxiliary/form/reflexive/separable metadata fields: 210
+- Adjectives: 52; adverbs: 14; connectors: 20; prepositions: 6; functional phrases: 25
 - Source type: 100% `original-curated`
 
-This is a first production batch, not complete B1 lexical coverage.
+The production curriculum prioritizes high-frequency, everyday, administrative, travel, work, education, health, communication, opinion, connector, and functional exam language. It remains a quality-controlled subset of the normalized inventory.

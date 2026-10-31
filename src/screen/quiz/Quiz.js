@@ -32,13 +32,20 @@ export const createQuizRound = (items) => {
   const questions = createBoundedRound(items, EXERCISE_ROUND_LIMITS.quiz);
   return questions.map((question) => {
     const distractors = shuffle(items.filter((item) => item.id !== question.id))
-      .filter((item, index, candidates) =>
-        candidates.findIndex((candidate) => candidate.target === item.target) === index
-      )
+      .filter((item) => item.target !== question.target && item.source !== question.source)
+      .filter((item, index, candidates) => candidates.findIndex((candidate) =>
+        candidate.target.toLocaleLowerCase("de-DE") === item.target.toLocaleLowerCase("de-DE")
+      ) === index)
+      .map((item) => ({
+        item,
+        relevance: Number(item.partOfSpeech === question.partOfSpeech) * 2 +
+          Number(item.categoryId === question.categoryId),
+      }))
+      .sort((left, right) => right.relevance - left.relevance)
       .slice(0, 3);
     return {
       ...question,
-      choices: shuffle([question, ...distractors]).map((item) => ({
+      choices: shuffle([question, ...distractors.map(({ item }) => item)]).map((item) => ({
         id: item.id,
         target: item.target,
       })),

@@ -8,12 +8,12 @@ export const flattenObjectiveItems = (form) => form.parts.flatMap((part) =>
 export const flattenReadingItems = flattenObjectiveItems;
 
 const recommendationMap = {
-  rules: { title: "Rules and instructions", grammarRefs: ["de-b1-modal-verbs", "de-b1-passive-voice", "de-b1-two-way-local-temporal-prepositions"] },
-  attitude: { title: "Opinions and attitude", grammarRefs: ["de-b1-cohesive-connectors", "de-b1-subordinate-clauses"] },
-  opinion: { title: "Opinions and attitude", grammarRefs: ["de-b1-cohesive-connectors", "de-b1-subordinate-clauses"] },
-  sequence: { title: "Sequence and chronology", grammarRefs: ["de-b1-temporal-clauses", "de-b1-perfekt"] },
-  "cause-effect": { title: "Cause and result", grammarRefs: ["de-b1-subordinate-clauses", "de-b1-main-clause-connectors"] },
-  advertisements: { title: "Practical advertisements", grammarRefs: ["de-b1-prepositional-verbs", "de-b1-adjective-endings"] },
+  rules: { title: "Rules and instructions", grammarRefs: ["de-b1-modal-verbs", "de-b1-passive-voice", "de-b1-two-way-local-temporal-prepositions"], vocabularyCategoryIds: ["city-services"] },
+  attitude: { title: "Opinions and attitude", grammarRefs: ["de-b1-cohesive-connectors", "de-b1-subordinate-clauses"], vocabularyCategoryIds: ["feelings-opinions"] },
+  opinion: { title: "Opinions and attitude", grammarRefs: ["de-b1-cohesive-connectors", "de-b1-subordinate-clauses"], vocabularyCategoryIds: ["feelings-opinions"] },
+  sequence: { title: "Sequence and chronology", grammarRefs: ["de-b1-temporal-clauses", "de-b1-perfekt"], vocabularyCategoryIds: ["plans-goals-time"] },
+  "cause-effect": { title: "Cause and result", grammarRefs: ["de-b1-subordinate-clauses", "de-b1-main-clause-connectors"], vocabularyCategoryIds: ["connectors-prepositions"] },
+  advertisements: { title: "Practical advertisements", grammarRefs: ["de-b1-prepositional-verbs", "de-b1-adjective-endings"], vocabularyCategoryIds: ["shopping-money", "city-services"] },
 };
 
 export const scoreObjectiveForm = (form, answers = {}, { recommendationMap: recommendations = {}, resultScoreForRaw = getObjective30ResultScore } = {}) => {

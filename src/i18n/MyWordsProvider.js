@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import {
   duplicateWord,
   loadMyWords,
@@ -105,11 +105,18 @@ export const MyWordsProvider = ({ children }) => {
     persistStatuses(wordStatuses.filter((entry) => entry.lexemeId !== id));
   };
 
-  const curriculumWords = GermanCurriculum.flatMap((lesson) =>
-    lesson.items.map((word) => mergeLexemeState(word, wordStatuses))
+  const stateByLexemeId = useMemo(
+    () => new Map(wordStatuses.map((state) => [state.lexemeId, state])),
+    [wordStatuses]
   );
+  const curriculumWords = useMemo(() => GermanCurriculum.flatMap((lesson) =>
+    lesson.items.map((word) => mergeLexemeState(word, stateByLexemeId))
+  ), [stateByLexemeId]);
 
-  const customWords = words.map((word) => mergeLexemeState(word, wordStatuses));
+  const customWords = useMemo(
+    () => words.map((word) => mergeLexemeState(word, stateByLexemeId)),
+    [stateByLexemeId, words]
+  );
 
   const updateVocabulary = (word, changes) => {
     const current = wordStatuses.find((entry) => entry.lexemeId === word.id) ||

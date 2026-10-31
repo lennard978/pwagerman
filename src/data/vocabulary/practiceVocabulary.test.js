@@ -3,6 +3,7 @@ import { formatLexemeTarget } from "./presentation";
 import { isCorrectLexemePair } from "../../screen/pair/Pair";
 import { createQuizRound } from "../../screen/quiz/Quiz";
 import { createSpellingAnswer, createSpellingTokens } from "../../screen/write/Write";
+import { createReviewSession, REVIEW_SESSION_LIMIT } from "../../screen/review/Review";
 
 test("Pair matches stable IDs rather than duplicate English glosses", () => {
   expect(isCorrectLexemePair({ id: "one", source: "bill" }, { id: "two", source: "bill" })).toBe(false);
@@ -24,11 +25,32 @@ test("Cards expose noun articles through the learner target", () => {
 });
 
 test("Quiz choices have stable IDs and duplicate-free targets", () => {
-  const items = GERMAN_B1_LEXEMES.slice(0, 10);
+  const items = GERMAN_B1_LEXEMES.slice(0, 30);
   const round = createQuizRound(items);
   round.forEach((question) => {
     expect(question.choices.some((choice) => choice.id === question.id)).toBe(true);
     expect(new Set(question.choices.map((choice) => choice.id)).size).toBe(question.choices.length);
     expect(new Set(question.choices.map((choice) => choice.target)).size).toBe(question.choices.length);
+    expect(question.choices).toHaveLength(4);
   });
+});
+
+test("Quiz prioritizes same-part-of-speech and same-category distractors", () => {
+  const items = GERMAN_B1_LEXEMES.filter(({ categoryId }) => categoryId === "health-body");
+  const round = createQuizRound(items);
+  round.forEach((question) => {
+    const choiceLexemes = question.choices
+      .filter(({ id }) => id !== question.id)
+      .map(({ id }) => items.find((item) => item.id === id));
+    expect(choiceLexemes.every(({ categoryId }) => categoryId === question.categoryId)).toBe(true);
+    expect(choiceLexemes.some(({ partOfSpeech }) => partOfSpeech === question.partOfSpeech)).toBe(true);
+  });
+});
+
+test("Review uses bounded rotating sessions for large collections", () => {
+  const first = createReviewSession(GERMAN_B1_LEXEMES, 0);
+  const second = createReviewSession(GERMAN_B1_LEXEMES, REVIEW_SESSION_LIMIT);
+  expect(first).toHaveLength(20);
+  expect(second).toHaveLength(20);
+  expect(new Set([...first, ...second].map(({ id }) => id)).size).toBe(40);
 });
