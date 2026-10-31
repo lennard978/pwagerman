@@ -124,6 +124,8 @@ function App() {
           <Route path="exam/:moduleId" element={<ExamModule />} />
           <Route path="my-words" element={<Navigate to="/learn/my-words" replace />} />
           <Route path="review" element={<Navigate to="/practice/review" replace />} />
+          <Route path="grammar/*" element={<Navigate to="/learn/grammar" replace />} />
+          <Route path="exam-prep/*" element={<Navigate to="/exam" replace />} />
           <Route path="chooselesson" element={<Navigate to="/learn/vocabulary" replace />} />
           <Route path="chooselesson/:lessonId" element={<LegacyRedirect prefix="/learn/vocabulary" />} />
           <Route path="choosepair" element={<Navigate to="/practice/pair" replace />} />

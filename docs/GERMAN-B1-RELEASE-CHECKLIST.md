@@ -25,9 +25,9 @@ Product status: release candidate; not merged; not deployed
 | Gate | Result | Evidence |
 |---|---|---|
 | Content/data validation | PASS | 800 lexemes, 25 categories, 24 grammar lessons; module/form/reference tests pass. |
-| Jest suite | PASS | 60 suites, 344 tests, 0 failures, 0 skipped. |
+| Jest suite | PASS | 60 suites, 345 tests, 0 failures, 0 skipped. |
 | Audio pipeline | PASS | 11 tests; 24/24 assets ready; 8,773,536 MP3 bytes; checksums/script hashes/metadata valid. |
-| Production build | PASS | `main.0729fb3e.js`, 291.21 kB gzip; CSS 338 B gzip; basename `/pwagerman/`; fixture isolation pass. |
+| Production build | PASS | `main.6e6fceee.js`, 291.23 kB gzip; CSS 338 B gzip; basename `/pwagerman/`; fixture isolation pass. |
 | Production assets | PASS | 24 MP3s emitted; icons and German wordmarks emitted; retired Serbian wordmark PNGs removed. |
 | Active runtime scan | PASS | No active `Serbian A1`, `Srpski`, `sr-RS`, `sr-Latn`, retired wordmark, or development-fixture markers. |
 | Route/deep-link files | PASS | Production root and route-restore shell resolve; each direct route returns the expected GitHub Pages 404 fallback that restores the route through `index.html`. |
@@ -77,7 +77,7 @@ Product status: release candidate; not merged; not deployed
 
 Blockers: all 24 audio tracks need human listening QA; the exact production TTS endpoint and real request must be verified; distributed TTS abuse/cost controls must be enabled. Physical Android/iOS and the final human-controlled production-browser matrix remain pending gates.
 
-Non-blocking follow-ups after those gates: refresh the Browserslist database in a dependency-maintenance change, consider route-level splitting if the main bundle grows materially beyond the current 291.21 kB gzip, and remove source maps from public hosting if deployment policy does not need them.
+Non-blocking follow-ups after those gates: refresh the Browserslist database in a dependency-maintenance change, consider route-level splitting if the main bundle grows materially beyond the current 291.23 kB gzip, and remove source maps from public hosting if deployment policy does not need them.
 
 ## Merge and deployment status
 

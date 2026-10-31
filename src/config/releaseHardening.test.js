@@ -33,3 +33,11 @@ test("production branding includes German assets and excludes retired Serbian wo
   expect(fs.existsSync(publicPath("serbian-a1-wordmark.png"))).toBe(false);
   expect(fs.existsSync(publicPath("serbian-a1-wordmark-compact.png"))).toBe(false);
 });
+
+test("legacy Serbian entry points redirect into safe German hubs", () => {
+  const app = fs.readFileSync(path.join(process.cwd(), "src", "components", "App.js"), "utf8");
+  expect(app).toContain('path="grammar/*" element={<Navigate to="/learn/grammar" replace />}');
+  expect(app).toContain('path="exam-prep/*" element={<Navigate to="/exam" replace />}');
+  expect(app).toContain('path="my-words" element={<Navigate to="/learn/my-words" replace />}');
+  expect(app).toContain('path="review" element={<Navigate to="/practice/review" replace />}');
+});
