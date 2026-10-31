@@ -61,7 +61,7 @@ test("Learn nests My Words and Practice calls the letter-tile mode Spelling", ()
   unmount();
   renderUi(<Practice />, "/practice");
   expect(screen.getByRole("link", { name: /Spelling/ }).getAttribute("href")).toBe("/practice/spelling");
-  expect(screen.queryByText("Writing")).toBeNull();
+  expect(screen.getByRole("link", { name: /Writing Phrase Bank/ }).getAttribute("href")).toBe("/practice/writing-phrases");
 });
 
 test("Exam exposes independent modules, verified timing, scoring, and disclaimer", () => {

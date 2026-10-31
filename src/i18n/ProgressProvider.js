@@ -368,6 +368,53 @@ export const ProgressProvider = ({ children }) => {
     });
   };
 
+  const recordWritingAttempt = ({ session }) => {
+    const at = session.submittedAt || new Date().toISOString();
+    const submitted = session.submittedDrafts || session.drafts || {};
+    const wordCounts = Object.fromEntries(Object.entries(submitted).map(([taskId, draft]) => [taskId, draft.wordCount || 0]));
+    const attempt = {
+      id: session.sessionId,
+      formId: session.formId,
+      mode: session.mode,
+      taskNumber: session.mode === "practice" ? session.currentTask : null,
+      wordCounts,
+      selfAssessment: session.selfAssessment,
+      contentVersion: session.contentVersion,
+      rubricVersion: session.rubricVersion,
+      at,
+    };
+    persist((current) => {
+      const existingIndex = current.writingProgress.attemptHistory.findIndex(({ id }) => id === attempt.id);
+      const isNew = existingIndex < 0;
+      const history = isNew
+        ? [...current.writingProgress.attemptHistory, attempt]
+        : current.writingProgress.attemptHistory.map((item, index) => index === existingIndex ? attempt : item);
+      const boundedHistory = history.slice(-20);
+      const rubricTrends = Object.fromEntries(["taskFulfilment", "coherence", "vocabulary", "grammar"].map((dimension) => {
+        const values = boundedHistory.map((item) => item.selfAssessment?.[dimension]).filter(Number.isInteger);
+        return [dimension, { attempts: values.length, average: values.length ? Number((values.reduce((sum, value) => sum + value, 0) / values.length).toFixed(2)) : null }];
+      }));
+      const simulation = session.mode === "simulation";
+      return {
+        ...current,
+        lastActivity: { type: "exam-writing", route: "/exam/writing", title: simulation ? "B1 Writing simulation" : `B1 Writing Task ${session.currentTask}`, at },
+        writingProgress: {
+          ...current.writingProgress,
+          taskPracticesCompleted: !isNew || simulation ? current.writingProgress.taskPracticesCompleted : {
+            ...current.writingProgress.taskPracticesCompleted,
+            [session.currentTask]: (current.writingProgress.taskPracticesCompleted[session.currentTask] || 0) + 1,
+          },
+          simulationsCompleted: current.writingProgress.simulationsCompleted + (isNew && simulation ? 1 : 0),
+          latestDate: at,
+          recentWordCounts: isNew ? [...current.writingProgress.recentWordCounts, { id: attempt.id, wordCounts, at }].slice(-20) : current.writingProgress.recentWordCounts,
+          rubricTrends,
+          attemptHistory: boundedHistory,
+        },
+        activityDates: recordStudyDate(current.activityDates),
+      };
+    });
+  };
+
   const completeOnboarding = () =>
     persist((current) => ({ ...current, onboardingComplete: true }));
 
@@ -384,6 +431,7 @@ export const ProgressProvider = ({ children }) => {
       recordMockCompletion,
       recordReadingAttempt,
       recordListeningAttempt,
+      recordWritingAttempt,
       completeOnboarding,
     }}>
       {children}

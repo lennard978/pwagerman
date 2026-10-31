@@ -8,6 +8,7 @@ import {
   FaQuestionCircle,
   FaRedo,
   FaLanguage,
+  FaPen,
 } from "react-icons/fa";
 import { useLanguage } from "../../i18n/LanguageProvider";
 import { theme } from "../../styles/theme";
@@ -23,6 +24,7 @@ export const Practice = () => {
     { key: "review", to: "/practice/review", icon: FaRedo },
     { key: "grammarPractice", to: "/practice/grammar", icon: FaLanguage },
     { key: "grammarReview", to: "/practice/grammar/review", icon: FaRedo },
+    { key: "writingPhrases", to: "/practice/writing-phrases", icon: FaPen },
   ];
 
   return (

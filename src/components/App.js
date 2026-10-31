@@ -40,6 +40,9 @@ import { ReadingHome } from "../exam/reading/ReadingHome";
 import { ReadingSession } from "../exam/reading/ReadingSession";
 import { ListeningHome } from "../exam/listening/ListeningHome";
 import { ListeningSession } from "../exam/listening/ListeningSession";
+import { WritingHome } from "../exam/writing/WritingHome";
+import { WritingSession } from "../exam/writing/WritingSession";
+import { WritingPhraseBank } from "../exam/writing/WritingPhraseBank";
 
 function App() {
   useSpeechSynthesis();
@@ -93,6 +96,7 @@ function App() {
           <Route path="practice/review" element={<Review />} />
           <Route path="practice/grammar" element={<GrammarPracticeHub />} />
           <Route path="practice/grammar/review" element={<GrammarReview />} />
+          <Route path="practice/writing-phrases" element={<WritingPhraseBank />} />
           <Route path="exam" element={<Exam />} />
           <Route path="exam/reading" element={<ReadingHome />} />
           <Route path="exam/reading/practice/:partNumber" element={<ReadingSession mode="practice" />} />
@@ -100,6 +104,9 @@ function App() {
           <Route path="exam/listening" element={<ListeningHome />} />
           <Route path="exam/listening/practice/:partNumber" element={<ListeningSession mode="practice" />} />
           <Route path="exam/listening/simulation" element={<ListeningSession mode="simulation" />} />
+          <Route path="exam/writing" element={<WritingHome />} />
+          <Route path="exam/writing/practice/:taskNumber" element={<WritingSession mode="practice" />} />
+          <Route path="exam/writing/simulation" element={<WritingSession mode="simulation" />} />
           <Route path="exam/:moduleId" element={<ExamModule />} />
           <Route path="my-words" element={<Navigate to="/learn/my-words" replace />} />
           <Route path="review" element={<Navigate to="/practice/review" replace />} />

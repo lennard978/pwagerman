@@ -12,7 +12,7 @@ import { STORAGE_CONFIG } from "../config/course";
 import { normalizeGrammarLessonStates } from "./grammar/state";
 
 export const PROGRESS_STORAGE_KEY = STORAGE_CONFIG.learningProgress;
-export const PROGRESS_VERSION = 7;
+export const PROGRESS_VERSION = 8;
 
 const localDate = (date = new Date()) => {
   const year = date.getFullYear();
@@ -67,6 +67,14 @@ export const createDefaultProgress = (storage = window.localStorage) => ({
     bestResultScore: 0,
     latestDate: null,
     skillPerformance: {},
+    attemptHistory: [],
+  },
+  writingProgress: {
+    taskPracticesCompleted: { 1: 0, 2: 0, 3: 0 },
+    simulationsCompleted: 0,
+    latestDate: null,
+    recentWordCounts: [],
+    rubricTrends: {},
     attemptHistory: [],
   },
   recentMistakes: [],
@@ -158,6 +166,27 @@ export const normalizeProgress = (value, storage = window.localStorage) => {
         : {},
       attemptHistory: Array.isArray(value.listeningProgress?.attemptHistory)
         ? value.listeningProgress.attemptHistory.slice(-20)
+        : [],
+    },
+    writingProgress: {
+      ...defaults.writingProgress,
+      ...(value.writingProgress && typeof value.writingProgress === "object" && !Array.isArray(value.writingProgress)
+        ? value.writingProgress
+        : {}),
+      taskPracticesCompleted: value.writingProgress?.taskPracticesCompleted && typeof value.writingProgress.taskPracticesCompleted === "object"
+        ? { ...defaults.writingProgress.taskPracticesCompleted, ...value.writingProgress.taskPracticesCompleted }
+        : defaults.writingProgress.taskPracticesCompleted,
+      simulationsCompleted: Number.isFinite(value.writingProgress?.simulationsCompleted)
+        ? value.writingProgress.simulationsCompleted
+        : 0,
+      recentWordCounts: Array.isArray(value.writingProgress?.recentWordCounts)
+        ? value.writingProgress.recentWordCounts.slice(-20)
+        : [],
+      rubricTrends: value.writingProgress?.rubricTrends && typeof value.writingProgress.rubricTrends === "object"
+        ? value.writingProgress.rubricTrends
+        : {},
+      attemptHistory: Array.isArray(value.writingProgress?.attemptHistory)
+        ? value.writingProgress.attemptHistory.slice(-20)
         : [],
     },
     recentMistakes: Array.isArray(value.recentMistakes) ? value.recentMistakes : [],
