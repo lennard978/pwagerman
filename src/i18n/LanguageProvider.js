@@ -1,13 +1,12 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import en from "../locales/en.json";
-import srLatn from "../locales/sr-Latn.json";
+import { STORAGE_CONFIG } from "../config/course";
 
-export const SUPPORTED_LANGUAGES = ["en", "sr-Latn"];
-export const LANGUAGE_STORAGE_KEY = "pwagerman.language";
+export const SUPPORTED_LANGUAGES = ["en"];
+export const LANGUAGE_STORAGE_KEY = STORAGE_CONFIG.uiLanguage;
 
 const translations = {
   en,
-  "sr-Latn": srLatn,
 };
 
 const LanguageContext = createContext(null);
@@ -18,9 +17,6 @@ export const normalizeLanguage = (language) => {
   }
 
   const normalized = language.toLowerCase();
-  if (normalized.startsWith("sr")) {
-    return "sr-Latn";
-  }
   if (normalized.startsWith("en")) {
     return "en";
   }

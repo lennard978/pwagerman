@@ -1,4 +1,4 @@
-import { Curriculum } from "./data";
+import { GermanCurriculum } from "./germanFixtures";
 import { createBoundedRound, EXERCISE_ROUND_LIMITS } from "./exerciseRounds";
 
 const createQuestion = (lesson, item) => {
@@ -16,7 +16,7 @@ const createQuestion = (lesson, item) => {
     wordId: item.id,
     source: item.source,
     target: item.target,
-    prompt: `"${item.source}" in Serbian is:`,
+    prompt: `Choose the German translation for “${item.source}”.`,
     options: [item.target, ...distractors],
     answer: item.target,
   };
@@ -35,19 +35,7 @@ const createTest = (lesson) => ({
   ),
 });
 
-export const Test1 = createTest(Curriculum[0]);
-export const Test2 = createTest(Curriculum[1]);
-export const Test3 = createTest(Curriculum[2]);
-export const Test4 = createTest(Curriculum[3]);
-export const Test5 = createTest(Curriculum[4]);
-export const Test6 = createTest(Curriculum[5]);
-
-export const Tests = [
-  Test1,
-  Test2,
-  Test3,
-  Test4,
-  Test5,
-  Test6,
-  ...Curriculum.slice(6).map(createTest),
-];
+export const Tests = GermanCurriculum.map(createTest);
+export const Test1 = Tests[0];
+export const Test2 = Tests[1];
+export const Test3 = Tests[2];

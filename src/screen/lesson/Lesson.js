@@ -10,16 +10,19 @@ import { EmptyExercise } from "../../components/EmptyExercise";
 import { WordStatusActions } from "../../components/WordStatusActions";
 import { useProgress } from "../../i18n/ProgressProvider";
 import { CompactSoundButton } from "../../components/CompactSoundButton";
+import { TARGET_LANGUAGE, TARGET_LANGUAGE_NAME } from "../../config/course";
+import { getContentPosition, resolveContentByRouteId } from "../../data/contentSelection";
 
 export const Lesson = ({ data }) => {
-  const { userId } = useParams();
-  const number = Number(userId);
+  const { lessonId, userId } = useParams();
+  const routeId = lessonId || userId;
   const { t } = useLanguage();
   const progress = useProgress();
-  const lesson = data[userId];
+  const lesson = resolveContentByRouteId(data, routeId);
+  const number = getContentPosition(data, lesson);
   return (
     <Wrapper>
-      <Title title={`${t("navigation.lesson")} ${number + 1}`} reserveSpace />
+      <Title title={`${t("navigation.lesson")} ${number}`} reserveSpace />
       {lesson.items.length === 0 && <EmptyExercise message={t("myWords.emptyHint")} />}
       {lesson.items.map((item, index) => {
         return (
@@ -31,8 +34,8 @@ export const Lesson = ({ data }) => {
               </Words>
               <CompactSoundButton
                 text={item.target}
-                lang="sr-RS"
-                ariaLabel={`Hear Serbian pronunciation: ${item.target}`}
+                lang={TARGET_LANGUAGE}
+                ariaLabel={`Hear ${TARGET_LANGUAGE_NAME} pronunciation: ${item.target}`}
               >
                 <FaVolumeUp aria-hidden="true" />
               </CompactSoundButton>
@@ -50,14 +53,14 @@ export const Lesson = ({ data }) => {
             onClick={() => progress?.recordCompletion({
               type: "lesson",
               categoryId: lesson.id,
-              route: `/chooselesson/${userId}`,
+              route: `/learn/vocabulary/${lesson.id}`,
               titleKey: lesson.titleKey,
             })}
           >
             {t("exercise.completeLesson")}
           </CompleteLink>
         )}
-        <BackBtn title={t("actions.goBack")} to="/chooselesson" />
+        <BackBtn title={t("actions.goBack")} to="/learn/vocabulary" />
       </CompletionActions>
     </Wrapper>
   );

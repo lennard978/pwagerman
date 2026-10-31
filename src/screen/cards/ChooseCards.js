@@ -5,5 +5,5 @@ import { useLanguage } from "../../i18n/LanguageProvider";
 export const ChooseCards = ({ data }) => {
   const { t } = useLanguage();
 
-  return <BtnList dataList={data} title={t("navigation.cards")} nav="choosecards" />;
+  return <BtnList dataList={data} title={t("navigation.cards")} nav="practice/cards" />;
 };

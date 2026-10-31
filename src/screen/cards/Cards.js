@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useSpeechSynthesis } from "react-speech-kit";
 import styled from "styled-components";
@@ -15,6 +15,8 @@ import {
   PracticeLayout,
   PracticeStage,
 } from "../../components/practice/PracticeLayout";
+import { TARGET_LANGUAGE, TARGET_LANGUAGE_NAME } from "../../config/course";
+import { getContentPosition, resolveContentByRouteId } from "../../data/contentSelection";
 
 export const cardsSizeConstraints = {
   inlineSize: "min(88%, 34rem)",
@@ -22,16 +24,15 @@ export const cardsSizeConstraints = {
 };
 
 export const Cards = ({ data }) => {
-  const { userId } = useParams();
-  const number = Number(userId);
+  const { lessonId, userId } = useParams();
+  const routeId = lessonId || userId;
   const { t } = useLanguage();
   const progress = useProgress();
-  const lesson = data[userId];
-  const dataRef = useRef(data);
-  dataRef.current = data;
+  const lesson = resolveContentByRouteId(data, routeId);
+  const number = getContentPosition(data, lesson);
   const { speak: browserSpeak, voices } = useSpeechSynthesis();
   const [wordList, setWordList] = useState(() =>
-    createBoundedRound(data[userId].items, EXERCISE_ROUND_LIMITS.cards)
+    createBoundedRound(lesson.items, EXERCISE_ROUND_LIMITS.cards)
   );
 
   const [cardIndex, setCardIndex] = useState(0);
@@ -39,12 +40,12 @@ export const Cards = ({ data }) => {
 
   useEffect(() => {
     setWordList(createBoundedRound(
-      dataRef.current[userId].items,
+      lesson.items,
       EXERCISE_ROUND_LIMITS.cards
     ));
     setCardIndex(0);
     setFlipped(false);
-  }, [userId]);
+  }, [lesson]);
 
   const currentItem = wordList[cardIndex];
 
@@ -56,26 +57,26 @@ export const Cards = ({ data }) => {
   };
 
   const flipCard = () => {
-    const showSerbian = !flipped;
-    setFlipped(showSerbian);
-    if (showSerbian) {
+    const showTarget = !flipped;
+    setFlipped(showTarget);
+    if (showTarget) {
       speak({
         text: currentItem.target,
-        lang: "sr-RS",
+        lang: TARGET_LANGUAGE,
         voices,
         browserSpeak,
       });
     }
   };
   return (
-    <PracticeLayout title={`${t("navigation.cards")} ${number + 1}`}>
+    <PracticeLayout title={`${t("navigation.cards")} ${number}`}>
       {wordList.length === 0 ? <EmptyExercise message={t("myWords.minimum")} /> : (
       <CardStage data-testid="cards-exercise-content">
         <CardGroup>
         <AnimateBox
           type="button"
           data-testid="practice-flashcard"
-          aria-label={flipped ? "Show English word" : "Show Serbian translation"}
+          aria-label={flipped ? "Show English word" : `Show ${TARGET_LANGUAGE_NAME} translation`}
           onClick={flipCard}
         >
           <SourceWord sourceRotate={flipped ? "rotateY(180deg)" : "rotateY(0deg)"}>
@@ -89,11 +90,11 @@ export const Cards = ({ data }) => {
           <WordStatusActions word={currentItem} variant="card" />
           {cardIndex === wordList.length - 1 ? (
             <BackLink
-              to="/choosecards"
+              to="/practice/cards"
               onClick={() => progress?.recordCompletion({
                 type: "cards",
                 categoryId: lesson.id,
-                route: `/choosecards/${userId}`,
+                route: `/practice/cards/${lesson.id}`,
                 titleKey: lesson.titleKey,
               })}
             >

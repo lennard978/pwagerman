@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="180" viewBox="0 0 640 180" role="img" aria-labelledby="title">
+  <title id="title">German B1</title>
+  <rect width="640" height="180" rx="30" fill="#f7f3e9"/>
+  <g transform="translate(28 25)">
+    <path d="M8 32c32-12 63-6 86 14v80c-27-18-56-22-86-11zM180 32c-32-12-63-6-86 14v80c27-18 56-22 86-11z" fill="#fff" stroke="#a66a12" stroke-width="7" stroke-linejoin="round"/>
+    <path d="M94 46v80" fill="none" stroke="#a66a12" stroke-width="7"/>
+    <path d="M58 8h78a20 20 0 0 1 20 20v24a20 20 0 0 1-20 20h-28L89 91l4-19H58a20 20 0 0 1-20-20V28A20 20 0 0 1 58 8z" fill="#282824"/>
+    <text x="97" y="55" text-anchor="middle" fill="#f7f3e9" font-family="Arial, sans-serif" font-size="32" font-weight="900">B1</text>
+  </g>
+  <g transform="translate(235 48)" font-family="Arial, sans-serif">
+    <text x="0" y="48" fill="#282824" font-size="50" font-weight="900">GERMAN B1</text>
+    <text x="2" y="88" fill="#a66a12" font-size="20" font-weight="800" letter-spacing="3">EXAM PREP</text>
+  </g>
+</svg>

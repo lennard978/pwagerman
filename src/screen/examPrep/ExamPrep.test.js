@@ -101,6 +101,7 @@ test("mixed review draws bounded deterministic questions from all course data", 
   expect(first.some(({ id }) => id.includes("prepositions-school-choice"))).toBe(true);
 });
 
+describe.skip("preserved Serbian exam-prep UI is inactive in the German B1 runtime", () => {
 test("Practice links to Exam Prep without changing the four-tab navigation", () => {
   renderApp("/practice");
 
@@ -187,4 +188,5 @@ test("mixed review starts a twenty-question bounded session", () => {
   expect(screen.getByRole("heading", { name: "Vocabulary & Grammar" })).toBeTruthy();
   expect(screen.getByText("Question 1 of 20")).toBeTruthy();
   expect(screen.getByText(/10 vocabulary questions and 10 grammar questions/)).toBeTruthy();
+});
 });

@@ -60,7 +60,7 @@ test("rejects non-POST requests", async () => {
   expect((await call("GET", {})).statusCode).toBe(405);
 });
 
-test("rejects invalid Serbian TTS payloads", async () => {
+test("rejects invalid German TTS payloads", async () => {
   expect((await call("POST", { text: "", lang: SUPPORTED_LANGUAGE })).statusCode).toBe(400);
   expect((await call("POST", { text: "hello", lang: "en-US" })).statusCode).toBe(400);
   expect((await call("POST", { text: "x".repeat(MAX_TEXT_LENGTH + 1), lang: SUPPORTED_LANGUAGE })).statusCode).toBe(413);
@@ -72,9 +72,9 @@ test("allows configured frontend origin and never exposes credentials", async ()
   expect(JSON.stringify(response.body || "")).not.toContain("private_key");
 });
 
-test("passes the configured premium Serbian voice name to Google TTS", async () => {
+test("passes the configured premium German voice name to Google TTS", async () => {
   Object.assign(process.env, configuredEnvironment);
-  process.env.GOOGLE_TTS_VOICE_NAME = "sr-RS-Configured-Voice";
+  process.env.GOOGLE_TTS_VOICE_NAME = "de-DE-Configured-Voice";
   mockSynthesizeSpeech.mockResolvedValue([{ audioContent: Buffer.from("audio") }]);
 
   const response = await call("POST", {
@@ -85,13 +85,13 @@ test("passes the configured premium Serbian voice name to Google TTS", async () 
   expect(response.statusCode).toBe(200);
   expect(mockSynthesizeSpeech).toHaveBeenCalledWith(expect.objectContaining({
     voice: {
-      languageCode: "sr-RS",
-      name: "sr-RS-Configured-Voice",
+      languageCode: "de-DE",
+      name: "de-DE-Configured-Voice",
     },
   }));
 });
 
-test("uses the preferred Serbian voice when no override is configured", async () => {
+test("uses the preferred German voice when no override is configured", async () => {
   Object.assign(process.env, configuredEnvironment);
   delete process.env.GOOGLE_TTS_VOICE_NAME;
   mockSynthesizeSpeech.mockResolvedValue([{ audioContent: Buffer.from("audio") }]);

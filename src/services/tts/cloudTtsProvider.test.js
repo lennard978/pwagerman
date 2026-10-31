@@ -42,20 +42,20 @@ beforeEach(() => {
   installAudioMock();
 });
 
-test("cloud request sends the normalized Serbian API locale", async () => {
+test("cloud request sends the normalized German API locale", async () => {
   process.env.REACT_APP_TTS_ENDPOINT = "https://tts.example/api/tts";
   global.fetch = jest.fn(() => Promise.resolve({
     ok: false,
     headers: { get: () => "application/json" },
   }));
 
-  await fetchCloudAudio({ text: "dobro jutro", lang: "sr-RS" });
+  await fetchCloudAudio({ text: "guten Morgen", lang: "de-DE" });
 
   expect(global.fetch).toHaveBeenCalledWith(
     "https://tts.example/api/tts",
     expect.objectContaining({
       method: "POST",
-      body: JSON.stringify({ text: "dobro jutro", lang: "sr-RS" }),
+      body: JSON.stringify({ text: "guten Morgen", lang: "de-DE" }),
     })
   );
 });
@@ -63,22 +63,22 @@ test("cloud request sends the normalized Serbian API locale", async () => {
 test("cloud provider failure returns no audio for browser fallback", async () => {
   global.fetch = jest.fn(() => Promise.reject(new Error("offline")));
 
-  await expect(fetchCloudAudio({ text: "kuća", lang: "sr-RS" })).resolves.toBe(false);
+  await expect(fetchCloudAudio({ text: "das Haus", lang: "de-DE" })).resolves.toBe(false);
 });
 
-test("provider normalizes sr before sending the cloud request", () => {
+test("provider normalizes de before sending the cloud request", () => {
   global.fetch = jest.fn(() => Promise.resolve({
     ok: false,
     headers: { get: () => "application/json" },
   }));
   const browserSpeak = jest.fn();
 
-  speak({ text: "kuća", lang: "sr", voices: [], browserSpeak });
+  speak({ text: "das Haus", lang: "de", voices: [], browserSpeak });
 
   expect(global.fetch).toHaveBeenCalledWith(
     "https://tts.example/api/tts",
     expect.objectContaining({
-      body: JSON.stringify({ text: "kuća", lang: "sr-RS" }),
+      body: JSON.stringify({ text: "das Haus", lang: "de-DE" }),
     })
   );
 });
@@ -89,7 +89,7 @@ test("prepares media during the user path before cloud completion", async () => 
     resolveFetch = resolve;
   }));
 
-  const result = speak({ text: "kuća", lang: "sr-RS", voices: [], browserSpeak: jest.fn() });
+  const result = speak({ text: "das Haus", lang: "de-DE", voices: [], browserSpeak: jest.fn() });
 
   expect(global.Audio).toHaveBeenCalledTimes(1);
   expect(audioInstances[0].play).toHaveBeenCalledTimes(1);
@@ -105,7 +105,7 @@ test("plays returned cloud audio through the prepared media element", async () =
   const blob = { id: "house" };
   global.fetch = jest.fn(() => Promise.resolve(audioResponse(blob)));
 
-  await speak({ text: "kuća", lang: "sr-RS", voices: [], browserSpeak: jest.fn() });
+  await speak({ text: "das Haus", lang: "de-DE", voices: [], browserSpeak: jest.fn() });
 
   expect(global.Audio).toHaveBeenCalledTimes(1);
   expect(global.URL.createObjectURL).toHaveBeenCalledWith(blob);
@@ -120,8 +120,8 @@ test("cloud failure falls back safely", async () => {
   global.fetch = jest.fn(() => Promise.reject(new Error("offline")));
 
   await expect(speak({
-    text: "kuća",
-    lang: "sr-RS",
+    text: "das Haus",
+    lang: "de-DE",
     voices: [],
     browserSpeak,
   })).resolves.toBe(false);
@@ -139,8 +139,8 @@ test("rejected prepared playback falls back without rejecting", async () => {
   global.fetch = jest.fn(() => Promise.resolve(audioResponse({ id: "house" })));
 
   await expect(speak({
-    text: "kuća",
-    lang: "sr-RS",
+    text: "das Haus",
+    lang: "de-DE",
     voices: [],
     browserSpeak,
   })).resolves.toBe(false);
@@ -152,7 +152,7 @@ test("rejected prepared playback falls back without rejecting", async () => {
 test("cached cloud data replays with a fresh prepared element and URL", async () => {
   const blob = { id: "cached" };
   global.fetch = jest.fn(() => Promise.resolve(audioResponse(blob)));
-  const speech = { text: "kuća", lang: "sr-RS", voices: [], browserSpeak: jest.fn() };
+  const speech = { text: "das Haus", lang: "de-DE", voices: [], browserSpeak: jest.fn() };
 
   await speak(speech);
   await speak(speech);
@@ -168,8 +168,8 @@ test("rapid taps prevent stale cloud responses from playing", async () => {
   const fetchResolvers = [];
   global.fetch = jest.fn(() => new Promise((resolve) => fetchResolvers.push(resolve)));
 
-  const first = speak({ text: "kuća", lang: "sr-RS", voices: [], browserSpeak: jest.fn() });
-  const second = speak({ text: "voda", lang: "sr-RS", voices: [], browserSpeak: jest.fn() });
+  const first = speak({ text: "das Haus", lang: "de-DE", voices: [], browserSpeak: jest.fn() });
+  const second = speak({ text: "das Wasser", lang: "de-DE", voices: [], browserSpeak: jest.fn() });
   fetchResolvers[0](audioResponse({ id: "house" }));
   fetchResolvers[1](audioResponse({ id: "water" }));
   await Promise.all([first, second]);
@@ -180,9 +180,9 @@ test("rapid taps prevent stale cloud responses from playing", async () => {
 });
 
 test.each([
-  ["sr", "sr-RS"],
-  ["sr-Latn", "sr-RS"],
-  ["sr-RS", "sr-RS"],
+  ["de", "de-DE"],
+  ["de-AT", "de-DE"],
+  ["de-DE", "de-DE"],
 ])("normalizes %s to %s", (input, expected) => {
   expect(normalizeSpeechLanguage(input)).toBe(expected);
 });

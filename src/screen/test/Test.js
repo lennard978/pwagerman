@@ -20,12 +20,16 @@ import {
   PracticeReviewList,
   PracticeStage,
 } from "../../components/practice/PracticeLayout";
+import { TARGET_LANGUAGE, TARGET_LANGUAGE_NAME } from "../../config/course";
+import { getContentPosition, resolveContentByRouteId } from "../../data/contentSelection";
 
 export const Test = ({ data }) => {
-  const { userId } = useParams();
+  const { lessonId, userId } = useParams();
+  const routeId = lessonId || userId;
   const { t } = useLanguage();
   const progress = useProgress();
-  const testData = data[userId];
+  const testData = resolveContentByRouteId(data, routeId);
+  const number = getContentPosition(data, testData);
   const questions = testData.questions || testData;
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [currentAnswer, setCurrentAnswer] = useState("");
@@ -61,8 +65,8 @@ export const Test = ({ data }) => {
       setComplete(true);
       progress?.recordCompletion({
         type: "test",
-        categoryId: testData.id || userId,
-        route: `/choosetest/${userId}`,
+        categoryId: testData.id || routeId,
+        route: `/practice/test/${testData.id || routeId}`,
         titleKey: testData.titleKey,
       });
       return;
@@ -86,7 +90,7 @@ export const Test = ({ data }) => {
   const mistakes = answers.filter((answer) => !answer.correct);
 
   return (
-    <PracticeLayout title={`${t("navigation.test")} ${Number(userId) + 1}`}>
+    <PracticeLayout title={`${t("navigation.test")} ${number}`}>
       {complete ? (
         <ResultCard data-testid="test-result-card">
           <ResultTitle>{t("exercise.testComplete")}</ResultTitle>
@@ -106,7 +110,7 @@ export const Test = ({ data }) => {
             ))}
           </Review>
           <PrimaryButton type="button" onClick={retry}>{t("exercise.retryTest")}</PrimaryButton>
-          <BackLink to="/choosetest">{t("exercise.backToTests")}</BackLink>
+          <BackLink to="/practice/test">{t("exercise.backToTests")}</BackLink>
         </ResultCard>
       ) : (
         <Content data-testid="test-exercise-content">
@@ -124,8 +128,8 @@ export const Test = ({ data }) => {
                 </Answer>
                 <CompactSoundButton
                   text={item}
-                  lang="sr-RS"
-                  ariaLabel={`Hear Serbian pronunciation: ${item}`}
+                  lang={TARGET_LANGUAGE}
+                  ariaLabel={`Hear ${TARGET_LANGUAGE_NAME} pronunciation: ${item}`}
                 >
                   <FaVolumeUp aria-hidden="true" />
                 </CompactSoundButton>

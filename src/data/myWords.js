@@ -5,11 +5,12 @@ import {
   idbReplaceAllWordStatuses,
   isIndexedDbSupported,
 } from "./storage/idbMyWordsStore";
+import { STORAGE_CONFIG } from "../config/course";
 
-export const MY_WORDS_STORAGE_KEY = "serbian-a1.myWords.v1";
-export const MY_WORDS_MIGRATED_KEY = "serbian-a1.myWords.migratedToIndexedDb.v1";
+export const MY_WORDS_STORAGE_KEY = STORAGE_CONFIG.myWords;
+export const MY_WORDS_MIGRATED_KEY = STORAGE_CONFIG.myWordsMigrated;
 export const MY_WORDS_MAX_LENGTH = 80;
-export const WORD_STATUSES_STORAGE_KEY = "serbian-a1.wordStatuses.v1";
+export const WORD_STATUSES_STORAGE_KEY = STORAGE_CONFIG.wordStatuses;
 
 export const withVocabularyDefaults = (word) => ({
   ...word,
@@ -40,9 +41,8 @@ export const saveMyWords = (words, storage = window.localStorage) => {
   storage.setItem(MY_WORDS_STORAGE_KEY, JSON.stringify(words));
 };
 
-// One-time move of any pre-existing localStorage entries into IndexedDB.
-// Runs at most once per browser (flagged in localStorage), keeps the legacy
-// key untouched, and never drops entries already present in either store.
+// One-time move from this course's localStorage fallback into its own IndexedDB.
+// Previous course namespaces are intentionally never read or modified.
 export const migrateMyWordsToIndexedDb = async ({
   storage = window.localStorage,
   idbFactory,

@@ -6,8 +6,8 @@ import { useLanguage } from "../../i18n/LanguageProvider";
 import { theme } from "../../styles/theme";
 
 export const GrammarList = () => {
-  const { language, t } = useLanguage();
-  const title = (topic) => language === "sr-Latn" ? topic.titleSr : topic.title;
+  const { t } = useLanguage();
+  const title = (topic) => topic.title;
   return (
     <Wrapper>
       <Header>

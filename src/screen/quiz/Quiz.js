@@ -22,6 +22,8 @@ import {
   PracticeReviewList,
   PracticeStage,
 } from "../../components/practice/PracticeLayout";
+import { TARGET_LANGUAGE, TARGET_LANGUAGE_NAME } from "../../config/course";
+import { getContentPosition, resolveContentByRouteId } from "../../data/contentSelection";
 
 const shuffle = (items) => [...items].sort(() => Math.random() - 0.5);
 
@@ -41,11 +43,13 @@ const createRound = (items) => {
 };
 
 export const Quiz = ({ data }) => {
-  const { userId } = useParams();
+  const { lessonId, userId } = useParams();
+  const routeId = lessonId || userId;
   const { t } = useLanguage();
   const progress = useProgress();
-  const lesson = data[userId];
-  const items = data[userId].items;
+  const lesson = resolveContentByRouteId(data, routeId);
+  const number = getContentPosition(data, lesson);
+  const items = lesson.items;
   const [round, setRound] = useState(() => createRound(items));
   const [questionIndex, setQuestionIndex] = useState(0);
   const [selected, setSelected] = useState(null);
@@ -76,7 +80,7 @@ export const Quiz = ({ data }) => {
       progress?.recordCompletion({
         type: "quiz",
         categoryId: lesson.id,
-        route: `/choosequiz/${userId}`,
+        route: `/practice/quiz/${lesson.id}`,
         titleKey: lesson.titleKey,
       });
       return;
@@ -95,7 +99,7 @@ export const Quiz = ({ data }) => {
   };
 
   return (
-    <PracticeLayout title={`${t("navigation.quiz")} ${Number(userId) + 1}`}>
+    <PracticeLayout title={`${t("navigation.quiz")} ${number}`}>
       {complete ? (
         <ResultCard data-testid="quiz-result-card">
           <ResultTitle>{t("exercise.quizComplete")}</ResultTitle>
@@ -116,7 +120,7 @@ export const Quiz = ({ data }) => {
           <PrimaryButton type="button" onClick={restart}>
             {t("exercise.restartQuiz")}
           </PrimaryButton>
-          <BackLink to="/choosequiz">{t("actions.backToQuiz")}</BackLink>
+          <BackLink to="/practice/quiz">{t("actions.backToQuiz")}</BackLink>
         </ResultCard>
       ) : (
         round.length === 0 ? <EmptyExercise message={t("myWords.minimum")} /> : (
@@ -142,8 +146,8 @@ export const Quiz = ({ data }) => {
                   </Choice>
                   <CompactSoundButton
                     text={choice}
-                    lang="sr-RS"
-                    ariaLabel={`Hear Serbian pronunciation: ${choice}`}
+                    lang={TARGET_LANGUAGE}
+                    ariaLabel={`Hear ${TARGET_LANGUAGE_NAME} pronunciation: ${choice}`}
                   >
                     <FaVolumeUp aria-hidden="true" />
                   </CompactSoundButton>

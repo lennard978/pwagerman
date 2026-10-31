@@ -2,6 +2,7 @@ import React from "react";
 import { useSpeechSynthesis } from "react-speech-kit";
 import styled from "styled-components";
 import { speak as speakWithProvider } from "../services/tts/ttsProvider";
+import { TARGET_LANGUAGE } from "../config/course";
 
 export const selectBestVoice = (voices = [], language) => {
   const normalizedLanguage = language && language.toLowerCase();
@@ -15,7 +16,7 @@ export const selectBestVoice = (voices = [], language) => {
   return [...matchingVoices].sort((first, second) => {
     const score = (voice) => {
       const voiceLanguage = voice.lang.toLowerCase();
-      const exactLocale = voiceLanguage === "sr-rs" ? 100 : 0;
+      const exactLocale = voiceLanguage === normalizedLanguage ? 100 : 0;
       const localVoice = voice.localService ? 20 : 0;
       const qualityName = /natural|enhanced|premium|google|microsoft|apple/i.test(
         voice.name || ""
@@ -30,7 +31,7 @@ export const selectBestVoice = (voices = [], language) => {
   })[0];
 };
 
-export default function SoundButton({ children, text, lang, className, ariaLabel }) {
+export default function SoundButton({ children, text, lang = TARGET_LANGUAGE, className, ariaLabel }) {
   const { speak, voices } = useSpeechSynthesis();
   return (
     <Button

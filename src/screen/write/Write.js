@@ -14,18 +14,21 @@ import {
   PracticePrimaryButton,
   PracticeStage,
 } from "../../components/practice/PracticeLayout";
+import { TARGET_LANGUAGE } from "../../config/course";
+import { getContentPosition, resolveContentByRouteId } from "../../data/contentSelection";
 
 export const Write = ({ data }) => {
-  const { userId } = useParams();
-  const number = Number(userId);
+  const { lessonId, userId } = useParams();
+  const routeId = lessonId || userId;
   const { t } = useLanguage();
   const { speak: browserSpeak, voices } = useSpeechSynthesis();
   const progress = useProgress();
-  const lesson = data[userId];
+  const lesson = resolveContentByRouteId(data, routeId);
+  const number = getContentPosition(data, lesson);
 
   //Collect Data
   const [wordList] = useState(() =>
-    createBoundedRound(data[userId].items, EXERCISE_ROUND_LIMITS.write)
+    createBoundedRound(lesson.items, EXERCISE_ROUND_LIMITS.write)
   );
 
   const [resultState, setResultState] = useState("idle");
@@ -78,7 +81,7 @@ export const Write = ({ data }) => {
           hasSpokenAnswer.current = true;
           speak({
             text: wordList[count].target,
-            lang: "sr-RS",
+            lang: TARGET_LANGUAGE,
             voices,
             browserSpeak,
           });
@@ -109,7 +112,7 @@ export const Write = ({ data }) => {
   };
 
   return (
-    <PracticeLayout title={`${t("navigation.write")} ${number + 1}`}>
+    <PracticeLayout title={`${t("navigation.spelling")} ${number}`}>
       {wordList.length === 0 ? <EmptyExercise message={t("myWords.minimum")} /> : <>
       <WriteStage data-testid="write-exercise-content">
       <PromptRow>
@@ -164,13 +167,13 @@ export const Write = ({ data }) => {
       {count === wordList.length - 1 ? (
         <PracticeActionArea>
           <BackLink
-            to="/choosewrite"
+            to="/practice/spelling"
             onClick={() => {
               if (resultState === "correct") {
                 progress?.recordCompletion({
                   type: "write",
                   categoryId: lesson.id,
-                  route: `/choosewrite/${userId}`,
+                  route: `/practice/spelling/${lesson.id}`,
                   titleKey: lesson.titleKey,
                 });
               }

@@ -1,6 +1,6 @@
 import React from "react";
 import "../App.css";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes, useParams } from "react-router-dom";
 import Nav from "./nav/Nav";
 import { useSpeechSynthesis } from "react-speech-kit";
 import { Home } from "../screen/home/Home";
@@ -8,7 +8,7 @@ import { Layout } from "./nav/Layout";
 import { NoMatch } from "./nav/NoMatch";
 import { ChooseLesson } from "../screen/lesson/ChooseLesson";
 import { Lesson } from "../screen/lesson/Lesson";
-import { Curriculum } from "../data/data";
+import { GermanCurriculum } from "../data/germanFixtures";
 import { ChoosePair } from "../screen/pair/ChoosePair";
 import { Pair } from "../screen/pair/Pair";
 import { ChooseWrite } from "../screen/write/ChooseWrite";
@@ -27,13 +27,10 @@ import { Practice } from "../screen/practice/Practice";
 import { Review } from "../screen/review/Review";
 import { useProgress } from "../i18n/ProgressProvider";
 import { Onboarding } from "./Onboarding";
-import { GrammarList } from "../screen/grammar/GrammarList";
-import { GrammarLesson } from "../screen/grammar/GrammarLesson";
-import { ExamPrep } from "../screen/examPrep/ExamPrep";
-import { ExamPrepTaskList } from "../screen/examPrep/ExamPrepTaskList";
-import { ExamPrepTask } from "../screen/examPrep/ExamPrepTask";
-import { ExamPrepReview } from "../screen/examPrep/ExamPrepReview";
-import { MockA1 } from "../screen/examPrep/MockA1";
+import { Learn } from "../screen/learn/Learn";
+import { GrammarFoundation } from "../screen/learn/GrammarFoundation";
+import { Exam } from "../screen/exam/Exam";
+import { ExamModule } from "../screen/exam/ExamModule";
 
 function App() {
   useSpeechSynthesis();
@@ -46,7 +43,7 @@ function App() {
     category: "custom",
     items: words,
   };
-  const data = Curriculum.map((lesson) => ({
+  const data = GermanCurriculum.map((lesson) => ({
     ...lesson,
     items: lesson.items.map((item) =>
       curriculumWords.find((word) => word.id === item.id) || item
@@ -64,34 +61,49 @@ function App() {
         <Route element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="home" element={<Home />} />
-          <Route path="learn" element={<ChooseLesson data={data} />} />
-          <Route path="grammar" element={<GrammarList />} />
-          <Route path="grammar/:lessonId" element={<GrammarLesson />} />
+          <Route path="learn" element={<Learn />} />
+          <Route path="learn/vocabulary" element={<ChooseLesson data={data} />} />
+          <Route path="learn/vocabulary/:lessonId" element={<Lesson data={data} />} />
+          <Route path="learn/grammar" element={<GrammarFoundation />} />
+          <Route path="learn/my-words" element={<MyWords />} />
           <Route path="practice" element={<Practice />} />
-          <Route path="exam-prep" element={<ExamPrep />} />
-          <Route path="exam-prep/vocabulary-grammar" element={<ExamPrepReview />} />
-          <Route path="exam-prep/mock-a1" element={<MockA1 />} />
-          <Route path="exam-prep/:area" element={<ExamPrepTaskList />} />
-          <Route path="exam-prep/:area/:taskId" element={<ExamPrepTask />} />
-          <Route path="review" element={<Review />} />
-          <Route path="my-words" element={<MyWords />} />
-          <Route path="chooselesson" element={<ChooseLesson data={data} />} />
-          <Route path="chooselesson/:userId" element={<Lesson data={data} />} />
-          <Route path="choosepair" element={<ChoosePair data={exerciseData} />} />
-          <Route path="choosepair/:userId" element={<Pair data={exerciseData} />} />
-          <Route path="choosewrite" element={<ChooseWrite data={exerciseData} />} />
-          <Route path="choosewrite/:userId" element={<Write data={exerciseData} />} />
-          <Route path="choosecards" element={<ChooseCards data={exerciseData} />} />
-          <Route path="choosecards/:userId" element={<Cards data={exerciseData} />} />
-          <Route path="choosetest" element={<ChooseTest data={Tests} />} />
-          <Route path="choosetest/:userId" element={<Test data={Tests} />} />
-          <Route path="choosequiz" element={<ChooseQuiz data={exerciseData} />} />
-          <Route path="choosequiz/:userId" element={<Quiz data={exerciseData} />} />
+          <Route path="practice/pair" element={<ChoosePair data={exerciseData} />} />
+          <Route path="practice/pair/:lessonId" element={<Pair data={exerciseData} />} />
+          <Route path="practice/spelling" element={<ChooseWrite data={exerciseData} />} />
+          <Route path="practice/spelling/:lessonId" element={<Write data={exerciseData} />} />
+          <Route path="practice/cards" element={<ChooseCards data={exerciseData} />} />
+          <Route path="practice/cards/:lessonId" element={<Cards data={exerciseData} />} />
+          <Route path="practice/test" element={<ChooseTest data={Tests} />} />
+          <Route path="practice/test/:lessonId" element={<Test data={Tests} />} />
+          <Route path="practice/quiz" element={<ChooseQuiz data={exerciseData} />} />
+          <Route path="practice/quiz/:lessonId" element={<Quiz data={exerciseData} />} />
+          <Route path="practice/review" element={<Review />} />
+          <Route path="exam" element={<Exam />} />
+          <Route path="exam/:moduleId" element={<ExamModule />} />
+          <Route path="my-words" element={<Navigate to="/learn/my-words" replace />} />
+          <Route path="review" element={<Navigate to="/practice/review" replace />} />
+          <Route path="chooselesson" element={<Navigate to="/learn/vocabulary" replace />} />
+          <Route path="chooselesson/:lessonId" element={<LegacyRedirect prefix="/learn/vocabulary" />} />
+          <Route path="choosepair" element={<Navigate to="/practice/pair" replace />} />
+          <Route path="choosepair/:lessonId" element={<LegacyRedirect prefix="/practice/pair" />} />
+          <Route path="choosewrite" element={<Navigate to="/practice/spelling" replace />} />
+          <Route path="choosewrite/:lessonId" element={<LegacyRedirect prefix="/practice/spelling" />} />
+          <Route path="choosecards" element={<Navigate to="/practice/cards" replace />} />
+          <Route path="choosecards/:lessonId" element={<LegacyRedirect prefix="/practice/cards" />} />
+          <Route path="choosetest" element={<Navigate to="/practice/test" replace />} />
+          <Route path="choosetest/:lessonId" element={<LegacyRedirect prefix="/practice/test" />} />
+          <Route path="choosequiz" element={<Navigate to="/practice/quiz" replace />} />
+          <Route path="choosequiz/:lessonId" element={<LegacyRedirect prefix="/practice/quiz" />} />
           <Route path="*" element={<NoMatch />} />
         </Route>
       </Routes>
     </>
   );
 }
+
+const LegacyRedirect = ({ prefix }) => {
+  const { lessonId } = useParams();
+  return <Navigate to={`${prefix}/${lessonId}`} replace />;
+};
 
 export default App;

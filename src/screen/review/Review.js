@@ -13,6 +13,7 @@ import {
   PracticePrimaryButton,
   PracticeSurface,
 } from "../../components/practice/PracticeLayout";
+import { TARGET_LANGUAGE, TARGET_LANGUAGE_NAME } from "../../config/course";
 
 export const Review = () => {
   const { t } = useLanguage();
@@ -68,7 +69,7 @@ export const Review = () => {
           ) : (
             <>
               <Answer>{word.target}</Answer>
-              <CompactSoundButton text={word.target} lang="sr-RS" ariaLabel={`Hear Serbian pronunciation: ${word.target}`}>
+              <CompactSoundButton text={word.target} lang={TARGET_LANGUAGE} ariaLabel={`Hear ${TARGET_LANGUAGE_NAME} pronunciation: ${word.target}`}>
                 <FaVolumeUp aria-hidden="true" />
               </CompactSoundButton>
               <WordStatusActions word={word} />

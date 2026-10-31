@@ -9,12 +9,7 @@ export const ChooseLesson = ({ data }) => {
     <BtnList
       dataList={data}
       title={t("navigation.learn")}
-      nav="chooselesson"
-      leadingItem={{
-        to: "/grammar",
-        title: t("grammar.title"),
-        description: t("grammar.description"),
-      }}
+      nav="learn/vocabulary"
     />
   );
 };

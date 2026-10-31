@@ -13,7 +13,7 @@ import {
   saveWordStatusesToIndexedDb,
   withVocabularyDefaults,
 } from "../data/myWords";
-import { Curriculum } from "../data/data";
+import { GermanCurriculum } from "../data/germanFixtures";
 
 const MyWordsContext = createContext(null);
 
@@ -87,7 +87,7 @@ export const MyWordsProvider = ({ children }) => {
 
   const deleteWord = (id) => persist(words.filter((word) => word.id !== id));
 
-  const curriculumWords = Curriculum.flatMap((lesson) =>
+  const curriculumWords = GermanCurriculum.flatMap((lesson) =>
     lesson.items.map((word) => {
       const saved = wordStatuses.find((entry) => entry.id === word.id);
       return saved ? { ...word, ...saved } : word;

@@ -11,8 +11,8 @@ export const ChooseQuiz = ({ data }) => {
     <Container>
       <Row>
         {data.map((lesson, index) => (
-          <div key={index}>
-            <Button to={`/choosequiz/${index}`}>
+          <div key={lesson.id || index}>
+            <Button to={`/practice/quiz/${lesson.id || index}`}>
               <Title>{lesson.titleKey ? t(lesson.titleKey) : `${t("navigation.quiz")} ${index + 1}`}</Title>
               {lesson.descriptionKey && (
                 <Description>{t(lesson.descriptionKey)}</Description>

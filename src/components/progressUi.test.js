@@ -11,7 +11,7 @@ import { Home } from "../screen/home/Home";
 import { Lesson } from "../screen/lesson/Lesson";
 import { Test } from "../screen/test/Test";
 import { Cards } from "../screen/cards/Cards";
-import { Curriculum } from "../data/data";
+import { GermanCurriculum } from "../data/germanFixtures";
 
 jest.mock("../services/tts/ttsProvider", () => ({ speak: jest.fn() }));
 jest.mock("react-speech-kit", () => ({
@@ -33,7 +33,7 @@ beforeEach(() => {
 
 test("first-run onboarding advances through three screens and persists completion", () => {
   render(<Providers><Onboarding /></Providers>);
-  expect(screen.getByRole("heading", { name: "Serbian A1" })).toBeTruthy();
+  expect(screen.getByRole("heading", { name: "German B1" })).toBeTruthy();
   fireEvent.click(screen.getByRole("button", { name: "Continue" }));
   expect(screen.getByRole("heading", { name: "Learn" })).toBeTruthy();
   fireEvent.click(screen.getByRole("button", { name: "Continue" }));
@@ -69,8 +69,8 @@ test("Home credits Asenda Studio using the verified studio destination", () => {
 
   const attribution = screen.getByRole("link", { name: "Created by Asenda Studio" });
   expect(attribution.getAttribute("href")).toBe("https://asenda-studio.vercel.app");
-  expect(screen.getByAltText("Serbian A1").getAttribute("src")).toContain(
-    "serbian-a1-wordmark-compact.png"
+  expect(screen.getByAltText("German B1").getAttribute("src")).toContain(
+    "german-b1-wordmark-compact.svg"
   );
 });
 
@@ -86,7 +86,7 @@ test("Review reveals a mistake, supports word statuses, and clears it when corre
   }));
   render(<Providers><Review /></Providers>);
   expect(screen.getByRole("heading", { name: "house" })).toBeTruthy();
-  fireEvent.click(screen.getByRole("button", { name: "Reveal Serbian" }));
+  fireEvent.click(screen.getByRole("button", { name: "Reveal German" }));
   expect(screen.getByText("kuća")).toBeTruthy();
   fireEvent.click(screen.getByRole("button", { name: "Add to favorites" }));
   fireEvent.click(screen.getByRole("button", { name: "Mark as Known" }));
@@ -122,7 +122,7 @@ test("completing a lesson persists the category and makes Home offer Continue le
 
   render(<Providers><MemoryRouter><Home /></MemoryRouter></Providers>);
   expect(screen.getByText("Continue learning")).toBeTruthy();
-  expect(screen.getByText("1 / 35")).toBeTruthy();
+  expect(screen.getByText("1 / 3")).toBeTruthy();
 });
 
 test("Lesson reserves fixed-header space and groups completion actions compactly", () => {
@@ -152,8 +152,8 @@ test("Lesson reserves fixed-header space and groups completion actions compactly
 
 test("Cards use icon-only accessible Favorite and Known controls", () => {
   const data = [{
-    ...Curriculum[0],
-    items: Curriculum[0].items.slice(0, 2),
+    ...GermanCurriculum[0],
+    items: GermanCurriculum[0].items.slice(0, 2),
   }];
   render(
     <Providers>
@@ -191,7 +191,7 @@ test("a wrong Test answer persists a recent mistake and completed practice sessi
       wordId: "word-house",
       source: "house",
       target: "kuća",
-      prompt: "\"house\" in Serbian is:",
+      prompt: "Choose the German translation for house.",
       options: ["kuća", "voda"],
       answer: "kuća",
     }],

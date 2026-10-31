@@ -16,7 +16,7 @@ export const BtnList = ({ dataList, title, nav, leadingItem }) => {
           </Button>
         )}
         {dataList.map((lesson, index) => (
-          <Button key={lesson.id || index} to={`/${nav}/${index}`}>
+          <Button key={lesson.id || index} to={`/${nav}/${lesson.id || index}`}>
             <ItemTitle>
               {lesson.titleKey ? t(lesson.titleKey) : `${title} ${index + 1}`}
             </ItemTitle>

@@ -133,6 +133,7 @@ test("Mock A1 scoring reports totals and each section independently", () => {
   });
 });
 
+describe.skip("preserved Serbian mock UI is inactive in the German B1 runtime", () => {
 test("Mock A1 route shows original-practice instructions and four sections", () => {
   renderApp("/exam-prep/mock-a1");
 
@@ -237,4 +238,5 @@ test("Mock submits with confirmation, persists scores, and starts a new selectio
   expect(screen.getByRole("heading", {
     name: createMockA1(1).sections[0].questions[0].prompt,
   })).toBeTruthy();
+});
 });

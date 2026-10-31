@@ -10,6 +10,7 @@ import {
 } from "../../data/mockA1";
 import { useProgress } from "../../i18n/ProgressProvider";
 import { theme } from "../../styles/theme";
+import { TARGET_LANGUAGE } from "../../config/course";
 
 const totalBeforeSection = (mock, sectionIndex) =>
   mock.sections
@@ -232,7 +233,7 @@ export const MockA1 = () => {
         <ListeningCard>
           <CompactSoundButton
             text={question.transcript}
-            lang="sr-RS"
+            lang={TARGET_LANGUAGE}
             ariaLabel={`Play mock listening: ${question.audioTitle}`}
           >
             <FaVolumeUp aria-hidden="true" />

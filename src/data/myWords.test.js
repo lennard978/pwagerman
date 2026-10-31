@@ -16,7 +16,7 @@ const mockProviderSpeak = jest.fn(({ browserSpeak, text }) => browserSpeak({ tex
 jest.mock("react-speech-kit", () => ({
   useSpeechSynthesis: () => ({
     speak: mockSpeak,
-    voices: [{ lang: "sr-RS", localService: true }],
+    voices: [{ lang: "de-DE", localService: true }],
   }),
 }));
 
@@ -81,7 +81,7 @@ const Probe = () => {
 
 const VocabularyProbe = () => {
   const { allWords, toggleFavorite, toggleKnown } = useMyWords();
-  const word = allWords.find((item) => item.id === "lesson-35-word-1");
+  const word = allWords.find((item) => item.id === "de-communication-meinung");
   return (
     <>
       <span data-testid="new-word-status">{word.status}</span>
@@ -100,13 +100,13 @@ beforeEach(() => {
 });
 
 
-test("My Words saves and loads custom English-to-Serbian entries", () => {
+test("My Words saves and loads custom English-to-German entries", () => {
   render(
     <LanguageProvider><MyWordsProvider><MyWords /></MyWordsProvider></LanguageProvider>
   );
 
   fireEvent.change(screen.getAllByLabelText("English")[0], { target: { value: "airport" } });
-  fireEvent.change(screen.getAllByLabelText("Serbian")[0], { target: { value: "aerodrom" } });
+  fireEvent.change(screen.getAllByLabelText("German")[0], { target: { value: "der Flughafen" } });
   fireEvent.click(screen.getByRole("button", { name: "Save" }));
 
   expect(screen.getByText("airport")).toBeTruthy();
@@ -121,10 +121,10 @@ test("My Words tolerates malformed storage and rejects exact duplicates", () => 
     <LanguageProvider><MyWordsProvider><MyWords /></MyWordsProvider></LanguageProvider>
   );
   fireEvent.change(screen.getAllByLabelText("English")[0], { target: { value: "house" } });
-  fireEvent.change(screen.getAllByLabelText("Serbian")[0], { target: { value: "kuća" } });
+  fireEvent.change(screen.getAllByLabelText("German")[0], { target: { value: "das Haus" } });
   fireEvent.click(screen.getByRole("button", { name: "Save" }));
   fireEvent.change(screen.getAllByLabelText("English")[0], { target: { value: "house" } });
-  fireEvent.change(screen.getAllByLabelText("Serbian")[0], { target: { value: "kuća" } });
+  fireEvent.change(screen.getAllByLabelText("German")[0], { target: { value: "das Haus" } });
   fireEvent.click(screen.getByRole("button", { name: "Save" }));
 
   expect(screen.getByRole("alert")).toBeTruthy();
@@ -176,20 +176,20 @@ test("new curriculum words use the existing Known and Favorite persistence", () 
   expect(screen.getByTestId("new-word-status").textContent).toBe("known");
   expect(screen.getByTestId("new-word-favorite").textContent).toBe("true");
   expect(JSON.parse(localStorage.getItem(WORD_STATUSES_STORAGE_KEY))).toContainEqual({
-    id: "lesson-35-word-1",
+    id: "de-communication-meinung",
     status: "known",
     favorite: true,
   });
 });
 
-test("saved My Words pronounce the Serbian target without coupling Edit/Delete", () => {
+test("saved My Words pronounce the German target without coupling Edit/Delete", () => {
   localStorage.setItem(MY_WORDS_STORAGE_KEY, JSON.stringify([
     { id: "1", source: "house", target: "kuća", createdAt: "2026-01-01" },
   ]));
   render(<LanguageProvider><MyWordsProvider><MyWords /></MyWordsProvider></LanguageProvider>);
 
   const pronunciation = screen.getByRole("button", {
-    name: "Hear Serbian pronunciation: kuća",
+    name: "Hear German pronunciation: kuća",
   });
   expect(screen.getByRole("button", { name: "Edit" })).toBeTruthy();
   expect(screen.getByRole("button", { name: "Delete" })).toBeTruthy();
@@ -223,7 +223,7 @@ test("My Words persists across a simulated reload via IndexedDB", async () => {
     <LanguageProvider><MyWordsProvider><MyWords /></MyWordsProvider></LanguageProvider>
   );
   fireEvent.change(screen.getAllByLabelText("English")[0], { target: { value: "bread" } });
-  fireEvent.change(screen.getAllByLabelText("Serbian")[0], { target: { value: "hleb" } });
+  fireEvent.change(screen.getAllByLabelText("German")[0], { target: { value: "das Brot" } });
   fireEvent.click(screen.getByRole("button", { name: "Save" }));
   await waitFor(() => expect(screen.getByText("bread")).toBeTruthy());
 
@@ -239,7 +239,7 @@ test("create, edit, and delete still work after migrating to IndexedDB", async (
   render(<LanguageProvider><MyWordsProvider><MyWords /></MyWordsProvider></LanguageProvider>);
 
   fireEvent.change(screen.getAllByLabelText("English")[0], { target: { value: "cat" } });
-  fireEvent.change(screen.getAllByLabelText("Serbian")[0], { target: { value: "mačka" } });
+  fireEvent.change(screen.getAllByLabelText("German")[0], { target: { value: "die Katze" } });
   fireEvent.click(screen.getByRole("button", { name: "Save" }));
   await waitFor(() => expect(screen.getByText("cat")).toBeTruthy());
 

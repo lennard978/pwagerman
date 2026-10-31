@@ -1,0 +1,32 @@
+{
+  "id": "german-b1",
+  "sourceLanguage": "en",
+  "targetLanguage": "de-DE",
+  "targetLanguageName": "German",
+  "uiLanguage": "en",
+  "level": "B1",
+  "productName": "German B1",
+  "descriptor": "Exam Preparation",
+  "provider": "Asenda Studio",
+  "examReference": "Goethe-Zertifikat B1",
+  "officialAffiliation": false,
+  "contentVersion": "foundation-1",
+  "tts": {
+    "cacheVersion": "de-v1",
+    "defaultVoice": "de-DE-Chirp3-HD-Aoede"
+  },
+  "storage": {
+    "settings": "asenda.german-b1.settings.v1",
+    "uiLanguage": "asenda.german-b1.ui-language.v1",
+    "myWords": "asenda.german-b1.myWords.v1",
+    "myWordsMigrated": "asenda.german-b1.myWords.migratedToIndexedDb.v1",
+    "wordStatuses": "asenda.german-b1.wordStatuses.v1",
+    "learningProgress": "asenda.german-b1.learningProgress.v1",
+    "installHelpDismissed": "asenda.german-b1.installHelp.dismissed.v1",
+    "indexedDb": "asenda-german-b1"
+  },
+  "assets": {
+    "wordmark": "/german-b1-wordmark.svg",
+    "compactWordmark": "/german-b1-wordmark-compact.svg"
+  }
+}

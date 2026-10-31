@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useLanguage } from "../i18n/LanguageProvider";
 import { useProgress } from "../i18n/ProgressProvider";
 import { theme } from "../styles/theme";
+import { getPublicAsset } from "../config/course";
 
 export const Onboarding = () => {
   const { t } = useLanguage();
@@ -19,7 +20,7 @@ export const Onboarding = () => {
     <Overlay role="dialog" aria-modal="true" aria-label={t("onboarding.title")}>
       <Card>
         {screen === 0 && (
-          <Logo src={`${process.env.PUBLIC_URL}/serbian-a1-wordmark.png`} alt="" />
+          <Logo src={getPublicAsset("wordmark")} alt="" />
         )}
         <Title>{page.title}</Title>
         <Text>{page.text}</Text>
@@ -42,9 +43,9 @@ export const Onboarding = () => {
   );
 };
 
-const Overlay = styled.div`position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; padding: 1rem; background: ${theme.colors.background};`;
-const Card = styled.section`inline-size: min(100%, 28rem); display: grid; justify-items: center; gap: 1rem; padding: 1.5rem; color: ${theme.colors.text}; background: ${theme.colors.surface}; border: 1px solid ${theme.colors.border}; border-radius: ${theme.radius.large}; box-shadow: ${theme.shadow.soft}; text-align: center;`;
-const Logo = styled.img`inline-size: min(100%, 14rem); block-size: auto;`;
+const Overlay = styled.div`position: fixed; inset: 0; z-index: 100; box-sizing: border-box; display: grid; grid-template-columns: minmax(0, 1fr); place-items: center; padding: 1rem; background: ${theme.colors.background};`;
+const Card = styled.section`box-sizing: border-box; inline-size: 100%; max-inline-size: 28rem; min-inline-size: 0; display: grid; grid-template-columns: minmax(0, 1fr); justify-items: center; gap: 1rem; overflow: hidden; padding: 1.5rem; color: ${theme.colors.text}; background: ${theme.colors.surface}; border: 1px solid ${theme.colors.border}; border-radius: ${theme.radius.large}; box-shadow: ${theme.shadow.soft}; text-align: center;`;
+const Logo = styled.img`display: block; inline-size: 100%; max-inline-size: 14rem; min-inline-size: 0; block-size: auto;`;
 const Title = styled.h1`margin: 0; color: ${theme.colors.navy}; font-size: 1.8rem;`;
 const Text = styled.p`margin: 0; max-inline-size: 22rem; color: ${theme.colors.textMuted}; line-height: 1.55;`;
 const Dots = styled.div`display: flex; gap: 0.4rem;`;

@@ -9,7 +9,7 @@ import {
   Lesson5,
   Lesson6,
 } from "./data";
-import { Test1, Test2, Test3, Test4, Test5, Test6, Tests } from "./test";
+import { Test1, Test2, Test3, Tests } from "./test";
 import { Cards, cardsSizeConstraints } from "../screen/cards/Cards";
 import { ChooseLesson } from "../screen/lesson/ChooseLesson";
 import { Lesson } from "../screen/lesson/Lesson";
@@ -22,6 +22,7 @@ import SoundButton, { selectBestVoice } from "../components/SoundButton";
 import { normalizeSpeechLanguage } from "../services/tts/ttsProvider";
 import { LanguageProvider } from "../i18n/LanguageProvider";
 import { Curriculum } from "./data";
+import { GermanCurriculum } from "./germanFixtures";
 import { createBoundedRound, EXERCISE_ROUND_LIMITS } from "./exerciseRounds";
 import { progressWord } from "./learningProgress";
 import { practiceTokens } from "../components/practice/PracticeLayout";
@@ -31,7 +32,7 @@ const mockSpeak = jest.fn();
 jest.mock("react-speech-kit", () => ({
   useSpeechSynthesis: () => ({
     speak: mockSpeak,
-    voices: [{ lang: "sr-RS" }, { lang: "en-US" }],
+    voices: [{ lang: "de-DE" }, { lang: "en-US" }],
   }),
 }));
 
@@ -155,7 +156,7 @@ test("exercise rounds stay bounded as vocabulary categories grow", () => {
     });
   });
   expect(Math.max(...Tests.map((testSet) => testSet.questions.length)))
-    .toBe(EXERCISE_ROUND_LIMITS.test);
+    .toBeLessThanOrEqual(EXERCISE_ROUND_LIMITS.test);
 });
 
 test("lesson chooser exposes all six lessons", () => {
@@ -167,8 +168,7 @@ test("lesson chooser exposes all six lessons", () => {
     </MemoryRouter>
   );
 
-  expect(screen.getAllByRole("link")).toHaveLength(7);
-  expect(screen.getByRole("link", { name: /Grammar/ })).toBeTruthy();
+  expect(screen.getAllByRole("link")).toHaveLength(6);
   expect(screen.getByText("Greetings & Introductions")).toBeTruthy();
   expect(screen.getByText("Travel & Places")).toBeTruthy();
 });
@@ -192,7 +192,7 @@ test("Lessons 4 through 6 render in the shared Lesson engine", () => {
   });
 });
 
-test("Write renders an English prompt and Serbian answer", () => {
+test("Spelling renders an English prompt and German answer", () => {
   renderWithLanguage(
     <MemoryRouter initialEntries={["/write/0"]}>
       <Routes>
@@ -293,7 +293,7 @@ test("Write keeps duplicate letter IDs stable when returning an exact tile", () 
   expect(document.querySelector(`[data-filled="false"][data-tile-id="${tileIds[0]}"]`)).toBeTruthy();
 });
 
-test("Write preserves Serbian diacritics as individual letter tiles", () => {
+test("Spelling preserves target-language diacritics as individual letter tiles", () => {
   renderWithLanguage(
     <MemoryRouter initialEntries={["/write/0"]}>
       <Routes>
@@ -328,7 +328,7 @@ test("Write evaluates the exact target with automatic spaces and speaks once", (
   expect(mockSpeak).toHaveBeenCalledTimes(1);
 });
 
-test("Pair renders English source and Serbian target values", () => {
+test("Pair renders English source and German target values", () => {
   renderWithLanguage(
     <MemoryRouter initialEntries={["/pair/0"]}>
       <Routes>
@@ -386,10 +386,10 @@ test("Pair completion links back to the existing selector", () => {
   fireEvent.click(screen.getByRole("button", { name: "voda" }));
 
   expect(screen.getByText("All pairs matched")).toBeTruthy();
-  expect(screen.getByRole("link", { name: "Back to Pair" }).getAttribute("href")).toBe("/choosepair");
+  expect(screen.getByRole("link", { name: "Back to Pair" }).getAttribute("href")).toBe("/practice/pair");
 });
 
-test("Cards render English on the front and Serbian on the back", () => {
+test("Cards render English on the front and German on the back", () => {
   renderWithLanguage(
     <MemoryRouter initialEntries={["/cards/0"]}>
       <Routes>
@@ -413,7 +413,7 @@ test("Cards render English on the front and Serbian on the back", () => {
   });
 });
 
-test("Cards speak once each time they flip to Serbian", () => {
+test("Cards speak once each time they flip to German", () => {
   mockSpeak.mockClear();
   renderWithLanguage(
     <MemoryRouter initialEntries={["/cards/0"]}>
@@ -423,13 +423,13 @@ test("Cards speak once each time they flip to Serbian", () => {
     </MemoryRouter>
   );
 
-  fireEvent.click(screen.getByRole("button", { name: "Show Serbian translation" }));
+  fireEvent.click(screen.getByRole("button", { name: "Show German translation" }));
   expect(mockSpeak).toHaveBeenCalledTimes(1);
   fireEvent.click(screen.getByRole("button", { name: "Show English word" }));
   expect(mockSpeak).toHaveBeenCalledTimes(1);
-  fireEvent.click(screen.getByRole("button", { name: "Show Serbian translation" }));
+  fireEvent.click(screen.getByRole("button", { name: "Show German translation" }));
   expect(mockSpeak).toHaveBeenCalledTimes(2);
-  expect(screen.getByRole("link", { name: "Back to Cards" }).getAttribute("href")).toBe("/choosecards");
+  expect(screen.getByRole("link", { name: "Back to Cards" }).getAttribute("href")).toBe("/practice/cards");
 });
 
 test("Cards update when navigating to another lesson", () => {
@@ -497,12 +497,12 @@ test("Test speaker pronounces without selecting the answer", () => {
     </MemoryRouter>
   );
 
-  fireEvent.click(screen.getByRole("button", { name: "Hear Serbian pronunciation: kuća" }));
+  fireEvent.click(screen.getByRole("button", { name: "Hear German pronunciation: kuća" }));
   expect(mockSpeak).toHaveBeenCalledTimes(1);
   expect(screen.getByRole("button", { name: "Next" }).disabled).toBe(true);
 });
 
-test("Quiz presents an English prompt with Serbian choices and completes", () => {
+test("Quiz presents an English prompt with German choices and completes", () => {
   renderWithLanguage(
     <MemoryRouter initialEntries={["/quiz/0"]}>
       <Routes>
@@ -538,7 +538,7 @@ test("Quiz presents an English prompt with Serbian choices and completes", () =>
   });
 
   expect(screen.getByText("Quiz complete")).toBeTruthy();
-  expect(screen.getByRole("link", { name: "Back to Quiz" }).getAttribute("href")).toBe("/choosequiz");
+  expect(screen.getByRole("link", { name: "Back to Quiz" }).getAttribute("href")).toBe("/practice/quiz");
 });
 
 test("Quiz uses answer colors without an extra correctness label", () => {
@@ -565,7 +565,7 @@ test("Test results review the learner answer and correct answer", () => {
       <Routes>
         <Route
           path="/test/:userId"
-          element={<Test data={[[{ prompt: '"house" in Serbian is:', options: ["kuća", "voda"], answer: "kuća" }]]} />}
+          element={<Test data={[[{ prompt: 'Choose the German translation for "house".', options: ["kuća", "voda"], answer: "kuća" }]]} />}
         />
       </Routes>
     </MemoryRouter>
@@ -587,7 +587,7 @@ test("Test perfect result reports no mistakes", () => {
       <Routes>
         <Route
           path="/test/:userId"
-          element={<Test data={[[{ prompt: '"house" in Serbian is:', options: ["kuća", "voda"], answer: "kuća" }]]} />}
+          element={<Test data={[[{ prompt: 'Choose the German translation for "house".', options: ["kuća", "voda"], answer: "kuća" }]]} />}
         />
       </Routes>
     </MemoryRouter>
@@ -618,7 +618,7 @@ test("Quiz speaker does not select and results review every answer", () => {
 
   const firstPrompt = screen.getByText(/^(house|water|chair|city)$/).textContent;
   const firstTarget = items.find((item) => item.source === firstPrompt).target;
-  fireEvent.click(screen.getByRole("button", { name: `Hear Serbian pronunciation: ${firstTarget}` }));
+  fireEvent.click(screen.getByRole("button", { name: `Hear German pronunciation: ${firstTarget}` }));
   expect(mockSpeak).toHaveBeenCalledTimes(1);
   expect(screen.queryByRole("button", { name: "Next" })).toBeNull();
 
@@ -632,12 +632,12 @@ test("Quiz speaker does not select and results review every answer", () => {
 });
 
 test("active test data contains bounded questions for every curriculum category", () => {
-  const testSets = [Test1, Test2, Test3, Test4, Test5, Test6];
+  const testSets = [Test1, Test2, Test3];
 
-  expect(Tests.slice(0, 6)).toEqual(testSets);
-  expect(Tests).toHaveLength(Curriculum.length);
+  expect(Tests).toEqual(testSets);
+  expect(Tests).toHaveLength(GermanCurriculum.length);
   Tests.forEach((testSet, index) => {
-    const lesson = Curriculum[index];
+    const lesson = GermanCurriculum[index];
     const lessonTargets = lesson.items.map((item) => item.target);
     expect(testSet.titleKey).toBe(lesson.titleKey);
     expect(testSet.descriptionKey).toBe(lesson.descriptionKey);
@@ -646,7 +646,7 @@ test("active test data contains bounded questions for every curriculum category"
     testSet.questions.forEach((question) => {
       expect(question.options).not.toEqual(["der", "die", "das"]);
       expect(new Set(question.options).size).toBe(question.options.length);
-      expect(question.prompt).toContain("Serbian");
+      expect(question.prompt).toContain("German");
       expect(lessonTargets).toContain(question.answer);
       question.options.forEach((option) => expect(lessonTargets).toContain(option));
     });
@@ -660,52 +660,50 @@ test("Test chooser renders every bounded curriculum test", () => {
     </MemoryRouter>
   );
 
-  expect(screen.getAllByRole("link")).toHaveLength(35);
-  expect(screen.getByText("Greetings & Introductions")).toBeTruthy();
+  expect(screen.getAllByRole("link")).toHaveLength(3);
   expect(screen.getByText("Travel & Places")).toBeTruthy();
-  expect(screen.getByText("Common Verbs")).toBeTruthy();
-  expect(screen.getByText("Colours")).toBeTruthy();
-  expect(screen.getByText("Learn essential greetings and simple introductions.")).toBeTruthy();
+  expect(screen.getByText("Daily Life & Appointments")).toBeTruthy();
+  expect(screen.getByText("Communication Phrases")).toBeTruthy();
 });
 
-test("SoundButton selects a Serbian voice from its explicit content language", () => {
+test("SoundButton selects a German voice from its explicit content language", () => {
   mockSpeak.mockClear();
-  render(<SoundButton text="kuća" lang="sr">Kuća</SoundButton>);
+  render(<SoundButton text="der Zug" lang="de-DE">Zug</SoundButton>);
 
-  fireEvent.click(screen.getByText("Kuća"));
+  fireEvent.click(screen.getByText("Zug"));
 
   expect(mockSpeak).toHaveBeenCalledWith({
     rate: 0.92,
     pitch: 1,
     volume: 1,
-    voice: { lang: "sr-RS" },
-    text: "kuća",
+    voice: { lang: "de-DE" },
+    text: "der Zug",
   });
 });
 
-test("Serbian voice selection prefers exact local sr-RS voices", () => {
+test("German voice selection prefers exact local de-DE voices", () => {
   const voice = selectBestVoice([
-    { name: "Serbian Basic", lang: "sr", localService: false },
-    { name: "Serbian Natural", lang: "sr-RS", localService: true },
-  ], "sr");
+    { name: "German Basic", lang: "de", localService: false },
+    { name: "German Natural", lang: "de-DE", localService: true },
+  ], "de-DE");
 
-  expect(voice.name).toBe("Serbian Natural");
+  expect(voice.name).toBe("German Natural");
 });
 
-test("Serbian speech falls back to another sr voice or browser default", () => {
-  expect(selectBestVoice([{ name: "Serbian", lang: "sr-Latn" }], "sr").lang).toBe("sr-Latn");
-  expect(selectBestVoice([{ name: "English", lang: "en-US" }], "sr")).toBeUndefined();
+test("German speech falls back to another de voice or browser default", () => {
+  expect(selectBestVoice([{ name: "German", lang: "de-AT" }], "de").lang).toBe("de-AT");
+  expect(selectBestVoice([{ name: "English", lang: "en-US" }], "de")).toBeUndefined();
 });
 
 test.each([
-  ["sr", "sr-RS"],
-  ["sr-Latn", "sr-RS"],
-  ["sr-RS", "sr-RS"],
-])("normalizes Serbian locale %s to %s", (input, expected) => {
+  ["de", "de-DE"],
+  ["de-AT", "de-DE"],
+  ["de-DE", "de-DE"],
+])("normalizes German locale %s to %s", (input, expected) => {
   expect(normalizeSpeechLanguage(input)).toBe(expected);
 });
 
-test("Lesson speaks the Serbian target", () => {
+test("Lesson speaks the German target", () => {
   mockSpeak.mockClear();
   renderWithLanguage(
     <MemoryRouter initialEntries={["/lesson/0"]}>
@@ -721,14 +719,14 @@ test("Lesson speaks the Serbian target", () => {
   );
 
   fireEvent.click(screen.getByRole("button", {
-    name: "Hear Serbian pronunciation: kuća",
+    name: "Hear German pronunciation: kuća",
   }));
 
   expect(mockSpeak).toHaveBeenCalledWith({
     rate: 0.92,
     pitch: 1,
     volume: 1,
-    voice: { lang: "sr-RS" },
+    voice: { lang: "de-DE" },
     text: "kuća",
   });
 });

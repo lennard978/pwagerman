@@ -5,6 +5,7 @@ import { CompactSoundButton } from "../../components/CompactSoundButton";
 import { ListeningTasks, ReadingTasks } from "../../data/examPrep";
 import { theme } from "../../styles/theme";
 import { ExamPrepSession } from "./ExamPrepSession";
+import { TARGET_LANGUAGE } from "../../config/course";
 
 export const ExamPrepTask = () => {
   const { area, taskId } = useParams();
@@ -33,7 +34,7 @@ export const ExamPrepTask = () => {
     <ListeningPanel>
       <CompactSoundButton
         text={task.transcript}
-        lang="sr-RS"
+        lang={TARGET_LANGUAGE}
         ariaLabel={`Play listening task: ${task.title}`}
       >
         <FaVolumeUp aria-hidden="true" />

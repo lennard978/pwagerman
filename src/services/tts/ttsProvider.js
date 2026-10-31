@@ -1,5 +1,6 @@
 import { speakWithBrowser } from "./browserTtsProvider";
 import { fetchCloudAudio } from "./cloudTtsProvider";
+import { COURSE_CONFIG, TARGET_LANGUAGE, TTS_CONFIG } from "../../config/course";
 
 const audioCache = new Map();
 let activePlayback = null;
@@ -81,17 +82,17 @@ const playCloudBlob = ({ audio, blob, requestId, fallback }) => {
 };
 
 export const normalizeSpeechLanguage = (language) => {
-  if (typeof language !== "string") return language;
-  const normalized = language.toLowerCase();
-  if (normalized === "sr" || normalized === "sr-latn" || normalized === "sr-rs") {
-    return "sr-RS";
-  }
-  return language;
+  if (typeof language !== "string" || !language.trim()) return TARGET_LANGUAGE;
+  const normalized = language.trim().toLowerCase();
+  const targetBase = TARGET_LANGUAGE.toLowerCase().split("-")[0];
+  return normalized === targetBase || normalized.startsWith(`${targetBase}-`)
+    ? TARGET_LANGUAGE
+    : language;
 };
 
 export const speak = ({ text, lang, voices, browserSpeak }) => {
   const speechLanguage = normalizeSpeechLanguage(lang);
-  const cacheKey = `${speechLanguage}:v2:${text.trim().toLocaleLowerCase()}`;
+  const cacheKey = `${COURSE_CONFIG.id}:${TTS_CONFIG.cacheVersion}:${speechLanguage}:${text.trim().toLocaleLowerCase()}`;
   const requestId = ++playbackSequence;
   const preparedAudio = prepareAudio();
   const fallback = () => speakWithBrowser({

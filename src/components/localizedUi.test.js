@@ -35,7 +35,7 @@ const RouteLanguageProbe = () => {
   return (
     <>
       <span data-testid="current-path">{location.pathname}</span>
-      <button onClick={() => setLanguage("sr-Latn")}>Change language</button>
+      <button onClick={() => setLanguage("fr-FR")}>Change language</button>
     </>
   );
 };
@@ -45,7 +45,7 @@ const LanguageStateProbe = () => {
   return (
     <>
       <span data-testid="language-state">{language}</span>
-      <button onClick={() => setLanguage("sr-Latn")}>Change language</button>
+      <button onClick={() => setLanguage("fr-FR")}>Change language</button>
     </>
   );
 };
@@ -74,7 +74,7 @@ test("renders all active navigation labels in English", () => {
     "en"
   );
 
-  ["Home", "Learn", "Practice", "My Words"].forEach(
+  ["Home", "Learn", "Practice", "Exam"].forEach(
     (label) => {
       expect(screen.getByRole("link", { name: label })).toBeTruthy();
     }
@@ -93,22 +93,22 @@ test("keeps four navigation links without a visible language selector", () => {
   expect(screen.getAllByRole("link")).toHaveLength(4);
 });
 
-test("renders all active navigation labels in Serbian Latin", () => {
+test("ignores an inactive persisted UI locale", () => {
   renderWithLanguage(
     <MemoryRouter>
       <Nav />
     </MemoryRouter>,
-    "sr-Latn"
+    "fr-FR"
   );
 
-  ["Početna", "Učenje", "Vežbanje", "Moje reči"].forEach(
+  ["Home", "Learn", "Practice", "Exam"].forEach(
     (label) => {
       expect(screen.getByRole("link", { name: label })).toBeTruthy();
     }
   );
 });
 
-test("internal language state can still switch without a visible selector", () => {
+test("internal language state remains English", () => {
   renderWithLanguage(
     <MemoryRouter>
       <Nav />
@@ -118,11 +118,11 @@ test("internal language state can still switch without a visible selector", () =
   );
 
   fireEvent.click(screen.getByRole("button", { name: "Change language" }));
-  expect(screen.getByTestId("language-state").textContent).toBe("sr-Latn");
-  expect(window.localStorage.getItem(LANGUAGE_STORAGE_KEY)).toBe("sr-Latn");
+  expect(screen.getByTestId("language-state").textContent).toBe("en");
+  expect(window.localStorage.getItem(LANGUAGE_STORAGE_KEY)).toBe("en");
 });
 
-test("localizes lesson metadata without changing vocabulary", () => {
+test("keeps English lesson metadata and content separate", () => {
   renderWithLanguage(
     <MemoryRouter>
       <Nav />
@@ -138,27 +138,27 @@ test("localizes lesson metadata without changing vocabulary", () => {
 
   fireEvent.click(screen.getByRole("button", { name: "Change language" }));
 
-  expect(screen.getByText("Pozdravi i upoznavanje")).toBeTruthy();
+  expect(screen.getByText("Greetings & Introductions")).toBeTruthy();
   expect(screen.getByTestId("lesson-source").textContent).toBe("house");
 });
 
-test("localizes an exercise completion action", () => {
+test("uses the Spelling completion action", () => {
   renderWithLanguage(
     <MemoryRouter initialEntries={["/choosewrite/0"]}>
       <Routes>
         <Route path="/choosewrite/:userId" element={<Write data={lessonData} />} />
       </Routes>
     </MemoryRouter>,
-    "sr-Latn"
+    "fr-FR"
   );
 
-  expect(screen.getByRole("link", { name: "Nazad na pisanje" })).toBeTruthy();
+  expect(screen.getByRole("link", { name: "Back to Spelling" })).toBeTruthy();
 });
 
-test("localizes the not-found screen", () => {
-  renderWithLanguage(<NoMatch />, "sr-Latn");
+test("keeps the not-found screen in English", () => {
+  renderWithLanguage(<NoMatch />, "fr-FR");
 
-  expect(screen.getByText("Stranica nije pronađena (404)")).toBeTruthy();
+  expect(screen.getByText("Page not found (404)")).toBeTruthy();
 });
 
 test("changing language does not change the current route", () => {
@@ -211,7 +211,7 @@ test("uses browser detection after an invalid persisted language", () => {
   window.localStorage.setItem(LANGUAGE_STORAGE_KEY, "de");
   Object.defineProperty(window.navigator, "language", {
     configurable: true,
-    value: "sr-RS",
+    value: "fr-FR",
   });
 
   render(
@@ -222,18 +222,18 @@ test("uses browser detection after an invalid persisted language", () => {
     </LanguageProvider>
   );
 
-  expect(screen.getByTestId("language-state").textContent).toBe("sr-Latn");
+  expect(screen.getByTestId("language-state").textContent).toBe("en");
 });
 
-test("renders Serbian A1 branding in English UI", () => {
+test("renders German B1 branding in English UI", () => {
   renderWithLanguage(<MemoryRouter><Home /></MemoryRouter>, "en");
 
-  expect(screen.getByText("Serbian A1")).toBeTruthy();
-  expect(screen.getByText("Learn practical Serbian step by step.")).toBeTruthy();
-  expect(document.title).toBe("Serbian A1");
+  expect(screen.getByText("German B1")).toBeTruthy();
+  expect(screen.getByText("Exam Preparation by Asenda Studio")).toBeTruthy();
+  expect(document.title).toBe("German B1");
 });
 
-test("switches visible branding and document title with the UI language", () => {
+test("keeps visible branding and document title in English", () => {
   renderWithLanguage(
     <MemoryRouter>
       <Nav />
@@ -245,7 +245,7 @@ test("switches visible branding and document title with the UI language", () => 
 
   fireEvent.click(screen.getByRole("button", { name: "Change language" }));
 
-  expect(screen.getByText("Srpski A1")).toBeTruthy();
-  expect(screen.getByText("Uči srpski korak po korak.")).toBeTruthy();
-  expect(document.title).toBe("Srpski A1");
+  expect(screen.getByText("German B1")).toBeTruthy();
+  expect(screen.getByText("Exam Preparation by Asenda Studio")).toBeTruthy();
+  expect(document.title).toBe("German B1");
 });

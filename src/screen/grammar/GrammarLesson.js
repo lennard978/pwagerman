@@ -7,10 +7,11 @@ import { useLanguage } from "../../i18n/LanguageProvider";
 import { useProgress } from "../../i18n/ProgressProvider";
 import { theme } from "../../styles/theme";
 import { GrammarPractice } from "./GrammarPractice";
+import { TARGET_LANGUAGE } from "../../config/course";
 
 export const GrammarLesson = () => {
   const { lessonId } = useParams();
-  const { language, t } = useLanguage();
+  const { t } = useLanguage();
   const progress = useProgress();
   const lesson = getGrammarLesson(lessonId);
 
@@ -24,7 +25,7 @@ export const GrammarLesson = () => {
   }
 
   const completed = progress?.progress.completedGrammarLessons.includes(lesson.id);
-  const title = language === "sr-Latn" ? lesson.titleSr : lesson.title;
+  const title = lesson.title;
   const complete = () => progress?.recordGrammarCompletion({
     lessonId: lesson.id,
     route: `/grammar/${lesson.id}`,
@@ -66,7 +67,7 @@ export const GrammarLesson = () => {
               </ExampleCopy>
               <CompactSoundButton
                 text={example.serbian}
-                lang="sr-RS"
+                lang={TARGET_LANGUAGE}
                 ariaLabel={`${t("grammar.hearExample")}: ${example.serbian}`}
               >
                 <FaVolumeUp aria-hidden="true" />

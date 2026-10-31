@@ -7,7 +7,7 @@ import {
   FaLayerGroup,
   FaQuestionCircle,
   FaRedo,
-  FaGraduationCap,
+  FaLanguage,
 } from "react-icons/fa";
 import { useLanguage } from "../../i18n/LanguageProvider";
 import { theme } from "../../styles/theme";
@@ -15,13 +15,13 @@ import { theme } from "../../styles/theme";
 export const Practice = () => {
   const { t } = useLanguage();
   const exercises = [
-    { key: "pair", to: "/choosepair", icon: FaClone },
-    { key: "write", to: "/choosewrite", icon: FaKeyboard },
-    { key: "cards", to: "/choosecards", icon: FaLayerGroup },
-    { key: "quiz", to: "/choosequiz", icon: FaQuestionCircle },
-    { key: "test", to: "/choosetest", icon: FaBookOpen },
-    { key: "review", to: "/review", icon: FaRedo },
-    { key: "examPrep", to: "/exam-prep", icon: FaGraduationCap },
+    { key: "pair", to: "/practice/pair", icon: FaClone },
+    { key: "spelling", to: "/practice/spelling", icon: FaKeyboard },
+    { key: "cards", to: "/practice/cards", icon: FaLayerGroup },
+    { key: "quiz", to: "/practice/quiz", icon: FaQuestionCircle },
+    { key: "test", to: "/practice/test", icon: FaBookOpen },
+    { key: "review", to: "/practice/review", icon: FaRedo },
+    { key: "formDrills", to: "/learn/grammar", icon: FaLanguage },
   ];
 
   return (

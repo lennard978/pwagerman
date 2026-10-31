@@ -8,8 +8,9 @@ import {
   MY_WORDS_STORAGE_KEY,
   WORD_STATUSES_STORAGE_KEY,
 } from "./myWords";
+import { STORAGE_CONFIG } from "../config/course";
 
-export const PROGRESS_STORAGE_KEY = "serbian-a1.learningProgress.v1";
+export const PROGRESS_STORAGE_KEY = STORAGE_CONFIG.learningProgress;
 export const PROGRESS_VERSION = 4;
 
 const localDate = (date = new Date()) => {

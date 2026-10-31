@@ -1,12 +1,12 @@
 {
-  "short_name": "Serbian A1",
-  "name": "Serbian A1",
-  "description": "Learn practical beginner Serbian with interactive exercises.",
+  "short_name": "German B1",
+  "name": "German B1 Exam Preparation",
+  "description": "Independent German B1 exam preparation by Asenda Studio.",
   "icons": [
     {
-      "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
     },
     {
       "src": "logo192.png",
@@ -29,6 +29,6 @@
   "start_url": ".",
   "scope": ".",
   "display": "standalone",
-  "theme_color": "#f97316",
-  "background_color": "#f8f8f7"
+  "theme_color": "#282824",
+  "background_color": "#f7f3e9"
 }

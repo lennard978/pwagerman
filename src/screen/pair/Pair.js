@@ -11,15 +11,16 @@ import {
   PracticeLayout,
   practiceTokens,
 } from "../../components/practice/PracticeLayout";
+import { getContentPosition, resolveContentByRouteId } from "../../data/contentSelection";
 
 export const Pair = ({ data }) => {
-  const { userId } = useParams();
-  const number = Number(userId);
+  const { lessonId, userId } = useParams();
+  const routeId = lessonId || userId;
   const { t } = useLanguage();
   const progress = useProgress();
-  const lesson = data[userId];
-
-  const wordList = data[userId].items;
+  const lesson = resolveContentByRouteId(data, routeId);
+  const number = getContentPosition(data, lesson);
+  const wordList = lesson.items;
   const roundItems = createBoundedRound(wordList, EXERCISE_ROUND_LIMITS.pair);
   const [source, setSource] = useState(
     JSON.parse(JSON.stringify(roundItems)).sort(() => Math.random() - 0.5)
@@ -38,11 +39,11 @@ export const Pair = ({ data }) => {
       progress?.recordCompletion({
         type: "pair",
         categoryId: lesson.id,
-        route: `/choosepair/${userId}`,
+        route: `/practice/pair/${lesson.id}`,
         titleKey: lesson.titleKey,
       });
     }
-  }, [lesson.id, lesson.titleKey, progress, roundItems.length, source.length, userId]);
+  }, [lesson.id, lesson.titleKey, progress, roundItems.length, source.length]);
 
   const checkCorrect = (sourceItem, targetItem) => {
     if (sourceItem.source === targetItem.source) {
@@ -94,12 +95,12 @@ export const Pair = ({ data }) => {
   });
 
   return (
-    <PracticeLayout title={`${t("navigation.pair")} ${number + 1}`}>
+    <PracticeLayout title={`${t("navigation.pair")} ${number}`}>
       {roundItems.length < 2 ? <EmptyExercise message={t("myWords.minimum")} /> : <>
         {source.length === 0 ? (
           <Completion>
             <CompletionTitle>{t("exercise.pairComplete")}</CompletionTitle>
-            <BackLink to="/choosepair">{t("actions.backToPair")}</BackLink>
+            <BackLink to="/practice/pair">{t("actions.backToPair")}</BackLink>
           </Completion>
         ) : (
           <Board data-testid="pair-board" data-short-height-fallback="scroll">

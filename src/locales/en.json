@@ -5,27 +5,31 @@
     "practice": "Practice",
     "lesson": "Lesson",
     "pair": "Pair",
-    "write": "Write",
+    "write": "Spelling",
+    "spelling": "Spelling",
     "cards": "Cards",
     "test": "Test",
     "quiz": "Quiz",
     "review": "Review",
     "settings": "Settings",
     "myWords": "My Words",
-    "examPrep": "Exam Prep"
+    "examPrep": "Exam Prep",
+    "exam": "Exam",
+    "formDrills": "German-form drills"
   },
   "actions": {
     "next": "Next",
     "nextWord": "Next Word",
     "goBack": "Go Back",
-    "backToWrite": "Back to Write",
+    "backToWrite": "Back to Spelling",
     "backToCards": "Back to Cards",
     "backToPair": "Back to Pair",
     "backToQuiz": "Back to Quiz"
   },
   "app": {
-    "name": "Serbian A1",
-    "tagline": "Learn practical Serbian step by step."
+    "name": "German B1",
+    "tagline": "Exam Preparation by Asenda Studio",
+    "disclaimer": "Independent preparation tool. Not affiliated with or endorsed by the Goethe-Institut."
   },
   "home": {
     "continueLearning": "Continue learning",
@@ -34,22 +38,26 @@
     "progress": "Progress",
     "completedTopics": "Completed topics",
     "practiceSessions": "Practice sessions",
-    "dayStreak": "day streak"
+    "dayStreak": "day streak",
+    "examReadiness": "Exam readiness",
+    "examReadinessDescription": "Explore the verified B1 module structure while original practice content is prepared."
   },
   "practice": {
     "description": "Choose an exercise, then select a curriculum category.",
-    "pair": "Match Serbian and English words.",
-    "write": "Type the Serbian translation.",
+    "pair": "Match German and English words.",
+    "write": "Build the German translation from shuffled letters.",
+    "spelling": "Build the German translation from shuffled letters.",
     "cards": "Flip cards and hear pronunciation.",
     "quiz": "Choose the correct translation.",
     "test": "Check your knowledge and review answers.",
     "review": "Revisit saved words and recent mistakes.",
-    "examPrep": "Practise reading, listening, vocabulary, and grammar skills."
+    "examPrep": "Practise reading, listening, vocabulary, and grammar skills.",
+    "formDrills": "Prepare for future German grammar and form-focused drills."
   },
   "activity": {
     "lesson": "Continue your last lesson",
     "pair": "Continue with Pair practice",
-    "write": "Continue with Write practice",
+    "write": "Continue with Spelling practice",
     "cards": "Continue with Cards",
     "quiz": "Continue with Quiz",
     "test": "Continue with Test",
@@ -58,8 +66,8 @@
     "exam-prep": "Continue your exam-prep practice"
   },
   "onboarding": {
-    "title": "Welcome to Serbian A1",
-    "learn": "Study focused beginner topics with pronunciation.",
+    "title": "Welcome to German B1",
+    "learn": "Build B1 vocabulary with German pronunciation.",
     "practiceTitle": "Practice & My Words",
     "practice": "Review, save favorites, mark known words, and add your own vocabulary.",
     "continue": "Continue",
@@ -71,7 +79,7 @@
     "favorites": "Favorites",
     "learning": "Learning",
     "known": "Known",
-    "reveal": "Reveal Serbian",
+    "reveal": "Reveal German",
     "hear": "Hear",
     "again": "Review again",
     "gotIt": "Got it",
@@ -99,14 +107,14 @@
     "libraryDescription": "Your curriculum and custom vocabulary in one place.",
     "add": "Add word",
     "english": "English",
-    "serbian": "Serbian",
+    "serbian": "German",
     "save": "Save",
     "edit": "Edit",
     "delete": "Delete",
     "cancel": "Cancel",
     "noWords": "No saved words yet",
     "emptyHint": "Add words to practise them in exercises.",
-    "duplicate": "This English and Serbian pair already exists.",
+    "duplicate": "This English and German pair already exists.",
     "blank": "Both fields are required.",
     "length": "Each field must be 80 characters or fewer.",
     "minimum": "Add more words to use this exercise.",
@@ -142,7 +150,11 @@
     },
     "travel": {
       "title": "Travel & Places",
-      "description": "Use essential words for travel and getting around."
+      "description": "Use B1 travel vocabulary for stations, tickets, and journeys."
+    },
+    "dailyLife": {
+      "title": "Daily Life & Appointments",
+      "description": "Practise useful B1 language for plans and responsibilities."
     },
     "personal": {
       "title": "Personal Information",
@@ -242,7 +254,7 @@
     },
     "communication": {
       "title": "Communication Phrases",
-      "description": "Ask about meaning and handle simple language situations."
+      "description": "Express and justify opinions in everyday discussions."
     },
     "adverbs": {
       "title": "Common Adverbs",
@@ -263,7 +275,7 @@
   },
   "exercise": {
     "question": "Question",
-    "chooseTranslation": "Choose the Serbian translation",
+    "chooseTranslation": "Choose the German translation",
     "correct": "Correct",
     "incorrect": "Not quite",
     "quizComplete": "Quiz complete",
@@ -284,7 +296,7 @@
   },
   "grammar": {
     "title": "Grammar",
-    "description": "Build Serbian step by step with concise rules, examples, and practice.",
+    "description": "Build German step by step with concise rules, examples, and practice.",
     "a1Scope": "A1 learning area",
     "a1Grammar": "A1 grammar",
     "openLesson": "Explanation, examples, and practice",
@@ -303,7 +315,7 @@
     "reset": "Reset",
     "complete": "Complete grammar lesson",
     "completed": "Grammar lesson completed",
-    "hearExample": "Hear Serbian example",
+    "hearExample": "Hear German example",
     "backToLearn": "Back to Learn",
     "backToGrammar": "Back to Grammar",
     "notFound": "Grammar lesson not found"
@@ -314,17 +326,17 @@
   "language": {
     "label": "Language",
     "english": "English",
-    "serbian": "Srpski"
+    "serbian": "German"
   },
   "update": {
     "available": "New version available",
     "action": "Update now",
-    "description": "Refresh to use the latest Serbian A1 improvements."
+    "description": "Refresh to use the latest German B1 improvements."
   },
   "install": {
     "cta": "Install app",
     "close": "Got it",
-    "description": "Add Serbian A1 to your Home Screen for quick, full-screen access.",
+    "description": "Add German B1 to your Home Screen for quick, full-screen access.",
     "ios": {
       "step1": "Tap Share in Safari",
       "step2": "Choose Add to Home Screen",
@@ -334,5 +346,30 @@
       "step1": "Open the browser menu in Chrome",
       "step2": "Choose Add to Home screen or Install app"
     }
+  },
+  "learn": {
+    "description": "Choose vocabulary, grammar, or your personal word collection.",
+    "vocabulary": "Vocabulary",
+    "vocabularyDescription": "Study temporary original German B1 fixture topics.",
+    "grammar": "Grammar",
+    "grammarDescription": "Open the foundation for the reviewed B1 grammar curriculum.",
+    "myWords": "My Words",
+    "myWordsDescription": "Add and manage your own English–German vocabulary."
+  },
+  "foundation": {
+    "upcoming": "Foundation ready · content coming in a later phase",
+    "grammar": "The complete German B1 grammar curriculum is intentionally outside Phase 1.",
+    "exam": "Original task content and final test forms are intentionally not included in Phase 1."
+  },
+  "exam": {
+    "description": "Explore the verified module structure for independent B1 exam preparation.",
+    "reading": "Reading",
+    "listening": "Listening",
+    "writing": "Writing",
+    "speaking": "Speaking",
+    "fullMock": "Full Mock B1",
+    "fullMockDescription": "A future original full mock spanning the four independent modules.",
+    "moduleSpecificScoring": "module-specific scoring",
+    "aligned": "Preparation aligned with the Goethe-Zertifikat B1 exam format."
   }
 }

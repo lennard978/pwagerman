@@ -1,6 +1,7 @@
 const MAX_TEXT_LENGTH = 300;
-const SUPPORTED_LANGUAGE = "sr-RS";
-const DEFAULT_VOICE_NAME = "sr-RS-Chirp3-HD-Aoede";
+const COURSE_CONFIG = require("../src/config/course.json");
+const SUPPORTED_LANGUAGE = COURSE_CONFIG.targetLanguage;
+const DEFAULT_VOICE_NAME = COURSE_CONFIG.tts.defaultVoice;
 
 const allowedOrigins = () =>
   (process.env.TTS_ALLOWED_ORIGINS ||

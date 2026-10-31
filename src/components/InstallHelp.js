@@ -3,8 +3,9 @@ import styled from "styled-components";
 import { FaDownload } from "react-icons/fa";
 import { useLanguage } from "../i18n/LanguageProvider";
 import { theme } from "../styles/theme";
+import { STORAGE_CONFIG } from "../config/course";
 
-export const INSTALL_HELP_DISMISSED_KEY = "serbian-a1.installHelp.dismissed.v1";
+export const INSTALL_HELP_DISMISSED_KEY = STORAGE_CONFIG.installHelpDismissed;
 
 // display-mode covers Chrome/Android installed PWAs; navigator.standalone
 // covers iOS Safari Add-to-Home-Screen, which never reports display-mode.
@@ -89,7 +90,7 @@ const Card = styled.aside`
   padding: 1rem;
   color: ${theme.colors.text};
   background: ${theme.colors.primarySoft};
-  border: 1px solid #fed7aa;
+  border: 1px solid ${theme.colors.border};
   border-radius: ${theme.radius.medium};
   box-shadow: ${theme.shadow.soft};
 `;
@@ -140,7 +141,7 @@ const CloseButton = styled.button`
   padding-inline: 1rem;
   color: ${theme.colors.primaryPressed};
   background: ${theme.colors.surface};
-  border: 1px solid #fed7aa;
+  border: 1px solid ${theme.colors.border};
   border-radius: ${theme.radius.small};
   font-weight: 700;
   &:focus-visible { outline: 3px solid ${theme.colors.primary}; outline-offset: 2px; }

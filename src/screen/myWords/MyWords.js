@@ -6,6 +6,7 @@ import { useMyWords } from "../../i18n/MyWordsProvider";
 import { theme } from "../../styles/theme";
 import { WordStatusActions } from "../../components/WordStatusActions";
 import { CompactSoundButton } from "../../components/CompactSoundButton";
+import { TARGET_LANGUAGE, TARGET_LANGUAGE_NAME } from "../../config/course";
 
 const validFilters = ["all", "favorites", "learning", "known"];
 
@@ -109,8 +110,8 @@ export const MyWords = () => {
               </WordPair>
               <CompactSoundButton
                 text={word.target}
-                lang="sr-RS"
-                ariaLabel={`Hear Serbian pronunciation: ${word.target}`}
+                lang={TARGET_LANGUAGE}
+                ariaLabel={`Hear ${TARGET_LANGUAGE_NAME} pronunciation: ${word.target}`}
               >
                 <FaVolumeUp aria-hidden="true" />
               </CompactSoundButton>

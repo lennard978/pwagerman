@@ -12,9 +12,9 @@ const LanguageProbe = () => {
     <>
       <span data-testid="language">{language}</span>
       <span data-testid="home">{t("navigation.home")}</span>
-      <span data-testid="missing-serbian">{t("navigation.settings")}</span>
+      <span data-testid="english-fallback">{t("navigation.settings")}</span>
       <span data-testid="missing-key">{t("missing.value")}</span>
-      <button onClick={() => setLanguage("sr-Latn")}>Serbian</button>
+      <button onClick={() => setLanguage("de")}>Unsupported language</button>
     </>
   );
 };
@@ -45,12 +45,12 @@ test("supports English and uses English for an English browser", () => {
   expect(screen.getByTestId("language").textContent).toBe("en");
   expect(screen.getByTestId("home").textContent).toBe("Home");
   expect(document.documentElement.lang).toBe("en");
-  expect(document.title).toBe("Serbian A1");
+  expect(document.title).toBe("German B1");
 });
 
 test.each([
-  ["sr", "sr-Latn"],
-  ["sr-RS", "sr-Latn"],
+  ["de-DE", "en"],
+  ["fr-FR", "en"],
   ["en-GB", "en"],
   ["fr-FR", "en"],
 ])("maps browser locale %s to %s", (browserLanguage, expectedLanguage) => {
@@ -60,26 +60,26 @@ test.each([
   expect(screen.getByTestId("language").textContent).toBe(expectedLanguage);
 });
 
-test("persisted manual selection overrides browser language", () => {
+test("unsupported manual selections remain English", () => {
   setBrowserLanguage("en-US");
   renderProvider();
 
   act(() => {
-    screen.getByRole("button", { name: "Serbian" }).click();
+    screen.getByRole("button", { name: "Unsupported language" }).click();
   });
 
-  expect(screen.getByTestId("language").textContent).toBe("sr-Latn");
-  expect(window.localStorage.getItem(LANGUAGE_STORAGE_KEY)).toBe("sr-Latn");
-  expect(document.documentElement.lang).toBe("sr-Latn");
-  expect(document.title).toBe("Srpski A1");
-  expect(screen.getByTestId("home").textContent).toBe("Početna");
+  expect(screen.getByTestId("language").textContent).toBe("en");
+  expect(window.localStorage.getItem(LANGUAGE_STORAGE_KEY)).toBe("en");
+  expect(document.documentElement.lang).toBe("en");
+  expect(document.title).toBe("German B1");
+  expect(screen.getByTestId("home").textContent).toBe("Home");
 });
 
-test("falls back to English when a Serbian translation is missing", () => {
+test("falls back to readable English for missing translations", () => {
   setBrowserLanguage("sr");
   renderProvider();
 
-  expect(screen.getByTestId("missing-serbian").textContent).toBe("Settings");
+  expect(screen.getByTestId("english-fallback").textContent).toBe("Settings");
   expect(screen.getByTestId("missing-key").textContent).toBe("Value");
 });
 
@@ -88,5 +88,5 @@ test("ignores an invalid persisted language", () => {
   setBrowserLanguage("sr");
   renderProvider();
 
-  expect(screen.getByTestId("language").textContent).toBe("sr-Latn");
+  expect(screen.getByTestId("language").textContent).toBe("en");
 });

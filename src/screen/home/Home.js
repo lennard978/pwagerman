@@ -8,7 +8,8 @@ import { theme } from "../../styles/theme";
 import { InstallHelp } from "../../components/InstallHelp";
 import { useProgress } from "../../i18n/ProgressProvider";
 import { getCurrentStreak } from "../../data/learningProgress";
-import { Curriculum } from "../../data/data";
+import { GermanCurriculum } from "../../data/germanFixtures";
+import { COURSE_CONFIG, getPublicAsset } from "../../config/course";
 
 export const Home = () => {
   const { t } = useLanguage();
@@ -25,8 +26,9 @@ export const Home = () => {
   return (
     <Container>
       <Hero>
-        <Logo src={`${process.env.PUBLIC_URL}/serbian-a1-wordmark-compact.png`} alt={t("app.name")} />
+        <Logo src={getPublicAsset("compactWordmark")} alt={t("app.name")} />
         <Heading>{t("app.name")}</Heading>
+        <Descriptor>{COURSE_CONFIG.descriptor}</Descriptor>
         <Tagline>{t("app.tagline")}</Tagline>
         <Attribution
           href="https://asenda-studio.vercel.app"
@@ -56,19 +58,20 @@ export const Home = () => {
       <Section>
         <Eyebrow>{t("home.progress")}</Eyebrow>
         <Stats>
-          <Stat to="/my-words?filter=known"><FaCheck aria-hidden="true" /><strong>{known}</strong><span>{t("vocabulary.knownWords")}</span></Stat>
-          <Stat to="/my-words?filter=favorites"><FaStar aria-hidden="true" /><strong>{favorites}</strong><span>{t("vocabulary.favorites")}</span></Stat>
-          <Stat to="/my-words"><FaBookOpen aria-hidden="true" /><strong>{words.length}</strong><span>{t("myWords.title")}</span></Stat>
-          <Stat to="/learn"><FaBookOpen aria-hidden="true" /><strong>{progress?.completedLessons.length || 0} / {Curriculum.length}</strong><span>{t("home.completedTopics")}</span></Stat>
+          <Stat to="/learn/my-words?filter=known"><FaCheck aria-hidden="true" /><strong>{known}</strong><span>{t("vocabulary.knownWords")}</span></Stat>
+          <Stat to="/learn/my-words?filter=favorites"><FaStar aria-hidden="true" /><strong>{favorites}</strong><span>{t("vocabulary.favorites")}</span></Stat>
+          <Stat to="/learn/my-words"><FaBookOpen aria-hidden="true" /><strong>{words.length}</strong><span>{t("myWords.title")}</span></Stat>
+          <Stat to="/learn/vocabulary"><FaBookOpen aria-hidden="true" /><strong>{progress?.completedLessons.length || 0} / {GermanCurriculum.length}</strong><span>{t("home.completedTopics")}</span></Stat>
           <Stat to="/practice"><FaCheck aria-hidden="true" /><strong>{progress?.completedExercises.length || 0}</strong><span>{t("home.practiceSessions")}</span></Stat>
           {streak > 0 && <Stat as="div"><FaCheck aria-hidden="true" /><strong>{streak}</strong><span>{t("home.dayStreak")}</span></Stat>}
         </Stats>
       </Section>
 
-      <MyWordsLink to="/my-words">
-        <strong>{t("myWords.title")}</strong>
-        <span>{t("myWords.libraryDescription")}</span>
+      <MyWordsLink to="/exam">
+        <strong>{t("home.examReadiness")}</strong>
+        <span>{t("home.examReadinessDescription")}</span>
       </MyWordsLink>
+      <Disclaimer>{t("app.disclaimer")}</Disclaimer>
       <InstallHelp />
     </Container>
   );
@@ -93,6 +96,7 @@ const Tagline = styled.p`
   line-height: 1.5;
   text-align: center;
 `;
+const Descriptor = styled.p`margin: 0; color: ${theme.colors.primaryPressed}; font-size: 0.78rem; font-weight: 900; letter-spacing: 0.12em; text-transform: uppercase;`;
 const Attribution = styled.a`
   min-block-size: 2.25rem;
   display: inline-flex;
@@ -120,7 +124,7 @@ const AsendaMark = styled.span`
   place-items: center;
   flex: 0 0 auto;
   color: white;
-  background: #ff5a1f;
+  background: ${theme.colors.navy};
   border-radius: 50%;
   font-size: 0.72rem;
   font-weight: 900;
@@ -156,7 +160,7 @@ const PracticeLink = styled(Link)`
   padding: 0.8rem 1rem;
   color: ${theme.colors.primaryPressed};
   background: ${theme.colors.primarySoft};
-  border: 1px solid #fed7aa;
+  border: 1px solid ${theme.colors.border};
   border-radius: ${theme.radius.medium};
   text-decoration: none;
   font-weight: 700;
@@ -198,3 +202,4 @@ const MyWordsLink = styled(Link)`
   text-decoration: none;
   & span { color: ${theme.colors.textMuted}; font-size: 0.85rem; }
 `;
+const Disclaimer = styled.p`margin: 0.9rem 0 0; color: ${theme.colors.textMuted}; font-size: 0.72rem; line-height: 1.45; text-align: center;`;

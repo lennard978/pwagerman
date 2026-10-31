@@ -1,5 +1,7 @@
 // Minimal IndexedDB wrapper for My Words persistence, with a safe fallback contract.
-const DB_NAME = "serbian-a1-store";
+import { STORAGE_CONFIG } from "../../config/course";
+
+const DB_NAME = STORAGE_CONFIG.indexedDb;
 const DB_VERSION = 3;
 const STORE_NAME = "myWords";
 const STATUS_STORE_NAME = "wordStatuses";

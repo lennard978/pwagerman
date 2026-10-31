@@ -1,7 +1,7 @@
 import {
   FaHome,
   FaGraduationCap,
-  FaBookOpen,
+  FaClipboardCheck,
   FaDumbbell,
 } from "react-icons/fa";
 import { Link, useLocation } from "react-router-dom";
@@ -28,14 +28,14 @@ export default function Nav() {
           <NavLink to="/home" title={t("navigation.home")} active={location.pathname === "/home" || location.pathname === "/"}>
             <FaHome />
           </NavLink>
-          <NavLink to="/learn" title={t("navigation.learn")} active={location.pathname === "/learn" || location.pathname.startsWith("/chooselesson")}>
+          <NavLink to="/learn" title={t("navigation.learn")} active={location.pathname.startsWith("/learn")}>
             <FaGraduationCap />
           </NavLink>
-          <NavLink to="/practice" title={t("navigation.practice")} active={practiceRoutes.some((route) => location.pathname.startsWith(route))}>
+          <NavLink to="/practice" title={t("navigation.practice")} active={location.pathname.startsWith("/practice")}>
             <FaDumbbell />
           </NavLink>
-          <NavLink to="/my-words" title={t("navigation.myWords")} active={location.pathname.startsWith("/my-words")}>
-            <FaBookOpen />
+          <NavLink to="/exam" title={t("navigation.exam")} active={location.pathname.startsWith("/exam")}>
+            <FaClipboardCheck />
           </NavLink>
         </Row>
       </Container>
@@ -94,12 +94,3 @@ const Button = styled(Link)`
     transform: scale(0.97);
   }
 `;
-  const practiceRoutes = [
-    "/practice",
-    "/choosepair",
-    "/choosewrite",
-    "/choosecards",
-    "/choosetest",
-    "/choosequiz",
-    "/review",
-  ];

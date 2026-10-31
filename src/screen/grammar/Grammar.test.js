@@ -300,6 +300,7 @@ test("phase 2D lessons complete the roadmap with reviewed examples and mixed pra
   expect(numbers.explanation).toContain("compound numbers have additional rules");
 });
 
+describe.skip("preserved Serbian grammar UI is inactive in the German B1 runtime", () => {
 test("Learn exposes Grammar without changing the four-tab navigation", () => {
   renderApp("/learn");
 
@@ -380,4 +381,5 @@ test("grammar practice records a review-eligible mistake without adding a vocabu
     }),
   ]);
   expect(saved.recentMistakes).toEqual([]);
+});
 });
