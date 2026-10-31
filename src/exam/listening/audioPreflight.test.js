@@ -5,7 +5,13 @@ const entryFor = (overrides = {}) => ({
   audioId: "audio-1",
   path: "/audio/listening/audio-v1/audio-1.mp3",
   assetStatus: "ready",
-  assetChecksum: "sha256-test",
+  ready: true,
+  scriptHash: "a".repeat(64),
+  sha256: "b".repeat(64),
+  assetChecksum: "b".repeat(64),
+  byteSize: 1024,
+  durationSeconds: 12,
+  developmentFixture: false,
   ...overrides,
 });
 

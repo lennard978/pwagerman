@@ -1,5 +1,6 @@
 import { LISTENING_DEVELOPMENT_FIXTURE_MODE } from "./goetheB1Listening";
 import { listeningAudioManifest } from "../listening/audioManifest";
+import { getListeningProductionReadiness } from "../listening/manifestValidation";
 
 export const MOCK_CONTENT_VERSION = "mock-v1";
 export const MOCK_SCORING_VERSION = "b1-module-scoring-v1";
@@ -22,9 +23,7 @@ export const getFullMockAvailability = ({
   fixtureMode = LISTENING_DEVELOPMENT_FIXTURE_MODE,
   allowDevelopmentFixture = true,
 } = {}) => {
-  const productionReady = manifest.length > 0 && manifest.every((entry) =>
-    entry.assetStatus === "ready" && Boolean(entry.assetChecksum) && !entry.developmentFixture
-  );
+  const productionReady = getListeningProductionReadiness(manifest).productionReady;
   const fixtureReady = nodeEnv !== "production" && allowDevelopmentFixture && fixtureMode && manifest.length > 0 &&
     manifest.every((entry) => entry.developmentFixture || (entry.assetStatus === "ready" && entry.assetChecksum));
   return {

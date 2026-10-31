@@ -1,0 +1,746 @@
+[
+  {
+    "audioId": "de-b1-listening-form-001-p1-audio-1",
+    "formId": "de-b1-listening-form-001",
+    "part": 1,
+    "track": 1,
+    "path": "/audio/listening/audio-v1/form-001/part-1-track-01.mp3",
+    "locale": "de-DE",
+    "sourceType": "generated-production",
+    "voiceProfiles": [
+      {
+        "speakerId": "a",
+        "label": "Werkstattmitarbeiterin",
+        "profileId": "voice-female-1",
+        "role": "femaleA",
+        "voiceName": "de-DE-Chirp3-HD-Kore",
+        "locale": "de-DE"
+      }
+    ],
+    "durationSeconds": null,
+    "sha256": null,
+    "byteSize": null,
+    "contentVersion": "listening-v1",
+    "audioVersion": "audio-v1",
+    "scriptHash": "3bc93507cc6c7278a5599580c511b134c915a0c90d6f65c9723799261c48528e",
+    "scriptChecksum": "fnv1a-7583e6f8",
+    "ready": false,
+    "humanQa": "PENDING"
+  },
+  {
+    "audioId": "de-b1-listening-form-001-p1-audio-2",
+    "formId": "de-b1-listening-form-001",
+    "part": 1,
+    "track": 2,
+    "path": "/audio/listening/audio-v1/form-001/part-1-track-02.mp3",
+    "locale": "de-DE",
+    "sourceType": "generated-production",
+    "voiceProfiles": [
+      {
+        "speakerId": "a",
+        "label": "Bahnhofssprecher",
+        "profileId": "voice-male-1",
+        "role": "maleA",
+        "voiceName": "de-DE-Chirp3-HD-Charon",
+        "locale": "de-DE"
+      }
+    ],
+    "durationSeconds": null,
+    "sha256": null,
+    "byteSize": null,
+    "contentVersion": "listening-v1",
+    "audioVersion": "audio-v1",
+    "scriptHash": "aba9648a93200206a16dbb0c18d23bcfbfc1444046cda1605a28b36fe7af2262",
+    "scriptChecksum": "fnv1a-f09afe07",
+    "ready": false,
+    "humanQa": "PENDING"
+  },
+  {
+    "audioId": "de-b1-listening-form-001-p1-audio-3",
+    "formId": "de-b1-listening-form-001",
+    "part": 1,
+    "track": 3,
+    "path": "/audio/listening/audio-v1/form-001/part-1-track-03.mp3",
+    "locale": "de-DE",
+    "sourceType": "generated-production",
+    "voiceProfiles": [
+      {
+        "speakerId": "a",
+        "label": "Kollegin",
+        "profileId": "voice-female-2",
+        "role": "femaleB",
+        "voiceName": "de-DE-Chirp3-HD-Leda",
+        "locale": "de-DE"
+      }
+    ],
+    "durationSeconds": null,
+    "sha256": null,
+    "byteSize": null,
+    "contentVersion": "listening-v1",
+    "audioVersion": "audio-v1",
+    "scriptHash": "698273cd4317848957b8c18a709b7aad089f4d3b592e04d2050bd4e7f0d66909",
+    "scriptChecksum": "fnv1a-4a0f7a2e",
+    "ready": false,
+    "humanQa": "PENDING"
+  },
+  {
+    "audioId": "de-b1-listening-form-001-p1-audio-4",
+    "formId": "de-b1-listening-form-001",
+    "part": 1,
+    "track": 4,
+    "path": "/audio/listening/audio-v1/form-001/part-1-track-04.mp3",
+    "locale": "de-DE",
+    "sourceType": "generated-production",
+    "voiceProfiles": [
+      {
+        "speakerId": "a",
+        "label": "Radiomoderator",
+        "profileId": "voice-male-2",
+        "role": "maleB",
+        "voiceName": "de-DE-Chirp3-HD-Orus",
+        "locale": "de-DE"
+      }
+    ],
+    "durationSeconds": null,
+    "sha256": null,
+    "byteSize": null,
+    "contentVersion": "listening-v1",
+    "audioVersion": "audio-v1",
+    "scriptHash": "60f838a39390e3fc99c8e0892dc55bbbcb2c647914f343ab2b28cd758a13ad1c",
+    "scriptChecksum": "fnv1a-b36b14b4",
+    "ready": false,
+    "humanQa": "PENDING"
+  },
+  {
+    "audioId": "de-b1-listening-form-001-p1-audio-5",
+    "formId": "de-b1-listening-form-001",
+    "part": 1,
+    "track": 5,
+    "path": "/audio/listening/audio-v1/form-001/part-1-track-05.mp3",
+    "locale": "de-DE",
+    "sourceType": "generated-production",
+    "voiceProfiles": [
+      {
+        "speakerId": "a",
+        "label": "Organisatorin",
+        "profileId": "voice-female-1",
+        "role": "femaleA",
+        "voiceName": "de-DE-Chirp3-HD-Kore",
+        "locale": "de-DE"
+      }
+    ],
+    "durationSeconds": null,
+    "sha256": null,
+    "byteSize": null,
+    "contentVersion": "listening-v1",
+    "audioVersion": "audio-v1",
+    "scriptHash": "4b7606752a94c188f32b3eef91b9fff5864ca4d261d5740a20680216ec3f8ec0",
+    "scriptChecksum": "fnv1a-25eb9215",
+    "ready": false,
+    "humanQa": "PENDING"
+  },
+  {
+    "audioId": "de-b1-listening-form-001-p2-audio-1",
+    "formId": "de-b1-listening-form-001",
+    "part": 2,
+    "track": 1,
+    "path": "/audio/listening/audio-v1/form-001/part-2.mp3",
+    "locale": "de-DE",
+    "sourceType": "generated-production",
+    "voiceProfiles": [
+      {
+        "speakerId": "a",
+        "label": "Programmleiterin",
+        "profileId": "voice-female-2",
+        "role": "femaleB",
+        "voiceName": "de-DE-Chirp3-HD-Leda",
+        "locale": "de-DE"
+      }
+    ],
+    "durationSeconds": null,
+    "sha256": null,
+    "byteSize": null,
+    "contentVersion": "listening-v1",
+    "audioVersion": "audio-v1",
+    "scriptHash": "331f65aa61939a6692bd80e4ad7b370f3292614cc7d765b089d01c8378466029",
+    "scriptChecksum": "fnv1a-039afbf7",
+    "ready": false,
+    "humanQa": "PENDING"
+  },
+  {
+    "audioId": "de-b1-listening-form-001-p3-audio-1",
+    "formId": "de-b1-listening-form-001",
+    "part": 3,
+    "track": 1,
+    "path": "/audio/listening/audio-v1/form-001/part-3.mp3",
+    "locale": "de-DE",
+    "sourceType": "generated-production",
+    "voiceProfiles": [
+      {
+        "speakerId": "a",
+        "label": "Mira",
+        "profileId": "voice-female-1",
+        "role": "femaleA",
+        "voiceName": "de-DE-Chirp3-HD-Kore",
+        "locale": "de-DE"
+      },
+      {
+        "speakerId": "b",
+        "label": "Thomas",
+        "profileId": "voice-male-1",
+        "role": "maleA",
+        "voiceName": "de-DE-Chirp3-HD-Charon",
+        "locale": "de-DE"
+      }
+    ],
+    "durationSeconds": null,
+    "sha256": null,
+    "byteSize": null,
+    "contentVersion": "listening-v1",
+    "audioVersion": "audio-v1",
+    "scriptHash": "c36f4a3dbfa4b5f2c82e6948dd8eafd987f0d11ef58a3e71819d9084e57c66af",
+    "scriptChecksum": "fnv1a-213bec7f",
+    "ready": false,
+    "humanQa": "PENDING"
+  },
+  {
+    "audioId": "de-b1-listening-form-001-p4-audio-1",
+    "formId": "de-b1-listening-form-001",
+    "part": 4,
+    "track": 1,
+    "path": "/audio/listening/audio-v1/form-001/part-4.mp3",
+    "locale": "de-DE",
+    "sourceType": "generated-production",
+    "voiceProfiles": [
+      {
+        "speakerId": "a",
+        "label": "Moderatorin",
+        "profileId": "voice-female-2",
+        "role": "femaleB",
+        "voiceName": "de-DE-Chirp3-HD-Leda",
+        "locale": "de-DE"
+      },
+      {
+        "speakerId": "b",
+        "label": "Jana",
+        "profileId": "voice-female-1",
+        "role": "femaleA",
+        "voiceName": "de-DE-Chirp3-HD-Kore",
+        "locale": "de-DE"
+      },
+      {
+        "speakerId": "c",
+        "label": "Lukas",
+        "profileId": "voice-male-1",
+        "role": "maleA",
+        "voiceName": "de-DE-Chirp3-HD-Charon",
+        "locale": "de-DE"
+      }
+    ],
+    "durationSeconds": null,
+    "sha256": null,
+    "byteSize": null,
+    "contentVersion": "listening-v1",
+    "audioVersion": "audio-v1",
+    "scriptHash": "14946a54ee802c641e5c9d19a82843a49081efb79bb9f5c40e3798706ec99988",
+    "scriptChecksum": "fnv1a-5ff62f90",
+    "ready": false,
+    "humanQa": "PENDING"
+  },
+  {
+    "audioId": "de-b1-listening-form-002-p1-audio-1",
+    "formId": "de-b1-listening-form-002",
+    "part": 1,
+    "track": 1,
+    "path": "/audio/listening/audio-v1/form-002/part-1-track-01.mp3",
+    "locale": "de-DE",
+    "sourceType": "generated-production",
+    "voiceProfiles": [
+      {
+        "speakerId": "a",
+        "label": "Bibliotheksmitarbeiter",
+        "profileId": "voice-male-2",
+        "role": "maleB",
+        "voiceName": "de-DE-Chirp3-HD-Orus",
+        "locale": "de-DE"
+      }
+    ],
+    "durationSeconds": null,
+    "sha256": null,
+    "byteSize": null,
+    "contentVersion": "listening-v1",
+    "audioVersion": "audio-v1",
+    "scriptHash": "f19a41f710a573e7d10a693647bde57872b2b854793f3278814152ad6948dbea",
+    "scriptChecksum": "fnv1a-da414199",
+    "ready": false,
+    "humanQa": "PENDING"
+  },
+  {
+    "audioId": "de-b1-listening-form-002-p1-audio-2",
+    "formId": "de-b1-listening-form-002",
+    "part": 1,
+    "track": 2,
+    "path": "/audio/listening/audio-v1/form-002/part-1-track-02.mp3",
+    "locale": "de-DE",
+    "sourceType": "generated-production",
+    "voiceProfiles": [
+      {
+        "speakerId": "a",
+        "label": "Verkehrssprecherin",
+        "profileId": "voice-female-2",
+        "role": "femaleB",
+        "voiceName": "de-DE-Chirp3-HD-Leda",
+        "locale": "de-DE"
+      }
+    ],
+    "durationSeconds": null,
+    "sha256": null,
+    "byteSize": null,
+    "contentVersion": "listening-v1",
+    "audioVersion": "audio-v1",
+    "scriptHash": "8948b1cc6a9230f7005a68f579a1990280e633a4f43b9486c18b58635bc95572",
+    "scriptChecksum": "fnv1a-c0b63171",
+    "ready": false,
+    "humanQa": "PENDING"
+  },
+  {
+    "audioId": "de-b1-listening-form-002-p1-audio-3",
+    "formId": "de-b1-listening-form-002",
+    "part": 1,
+    "track": 3,
+    "path": "/audio/listening/audio-v1/form-002/part-1-track-03.mp3",
+    "locale": "de-DE",
+    "sourceType": "generated-production",
+    "voiceProfiles": [
+      {
+        "speakerId": "a",
+        "label": "Kursleiter",
+        "profileId": "voice-male-1",
+        "role": "maleA",
+        "voiceName": "de-DE-Chirp3-HD-Charon",
+        "locale": "de-DE"
+      }
+    ],
+    "durationSeconds": null,
+    "sha256": null,
+    "byteSize": null,
+    "contentVersion": "listening-v1",
+    "audioVersion": "audio-v1",
+    "scriptHash": "f9b04c6b32ef90f7b4d625ceaf8a4b311a3a96e5d709502a6fe3c2abdbb5f295",
+    "scriptChecksum": "fnv1a-a1579c2d",
+    "ready": false,
+    "humanQa": "PENDING"
+  },
+  {
+    "audioId": "de-b1-listening-form-002-p1-audio-4",
+    "formId": "de-b1-listening-form-002",
+    "part": 1,
+    "track": 4,
+    "path": "/audio/listening/audio-v1/form-002/part-1-track-04.mp3",
+    "locale": "de-DE",
+    "sourceType": "generated-production",
+    "voiceProfiles": [
+      {
+        "speakerId": "a",
+        "label": "Freundin",
+        "profileId": "voice-female-1",
+        "role": "femaleA",
+        "voiceName": "de-DE-Chirp3-HD-Kore",
+        "locale": "de-DE"
+      }
+    ],
+    "durationSeconds": null,
+    "sha256": null,
+    "byteSize": null,
+    "contentVersion": "listening-v1",
+    "audioVersion": "audio-v1",
+    "scriptHash": "7f0989c56acfcfea4dc5958cc8309e8872f22f3f5a650f9489d03a10b7dc28fc",
+    "scriptChecksum": "fnv1a-daeede78",
+    "ready": false,
+    "humanQa": "PENDING"
+  },
+  {
+    "audioId": "de-b1-listening-form-002-p1-audio-5",
+    "formId": "de-b1-listening-form-002",
+    "part": 1,
+    "track": 5,
+    "path": "/audio/listening/audio-v1/form-002/part-1-track-05.mp3",
+    "locale": "de-DE",
+    "sourceType": "generated-production",
+    "voiceProfiles": [
+      {
+        "speakerId": "a",
+        "label": "Servicemitarbeiter",
+        "profileId": "voice-male-2",
+        "role": "maleB",
+        "voiceName": "de-DE-Chirp3-HD-Orus",
+        "locale": "de-DE"
+      }
+    ],
+    "durationSeconds": null,
+    "sha256": null,
+    "byteSize": null,
+    "contentVersion": "listening-v1",
+    "audioVersion": "audio-v1",
+    "scriptHash": "fa1dee4422bf5156ae9837620121c9849cdbf7a0609fda337968c37c4804888c",
+    "scriptChecksum": "fnv1a-d359f18a",
+    "ready": false,
+    "humanQa": "PENDING"
+  },
+  {
+    "audioId": "de-b1-listening-form-002-p2-audio-1",
+    "formId": "de-b1-listening-form-002",
+    "part": 2,
+    "track": 1,
+    "path": "/audio/listening/audio-v1/form-002/part-2.mp3",
+    "locale": "de-DE",
+    "sourceType": "generated-production",
+    "voiceProfiles": [
+      {
+        "speakerId": "a",
+        "label": "Veranstaltungskoordinator",
+        "profileId": "voice-male-1",
+        "role": "maleA",
+        "voiceName": "de-DE-Chirp3-HD-Charon",
+        "locale": "de-DE"
+      }
+    ],
+    "durationSeconds": null,
+    "sha256": null,
+    "byteSize": null,
+    "contentVersion": "listening-v1",
+    "audioVersion": "audio-v1",
+    "scriptHash": "6c07b393231a080eea21748b60c9d2560346cab7295e4276432c6fcfdd69e27e",
+    "scriptChecksum": "fnv1a-8657c6d3",
+    "ready": false,
+    "humanQa": "PENDING"
+  },
+  {
+    "audioId": "de-b1-listening-form-002-p3-audio-1",
+    "formId": "de-b1-listening-form-002",
+    "part": 3,
+    "track": 1,
+    "path": "/audio/listening/audio-v1/form-002/part-3.mp3",
+    "locale": "de-DE",
+    "sourceType": "generated-production",
+    "voiceProfiles": [
+      {
+        "speakerId": "a",
+        "label": "Sofia",
+        "profileId": "voice-female-2",
+        "role": "femaleB",
+        "voiceName": "de-DE-Chirp3-HD-Leda",
+        "locale": "de-DE"
+      },
+      {
+        "speakerId": "b",
+        "label": "Nils",
+        "profileId": "voice-male-2",
+        "role": "maleB",
+        "voiceName": "de-DE-Chirp3-HD-Orus",
+        "locale": "de-DE"
+      }
+    ],
+    "durationSeconds": null,
+    "sha256": null,
+    "byteSize": null,
+    "contentVersion": "listening-v1",
+    "audioVersion": "audio-v1",
+    "scriptHash": "e55e4da4d855bdae0f70a491b41aec93e880250e44164f3d2fb3251062c0b8ab",
+    "scriptChecksum": "fnv1a-76a023f0",
+    "ready": false,
+    "humanQa": "PENDING"
+  },
+  {
+    "audioId": "de-b1-listening-form-002-p4-audio-1",
+    "formId": "de-b1-listening-form-002",
+    "part": 4,
+    "track": 1,
+    "path": "/audio/listening/audio-v1/form-002/part-4.mp3",
+    "locale": "de-DE",
+    "sourceType": "generated-production",
+    "voiceProfiles": [
+      {
+        "speakerId": "a",
+        "label": "Moderator",
+        "profileId": "voice-male-1",
+        "role": "maleA",
+        "voiceName": "de-DE-Chirp3-HD-Charon",
+        "locale": "de-DE"
+      },
+      {
+        "speakerId": "b",
+        "label": "Eva",
+        "profileId": "voice-female-1",
+        "role": "femaleA",
+        "voiceName": "de-DE-Chirp3-HD-Kore",
+        "locale": "de-DE"
+      },
+      {
+        "speakerId": "c",
+        "label": "Mehmet",
+        "profileId": "voice-male-2",
+        "role": "maleB",
+        "voiceName": "de-DE-Chirp3-HD-Orus",
+        "locale": "de-DE"
+      }
+    ],
+    "durationSeconds": null,
+    "sha256": null,
+    "byteSize": null,
+    "contentVersion": "listening-v1",
+    "audioVersion": "audio-v1",
+    "scriptHash": "24f626561f8413408be043780fbf07e6cf17666d4922087bd7669fe8a738f37f",
+    "scriptChecksum": "fnv1a-d7891016",
+    "ready": false,
+    "humanQa": "PENDING"
+  },
+  {
+    "audioId": "de-b1-listening-form-003-p1-audio-1",
+    "formId": "de-b1-listening-form-003",
+    "part": 1,
+    "track": 1,
+    "path": "/audio/listening/audio-v1/form-003/part-1-track-01.mp3",
+    "locale": "de-DE",
+    "sourceType": "generated-production",
+    "voiceProfiles": [
+      {
+        "speakerId": "a",
+        "label": "Paketshopmitarbeiterin",
+        "profileId": "voice-female-2",
+        "role": "femaleB",
+        "voiceName": "de-DE-Chirp3-HD-Leda",
+        "locale": "de-DE"
+      }
+    ],
+    "durationSeconds": null,
+    "sha256": null,
+    "byteSize": null,
+    "contentVersion": "listening-v1",
+    "audioVersion": "audio-v1",
+    "scriptHash": "f303ddc70a4de8405d732e8d7bff351a59d3938ffa55b9edd17ccc9af360e2a0",
+    "scriptChecksum": "fnv1a-2699babc",
+    "ready": false,
+    "humanQa": "PENDING"
+  },
+  {
+    "audioId": "de-b1-listening-form-003-p1-audio-2",
+    "formId": "de-b1-listening-form-003",
+    "part": 1,
+    "track": 2,
+    "path": "/audio/listening/audio-v1/form-003/part-1-track-02.mp3",
+    "locale": "de-DE",
+    "sourceType": "generated-production",
+    "voiceProfiles": [
+      {
+        "speakerId": "a",
+        "label": "Kursleiterin",
+        "profileId": "voice-female-1",
+        "role": "femaleA",
+        "voiceName": "de-DE-Chirp3-HD-Kore",
+        "locale": "de-DE"
+      }
+    ],
+    "durationSeconds": null,
+    "sha256": null,
+    "byteSize": null,
+    "contentVersion": "listening-v1",
+    "audioVersion": "audio-v1",
+    "scriptHash": "b837ffa925ea2ad318260c923876c105f7dc17f71202618dcaf40d300067957d",
+    "scriptChecksum": "fnv1a-a478daf1",
+    "ready": false,
+    "humanQa": "PENDING"
+  },
+  {
+    "audioId": "de-b1-listening-form-003-p1-audio-3",
+    "formId": "de-b1-listening-form-003",
+    "part": 1,
+    "track": 3,
+    "path": "/audio/listening/audio-v1/form-003/part-1-track-03.mp3",
+    "locale": "de-DE",
+    "sourceType": "generated-production",
+    "voiceProfiles": [
+      {
+        "speakerId": "a",
+        "label": "Veranstaltungssprecher",
+        "profileId": "voice-male-1",
+        "role": "maleA",
+        "voiceName": "de-DE-Chirp3-HD-Charon",
+        "locale": "de-DE"
+      }
+    ],
+    "durationSeconds": null,
+    "sha256": null,
+    "byteSize": null,
+    "contentVersion": "listening-v1",
+    "audioVersion": "audio-v1",
+    "scriptHash": "9973826996707225b257e28ef62bb98788c6ab22759f3bb46a1f8e2bc6cb435c",
+    "scriptChecksum": "fnv1a-8064a226",
+    "ready": false,
+    "humanQa": "PENDING"
+  },
+  {
+    "audioId": "de-b1-listening-form-003-p1-audio-4",
+    "formId": "de-b1-listening-form-003",
+    "part": 1,
+    "track": 4,
+    "path": "/audio/listening/audio-v1/form-003/part-1-track-04.mp3",
+    "locale": "de-DE",
+    "sourceType": "generated-production",
+    "voiceProfiles": [
+      {
+        "speakerId": "a",
+        "label": "Radiomoderatorin",
+        "profileId": "voice-female-2",
+        "role": "femaleB",
+        "voiceName": "de-DE-Chirp3-HD-Leda",
+        "locale": "de-DE"
+      }
+    ],
+    "durationSeconds": null,
+    "sha256": null,
+    "byteSize": null,
+    "contentVersion": "listening-v1",
+    "audioVersion": "audio-v1",
+    "scriptHash": "1a2a7a813e6371f921b329c46074c8b200735da2135b89d1a2d3fd15b7f7a6bf",
+    "scriptChecksum": "fnv1a-1dc21ed3",
+    "ready": false,
+    "humanQa": "PENDING"
+  },
+  {
+    "audioId": "de-b1-listening-form-003-p1-audio-5",
+    "formId": "de-b1-listening-form-003",
+    "part": 1,
+    "track": 5,
+    "path": "/audio/listening/audio-v1/form-003/part-1-track-05.mp3",
+    "locale": "de-DE",
+    "sourceType": "generated-production",
+    "voiceProfiles": [
+      {
+        "speakerId": "a",
+        "label": "Hausverwalter",
+        "profileId": "voice-male-2",
+        "role": "maleB",
+        "voiceName": "de-DE-Chirp3-HD-Orus",
+        "locale": "de-DE"
+      }
+    ],
+    "durationSeconds": null,
+    "sha256": null,
+    "byteSize": null,
+    "contentVersion": "listening-v1",
+    "audioVersion": "audio-v1",
+    "scriptHash": "f8354acb26bcaf684f3f8a0af52a41da896dbe76df25bab44a48704346c53085",
+    "scriptChecksum": "fnv1a-8b08a515",
+    "ready": false,
+    "humanQa": "PENDING"
+  },
+  {
+    "audioId": "de-b1-listening-form-003-p2-audio-1",
+    "formId": "de-b1-listening-form-003",
+    "part": 2,
+    "track": 1,
+    "path": "/audio/listening/audio-v1/form-003/part-2.mp3",
+    "locale": "de-DE",
+    "sourceType": "generated-production",
+    "voiceProfiles": [
+      {
+        "speakerId": "a",
+        "label": "Gartenkoordinatorin",
+        "profileId": "voice-female-1",
+        "role": "femaleA",
+        "voiceName": "de-DE-Chirp3-HD-Kore",
+        "locale": "de-DE"
+      }
+    ],
+    "durationSeconds": null,
+    "sha256": null,
+    "byteSize": null,
+    "contentVersion": "listening-v1",
+    "audioVersion": "audio-v1",
+    "scriptHash": "ecd0302db0d38fe4ea9b99b3e04d8a820a51d9e317b214db7fac0183038fce42",
+    "scriptChecksum": "fnv1a-ed7ca775",
+    "ready": false,
+    "humanQa": "PENDING"
+  },
+  {
+    "audioId": "de-b1-listening-form-003-p3-audio-1",
+    "formId": "de-b1-listening-form-003",
+    "part": 3,
+    "track": 1,
+    "path": "/audio/listening/audio-v1/form-003/part-3.mp3",
+    "locale": "de-DE",
+    "sourceType": "generated-production",
+    "voiceProfiles": [
+      {
+        "speakerId": "a",
+        "label": "Elena",
+        "profileId": "voice-female-2",
+        "role": "femaleB",
+        "voiceName": "de-DE-Chirp3-HD-Leda",
+        "locale": "de-DE"
+      },
+      {
+        "speakerId": "b",
+        "label": "Ralf",
+        "profileId": "voice-male-1",
+        "role": "maleA",
+        "voiceName": "de-DE-Chirp3-HD-Charon",
+        "locale": "de-DE"
+      }
+    ],
+    "durationSeconds": null,
+    "sha256": null,
+    "byteSize": null,
+    "contentVersion": "listening-v1",
+    "audioVersion": "audio-v1",
+    "scriptHash": "f81cf3f8315d6ba837a91dbe40f0bbdfeeafe1fb1ef44c12379179e5e6979e5e",
+    "scriptChecksum": "fnv1a-902de431",
+    "ready": false,
+    "humanQa": "PENDING"
+  },
+  {
+    "audioId": "de-b1-listening-form-003-p4-audio-1",
+    "formId": "de-b1-listening-form-003",
+    "part": 4,
+    "track": 1,
+    "path": "/audio/listening/audio-v1/form-003/part-4.mp3",
+    "locale": "de-DE",
+    "sourceType": "generated-production",
+    "voiceProfiles": [
+      {
+        "speakerId": "a",
+        "label": "Moderatorin",
+        "profileId": "voice-female-1",
+        "role": "femaleA",
+        "voiceName": "de-DE-Chirp3-HD-Kore",
+        "locale": "de-DE"
+      },
+      {
+        "speakerId": "b",
+        "label": "Clara",
+        "profileId": "voice-female-2",
+        "role": "femaleB",
+        "voiceName": "de-DE-Chirp3-HD-Leda",
+        "locale": "de-DE"
+      },
+      {
+        "speakerId": "c",
+        "label": "Jonas",
+        "profileId": "voice-male-2",
+        "role": "maleB",
+        "voiceName": "de-DE-Chirp3-HD-Orus",
+        "locale": "de-DE"
+      }
+    ],
+    "durationSeconds": null,
+    "sha256": null,
+    "byteSize": null,
+    "contentVersion": "listening-v1",
+    "audioVersion": "audio-v1",
+    "scriptHash": "0311e59cacd15c4e83fdda8ca4bdb837d5d035dd877ca724d6571bd499b98014",
+    "scriptChecksum": "fnv1a-546aad7b",
+    "ready": false,
+    "humanQa": "PENDING"
+  }
+]

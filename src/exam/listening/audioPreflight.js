@@ -24,11 +24,17 @@ export const preflightListeningAudio = async (form, {
   timeoutMs = 8000,
   online = navigator.onLine,
   manifest = listeningAudioManifest,
+  onProgress = () => {},
 } = {}) => {
   const requiredIds = new Set(form.parts.flatMap(({ audio }) => audio.map(({ id }) => id)));
   const entries = manifest.filter(({ audioId }) => requiredIds.has(audioId));
   const errors = [];
   const verifiedUrls = new Map();
+  let completed = 0;
+  const reportProgress = (entry) => {
+    completed += 1;
+    onProgress({ completed, total: entries.length, audioId: entry.audioId });
+  };
 
   requiredIds.forEach((audioId) => {
     if (!entries.some((entry) => entry.audioId === audioId)) errors.push({ audioId, reason: "manifest-entry-missing" });
@@ -37,16 +43,23 @@ export const preflightListeningAudio = async (form, {
   for (const entry of entries) {
     if (entry.assetStatus !== "ready" || !entry.assetChecksum) {
       errors.push({ audioId: entry.audioId, reason: "asset-pending" });
+      reportProgress(entry);
+      continue;
+    }
+    if (!entry.developmentFixture && (!entry.ready || !entry.scriptHash || !entry.sha256 || !entry.byteSize || !entry.durationSeconds)) {
+      errors.push({ audioId: entry.audioId, reason: "manifest-metadata-invalid" });
+      reportProgress(entry);
       continue;
     }
     const url = resolveListeningAudioUrl(entry);
-    if (verifiedUrls.get(url) === true) continue;
+    if (verifiedUrls.get(url) === true) { reportProgress(entry); continue; }
     if (online) {
       try {
         const response = await fetchImpl(url, { method: "HEAD", cache: "no-store" });
-        if (!response.ok) { errors.push({ audioId: entry.audioId, reason: "missing-asset" }); continue; }
+        if (!response.ok) { errors.push({ audioId: entry.audioId, reason: "missing-asset" }); reportProgress(entry); continue; }
       } catch (error) {
         errors.push({ audioId: entry.audioId, reason: "network-error" });
+        reportProgress(entry);
         continue;
       }
     }
@@ -57,6 +70,7 @@ export const preflightListeningAudio = async (form, {
     } catch (error) {
       errors.push({ audioId: entry.audioId, reason: online ? "decode-error" : "offline-uncached" });
     }
+    reportProgress(entry);
   }
   return { ready: entries.length > 0 && errors.length === 0, entries, errors };
 };

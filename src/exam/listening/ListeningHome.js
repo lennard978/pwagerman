@@ -6,6 +6,7 @@ import { theme } from "../../styles/theme";
 import { GOETHE_B1_LISTENING_CONFIG, LISTENING_PART_CONFIG } from "../config/goetheB1Listening";
 import { loadListeningSession } from "../core/listeningPersistence";
 import { listeningAudioManifest } from "./audioManifest";
+import { getListeningProductionReadiness } from "./manifestValidation";
 import { cacheListeningAudio } from "./audioCache";
 
 export const ListeningHome = () => {
@@ -13,7 +14,7 @@ export const ListeningHome = () => {
   const listening = progress.listeningProgress;
   const saved = loadListeningSession();
   const resumable = saved?.status === "active";
-  const audioReady = listeningAudioManifest.every(({ assetStatus, assetChecksum }) => assetStatus === "ready" && assetChecksum);
+  const audioReady = getListeningProductionReadiness(listeningAudioManifest).productionReady;
   const developmentFixture = listeningAudioManifest.some(({ developmentFixture: fixture }) => fixture);
   const [offlineState, setOfflineState] = useState("idle");
   const prepareOffline = async () => {

@@ -35,7 +35,7 @@ export const ListeningSession = ({ mode, preflightAudio = preflightListeningAudi
   });
   const form = useMemo(() => getListeningForm(formId), [formId]);
   const [session, setSession] = useState(null);
-  const [preflight, setPreflight] = useState({ status: "preparing", errors: [] });
+  const [preflight, setPreflight] = useState({ status: "preparing", errors: [], completed: 0, total: 0 });
   const [preflightAttempt, setPreflightAttempt] = useState(0);
   const [confirmSubmit, setConfirmSubmit] = useState(false);
   const [exitOpen, setExitOpen] = useState(false);
@@ -47,7 +47,7 @@ export const ListeningSession = ({ mode, preflightAudio = preflightListeningAudi
 
   useEffect(() => {
     let cancelled = false;
-    setPreflight({ status: "preparing", errors: [] });
+    setPreflight({ status: "preparing", errors: [], completed: 0, total: 0 });
     const savedBeforePreflight = !startFresh ? loadListeningSession(undefined, mode) : null;
     const savedBeforePreflightMatches = savedBeforePreflight?.formId === form.id && (mode === "simulation" || savedBeforePreflight.currentPart === requestedPart);
     if (savedBeforePreflightMatches && savedBeforePreflight.status === "submitted") {
@@ -55,7 +55,7 @@ export const ListeningSession = ({ mode, preflightAudio = preflightListeningAudi
       setPreflight({ status: "ready", errors: [] });
       return () => { cancelled = true; };
     }
-    preflightAudio(form).then((result) => {
+    preflightAudio(form, { onProgress: ({ completed, total }) => !cancelled && setPreflight({ status: "preparing", errors: [], completed, total }) }).then((result) => {
       if (cancelled) return;
       if (!result.ready) { setPreflight({ status: "error", errors: result.errors }); return; }
       const saved = !startFresh ? loadListeningSession(undefined, mode) : null;
@@ -96,7 +96,7 @@ export const ListeningSession = ({ mode, preflightAudio = preflightListeningAudi
           <span>Audio preflight</span>
           <h1>{preflight.status === "preparing" ? "Preparing Listening audio…" : "Listening audio could not be prepared. Please try again."}</h1>
           {preflight.status === "preparing"
-            ? <p>The timer has not started. Required files, metadata, and browser decoding support are being checked.</p>
+            ? <p>The timer has not started. Required files, metadata, and browser decoding support are being checked.{preflight.total > 0 ? ` ${preflight.completed} / ${preflight.total}` : ""}</p>
             : <><p>No timed session was started and no playback allowance was consumed. Stable versioned German audio assets must exist before this module can run.</p><ErrorList>{preflight.errors.slice(0, 4).map((error, index) => <li key={`${error.audioId || "audio"}-${index}`}>{error.audioId || "Audio"}: {error.reason}</li>)}</ErrorList><button type="button" onClick={() => setPreflightAttempt((value) => value + 1)}>Try preflight again</button></>}
         </PreflightCard>
       </PreflightPage>
