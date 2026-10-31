@@ -48,6 +48,7 @@ import { SpeakingSession } from "../exam/speaking/SpeakingSession";
 import { MockB1Home } from "../exam/mock/MockB1Home";
 import { MockB1Session } from "../exam/mock/MockB1Session";
 import { ReadinessDashboard } from "../exam/mock/ReadinessDashboard";
+import { Privacy } from "../screen/privacy/Privacy";
 
 function App() {
   useSpeechSynthesis();
@@ -119,6 +120,7 @@ function App() {
           <Route path="exam/full-mock-b1" element={<MockB1Home />} />
           <Route path="exam/full-mock-b1/session" element={<MockB1Session />} />
           <Route path="exam/readiness" element={<ReadinessDashboard />} />
+          <Route path="privacy" element={<Privacy />} />
           <Route path="exam/:moduleId" element={<ExamModule />} />
           <Route path="my-words" element={<Navigate to="/learn/my-words" replace />} />
           <Route path="review" element={<Navigate to="/practice/review" replace />} />

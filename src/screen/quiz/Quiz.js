@@ -147,7 +147,7 @@ export const Quiz = ({ data }) => {
               const isCorrect = selected && choice.id === question.id;
               const isWrong = selected?.id === choice.id && !isCorrect;
               return (
-                <ChoiceRow key={choice.id}>
+                <ChoiceRow key={choice.id || choice.target}>
                   <Choice
                     type="button"
                     disabled={Boolean(selected)}

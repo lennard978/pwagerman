@@ -9,17 +9,20 @@ import { LanguageProvider } from "./i18n/LanguageProvider";
 import { MyWordsProvider } from "./i18n/MyWordsProvider";
 import { setWaitingRegistration } from "./services/serviceWorkerUpdate";
 import { ProgressProvider } from "./i18n/ProgressProvider";
+import { AppErrorBoundary } from "./components/AppErrorBoundary";
 
 ReactDOM.render(
-  <LanguageProvider>
-    <MyWordsProvider>
-      <ProgressProvider>
-        <BrowserRouter basename="/pwagerman">
-          <App />
-        </BrowserRouter>
-      </ProgressProvider>
-    </MyWordsProvider>
-  </LanguageProvider>,
+  <AppErrorBoundary>
+    <LanguageProvider>
+      <MyWordsProvider>
+        <ProgressProvider>
+          <BrowserRouter basename="/pwagerman">
+            <App />
+          </BrowserRouter>
+        </ProgressProvider>
+      </MyWordsProvider>
+    </LanguageProvider>
+  </AppErrorBoundary>,
   document.getElementById("root")
 );
 

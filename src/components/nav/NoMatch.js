@@ -9,6 +9,7 @@ export const NoMatch = () => {
   return (
     <Container>
       <H2>{t("errors.pageNotFound")}</H2>
+      <HomeLink href="/pwagerman/home">Return Home</HomeLink>
     </Container>
   );
 };
@@ -19,7 +20,21 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
+  gap: 1rem;
   background: ${theme.colors.background};
+`;
+
+const HomeLink = styled.a`
+  min-block-size: 2.75rem;
+  display: inline-flex;
+  align-items: center;
+  padding-inline: 1rem;
+  border-radius: ${theme.radius.small};
+  color: white;
+  background: ${theme.colors.primary};
+  font-weight: 800;
+  text-decoration: none;
 `;
 
 const H2 = styled.h2`

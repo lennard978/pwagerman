@@ -25,6 +25,7 @@ export default function Nav() {
 
   return (
     <>
+      <SkipLink href="#main-content">Skip to main content</SkipLink>
       <Container as="nav" aria-label="Primary navigation">
         <Row>
           <NavLink to="/home" title={t("navigation.home")} active={location.pathname === "/home" || location.pathname === "/"}>
@@ -54,6 +55,19 @@ const Container = styled.div`
   border-top: 1px solid ${theme.colors.border};
   background: ${theme.colors.nav};
   box-shadow: ${theme.shadow.nav};
+`;
+
+const SkipLink = styled.a`
+  position: fixed;
+  inset-block-start: .5rem;
+  inset-inline-start: .5rem;
+  z-index: 200;
+  padding: .65rem .85rem;
+  color: white;
+  background: ${theme.colors.navy};
+  border-radius: ${theme.radius.small};
+  transform: translateY(-150%);
+  &:focus { transform: translateY(0); }
 `;
 
 const Row = styled.div`

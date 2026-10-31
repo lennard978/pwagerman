@@ -52,7 +52,7 @@ export const ReadingHome = () => {
         <div>
           <Eyebrow>Full simulation</Eyebrow>
           <h2>Take all 30 questions</h2>
-          <p>One continuous {GOETHE_B1_READING_CONFIG.durationSeconds / 60}-minute timer, free navigation, automatic submission, and official-style result conversion.</p>
+          <p>One continuous {GOETHE_B1_READING_CONFIG.durationSeconds / 60}-minute timer, free navigation, automatic submission, and exam-format result conversion.</p>
         </div>
         <PrimaryButton to="/exam/reading/simulation?new=1">Start new simulation</PrimaryButton>
       </Simulation>

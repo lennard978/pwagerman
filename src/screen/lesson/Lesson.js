@@ -27,7 +27,7 @@ export const Lesson = ({ data }) => {
       {lesson.items.length === 0 && <EmptyExercise message={t("myWords.emptyHint")} />}
       {lesson.items.map((item) => {
         return (
-          <Container key={item.id}>
+          <Container key={item.id || `${item.source}-${item.target}`}>
             <VocabularyRow>
               <Words>
                 <SourceParagraph>{item.source}</SourceParagraph>

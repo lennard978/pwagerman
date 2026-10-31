@@ -1,4 +1,6 @@
-import handler, { MAX_TEXT_LENGTH, SUPPORTED_LANGUAGE } from "../api/tts";
+import handler, { MAX_TEXT_LENGTH, RATE_LIMIT_MAX_REQUESTS, SUPPORTED_LANGUAGE } from "../api/tts";
+
+beforeEach(() => handler._private.resetRateLimits());
 
 const call = async (method, body, headers = {}) => {
   const response = {
@@ -22,7 +24,19 @@ test("API rejects non-POST, invalid language, blank, and oversized text", async 
 });
 
 test("API restricts CORS and does not expose credentials", async () => {
-  const response = await call("POST", { text: "dobro jutro", lang: SUPPORTED_LANGUAGE }, { origin: "https://lennard978.github.io" });
+  const response = await call("POST", { text: "Guten Morgen", lang: SUPPORTED_LANGUAGE }, { origin: "https://lennard978.github.io" });
   expect(response.headers["Access-Control-Allow-Origin"]).toBe("https://lennard978.github.io");
   expect(JSON.stringify(response.body || "")).not.toContain("private_key");
+});
+
+test("API applies a bounded per-client request limit", async () => {
+  const headers = { "x-forwarded-for": "203.0.113.10" };
+  for (let index = 0; index < RATE_LIMIT_MAX_REQUESTS; index += 1) {
+    const response = await call("POST", { text: "Guten Morgen", lang: SUPPORTED_LANGUAGE }, headers);
+    expect(response.statusCode).not.toBe(429);
+  }
+  const limited = await call("POST", { text: "Guten Morgen", lang: SUPPORTED_LANGUAGE }, headers);
+  expect(limited.statusCode).toBe(429);
+  expect(limited.headers["Retry-After"]).toBeDefined();
+  expect(limited.headers["X-RateLimit-Remaining"]).toBe("0");
 });

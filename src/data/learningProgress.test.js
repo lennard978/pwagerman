@@ -115,6 +115,24 @@ beforeEach(() => {
   delete window.indexedDB;
 });
 
+test("normalization bounds legacy history arrays", () => {
+  const oversized = Array.from({ length: 500 }, (_, index) => index);
+  const progress = normalizeProgress({
+    completedExercises: oversized,
+    grammarMistakes: oversized,
+    completedExamPrepSessions: oversized,
+    completedMockExams: oversized,
+    recentMistakes: oversized,
+    activityDates: oversized.map((index) => `2025-01-${String((index % 31) + 1).padStart(2, "0")}-${index}`),
+  });
+  expect(progress.completedExercises).toHaveLength(200);
+  expect(progress.grammarMistakes).toHaveLength(100);
+  expect(progress.completedExamPrepSessions).toHaveLength(100);
+  expect(progress.completedMockExams).toHaveLength(50);
+  expect(progress.recentMistakes).toHaveLength(100);
+  expect(progress.activityDates).toHaveLength(365);
+});
+
 test("new installs require onboarding while existing vocabulary users migrate safely", () => {
   expect(createDefaultProgress().onboardingComplete).toBe(false);
   localStorage.setItem(MY_WORDS_STORAGE_KEY, "[]");

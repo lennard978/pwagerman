@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen, act, fireEvent } from "@testing-library/react";
+import { render, screen, act, fireEvent, within } from "@testing-library/react";
 import { MemoryRouter, Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import Nav from "./nav/Nav";
 import { NoMatch } from "./nav/NoMatch";
@@ -93,7 +93,7 @@ test("keeps four navigation links without a visible language selector", () => {
   );
 
   expect(screen.queryByRole("combobox", { name: "Language" })).toBeNull();
-  expect(screen.getAllByRole("link")).toHaveLength(4);
+  expect(within(screen.getByRole("navigation")).getAllByRole("link")).toHaveLength(4);
 });
 
 test("ignores an inactive persisted UI locale", () => {

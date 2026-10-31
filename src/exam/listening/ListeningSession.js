@@ -139,17 +139,17 @@ export const ListeningSession = ({ mode, preflightAudio = preflightListeningAudi
         {mode === "simulation" && <PartNav aria-label="Listening parts">{form.parts.map((part) => <PartButton key={part.number} type="button" disabled={part.number > session.unlockedPart} $active={part.number === session.currentPart} onClick={() => updateSession((current) => navigateListeningPart(current, form, part.number))}><span>Part {part.number}</span><small>{partAnswered(part)}/{part.items.length}</small></PartButton>)}</PartNav>}
       </StickyHeader>
       <Content>
-        <SequenceNote><strong>Ordered audio sequence:</strong> complete the official playback for this part before moving forward. Previously unlocked parts remain available for answer review, but completed audio cannot be replayed.</SequenceNote>
+        <SequenceNote><strong>Ordered audio sequence:</strong> complete the allowed playback for this part before moving forward. Previously unlocked parts remain available for answer review, but completed audio cannot be replayed.</SequenceNote>
         <ListeningPart part={currentPart} session={session} updateSession={updateSession} onAnswer={handleAnswer} />
         <Footer>
           {mode === "simulation" && session.currentPart > 1 && <Secondary type="button" onClick={() => updateSession((current) => navigateListeningPart(current, form, session.currentPart - 1))}>← Previous part</Secondary>}
-          {!playbackComplete && <PlaybackPending>Complete official playback to continue</PlaybackPending>}
+          {!playbackComplete && <PlaybackPending>Complete playback to continue</PlaybackPending>}
           {playbackComplete && mode === "simulation" && session.currentPart < 4 && <Primary type="button" onClick={() => updateSession((current) => advanceListeningPart(current, form))}>Next part →</Primary>}
           {playbackComplete && (mode === "practice" || session.currentPart === 4) && <Primary type="button" onClick={handleSubmit}>Submit {mode === "simulation" ? "simulation" : "practice"}</Primary>}
         </Footer>
       </Content>
       {confirmSubmit && <Modal role="dialog" aria-modal="true" aria-labelledby="listening-submit-title"><ModalCard><h2 id="listening-submit-title">Submit with unanswered questions?</h2><p>You have {unanswered} unanswered {unanswered === 1 ? "question" : "questions"}. They receive no point.</p><ModalActions><Secondary type="button" onClick={() => setConfirmSubmit(false)}>Return to questions</Secondary><Primary type="button" onClick={finish}>Submit anyway</Primary></ModalActions></ModalCard></Modal>}
-      {exitOpen && <Modal role="dialog" aria-modal="true" aria-labelledby="listening-exit-title"><ModalCard><h2 id="listening-exit-title">Exit Listening?</h2><p>{mode === "simulation" ? "The Listening timer will continue and official playback counts will remain saved." : "Your practice state is saved on this device."}</p><ModalActions><Secondary type="button" onClick={() => setExitOpen(false)}>Continue exam</Secondary><Secondary as={Link} to="/exam/listening">Exit and save</Secondary><Danger type="button" onClick={() => { if (window.confirm("Abandon this Listening session and delete its saved answers and playback state?")) { clearListeningSession(undefined, mode); navigate("/exam/listening"); } }}>Abandon session</Danger></ModalActions></ModalCard></Modal>}
+      {exitOpen && <Modal role="dialog" aria-modal="true" aria-labelledby="listening-exit-title"><ModalCard><h2 id="listening-exit-title">Exit Listening?</h2><p>{mode === "simulation" ? "The Listening timer will continue and allowed playback counts will remain saved." : "Your practice state is saved on this device."}</p><ModalActions><Secondary type="button" onClick={() => setExitOpen(false)}>Continue exam</Secondary><Secondary as={Link} to="/exam/listening">Exit and save</Secondary><Danger type="button" onClick={() => { if (window.confirm("Abandon this Listening session and delete its saved answers and playback state?")) { clearListeningSession(undefined, mode); navigate("/exam/listening"); } }}>Abandon session</Danger></ModalActions></ModalCard></Modal>}
     </Page>
   );
 };

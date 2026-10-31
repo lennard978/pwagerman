@@ -28,6 +28,13 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>German B1</title>
+    <script>
+      (function () {
+        var route = new URLSearchParams(window.location.search).get("route");
+        if (!route || route.charAt(0) !== "/" || route.indexOf("//") === 0) return;
+        window.history.replaceState(null, "", "/pwagerman" + route);
+      }());
+    </script>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>

@@ -1,7 +1,11 @@
 const MAX_TEXT_LENGTH = 300;
+const RATE_LIMIT_WINDOW_MS = 60 * 1000;
+const RATE_LIMIT_MAX_REQUESTS = 30;
+const RATE_LIMIT_MAX_CLIENTS = 1000;
 const COURSE_CONFIG = require("../src/config/course.json");
 const SUPPORTED_LANGUAGE = COURSE_CONFIG.targetLanguage;
 const DEFAULT_VOICE_NAME = COURSE_CONFIG.tts.defaultVoice;
+const requestBuckets = new Map();
 
 const allowedOrigins = () =>
   (process.env.TTS_ALLOWED_ORIGINS ||
@@ -29,6 +33,41 @@ const readBody = (request) => {
   }
 };
 
+const clientAddress = (request) => {
+  const forwarded = request.headers["x-forwarded-for"];
+  const forwardedValue = Array.isArray(forwarded) ? forwarded[0] : forwarded;
+  return String(forwardedValue || request.headers["x-real-ip"] || request.socket?.remoteAddress || "unknown")
+    .split(",")[0]
+    .trim();
+};
+
+const pruneRequestBuckets = (now) => {
+  for (const [key, bucket] of requestBuckets) {
+    if (now - bucket.startedAt >= RATE_LIMIT_WINDOW_MS) requestBuckets.delete(key);
+  }
+  while (requestBuckets.size > RATE_LIMIT_MAX_CLIENTS) {
+    requestBuckets.delete(requestBuckets.keys().next().value);
+  }
+};
+
+const consumeRateLimit = (request, response, now = Date.now()) => {
+  pruneRequestBuckets(now);
+  const key = clientAddress(request);
+  const previous = requestBuckets.get(key);
+  const bucket = !previous || now - previous.startedAt >= RATE_LIMIT_WINDOW_MS
+    ? { startedAt: now, count: 0 }
+    : previous;
+  bucket.count += 1;
+  requestBuckets.set(key, bucket);
+  response.setHeader("X-RateLimit-Limit", String(RATE_LIMIT_MAX_REQUESTS));
+  response.setHeader("X-RateLimit-Remaining", String(Math.max(0, RATE_LIMIT_MAX_REQUESTS - bucket.count)));
+  if (bucket.count <= RATE_LIMIT_MAX_REQUESTS) return true;
+  response.setHeader("Retry-After", String(Math.ceil((RATE_LIMIT_WINDOW_MS - (now - bucket.startedAt)) / 1000)));
+  return false;
+};
+
+const resetRateLimits = () => requestBuckets.clear();
+
 const getClient = () => {
   // This dependency is installed in the separate Vercel API project only.
   // It is never imported into the GitHub Pages React bundle.
@@ -48,6 +87,7 @@ module.exports = async (request, response) => {
   setCors(request, response);
   if (request.method === "OPTIONS") return response.status(204).end();
   if (request.method !== "POST") return response.status(405).json({ error: "Method not allowed" });
+  if (!consumeRateLimit(request, response)) return response.status(429).json({ error: "Too many requests" });
 
   const body = readBody(request);
   const text = typeof body?.text === "string" ? body.text.trim() : "";
@@ -81,4 +121,5 @@ module.exports = async (request, response) => {
 module.exports.MAX_TEXT_LENGTH = MAX_TEXT_LENGTH;
 module.exports.SUPPORTED_LANGUAGE = SUPPORTED_LANGUAGE;
 module.exports.DEFAULT_VOICE_NAME = DEFAULT_VOICE_NAME;
-module.exports._private = { allowedOrigins, readBody };
+module.exports.RATE_LIMIT_MAX_REQUESTS = RATE_LIMIT_MAX_REQUESTS;
+module.exports._private = { allowedOrigins, readBody, clientAddress, consumeRateLimit, resetRateLimits };

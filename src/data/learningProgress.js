@@ -111,12 +111,12 @@ export const normalizeProgress = (value, storage = window.localStorage) => {
     ...value,
     version: PROGRESS_VERSION,
     completedLessons: Array.isArray(value.completedLessons) ? value.completedLessons : [],
-    completedExercises: Array.isArray(value.completedExercises) ? value.completedExercises : [],
+    completedExercises: Array.isArray(value.completedExercises) ? value.completedExercises.slice(-200) : [],
     completedGrammarLessons: Array.isArray(value.completedGrammarLessons)
       ? [...new Set(value.completedGrammarLessons)]
       : [],
     grammarLessonStates: normalizeGrammarLessonStates(value.grammarLessonStates),
-    grammarMistakes: Array.isArray(value.grammarMistakes) ? value.grammarMistakes : [],
+    grammarMistakes: Array.isArray(value.grammarMistakes) ? value.grammarMistakes.slice(-100) : [],
     completedExamReadingTasks: Array.isArray(value.completedExamReadingTasks)
       ? [...new Set(value.completedExamReadingTasks)]
       : [],
@@ -124,7 +124,7 @@ export const normalizeProgress = (value, storage = window.localStorage) => {
       ? [...new Set(value.completedExamListeningTasks)]
       : [],
     completedExamPrepSessions: Array.isArray(value.completedExamPrepSessions)
-      ? value.completedExamPrepSessions
+      ? value.completedExamPrepSessions.slice(-100)
       : [],
     examPrepBestScores: value.examPrepBestScores &&
       typeof value.examPrepBestScores === "object" &&
@@ -132,7 +132,7 @@ export const normalizeProgress = (value, storage = window.localStorage) => {
       ? value.examPrepBestScores
       : {},
     completedMockExams: Array.isArray(value.completedMockExams)
-      ? value.completedMockExams
+      ? value.completedMockExams.slice(-50)
       : [],
     latestMockScore: value.latestMockScore &&
       typeof value.latestMockScore === "object" &&
@@ -258,8 +258,8 @@ export const normalizeProgress = (value, storage = window.localStorage) => {
         ? value.mockProgress.readinessIndicators
         : {},
     },
-    recentMistakes: Array.isArray(value.recentMistakes) ? value.recentMistakes : [],
-    activityDates: Array.isArray(value.activityDates) ? [...new Set(value.activityDates)] : [],
+    recentMistakes: Array.isArray(value.recentMistakes) ? value.recentMistakes.slice(-100) : [],
+    activityDates: Array.isArray(value.activityDates) ? [...new Set(value.activityDates)].slice(-365) : [],
     onboardingComplete: typeof value.onboardingComplete === "boolean"
       ? value.onboardingComplete
       : defaults.onboardingComplete,

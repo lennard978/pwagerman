@@ -67,7 +67,7 @@ export const ListeningAudioPlayer = ({ audio, preparationSeconds, session, updat
 
   return (
     <Player aria-label={`${audio.title} exam audio`}>
-      <TopLine><div><small>Exam audio</small><strong>{audio.title}</strong></div><PlayCount>{state.playCount}/{audio.playbackLimit} official plays used</PlayCount></TopLine>
+      <TopLine><div><small>Exam audio</small><strong>{audio.title}</strong></div><PlayCount>{state.playCount}/{audio.playbackLimit} allowed plays used</PlayCount></TopLine>
       <Rule>You will hear this recording {audio.playbackLimit === 2 ? "twice" : "once"}. Read the questions before playing.</Rule>
       {state.status === "pre-reading" ? (
         <Preparation role="status"><span>Question preparation</span><strong>{formatExamTime(preparationRemaining)}</strong></Preparation>
@@ -76,11 +76,11 @@ export const ListeningAudioPlayer = ({ audio, preparationSeconds, session, updat
           {(state.status === "idle" || state.status === "pause-between") && remainingPlays > 0 && <Primary type="button" onClick={prepare}>{state.status === "pause-between" ? "Prepare second play" : `Start ${preparationSeconds}-second preparation`}</Primary>}
           {state.status === "ready" && <Primary type="button" onClick={play}>{state.inProgress ? "Resume interrupted play" : `Play recording · ${remainingPlays} remaining`}</Primary>}
           {state.status === "playing" && <Now role="status">Playing now · answer while you listen</Now>}
-          {state.status === "finished" && <Complete>Official playback complete</Complete>}
+          {state.status === "finished" && <Complete>Playback complete</Complete>}
         </Controls>
       )}
       <Progress aria-label={`Playback position ${Math.round(state.currentTime)} of ${Math.round(durationSeconds)} seconds`}><i style={{ inlineSize: `${Math.min(100, (state.currentTime / durationSeconds) * 100)}%` }} /></Progress>
-      {state.lastError && <ErrorText role="alert">Playback was interrupted. Retry or resume without receiving an extra official play.</ErrorText>}
+      {state.lastError && <ErrorText role="alert">Playback was interrupted. Retry or resume without using an extra allowed play.</ErrorText>}
       <audio
         ref={audioElement}
         preload="metadata"

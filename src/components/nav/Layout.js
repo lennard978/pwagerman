@@ -17,7 +17,7 @@ export const Layout = () => {
   const location = useLocation();
 
   return (
-    <Container>
+    <Container id="main-content" tabIndex="-1">
       <ScrollToTop />
       <Page key={location.pathname}>
         <Outlet />

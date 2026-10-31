@@ -18,11 +18,11 @@ Official materials are references for structure, timing, task families, scope, a
 
 ## Original app-authored content
 
-Vocabulary examples, explanations, exercises, distractors, prompts, recordings, illustrations, and future mock forms in this application must be newly authored or appropriately licensed. Phase 1 contains only a small, clearly labelled original fixture set for architecture and UI validation.
+Vocabulary examples, explanations, exercises, distractors, prompts, recordings, and mock forms in this application are newly authored for this product. The Goethe sources are used only to check public structure, timing, task families, and lexical coverage. Development-only Listening fixtures are excluded from the production build.
 
 Do not reproduce full official exam papers, answer keys, audio, logos, or Goethe visual identity. Future content reviews should record provenance, author, licence/status, review date, and the official structural reference used.
 
-## Phase 1 configuration decisions
+## Release configuration decisions
 
 - Reading: 65 minutes, 5 parts; objective score, maximum 100, module pass threshold 60.
 - Listening: 40 minutes, 4 parts; objective score, maximum 100, module pass threshold 60.
