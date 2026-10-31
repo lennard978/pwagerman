@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="240" viewBox="0 0 960 240" role="img" aria-labelledby="title desc">
+  <title id="title">German B1 Exam Preparation</title>
+  <desc id="desc">An original open-book and speech-mark identity for German B1 by Asenda Studio.</desc>
+  <rect width="960" height="240" rx="36" fill="#f7f3e9"/>
+  <g transform="translate(50 35)">
+    <path d="M15 40c45-16 88-8 120 20v110c-37-24-77-30-120-15z" fill="#fff" stroke="#a66a12" stroke-width="9" stroke-linejoin="round"/>
+    <path d="M255 40c-45-16-88-8-120 20v110c37-24 77-30 120-15z" fill="#fff" stroke="#a66a12" stroke-width="9" stroke-linejoin="round"/>
+    <path d="M135 60v110" fill="none" stroke="#a66a12" stroke-width="9" stroke-linecap="round"/>
+    <path d="M83 14h112a28 28 0 0 1 28 28v33a28 28 0 0 1-28 28h-40l-27 26 5-26H83a28 28 0 0 1-28-28V42A28 28 0 0 1 83 14z" fill="#282824"/>
+    <text x="139" y="78" text-anchor="middle" fill="#f7f3e9" font-family="Arial, sans-serif" font-size="48" font-weight="900">B1</text>
+  </g>
+  <g transform="translate(350 42)" font-family="Arial, sans-serif">
+    <text x="0" y="70" fill="#282824" font-size="68" font-weight="900" letter-spacing="-2">GERMAN B1</text>
+    <text x="3" y="120" fill="#a66a12" font-size="28" font-weight="800" letter-spacing="5">EXAM PREPARATION</text>
+    <text x="3" y="165" fill="#66645e" font-size="22">by Asenda Studio</text>
+  </g>
+</svg>

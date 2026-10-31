@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>German B1</title>
+  </head>
+  <body>
+    <p>Opening German B1…</p>
+    <script>
+      (function () {
+        var base = "/pwagerman";
+        var route = window.location.pathname.indexOf(base) === 0
+          ? window.location.pathname.slice(base.length)
+          : window.location.pathname;
+        if (!route || route.charAt(0) !== "/") route = "/" + (route || "");
+        var destination = base + "/?route=" + encodeURIComponent(
+          route + window.location.search + window.location.hash
+        );
+        window.location.replace(destination);
+      }());
+    </script>
+  </body>
+</html>
