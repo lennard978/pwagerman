@@ -140,7 +140,7 @@ export const ReadingSession = ({ mode }) => {
         <HeaderRow>
           <ExitButton type="button" onClick={() => setExitOpen(true)}>Exit</ExitButton>
           <HeaderTitle><span>{mode === "simulation" ? "Full Reading simulation" : "Reading practice"}</span><strong>{form.title}</strong></HeaderTitle>
-          {mode === "simulation" ? <Timer><small>Time left</small><ExamTimer session={session} onExpire={finish} /></Timer> : <PracticePill>Part {requestedPart}</PracticePill>}
+          {mode === "simulation" ? <Timer><small>Time left</small><ExamTimer session={session} onExpire={finish} label="Reading" /></Timer> : <PracticePill>Part {requestedPart}</PracticePill>}
         </HeaderRow>
         {mode === "simulation" && (
           <PartNavigation aria-label="Reading parts">

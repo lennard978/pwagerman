@@ -308,6 +308,66 @@ export const ProgressProvider = ({ children }) => {
     });
   };
 
+  const recordListeningAttempt = ({ session, score }) => {
+    const at = session.submittedAt || new Date().toISOString();
+    const attempt = {
+      id: session.sessionId,
+      formId: session.formId,
+      mode: session.mode,
+      partNumber: session.mode === "practice" ? session.currentPart : null,
+      rawScore: score.rawScore,
+      total: score.total,
+      resultScore: score.resultScore,
+      passed: score.passed,
+      partBreakdown: score.partBreakdown,
+      skillPerformance: score.skillPerformance,
+      contentVersion: session.contentVersion,
+      scoringVersion: session.scoringVersion,
+      audioVersion: session.audioVersion,
+      at,
+    };
+    persist((current) => {
+      if (current.listeningProgress.attemptHistory.some(({ id }) => id === attempt.id)) return current;
+      const simulation = session.mode === "simulation";
+      const practiceKey = `${session.formId}:part-${session.currentPart}`;
+      const skillPerformance = Object.fromEntries(
+        [...new Set([...Object.keys(current.listeningProgress.skillPerformance), ...Object.keys(score.skillPerformance)])]
+          .map((skill) => {
+            const previous = current.listeningProgress.skillPerformance[skill] || { correct: 0, total: 0 };
+            const latest = score.skillPerformance[skill] || { correct: 0, total: 0 };
+            const correct = previous.correct + latest.correct;
+            const total = previous.total + latest.total;
+            return [skill, { correct, total, percentage: total ? Math.round((correct / total) * 100) : 0 }];
+          })
+      );
+      return {
+        ...current,
+        lastActivity: {
+          type: "exam-listening",
+          route: "/exam/listening",
+          title: simulation ? "B1 Listening simulation" : `B1 Listening Part ${session.currentPart}`,
+          at,
+        },
+        listeningProgress: {
+          ...current.listeningProgress,
+          practicePartsCompleted: simulation
+            ? current.listeningProgress.practicePartsCompleted
+            : [...new Set([...current.listeningProgress.practicePartsCompleted, practiceKey])],
+          simulationsCompleted: current.listeningProgress.simulationsCompleted + (simulation ? 1 : 0),
+          latestRawScore: simulation ? score.rawScore : current.listeningProgress.latestRawScore,
+          latestResultScore: simulation ? score.resultScore : current.listeningProgress.latestResultScore,
+          bestResultScore: simulation
+            ? Math.max(current.listeningProgress.bestResultScore || 0, score.resultScore)
+            : current.listeningProgress.bestResultScore,
+          latestDate: at,
+          skillPerformance,
+          attemptHistory: [...current.listeningProgress.attemptHistory, attempt].slice(-20),
+        },
+        activityDates: recordStudyDate(current.activityDates),
+      };
+    });
+  };
+
   const completeOnboarding = () =>
     persist((current) => ({ ...current, onboardingComplete: true }));
 
@@ -323,6 +383,7 @@ export const ProgressProvider = ({ children }) => {
       recordExamPrepCompletion,
       recordMockCompletion,
       recordReadingAttempt,
+      recordListeningAttempt,
       completeOnboarding,
     }}>
       {children}

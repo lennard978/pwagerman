@@ -8,6 +8,7 @@ export const B1_EXAM_CONFIG = Object.freeze({
   listening: Object.freeze({
     durationMinutes: 40,
     parts: 4,
+    itemCount: 30,
     scoring: Object.freeze({ maximumPoints: 100, passThreshold: 60, mode: "objective" }),
   }),
   writing: Object.freeze({

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { getReadingRemainingSeconds } from "./examState";
+import { getObjectiveRemainingSeconds } from "./objectiveSession";
 
 const systemNow = () => new Date();
 
@@ -8,13 +8,13 @@ export const formatExamTime = (seconds) => {
   return `${String(Math.floor(safe / 60)).padStart(2, "0")}:${String(safe % 60).padStart(2, "0")}`;
 };
 
-export const ExamTimer = ({ session, onExpire, now = systemNow }) => {
-  const [remaining, setRemaining] = useState(() => getReadingRemainingSeconds(session, now()));
+export const ExamTimer = ({ session, onExpire, now = systemNow, label = "Exam" }) => {
+  const [remaining, setRemaining] = useState(() => getObjectiveRemainingSeconds(session, now()));
   const expiredRef = useRef(false);
   useEffect(() => {
     if (!session.deadlineAt || session.status !== "active") return undefined;
     const update = () => {
-      const next = getReadingRemainingSeconds(session, now());
+      const next = getObjectiveRemainingSeconds(session, now());
       setRemaining(next);
       if (next <= 0 && !expiredRef.current) { expiredRef.current = true; onExpire(); }
     };
@@ -23,5 +23,5 @@ export const ExamTimer = ({ session, onExpire, now = systemNow }) => {
     return () => window.clearInterval(interval);
   }, [session, onExpire, now]);
   if (remaining === null) return null;
-  return <span aria-label={`Reading time remaining ${formatExamTime(remaining)}`}>{formatExamTime(remaining)}</span>;
+  return <span aria-label={`${label} time remaining ${formatExamTime(remaining)}`}>{formatExamTime(remaining)}</span>;
 };

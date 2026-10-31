@@ -24,6 +24,8 @@
     "learningProgress": "asenda.german-b1.learningProgress.v1",
     "readingSession": "asenda.german-b1.readingSession.v1",
     "readingPracticeSession": "asenda.german-b1.readingPracticeSession.v1",
+    "listeningSession": "asenda.german-b1.listeningSession.v1",
+    "listeningPracticeSession": "asenda.german-b1.listeningPracticeSession.v1",
     "installHelpDismissed": "asenda.german-b1.installHelp.dismissed.v1",
     "indexedDb": "asenda-german-b1"
   },

@@ -38,6 +38,8 @@ import { GrammarDiagnostic } from "../screen/grammar/GrammarDiagnostic";
 import { GrammarPracticeHub } from "../screen/grammar/GrammarPracticeHub";
 import { ReadingHome } from "../exam/reading/ReadingHome";
 import { ReadingSession } from "../exam/reading/ReadingSession";
+import { ListeningHome } from "../exam/listening/ListeningHome";
+import { ListeningSession } from "../exam/listening/ListeningSession";
 
 function App() {
   useSpeechSynthesis();
@@ -95,6 +97,9 @@ function App() {
           <Route path="exam/reading" element={<ReadingHome />} />
           <Route path="exam/reading/practice/:partNumber" element={<ReadingSession mode="practice" />} />
           <Route path="exam/reading/simulation" element={<ReadingSession mode="simulation" />} />
+          <Route path="exam/listening" element={<ListeningHome />} />
+          <Route path="exam/listening/practice/:partNumber" element={<ListeningSession mode="practice" />} />
+          <Route path="exam/listening/simulation" element={<ListeningSession mode="simulation" />} />
           <Route path="exam/:moduleId" element={<ExamModule />} />
           <Route path="my-words" element={<Navigate to="/learn/my-words" replace />} />
           <Route path="review" element={<Navigate to="/practice/review" replace />} />

@@ -20,8 +20,8 @@ export const Exam = () => {
         {EXAM_MODULE_IDS.map((id) => (
           <Card key={id} to={`/exam/${id}`}>
             <strong>{t(`exam.${id}`)}</strong>
-            <span>{id === "reading" ? `${moduleSummary(id)} · 30 questions` : moduleSummary(id)}</span>
-            <small>{id === "reading" ? "Practice available" : t("foundation.upcoming")}</small>
+            <span>{id === "reading" || id === "listening" ? `${moduleSummary(id)} · 30 questions` : moduleSummary(id)}</span>
+            <small>{id === "reading" || id === "listening" ? "Practice available" : t("foundation.upcoming")}</small>
           </Card>
         ))}
         <Card to="/exam/full-mock-b1">

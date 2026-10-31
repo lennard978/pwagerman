@@ -11,7 +11,7 @@ import { clientsClaim } from 'workbox-core';
 import { ExpirationPlugin } from 'workbox-expiration';
 import { precacheAndRoute, createHandlerBoundToURL } from 'workbox-precaching';
 import { registerRoute } from 'workbox-routing';
-import { StaleWhileRevalidate } from 'workbox-strategies';
+import { CacheFirst, StaleWhileRevalidate } from 'workbox-strategies';
 
 clientsClaim();
 
@@ -44,6 +44,28 @@ registerRoute(
     return true;
   },
   createHandlerBoundToURL(process.env.PUBLIC_URL + '/index.html')
+);
+
+self.addEventListener('activate', (event) => {
+  event.waitUntil(
+    caches.keys().then((keys) => Promise.all(
+      keys
+        .filter((key) => key.startsWith('german-b1-listening-') && key !== 'german-b1-listening-audio-v1')
+        .map((key) => caches.delete(key))
+    ))
+  );
+});
+
+// Listening media is intentionally kept out of the app-shell cache. Only the
+// current bounded, versioned audio set is retained after it has been fetched.
+registerRoute(
+  ({ url }) => url.origin === self.location.origin && url.pathname.includes('/audio/listening/audio-v1/'),
+  new CacheFirst({
+    cacheName: 'german-b1-listening-audio-v1',
+    plugins: [
+      new ExpirationPlugin({ maxEntries: 24, maxAgeSeconds: 60 * 60 * 24 * 30, purgeOnQuotaError: true }),
+    ],
+  })
 );
 
 // An example runtime caching route for requests that aren't handled by the

@@ -12,7 +12,7 @@ import { STORAGE_CONFIG } from "../config/course";
 import { normalizeGrammarLessonStates } from "./grammar/state";
 
 export const PROGRESS_STORAGE_KEY = STORAGE_CONFIG.learningProgress;
-export const PROGRESS_VERSION = 6;
+export const PROGRESS_VERSION = 7;
 
 const localDate = (date = new Date()) => {
   const year = date.getFullYear();
@@ -50,6 +50,16 @@ export const createDefaultProgress = (storage = window.localStorage) => ({
   bestMockScore: 0,
   bestMockSectionScores: {},
   readingProgress: {
+    practicePartsCompleted: [],
+    simulationsCompleted: 0,
+    latestRawScore: null,
+    latestResultScore: null,
+    bestResultScore: 0,
+    latestDate: null,
+    skillPerformance: {},
+    attemptHistory: [],
+  },
+  listeningProgress: {
     practicePartsCompleted: [],
     simulationsCompleted: 0,
     latestRawScore: null,
@@ -127,6 +137,27 @@ export const normalizeProgress = (value, storage = window.localStorage) => {
         : {},
       attemptHistory: Array.isArray(value.readingProgress?.attemptHistory)
         ? value.readingProgress.attemptHistory.slice(-20)
+        : [],
+    },
+    listeningProgress: {
+      ...defaults.listeningProgress,
+      ...(value.listeningProgress && typeof value.listeningProgress === "object" && !Array.isArray(value.listeningProgress)
+        ? value.listeningProgress
+        : {}),
+      practicePartsCompleted: Array.isArray(value.listeningProgress?.practicePartsCompleted)
+        ? [...new Set(value.listeningProgress.practicePartsCompleted)]
+        : [],
+      simulationsCompleted: Number.isFinite(value.listeningProgress?.simulationsCompleted)
+        ? value.listeningProgress.simulationsCompleted
+        : 0,
+      bestResultScore: Number.isFinite(value.listeningProgress?.bestResultScore)
+        ? value.listeningProgress.bestResultScore
+        : 0,
+      skillPerformance: value.listeningProgress?.skillPerformance && typeof value.listeningProgress.skillPerformance === "object"
+        ? value.listeningProgress.skillPerformance
+        : {},
+      attemptHistory: Array.isArray(value.listeningProgress?.attemptHistory)
+        ? value.listeningProgress.attemptHistory.slice(-20)
         : [],
     },
     recentMistakes: Array.isArray(value.recentMistakes) ? value.recentMistakes : [],

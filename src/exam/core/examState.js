@@ -1,5 +1,6 @@
 import { READING_CONTENT_VERSION, READING_SCORING_VERSION } from "../config/goetheB1";
 import { flattenReadingItems, scoreReadingForm } from "../scoring/scoreObjectiveModule";
+import { getObjectiveRemainingSeconds } from "./objectiveSession";
 
 export const createReadingSession = ({ form, mode = "simulation", partNumber = 1, now = new Date(), durationSeconds = form.durationSeconds }) => {
   const startedAt = now.toISOString();
@@ -21,10 +22,7 @@ export const createReadingSession = ({ form, mode = "simulation", partNumber = 1
   };
 };
 
-export const getReadingRemainingSeconds = (session, now = new Date()) => {
-  if (!session?.deadlineAt) return null;
-  return Math.max(0, Math.ceil((new Date(session.deadlineAt).getTime() - now.getTime()) / 1000));
-};
+export const getReadingRemainingSeconds = getObjectiveRemainingSeconds;
 
 export const navigateReadingPart = (session, partNumber) => ({ ...session, currentPart: Math.max(1, Math.min(5, partNumber)) });
 
