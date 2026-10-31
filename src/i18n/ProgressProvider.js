@@ -249,6 +249,65 @@ export const ProgressProvider = ({ children }) => {
     }));
   };
 
+  const recordReadingAttempt = ({ session, score }) => {
+    const at = session.submittedAt || new Date().toISOString();
+    const attempt = {
+      id: session.sessionId,
+      formId: session.formId,
+      mode: session.mode,
+      partNumber: session.mode === "practice" ? session.currentPart : null,
+      rawScore: score.rawScore,
+      total: score.total,
+      resultScore: score.resultScore,
+      passed: score.passed,
+      partBreakdown: score.partBreakdown,
+      skillPerformance: score.skillPerformance,
+      contentVersion: session.contentVersion,
+      scoringVersion: session.scoringVersion,
+      at,
+    };
+    persist((current) => {
+      if (current.readingProgress.attemptHistory.some(({ id }) => id === attempt.id)) return current;
+      const simulation = session.mode === "simulation";
+      const practiceKey = `${session.formId}:part-${session.currentPart}`;
+      const skillPerformance = Object.fromEntries(
+        [...new Set([...Object.keys(current.readingProgress.skillPerformance), ...Object.keys(score.skillPerformance)])]
+          .map((skill) => {
+            const previous = current.readingProgress.skillPerformance[skill] || { correct: 0, total: 0 };
+            const latest = score.skillPerformance[skill] || { correct: 0, total: 0 };
+            const correct = previous.correct + latest.correct;
+            const total = previous.total + latest.total;
+            return [skill, { correct, total, percentage: total ? Math.round((correct / total) * 100) : 0 }];
+          })
+      );
+      return {
+        ...current,
+        lastActivity: {
+          type: "exam-reading",
+          route: "/exam/reading",
+          title: simulation ? "B1 Reading simulation" : `B1 Reading Part ${session.currentPart}`,
+          at,
+        },
+        readingProgress: {
+          ...current.readingProgress,
+          practicePartsCompleted: simulation
+            ? current.readingProgress.practicePartsCompleted
+            : [...new Set([...current.readingProgress.practicePartsCompleted, practiceKey])],
+          simulationsCompleted: current.readingProgress.simulationsCompleted + (simulation ? 1 : 0),
+          latestRawScore: simulation ? score.rawScore : current.readingProgress.latestRawScore,
+          latestResultScore: simulation ? score.resultScore : current.readingProgress.latestResultScore,
+          bestResultScore: simulation
+            ? Math.max(current.readingProgress.bestResultScore || 0, score.resultScore)
+            : current.readingProgress.bestResultScore,
+          latestDate: simulation ? at : current.readingProgress.latestDate,
+          skillPerformance,
+          attemptHistory: [...current.readingProgress.attemptHistory, attempt].slice(-20),
+        },
+        activityDates: recordStudyDate(current.activityDates),
+      };
+    });
+  };
+
   const completeOnboarding = () =>
     persist((current) => ({ ...current, onboardingComplete: true }));
 
@@ -263,6 +322,7 @@ export const ProgressProvider = ({ children }) => {
       resolveGrammarMistake,
       recordExamPrepCompletion,
       recordMockCompletion,
+      recordReadingAttempt,
       completeOnboarding,
     }}>
       {children}

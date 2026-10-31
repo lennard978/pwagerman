@@ -36,6 +36,8 @@ import { GermanGrammarPractice } from "../screen/grammar/GermanGrammarPractice";
 import { GrammarReview } from "../screen/grammar/GrammarReview";
 import { GrammarDiagnostic } from "../screen/grammar/GrammarDiagnostic";
 import { GrammarPracticeHub } from "../screen/grammar/GrammarPracticeHub";
+import { ReadingHome } from "../exam/reading/ReadingHome";
+import { ReadingSession } from "../exam/reading/ReadingSession";
 
 function App() {
   useSpeechSynthesis();
@@ -90,6 +92,9 @@ function App() {
           <Route path="practice/grammar" element={<GrammarPracticeHub />} />
           <Route path="practice/grammar/review" element={<GrammarReview />} />
           <Route path="exam" element={<Exam />} />
+          <Route path="exam/reading" element={<ReadingHome />} />
+          <Route path="exam/reading/practice/:partNumber" element={<ReadingSession mode="practice" />} />
+          <Route path="exam/reading/simulation" element={<ReadingSession mode="simulation" />} />
           <Route path="exam/:moduleId" element={<ExamModule />} />
           <Route path="my-words" element={<Navigate to="/learn/my-words" replace />} />
           <Route path="review" element={<Navigate to="/practice/review" replace />} />

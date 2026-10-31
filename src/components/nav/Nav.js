@@ -21,6 +21,8 @@ export default function Nav() {
   const { t } = useLanguage();
   const location = useLocation();
 
+  if (location.pathname === "/exam/reading/simulation") return null;
+
   return (
     <>
       <Container as="nav" aria-label="Primary navigation">

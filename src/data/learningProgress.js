@@ -12,7 +12,7 @@ import { STORAGE_CONFIG } from "../config/course";
 import { normalizeGrammarLessonStates } from "./grammar/state";
 
 export const PROGRESS_STORAGE_KEY = STORAGE_CONFIG.learningProgress;
-export const PROGRESS_VERSION = 5;
+export const PROGRESS_VERSION = 6;
 
 const localDate = (date = new Date()) => {
   const year = date.getFullYear();
@@ -49,6 +49,16 @@ export const createDefaultProgress = (storage = window.localStorage) => ({
   latestMockScore: null,
   bestMockScore: 0,
   bestMockSectionScores: {},
+  readingProgress: {
+    practicePartsCompleted: [],
+    simulationsCompleted: 0,
+    latestRawScore: null,
+    latestResultScore: null,
+    bestResultScore: 0,
+    latestDate: null,
+    skillPerformance: {},
+    attemptHistory: [],
+  },
   recentMistakes: [],
   activityDates: [],
   onboardingComplete: existingUser(storage),
@@ -98,6 +108,27 @@ export const normalizeProgress = (value, storage = window.localStorage) => {
       !Array.isArray(value.bestMockSectionScores)
       ? value.bestMockSectionScores
       : {},
+    readingProgress: {
+      ...defaults.readingProgress,
+      ...(value.readingProgress && typeof value.readingProgress === "object" && !Array.isArray(value.readingProgress)
+        ? value.readingProgress
+        : {}),
+      practicePartsCompleted: Array.isArray(value.readingProgress?.practicePartsCompleted)
+        ? [...new Set(value.readingProgress.practicePartsCompleted)]
+        : [],
+      simulationsCompleted: Number.isFinite(value.readingProgress?.simulationsCompleted)
+        ? value.readingProgress.simulationsCompleted
+        : 0,
+      bestResultScore: Number.isFinite(value.readingProgress?.bestResultScore)
+        ? value.readingProgress.bestResultScore
+        : 0,
+      skillPerformance: value.readingProgress?.skillPerformance && typeof value.readingProgress.skillPerformance === "object"
+        ? value.readingProgress.skillPerformance
+        : {},
+      attemptHistory: Array.isArray(value.readingProgress?.attemptHistory)
+        ? value.readingProgress.attemptHistory.slice(-20)
+        : [],
+    },
     recentMistakes: Array.isArray(value.recentMistakes) ? value.recentMistakes : [],
     activityDates: Array.isArray(value.activityDates) ? [...new Set(value.activityDates)] : [],
     onboardingComplete: typeof value.onboardingComplete === "boolean"

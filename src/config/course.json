@@ -22,6 +22,8 @@
     "myWordsMigrated": "asenda.german-b1.myWords.migratedToIndexedDb.v1",
     "wordStatuses": "asenda.german-b1.wordStatuses.v1",
     "learningProgress": "asenda.german-b1.learningProgress.v1",
+    "readingSession": "asenda.german-b1.readingSession.v1",
+    "readingPracticeSession": "asenda.german-b1.readingPracticeSession.v1",
     "installHelpDismissed": "asenda.german-b1.installHelp.dismissed.v1",
     "indexedDb": "asenda-german-b1"
   },
