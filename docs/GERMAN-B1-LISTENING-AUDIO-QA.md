@@ -4,6 +4,12 @@ Automated metadata is not a substitute for listening. Human status remains `PEND
 
 Generated: 2026-10-31 with Google Cloud Text-to-Speech. `PASS` means the asset exists, is a valid browser-decodable MP3, has matching SHA-256/byte-size/duration metadata, matches the current normalized script hash and content/audio versions, and maps to the expected manifest record. It does not assess naturalness.
 
+Human reviewer: `PENDING`
+
+Review date: `PENDING`
+
+Playback equipment: `PENDING` (record speakers/headphones and device)
+
 | Audio ID | Form | Part | Duration | Voice(s) | Size | SHA-256 | Automated | Human listen |
 |---|---:|---:|---:|---|---:|---|---|---|
 | de-b1-listening-form-001-p1-audio-1 | 001 | 1 | 19.84 s | Kore | 155.7 KiB | e5eed57f269a | PASS | PENDING |
@@ -31,4 +37,39 @@ Generated: 2026-10-31 with Google Cloud Text-to-Speech. `PASS` means the asset e
 | de-b1-listening-form-003-p3-audio-1 | 003 | 3 | 84.84 s | Leda, Charon | 663.4 KiB | 7fe813c3969c | PASS | PENDING |
 | de-b1-listening-form-003-p4-audio-1 | 003 | 4 | 96.16 s | Kore, Leda, Orus | 751.9 KiB | db331e0a48f9 | PASS | PENDING |
 
-Human checklist: pronunciation; B1 pacing; naturalness; speaker distinction; no clipped start/end; numbers and times; correct German; natural pauses; exact script.
+## Per-track human listening review
+
+The following is the required human review record. Every criterion must be checked against the full transcript while the entire asset is audibly played. Do not change a verdict to `PASS` without recording a human reviewer, review date, and playback equipment above. Use `NEEDS FIX` for any failed criterion and add the exact defect under **Defect notes**.
+
+Legend: **Pron.** pronunciation/understandability; **German** no wrong or missing words; **Num/time** numbers, dates, and times; **Pace** B1-appropriate pace and naturalness; **Voices** speaker assignment and distinction; **Pauses** reasonable pauses; **Clip** no clipped start/end; **Artifacts** no disruptive background/silence artifact; **Match** exact transcript match.
+
+| Audio ID | Pron. | German | Num/time | Pace | Voices | Pauses | Clip | Artifacts | Match | Verdict |
+|---|---|---|---|---|---|---|---|---|---|---|
+| de-b1-listening-form-001-p1-audio-1 | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING |
+| de-b1-listening-form-001-p1-audio-2 | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING |
+| de-b1-listening-form-001-p1-audio-3 | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING |
+| de-b1-listening-form-001-p1-audio-4 | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING |
+| de-b1-listening-form-001-p1-audio-5 | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING |
+| de-b1-listening-form-001-p2-audio-1 | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING |
+| de-b1-listening-form-001-p3-audio-1 | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING |
+| de-b1-listening-form-001-p4-audio-1 | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING |
+| de-b1-listening-form-002-p1-audio-1 | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING |
+| de-b1-listening-form-002-p1-audio-2 | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING |
+| de-b1-listening-form-002-p1-audio-3 | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING |
+| de-b1-listening-form-002-p1-audio-4 | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING |
+| de-b1-listening-form-002-p1-audio-5 | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING |
+| de-b1-listening-form-002-p2-audio-1 | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING |
+| de-b1-listening-form-002-p3-audio-1 | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING |
+| de-b1-listening-form-002-p4-audio-1 | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING |
+| de-b1-listening-form-003-p1-audio-1 | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING |
+| de-b1-listening-form-003-p1-audio-2 | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING |
+| de-b1-listening-form-003-p1-audio-3 | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING |
+| de-b1-listening-form-003-p1-audio-4 | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING |
+| de-b1-listening-form-003-p1-audio-5 | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING |
+| de-b1-listening-form-003-p2-audio-1 | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING |
+| de-b1-listening-form-003-p3-audio-1 | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING |
+| de-b1-listening-form-003-p4-audio-1 | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING |
+
+## Defect notes
+
+No human listening was performed during the 2026-10-31 final-QA attempt because no human reviewer was available. No audible defect is asserted, and no track was regenerated.
