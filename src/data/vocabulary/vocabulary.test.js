@@ -12,21 +12,21 @@ import { validateLexeme, validateLexemeCollection } from "./schema";
 import { TARGET_LANGUAGE } from "../../config/course";
 
 describe("German B1 production vocabulary schema", () => {
-  test("contains 1950 original production lexemes in 25 deliberately weighted categories", () => {
-    expect(GERMAN_B1_LEXEMES).toHaveLength(1950);
+  test("contains 2367 original production lexemes in 25 deliberately weighted categories", () => {
+    expect(GERMAN_B1_LEXEMES).toHaveLength(2367);
     expect(VOCABULARY_CATEGORIES).toHaveLength(25);
     expect(new Set(VOCABULARY_CATEGORY_IDS).size).toBe(25);
     expect(GermanCurriculum).toHaveLength(25);
     expect(GermanCurriculum.map((category) => category.items.length)).toEqual([
-      36, 42, 72, 62, 52, 75, 137, 105, 118, 79, 105, 63, 120,
-      54, 64, 39, 64, 73, 102, 91, 91, 30, 76, 85, 115,
+      52, 53, 99, 68, 83, 91, 146, 127, 143, 87, 132, 64, 157,
+      63, 90, 39, 86, 85, 136, 101, 112, 49, 87, 92, 125,
     ]);
   });
 
   test("every record passes schema and collection validation", () => {
     expect(validateLexemeCollection(GERMAN_B1_LEXEMES)).toEqual([]);
     expect(GERMAN_B1_LEXEMES.every((lexeme) => validateLexeme(lexeme).length === 0)).toBe(true);
-    expect(new Set(GERMAN_B1_LEXEMES.map((lexeme) => lexeme.id)).size).toBe(1950);
+    expect(new Set(GERMAN_B1_LEXEMES.map((lexeme) => lexeme.id)).size).toBe(2367);
   });
 
   test("static content contains no mutable user state", () => {
@@ -40,8 +40,8 @@ describe("German B1 production vocabulary schema", () => {
   test("noun, verb, example, category, and source metadata are complete", () => {
     const nouns = GERMAN_B1_LEXEMES.filter((lexeme) => lexeme.partOfSpeech === "noun");
     const verbs = GERMAN_B1_LEXEMES.filter((lexeme) => lexeme.partOfSpeech === "verb");
-    expect(nouns).toHaveLength(908);
-    expect(verbs).toHaveLength(560);
+    expect(nouns).toHaveLength(1155);
+    expect(verbs).toHaveLength(660);
     expect(nouns.every(({ article, gender, plural }) => article && gender && plural)).toBe(true);
     expect(verbs.every(({ auxiliary, reflexive, prepositions }) => auxiliary && typeof reflexive === "boolean" && Array.isArray(prepositions))).toBe(true);
     expect(GERMAN_B1_LEXEMES.every(({ example, exampleTranslation }) => example && exampleTranslation)).toBe(true);
@@ -87,6 +87,24 @@ describe("German B1 production vocabulary schema", () => {
       "die Einbahnstraße",
       "Mit freundlichen Grüßen",
     ]);
+
+    const phase103Samples = [
+      "Abonnement",
+      "stattfinden",
+      "im Freien",
+      "Marille",
+      "Verkehrszeichen",
+      "je",
+    ].map((lemma) => GERMAN_B1_LEXEMES.find((lexeme) => lexeme.lemma === lemma));
+    expect(phase103Samples.every(Boolean)).toBe(true);
+    expect(phase103Samples.map(getLexemeSpeechText)).toEqual([
+      "das Abonnement",
+      "stattfinden",
+      "im Freien",
+      "die Marille",
+      "das Verkehrszeichen",
+      "je",
+    ]);
   });
 
   test("keeps Phase 10 part-of-speech balance and structural verb metadata", () => {
@@ -95,13 +113,13 @@ describe("German B1 production vocabulary schema", () => {
       [lexeme.partOfSpeech]: (result[lexeme.partOfSpeech] || 0) + 1,
     }), {});
     expect(counts).toEqual({
-      noun: 908,
-      verb: 560,
-      adjective: 202,
-      adverb: 84,
-      connector: 55,
-      preposition: 26,
-      phrase: 115,
+      noun: 1155,
+      verb: 660,
+      adjective: 242,
+      adverb: 99,
+      connector: 56,
+      preposition: 30,
+      phrase: 125,
     });
     [
       ["abhängen", "von + dative"],
@@ -145,6 +163,15 @@ describe("German B1 production vocabulary schema", () => {
     ];
     expect(validateLexemeCollection(records)).toEqual([]);
   });
+
+  test("rejects duplicate German lexical identities while preserving homographs", () => {
+    const antwort = GERMAN_B1_LEXEMES.find((lexeme) => lexeme.lemma === "Antwort" && lexeme.partOfSpeech === "noun");
+    const duplicate = { ...antwort, id: "de-b1-test-antwort-duplicate" };
+    expect(validateLexemeCollection([antwort, duplicate])).toContain("de-b1-test-antwort-duplicate: duplicate lexical item");
+    const nounSchreiben = GERMAN_B1_LEXEMES.find((lexeme) => lexeme.lemma === "Schreiben" && lexeme.partOfSpeech === "noun");
+    const verbSchreiben = GERMAN_B1_LEXEMES.find((lexeme) => lexeme.lemma === "schreiben" && lexeme.partOfSpeech === "verb");
+    expect(validateLexemeCollection([nounSchreiben, verbSchreiben])).toEqual([]);
+  });
 });
 
 describe("Goethe Wortliste coverage infrastructure", () => {
@@ -172,14 +199,14 @@ describe("Goethe Wortliste coverage infrastructure", () => {
       normalizedReferenceItems: 3176,
       variantGroups: 170,
       duplicateMergedGroups: 42,
-      productionLexemes: 1950,
-      exactCoveredReferenceItems: 1402,
+      productionLexemes: 2367,
+      exactCoveredReferenceItems: 2186,
       variantCoveredReferenceItems: 10,
-      coveredReferenceItems: 1412,
-      partiallyCoveredReferenceItems: 409,
-      uncoveredReferenceItems: 1355,
-      coveredPercent: 44.46,
-      status: "phase10-curated-inventory",
+      coveredReferenceItems: 2196,
+      partiallyCoveredReferenceItems: 0,
+      uncoveredReferenceItems: 0,
+      coveredPercent: 69.14,
+      status: "phase103-curated-inventory",
     });
   });
 });

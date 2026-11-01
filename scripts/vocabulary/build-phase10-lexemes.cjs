@@ -9,6 +9,14 @@ const {
   connectorRows,
   prepositionRows,
   phraseRows,
+  phase103NounRows,
+  phase103VerbRows,
+  phase103VerbExampleRows,
+  phase103AdjectiveRows,
+  phase103AdverbRows,
+  phase103ConnectorRows,
+  phase103PrepositionRows,
+  phase103PhraseRows,
 } = require("./phase10-curation.cjs");
 
 const ROOT = path.join(__dirname, "..", "..");
@@ -18,9 +26,11 @@ const OUTPUT_PATH = path.join(ROOT, "src", "data", "vocabulary", "phase10LexemeS
 const AUDIT_PATH = path.join(ROOT, "docs", "GERMAN-B1-VOCABULARY-AUDIT-SAMPLE.json");
 const PHASE9_PATH = path.join(ROOT, "src", "data", "vocabulary", "expandedLexemeSpecs.json");
 const LEXEMES_SOURCE_PATH = path.join(ROOT, "src", "data", "vocabulary", "lexemes.js");
+const GAP_ANALYSIS_PATH = path.join(ROOT, "docs", "GERMAN-B1-WORTLISTE-GAP-ANALYSIS.json");
 
-const TARGET_ADDITIONS = 1150;
-const TARGET_PRODUCTION = 1950;
+const PHASE103_ADDITIONS = 417;
+const TARGET_ADDITIONS = 1567;
+const TARGET_PRODUCTION = 2367;
 const REVIEW_DATE = "2026-11-01";
 
 const normalize = (value) => String(value || "")
@@ -113,9 +123,14 @@ phase9Specs.forEach((spec) => {
   const lexemeId = `de-b1-${spec.categoryId}-${spec.slug}`;
   if (inventory.records.some((record) => (record.lexemeIds || []).includes(lexemeId))) return;
   const referenceKey = normalize(spec.referenceKey);
-  const candidates = inventory.records.filter((record) => [record.normalizedLemma, ...(record.variants || [])]
+  let candidates = inventory.records.filter((record) => [record.normalizedLemma, ...(record.variants || [])]
     .map(normalize)
     .includes(referenceKey));
+  if (candidates.length > 1) {
+    const productionPos = spec.type === "term" ? spec.partOfSpeech : spec.type;
+    const positionMatches = candidates.filter((record) => record.partOfSpeech === productionPos);
+    if (positionMatches.length === 1) candidates = positionMatches;
+  }
   if (candidates.length !== 1) {
     throw new Error(`Cannot restore Phase 9 mapping ${lexemeId} (${spec.referenceKey}): ${candidates.length} candidates`);
   }
@@ -254,9 +269,19 @@ const nounExampleOverrides = {
   Perron: ["In der Schweiz wartet man auf dem Perron auf den Zug.", "In Switzerland, you wait for the train on the Perron."],
 };
 
-const nounSpecs = nounRows.map((line) => {
+const phase103RowSets = {
+  noun: new Set(phase103NounRows),
+  verb: new Set(phase103VerbRows),
+  adjective: new Set(phase103AdjectiveRows),
+  adverb: new Set(phase103AdverbRows),
+  connector: new Set(phase103ConnectorRows),
+  preposition: new Set(phase103PrepositionRows),
+  phrase: new Set(phase103PhraseRows),
+};
+
+const nounSpecs = [...nounRows, ...phase103NounRows].map((line) => {
   const [categoryId, referenceKey, source] = splitRow(line, 3, "noun");
-  const { record } = findReference({ referenceKey, expectedReferencePos: "noun", requireUncovered: true });
+  const { record } = findPreferredReference({ referenceKey, expectedReferencePos: "noun" });
   const plural = cleanPlural(record);
   const pluralOnly = plural === "plural-only";
   const display = `${record.article.charAt(0).toLocaleUpperCase("de-DE")}${record.article.slice(1)} ${record.normalizedLemma}`;
@@ -284,6 +309,7 @@ const nounSpecs = nounRows.map((line) => {
     referenceKey: record.normalizedLemma,
     referenceId: record.referenceId,
     note: regional,
+    phase: phase103RowSets.noun.has(line) ? "10.3" : "10.1-10.2",
   };
 });
 
@@ -324,6 +350,22 @@ const structuredVerbs = {
   "sich verabreden": { caseGovernment: "mit + dative / zu + dative", prepositions: ["mit + dative", "zu + dative"], example: "Ich habe mich mit einer Kollegin zum Mittagessen verabredet.", exampleTranslation: "I arranged to meet a colleague for lunch." },
   "sich verlieben": { caseGovernment: "in + accusative", prepositions: ["in + accusative"], example: "Sie hat sich während des Studiums in Berlin verliebt.", exampleTranslation: "She fell in love with Berlin while studying." },
   "sich vorbereiten": { caseGovernment: "auf + accusative", prepositions: ["auf + accusative"], example: "Die Gruppe bereitet sich auf die mündliche Prüfung vor.", exampleTranslation: "The group is preparing for the oral exam." },
+  "sich erkundigen": { caseGovernment: "bei + dative / nach + dative", prepositions: ["bei + dative", "nach + dative"] },
+  vertrauen: { caseGovernment: "dative", prepositions: [] },
+  widersprechen: { caseGovernment: "dative", prepositions: [] },
+  zustimmen: { caseGovernment: "dative", prepositions: [] },
+  schaden: { caseGovernment: "dative", prepositions: [] },
+  sorgen: { caseGovernment: "für + accusative", prepositions: ["für + accusative"] },
+  stammen: { caseGovernment: "aus + dative", prepositions: ["aus + dative"] },
+  träumen: { caseGovernment: "von + dative", prepositions: ["von + dative"] },
+  verzichten: { caseGovernment: "auf + accusative", prepositions: ["auf + accusative"] },
+  "sich überzeugen": { caseGovernment: "von + dative", prepositions: ["von + dative"] },
+  "sich scheiden lassen": { caseGovernment: "von + dative", prepositions: ["von + dative"] },
+  versichern: { caseGovernment: "accusative / gegen + accusative", prepositions: ["gegen + accusative"] },
+  wirken: { caseGovernment: "auf + accusative", prepositions: ["auf + accusative"] },
+  zuschauen: { caseGovernment: "dative", prepositions: [] },
+  überreden: { caseGovernment: "accusative / zu + dative", prepositions: ["zu + dative"] },
+  übersetzen: { caseGovernment: "accusative / in + accusative", prepositions: ["in + accusative"] },
 };
 
 const verbContext = {
@@ -378,12 +420,12 @@ const verbExampleOverrides = {
   auffallen: ["Der Fehler ist bei der letzten Kontrolle aufgefallen.", "The error was noticed during the final check."],
 };
 
-const phase102VerbExamples = Object.fromEntries(verbExampleRows.map((line) => {
+const phase102VerbExamples = Object.fromEntries([...verbExampleRows, ...phase103VerbExampleRows].map((line) => {
   const [lemma, example, exampleTranslation] = splitRow(line, 3, "Phase 10.2 verb example");
   return [lemma, [example, exampleTranslation]];
 }));
 
-const verbSpecs = verbRows.map((line) => {
+const verbSpecs = [...verbRows, ...phase103VerbRows].map((line) => {
   const values = rowValues(line);
   if (![5, 8].includes(values.length)) {
     throw new Error(`verb row has ${values.length} fields; expected 5 or 8: ${line}`);
@@ -402,14 +444,14 @@ const verbSpecs = verbRows.map((line) => {
     [categoryId, lemma, english, use, separablePrefix] = values;
   }
   const reflexive = lemma.startsWith("sich ");
-  let referenceKey = reflexive ? lemma.slice(5) : lemma;
+  let referenceKey = lemma;
   let match;
   try {
-    match = findReference({ referenceKey, expectedReferencePos: "verb", requireUncovered: true });
+    match = findPreferredReference({ referenceKey, expectedReferencePos: "verb" });
   } catch (error) {
     if (!reflexive) throw error;
-    referenceKey = lemma;
-    match = findReference({ referenceKey, expectedReferencePos: "verb", requireUncovered: true });
+    referenceKey = lemma.slice(5);
+    match = findPreferredReference({ referenceKey, expectedReferencePos: "verb" });
   }
   const { record } = match;
   if (values.length === 5) {
@@ -450,6 +492,7 @@ const verbSpecs = verbRows.map((line) => {
     referenceKey: record.normalizedLemma,
     referenceId: record.referenceId,
     note: null,
+    phase: phase103RowSets.verb.has(line) ? "10.3" : "10.1-10.2",
   };
 });
 
@@ -546,7 +589,7 @@ const adjectiveExamples = {
   weltweit: ["Das Unternehmen ist weltweit tätig.", "The company operates worldwide."],
 };
 
-const adjectiveSpecs = adjectiveRows.map((line) => {
+const adjectiveSpecs = [...adjectiveRows, ...phase103AdjectiveRows].map((line) => {
   const values = rowValues(line);
   if (![3, 5].includes(values.length)) {
     throw new Error(`adjective row has ${values.length} fields; expected 3 or 5: ${line}`);
@@ -571,10 +614,11 @@ const adjectiveSpecs = adjectiveRows.map((line) => {
     referenceKey: record.normalizedLemma,
     referenceId: record.referenceId,
     note: null,
+    phase: phase103RowSets.adjective.has(line) ? "10.3" : "10.1-10.2",
   };
 });
 
-const adverbSpecs = adverbRows.map((line) => {
+const adverbSpecs = [...adverbRows, ...phase103AdverbRows].map((line) => {
   const [categoryId, target, source, example, exampleTranslation] = splitRow(line, 5, "adverb");
   const { record } = findPreferredReference({ referenceKey: target, expectedReferencePos: "other" });
   return {
@@ -591,10 +635,11 @@ const adverbSpecs = adverbRows.map((line) => {
     referenceKey: record.normalizedLemma,
     referenceId: record.referenceId,
     note: null,
+    phase: phase103RowSets.adverb.has(line) ? "10.3" : "10.1-10.2",
   };
 });
 
-const connectorSpecs = connectorRows.map((line) => {
+const connectorSpecs = [...connectorRows, ...phase103ConnectorRows].map((line) => {
   const values = rowValues(line);
   if (![5, 6].includes(values.length)) {
     throw new Error(`connector row has ${values.length} fields; expected 5 or 6: ${line}`);
@@ -619,10 +664,11 @@ const connectorSpecs = connectorRows.map((line) => {
     referenceKey: record.normalizedLemma,
     referenceId: record.referenceId,
     note: null,
+    phase: phase103RowSets.connector.has(line) ? "10.3" : "10.1-10.2",
   };
 });
 
-const prepositionSpecs = prepositionRows.map((line) => {
+const prepositionSpecs = [...prepositionRows, ...phase103PrepositionRows].map((line) => {
   const [target, source, example, exampleTranslation, grammarRef] = splitRow(line, 5, "preposition");
   const { record } = findPreferredReference({ referenceKey: target, expectedReferencePos: "other" });
   return {
@@ -639,10 +685,11 @@ const prepositionSpecs = prepositionRows.map((line) => {
     referenceKey: record.normalizedLemma,
     referenceId: record.referenceId,
     note: null,
+    phase: phase103RowSets.preposition.has(line) ? "10.3" : "10.1-10.2",
   };
 });
 
-const phraseSpecs = phraseRows.map((line) => {
+const phraseSpecs = [...phraseRows, ...phase103PhraseRows].map((line) => {
   const [slug, source, target, example, exampleTranslation, referenceKey, grammarRef] = splitRow(line, 7, "phrase");
   let match;
   try {
@@ -669,6 +716,7 @@ const phraseSpecs = phraseRows.map((line) => {
     referenceKey: match.record.normalizedLemma,
     referenceId: match.record.referenceId,
     note: null,
+    phase: phase103RowSets.phrase.has(line) ? "10.3" : "10.1-10.2",
   };
 });
 
@@ -733,6 +781,258 @@ specs.forEach((spec) => {
   }
 });
 
+const productionByLexemeId = new Map();
+const registerProduction = ({ id, partOfSpeech, categoryId, phase }) => {
+  if (!productionByLexemeId.has(id)) {
+    productionByLexemeId.set(id, { partOfSpeeches: new Set(), categoryIds: new Set(), phases: new Set() });
+  }
+  const metadata = productionByLexemeId.get(id);
+  metadata.partOfSpeeches.add(partOfSpeech);
+  metadata.categoryIds.add(categoryId);
+  metadata.phases.add(phase);
+};
+for (const match of lexemesSource.matchAll(baseCallPattern)) {
+  const [, type, categoryId, slug, , , termPos] = match;
+  registerProduction({
+    id: `de-b1-${categoryId}-${slug}`,
+    partOfSpeech: type === "term" ? termPos : type,
+    categoryId,
+    phase: "foundation",
+  });
+}
+phase9Specs.forEach((spec) => registerProduction({
+  id: `de-b1-${spec.categoryId}-${spec.slug}`,
+  partOfSpeech: spec.type === "term" ? spec.partOfSpeech : spec.type,
+  categoryId: spec.categoryId,
+  phase: "9B",
+}));
+specs.forEach((spec) => registerProduction({
+  id: `de-b1-${spec.categoryId}-${spec.slug}`,
+  partOfSpeech: spec.type === "term" ? spec.partOfSpeech : spec.type,
+  categoryId: spec.categoryId,
+  phase: spec.phase,
+}));
+
+const phase103LexemeIds = new Set(specs
+  .filter((spec) => spec.phase === "10.3")
+  .map((spec) => `de-b1-${spec.categoryId}-${spec.slug}`));
+if (phase103LexemeIds.size !== PHASE103_ADDITIONS) {
+  throw new Error(`Expected ${PHASE103_ADDITIONS} Phase 10.3 IDs, received ${phase103LexemeIds.size}`);
+}
+
+const positionsForIds = (ids) => [...new Set((ids || [])
+  .flatMap((id) => [...(productionByLexemeId.get(id)?.partOfSpeeches || [])])
+  .filter(Boolean))];
+const categoriesForIds = (ids) => [...new Set((ids || [])
+  .flatMap((id) => [...(productionByLexemeId.get(id)?.categoryIds || [])])
+  .filter(Boolean))];
+const coverageFromIds = (record, ids, effectivePartOfSpeech = record.partOfSpeech) => {
+  if (phase9VariantCoveredReferenceIds.has(record.referenceId)) return "variant-covered";
+  const positions = positionsForIds(ids);
+  if (!positions.length) return "uncovered";
+  return positions.includes(effectivePartOfSpeech) ? "covered" : "partially-covered";
+};
+
+// Reconstruct the verified pre-10.3 state even on repeat runs by removing only
+// this phase's IDs. This is the immutable review baseline for all 1,764 gap
+// records and prevents generated documentation from drifting on regeneration.
+const phase103BaselinePartialCollisionIds = new Set([
+  // These verb/noun homographs shared a pre-10.3 production ID. Phase 10.3
+  // gives each new card a distinct ID, but their original partial state is
+  // retained here for an exact, repeatable baseline audit.
+  "goethe-b1-unit-0795",
+  "goethe-b1-unit-0860",
+  "goethe-b1-unit-2164",
+  "goethe-b1-unit-2829",
+]);
+const baselineRecords = inventory.records.map((record) => {
+  const lexemeIds = (record.lexemeIds || []).filter((id) => !phase103LexemeIds.has(id));
+  return {
+    referenceId: record.referenceId,
+    rawEntry: record.rawEntry,
+    normalizedLemma: record.normalizedLemma,
+    partOfSpeech: record.partOfSpeech,
+    article: record.article || null,
+    plural: record.plural || null,
+    variants: record.variants || [],
+    region: record.region || ["standard"],
+    lexemeIds,
+    coverageStatus: phase103BaselinePartialCollisionIds.has(record.referenceId)
+      ? "partially-covered"
+      : coverageFromIds(record, lexemeIds),
+  };
+});
+const baselineById = new Map(baselineRecords.map((record) => [record.referenceId, record]));
+const baselineCounts = baselineRecords.reduce((counts, record) => {
+  counts[record.coverageStatus] = (counts[record.coverageStatus] || 0) + 1;
+  return counts;
+}, {});
+const expectedBaselineCounts = { covered: 1402, "variant-covered": 10, "partially-covered": 409, uncovered: 1355 };
+Object.entries(expectedBaselineCounts).forEach(([status, expected]) => {
+  if ((baselineCounts[status] || 0) !== expected) {
+    throw new Error(`Phase 10.3 baseline ${status} drifted: expected ${expected}, received ${baselineCounts[status] || 0}; all counts ${JSON.stringify(baselineCounts)}`);
+  }
+});
+
+const duplicateReferenceIds = new Set();
+const recordsByNormalizedLemma = new Map();
+inventory.records.forEach((record) => {
+  const key = normalize(record.normalizedLemma);
+  if (!recordsByNormalizedLemma.has(key)) recordsByNormalizedLemma.set(key, []);
+  recordsByNormalizedLemma.get(key).push(record);
+});
+recordsByNormalizedLemma.forEach((records) => {
+  if (records.length < 2) return;
+  const ranked = [...records].sort((a, b) => {
+    const aScore = a.partOfSpeech === "other" ? 1 : 0;
+    const bScore = b.partOfSpeech === "other" ? 1 : 0;
+    return aScore - bScore || a.referenceId.localeCompare(b.referenceId);
+  });
+  ranked.slice(1).forEach((record) => duplicateReferenceIds.add(record.referenceId));
+});
+
+const abbreviationPattern = /^(?:bzw\.|ca\.|d\.\s*h\.|etc\.|o\.k\.|usw\.|vgl\.|z\.\s*b\.)$/iu;
+const properNames = new Set(["Deutschland", "Europa", "Griechenland", "Österreich", "Ostern", "Pfingsten", "Silvester", "Weihnachten", "Neujahr"]);
+const numberWords = new Set(["eins", "zwei", "drei", "vier", "fünf", "sechs", "sieben", "acht", "neun", "zehn", "elf", "zwölf", "dreizehn", "einundzwanzig", "dreißig", "hundert", "tausend"]);
+const grammaticalForms = new Set(["all-", "aller-", "ander-", "beid-", "besonder-", "derselbe", "dies-", "eigen-", "ein-", "einzig-", "es", "etwas", "gesamt-", "jeder", "jemand", "kein-", "man", "manch-", "mehrere", "meist-", "nichts", "niemand", "selb-", "selbst", "solch-", "un-", "viel", "welcher", "wenig", "wer", "was"]);
+const otherVerbs = new Set(["aufschreiben", "beschränken", "entgegenkommen", "kaputtgehen", "kaputtmachen", "kopieren", "notieren", "präsentieren", "zuschauen"]);
+const prepositions = new Set(["außer", "per", "statt", "um", "unter", "zu"]);
+const connectors = new Set(["auch", "da", "je"]);
+const phrasesAndInterjections = new Set(["Achtung!", "hallo", "Prost", "Verzeihung", "willkommen"]);
+const explicitAdverbs = new Set([
+  "abwärts", "aufwärts", "auseinander", "dienstags", "donnerstags", "dreimal", "drin", "drittens", "erst", "erstens", "freitags", "früh", "ganz", "geradeaus", "gleichfalls", "halb", "halbtags", "heim", "heimlich", "her", "hier", "hierher", "hinten", "hinterher", "höchstens", "immer", "innen", "jemals", "jetzt", "jährlich", "längst", "links", "mal", "manchmal", "maximal", "meinetwegen", "meist(ens)", "minimal", "minus", "mittags", "mitten", "mittwochs", "monatlich", "montags", "natürlich", "nebenbei", "nie", "nirgends", "nirgendwo", "noch", "nochmals", "nun", "nur", "oben", "oft", "plus", "pro", "rauf", "raus", "rechts", "rein", "relativ", "rückwärts", "samstags", "schon", "sehr", "selbstverständlich", "selten", "sonnabends", "sonntags", "soviel", "sowieso", "ständig", "stündlich", "total", "täglich", "umgekehrt", "umsonst", "unbedingt", "ursprünglich", "vielleicht", "viermal", "voll", "voneinander", "voraus", "vorbei", "vorgestern", "vormittags", "vorn", "vorwärts", "völlig", "wann", "warum", "weit", "weiter", "wieder", "wieso", "wo", "wochentags", "woher", "wohin", "wohl", "worum", "worüber", "wöchentlich", "ziemlich", "zumindest", "zunächst", "zurzeit", "zusammen", "zusätzlich", "zweifach", "zweimal", "überall", "überhaupt", "übermorgen"
+]);
+const explicitAdjectives = new Set([
+  "absolut", "alt", "befreit", "betrunken", "bitter", "blass", "blau", "blond", "braun", "böse", "chic", "cool", "deutsch", "dick", "dumm", "dunkel", "dünn", "ernsthaft", "europäisch", "ewig", "extrem", "fantastisch", "faul", "fest", "fett", "frech", "furchtbar", "geehrt", "gelb", "geschieden", "gewohnt", "glatt", "gleich", "global", "gratis", "grau", "griechisch", "groß", "grün", "hässlich", "hübsch", "kaputt", "klasse", "klein", "komisch", "konservativ", "kurz", "kühl", "lang", "langweilig", "lecker", "ledig", "leicht", "liberal", "lila", "live", "locker", "los", "lustig", "männlich", "merkwürdig", "mild", "musikalisch", "nah(e)", "nass", "negativ", "nett", "niedrig", "normal", "offen", "orange", "ordentlich", "parallel", "passiv", "pauschal", "perfekt", "populär", "positiv", "prima", "quer", "reich", "reif", "richtig", "riesig", "roh", "rosa", "rot", "rund", "sauber", "sauer", "schade", "scharf", "schief", "schlecht", "schlimm", "schmal", "schmutzig", "schrecklich", "schuldig", "schwach", "schwarz", "schweizerisch", "schwer", "schön", "seltsam", "senkrecht", "sichtbar", "sogenannt-", "spannend", "sparsam", "speziell", "spitz", "sportlich", "stark", "statistisch", "steil", "stilistisch", "still", "streng", "stumm", "städtisch", "super", "sympathisch", "sämtliche", "süß", "teuer", "tief", "tolerant", "toll", "tot", "treu", "trocken", "türkisch", "ukrainisch", "ungenügend", "ungewöhnlich", "unglaublich", "unheimlich", "verabredet", "verheiratet", "verrückt", "verschieden", "verwandt", "violett", "vorsichtig", "waagerecht", "wahnsinnig", "wahr", "warm", "weiblich", "weich", "weiß", "wert", "wertvoll", "westlich", "wild", "wunderbar", "wunderschön", "zahlreich", "äußerlich", "österreichisch", "üblich", "übrig"
+]);
+
+const classifyReference = (record) => {
+  const lemma = String(record.normalizedLemma || "").trim();
+  const raw = String(record.rawEntry || "").trim();
+  if (duplicateReferenceIds.has(record.referenceId)) return "duplicate";
+  if (abbreviationPattern.test(lemma)) return "abbreviation";
+  if (properNames.has(lemma)) return "proper name";
+  if (numberWords.has(lemma) || /^(?:erste|zweite|dritte|vierte|erstens|zweitens|drittens|viertens)$/u.test(lemma)) return "numeric/time expression";
+  if ((record.region || []).every((region) => region !== "standard")) return "regional variant";
+  if (/siehe|→/iu.test(raw)) return "cross-reference";
+  if (/\d+\.$/u.test(raw) || /^(?:Haupt-|herzlich heute|Kriminal-|Not-|rück-|Sonder-|Öffentlichkeit1\.|über- übertreiben)/u.test(raw)) return "malformed extraction";
+  if (grammaticalForms.has(lemma) || /-$|\/$/u.test(lemma)) return "grammatical form";
+  if (/^(?:erste|zweite|dritte|vierte)$/u.test(lemma)) return "inflected form";
+  if (record.partOfSpeech !== "other") return record.partOfSpeech;
+  if (otherVerbs.has(lemma)) return "verb";
+  if (prepositions.has(lemma)) return "preposition";
+  if (connectors.has(lemma)) return "connector";
+  if (phrasesAndInterjections.has(lemma)) return "phrase";
+  if (explicitAdverbs.has(lemma) || /^(?:montags|dienstags|mittwochs|donnerstags|freitags|samstags|sonntags)$/u.test(lemma)) return "adverb";
+  if (explicitAdjectives.has(lemma) || /(?:isch|lich|ig|bar|los|voll|sam|arm|reich|frei)$/u.test(lemma)) return "adjective";
+  return "not appropriate as standalone learner lexeme";
+};
+
+const normalizationConfidenceFor = (record, classification) => {
+  if (["malformed extraction", "cross-reference"].includes(classification)) return "low";
+  if (/[()/]|\//u.test(record.rawEntry || "") || classification === "duplicate") return "medium";
+  return "high";
+};
+
+const phase103SpecByReferenceId = new Map(specs
+  .filter((spec) => spec.phase === "10.3")
+  .map((spec) => [spec.referenceId, spec]));
+const classificationOverrides = new Map([
+  ["goethe-b1-unit-0069", "connector"],
+  ["goethe-b1-unit-0092", "adverb"],
+  ["goethe-b1-unit-0250", "adverb"],
+  ["goethe-b1-unit-0511", "connector"],
+  ["goethe-b1-unit-0512", "connector"],
+  ["goethe-b1-unit-0947", "adjective"],
+  ["goethe-b1-unit-2197", "connector"],
+  ["goethe-b1-unit-3076", "adverb"],
+  ["goethe-b1-unit-3078", "adjective"],
+]);
+
+// Reclassify every formerly unclassified record from explicit production
+// evidence first, then from deterministic Wortliste rules. Four paired
+// connector records were extracted as phrases and are corrected the same way.
+inventory.records.forEach((record) => {
+  const mappedPositions = positionsForIds(record.lexemeIds);
+  const phase103Spec = phase103SpecByReferenceId.get(record.referenceId);
+  let classifiedPartOfSpeech = record.partOfSpeech;
+  if (classificationOverrides.has(record.referenceId)) {
+    classifiedPartOfSpeech = classificationOverrides.get(record.referenceId);
+  } else if (phase103Spec) {
+    classifiedPartOfSpeech = phase103Spec.type === "term" ? phase103Spec.partOfSpeech : phase103Spec.type;
+  } else if (record.partOfSpeech === "other" && mappedPositions.length === 1) {
+    [classifiedPartOfSpeech] = mappedPositions;
+  } else if (record.partOfSpeech === "phrase" && mappedPositions.includes("connector")) {
+    classifiedPartOfSpeech = "connector";
+  }
+  const classification = classifyReference(record);
+  record.classification = classifiedPartOfSpeech !== record.partOfSpeech
+    ? classifiedPartOfSpeech
+    : classification;
+  record.classifiedPartOfSpeech = ["noun", "verb", "adjective", "adverb", "connector", "preposition", "phrase"].includes(record.classification)
+    ? record.classification
+    : null;
+  record.normalizationConfidence = normalizationConfidenceFor(record, classification);
+  record.coverageStatus = coverageFromIds(record, record.lexemeIds, record.classifiedPartOfSpeech || record.partOfSpeech);
+  delete record.exclusionReason;
+  delete record.phase103Decision;
+});
+
+const highValueMissingVerbs = new Set(["überlegen", "überprüfen", "überraschen", "überreden", "übersetzen", "versichern", "verpflegen", "vorkommen", "werden", "werfen", "wiegen", "wirken", "wissen", "wollen", "zeichnen", "ziehen", "zunehmen", "zuordnen", "zuschauen", "zählen"]);
+const highValueMissingNouns = new Set(["Polizei", "Präsentation", "Prozess", "Rathaus", "Rechnung", "Rede", "Regal", "Reifen", "Reklame", "Schaden", "Schiff", "Schild", "Schlaf", "Schnee", "Schrift", "Sekunde", "Senioren", "Serie", "Spielplatz", "Spielzeug", "Sportler", "Stadion", "Statistik", "Stecker", "Stift", "Stimme", "Stimmung", "Stoff", "Stuhl", "Stunde", "System", "Tankstelle", "Tasche", "Tasse", "Team", "Technik", "Technologie", "Tee", "Teilnahme", "Teilzeit", "Tempo", "Tierpark", "Tisch", "Toilette", "Tourismus", "Tourist", "Tradition", "Trainer", "Treffpunkt", "Trinkgeld", "Uhr", "Uhrzeit"]);
+
+const exclusionReasonFor = (record) => {
+  switch (record.classification) {
+    case "duplicate": return "DUPLICATE_REFERENCE";
+    case "abbreviation": return "ABBREVIATION";
+    case "proper name": return "PROPER_NAME";
+    case "regional variant": return "REGIONAL_METADATA_ONLY";
+    case "grammatical form":
+    case "inflected form": return "INFLECTION_ONLY";
+    case "cross-reference":
+    case "malformed extraction": return "EXTRACTION_ARTIFACT";
+    case "numeric/time expression":
+    case "not appropriate as standalone learner lexeme": return "NOT_STANDALONE_LEXEME";
+    default: return "LOW_VALUE_SPECIALIST";
+  }
+};
+
+inventory.records.forEach((record) => {
+  const baseline = baselineById.get(record.referenceId);
+  const wasGap = ["partially-covered", "uncovered"].includes(baseline.coverageStatus);
+  if (!wasGap) {
+    record.phase103Decision = "OUTSIDE_PHASE_10_3_GAP";
+    return;
+  }
+  if (phase103SpecByReferenceId.has(record.referenceId)) {
+    record.phase103Decision = "ADDED_PHASE_10_3";
+    return;
+  }
+  if (["covered", "variant-covered"].includes(record.coverageStatus)) {
+    record.phase103Decision = "RESOLVED_WITHOUT_DUPLICATE";
+    return;
+  }
+  if (record.coverageStatus === "partially-covered") {
+    record.phase103Decision = "REQUIRES_HUMAN_REVIEW";
+    return;
+  }
+  if (record.classification === "verb" && highValueMissingVerbs.has(record.normalizedLemma)) {
+    record.phase103Decision = "HIGH-VALUE MISSING";
+    return;
+  }
+  if (record.classification === "noun" && highValueMissingNouns.has(record.normalizedLemma)) {
+    record.phase103Decision = "HIGH-VALUE MISSING";
+    return;
+  }
+  record.exclusionReason = exclusionReasonFor(record);
+  record.phase103Decision = ["regional variant"].includes(record.classification)
+    ? "VARIANT / METADATA"
+    : ["duplicate", "cross-reference", "malformed extraction", "grammatical form", "inflected form", "numeric/time expression", "not appropriate as standalone learner lexeme"].includes(record.classification)
+      ? "REFERENCE ARTIFACT"
+      : "OPTIONAL / LOW VALUE";
+  record.coverageStatus = "excluded-with-reason";
+});
+
 const statusCounts = inventory.records.reduce((counts, record) => {
   counts[record.coverageStatus] = (counts[record.coverageStatus] || 0) + 1;
   return counts;
@@ -742,7 +1042,128 @@ const variantCoveredCount = statusCounts["variant-covered"] || 0;
 const coveredCount = exactCoveredCount + variantCoveredCount;
 const partiallyCoveredCount = statusCounts["partially-covered"] || 0;
 const uncoveredCount = statusCounts.uncovered || 0;
+const excludedWithReasonCount = statusCounts["excluded-with-reason"] || 0;
 const coveragePercentage = Number(((coveredCount / inventory.records.length) * 100).toFixed(2));
+
+const phase103Specs = specs.filter((spec) => spec.phase === "10.3");
+const phase103PartOfSpeechCounts = phase103Specs.reduce((counts, spec) => {
+  const partOfSpeech = spec.type === "term" ? spec.partOfSpeech : spec.type;
+  counts[partOfSpeech] = (counts[partOfSpeech] || 0) + 1;
+  return counts;
+}, {});
+const phase103CategoryCounts = phase103Specs.reduce((counts, spec) => {
+  counts[spec.categoryId] = (counts[spec.categoryId] || 0) + 1;
+  return counts;
+}, {});
+const finalProductionPartOfSpeechCounts = {};
+productionByLexemeId.forEach((metadata, id) => {
+  if (metadata.partOfSpeeches.size !== 1) {
+    throw new Error(`Production ID ${id} resolves to multiple parts of speech: ${[...metadata.partOfSpeeches].join(", ")}`);
+  }
+  const [partOfSpeech] = metadata.partOfSpeeches;
+  finalProductionPartOfSpeechCounts[partOfSpeech] = (finalProductionPartOfSpeechCounts[partOfSpeech] || 0) + 1;
+});
+if (productionByLexemeId.size !== TARGET_PRODUCTION) {
+  throw new Error(`Expected ${TARGET_PRODUCTION} unique production IDs, received ${productionByLexemeId.size}`);
+}
+
+const gapRecords = inventory.records
+  .filter((record) => ["partially-covered", "uncovered"].includes(baselineById.get(record.referenceId).coverageStatus))
+  .map((record) => {
+    const baseline = baselineById.get(record.referenceId);
+    const spec = phase103SpecByReferenceId.get(record.referenceId);
+    const mappedCategories = categoriesForIds(record.lexemeIds);
+    let partialReason = null;
+    if (baseline.coverageStatus === "partially-covered") {
+      partialReason = baseline.partOfSpeech === "other"
+        ? "REFERENCE_POS_UNCLASSIFIED"
+        : positionsForIds(baseline.lexemeIds).includes(baseline.partOfSpeech)
+          ? "NORMALIZATION_OR_VARIANT_MISMATCH"
+          : "PRODUCTION_POS_MISMATCH";
+    }
+    return {
+      referenceId: record.referenceId,
+      rawEntry: record.rawEntry,
+      normalizedLemma: record.normalizedLemma,
+      originalPartOfSpeech: baseline.partOfSpeech,
+      classifiedAs: record.classification,
+      normalizationConfidence: record.normalizationConfidence,
+      article: record.article || null,
+      plural: record.plural || null,
+      variants: record.variants || [],
+      regionalStatus: (record.region || []).every((region) => region !== "standard") ? "regional-only" : (record.region || []).some((region) => region !== "standard") ? "standard-plus-regional" : "standard",
+      regions: record.region || ["standard"],
+      startingCoverageStatus: baseline.coverageStatus,
+      partialReason,
+      finalCoverageStatus: record.coverageStatus,
+      decision: record.phase103Decision,
+      exclusionReason: record.exclusionReason || null,
+      domain: spec?.categoryId || mappedCategories[0] || `reference-${record.classifiedPartOfSpeech || record.classification.replace(/\s+/gu, "-")}`,
+      phase103LexemeIds: (record.lexemeIds || []).filter((id) => phase103LexemeIds.has(id)),
+      allLexemeIds: record.lexemeIds || [],
+      partialResolved: baseline.coverageStatus === "partially-covered" && ["covered", "variant-covered"].includes(record.coverageStatus),
+    };
+  });
+if (gapRecords.length !== 1764) {
+  throw new Error(`Expected 1,764 reviewed gap records, received ${gapRecords.length}`);
+}
+
+const countBy = (records, selector) => records.reduce((counts, record) => {
+  const key = selector(record) || "unknown";
+  counts[key] = (counts[key] || 0) + 1;
+  return counts;
+}, {});
+const startingOtherRecords = gapRecords.filter((record) => record.originalPartOfSpeech === "other");
+const startingUncoveredOtherRecords = startingOtherRecords.filter((record) => record.startingCoverageStatus === "uncovered");
+const startingPartialRecords = gapRecords.filter((record) => record.startingCoverageStatus === "partially-covered");
+const reclassifiedRecordCount = startingOtherRecords.filter((record) => record.classifiedAs !== "other").length;
+const partialMappingsResolved = startingPartialRecords.filter((record) => record.partialResolved).length;
+const remainingDecisionCounts = countBy(gapRecords, (record) => record.decision);
+const exclusionReasonCounts = countBy(gapRecords.filter((record) => record.exclusionReason), (record) => record.exclusionReason);
+const finalUncoveredRecords = gapRecords.filter((record) => record.finalCoverageStatus === "uncovered");
+
+const gapAnalysis = {
+  generatedAt: REVIEW_DATE,
+  methodology: "Deterministic review of every pre-Phase-10.3 partially covered and uncovered normalized Goethe/ÖSD B1 reference unit. Production additions are original learner cards; official examples and explanatory prose are not reproduced.",
+  limitation: "Developer curation with automated structural checks; it does not claim external expert linguistic review.",
+  startingSnapshot: {
+    rawReferenceRecordCount: inventory.metadata.rawReferenceRecordCount,
+    normalizedReferenceUnitCount: inventory.records.length,
+    exactCoveredCount: baselineCounts.covered,
+    variantCoveredCount: baselineCounts["variant-covered"],
+    partiallyCoveredCount: baselineCounts["partially-covered"],
+    uncoveredCount: baselineCounts.uncovered,
+    reviewedGapRecordCount: gapRecords.length,
+    unclassifiedRecordsReviewed: startingUncoveredOtherRecords.length,
+    allOtherRecordsReclassifiedIncludingPartials: startingOtherRecords.length,
+    partialMappingsReviewed: startingPartialRecords.length,
+  },
+  outcome: {
+    productionLexemeCount: TARGET_PRODUCTION,
+    phase103AdditionCount: PHASE103_ADDITIONS,
+    reclassifiedRecordCount,
+    partialMappingsResolved,
+    exactCoveredCount,
+    variantCoveredCount,
+    partiallyCoveredCount,
+    uncoveredCount,
+    excludedWithReasonCount,
+    coveragePercentage,
+  },
+  phase103PartOfSpeechCounts,
+  phase103CategoryCounts,
+  finalProductionPartOfSpeechCounts,
+  classificationCounts: countBy(gapRecords, (record) => record.classifiedAs),
+  decisionCounts: remainingDecisionCounts,
+  exclusionReasonCounts,
+  finalUncoveredBreakdown: {
+    byClassification: countBy(finalUncoveredRecords, (record) => record.classifiedAs),
+    byDomain: countBy(finalUncoveredRecords, (record) => record.domain),
+    byRegionalStatus: countBy(finalUncoveredRecords, (record) => record.regionalStatus),
+    byNormalizationConfidence: countBy(finalUncoveredRecords, (record) => record.normalizationConfidence),
+  },
+  records: gapRecords,
+};
 
 inventory.metadata = {
   ...inventory.metadata,
@@ -753,7 +1174,12 @@ inventory.metadata = {
   coveredCount,
   partiallyCoveredCount,
   uncoveredCount,
+  excludedWithReasonCount,
   coveragePercentage,
+  phase103AdditionCount: PHASE103_ADDITIONS,
+  phase103ReviewedGapRecordCount: gapRecords.length,
+  phase103ReclassifiedRecordCount: reclassifiedRecordCount,
+  phase103PartialMappingsResolved: partialMappingsResolved,
 };
 
 const summary = {
@@ -772,22 +1198,37 @@ const categoryCounts = specs.reduce((counts, spec) => {
   return counts;
 }, {});
 const referencePartOfSpeechBreakdown = inventory.records.reduce((breakdown, record) => {
-  const partOfSpeech = record.partOfSpeech || "other";
+  const partOfSpeech = record.classifiedPartOfSpeech || record.partOfSpeech || "other";
   const status = record.coverageStatus;
   if (!breakdown[partOfSpeech]) {
-    breakdown[partOfSpeech] = { covered: 0, variantCovered: 0, partiallyCovered: 0, uncovered: 0, total: 0 };
+    breakdown[partOfSpeech] = { covered: 0, variantCovered: 0, partiallyCovered: 0, uncovered: 0, excludedWithReason: 0, total: 0 };
   }
   breakdown[partOfSpeech].total += 1;
   if (status === "covered") breakdown[partOfSpeech].covered += 1;
   if (status === "variant-covered") breakdown[partOfSpeech].variantCovered += 1;
   if (status === "partially-covered") breakdown[partOfSpeech].partiallyCovered += 1;
   if (status === "uncovered") breakdown[partOfSpeech].uncovered += 1;
+  if (status === "excluded-with-reason") breakdown[partOfSpeech].excludedWithReason += 1;
   return breakdown;
 }, {});
 summary.phase10AdditionCount = TARGET_ADDITIONS;
+summary.phase103AdditionCount = PHASE103_ADDITIONS;
 summary.phase10PartOfSpeechCounts = partOfSpeechCounts;
 summary.phase10CategoryCounts = categoryCounts;
+summary.phase103PartOfSpeechCounts = phase103PartOfSpeechCounts;
+summary.phase103CategoryCounts = phase103CategoryCounts;
+summary.finalProductionPartOfSpeechCounts = finalProductionPartOfSpeechCounts;
 summary.referencePartOfSpeechBreakdown = referencePartOfSpeechBreakdown;
+summary.phase103Review = {
+  reviewedGapRecordCount: gapRecords.length,
+  unclassifiedRecordsReviewed: startingUncoveredOtherRecords.length,
+  allOtherRecordsReclassifiedIncludingPartials: startingOtherRecords.length,
+  partialMappingsReviewed: startingPartialRecords.length,
+  reclassifiedRecordCount,
+  partialMappingsResolved,
+  decisionCounts: remainingDecisionCounts,
+  exclusionReasonCounts,
+};
 
 const sampleEntries = [];
 const sampleIds = new Set();
@@ -822,35 +1263,39 @@ const addSample = (spec, reason) => {
 };
 
 const auditQuotas = {
-  noun: 30,
-  verb: 40,
-  adjective: 15,
-  adverb: 10,
-  connector: 10,
-  preposition: 5,
+  noun: 50,
+  verb: 100,
+  adjective: 25,
+  adverb: 15,
+  connector: 1,
+  preposition: 4,
   phrase: 10,
 };
 Object.entries(auditQuotas).forEach(([partOfSpeech, quota]) => {
-  specs
+  phase103Specs
     .filter((spec) => (spec.type === "term" ? spec.partOfSpeech : spec.type) === partOfSpeech)
     .slice(-quota)
-    .forEach((spec) => addSample(spec, `phase-10.2-representative-${partOfSpeech}`));
+    .forEach((spec) => addSample(spec, `phase-10.3-representative-${partOfSpeech}`));
 });
-specs.filter((spec) => spec.note || spec.reflexive || spec.separablePrefix || (spec.prepositions || []).length)
+phase103Specs.filter((spec) => spec.note || spec.reflexive || spec.separablePrefix || (spec.prepositions || []).length)
   .slice(-50)
   .forEach((spec) => addSample(spec, spec.note ? "regional-variant" : "structurally-unusual"));
 
 fs.writeFileSync(OUTPUT_PATH, `${JSON.stringify(specs, null, 2)}\n`, "utf8");
 fs.writeFileSync(INVENTORY_PATH, `${JSON.stringify(inventory, null, 2)}\n`, "utf8");
 fs.writeFileSync(SUMMARY_PATH, `${JSON.stringify(summary, null, 2)}\n`, "utf8");
+fs.writeFileSync(GAP_ANALYSIS_PATH, `${JSON.stringify(gapAnalysis, null, 2)}\n`, "utf8");
 fs.writeFileSync(AUDIT_PATH, `${JSON.stringify({
   generatedAt: REVIEW_DATE,
-  methodology: "Deterministic 100+ entry Phase 10.2 audit sample with explicit quotas across every production part of speech, plus regional variants and structurally unusual verbs.",
+  methodology: "Deterministic Phase 10.3 audit sample covering all 100 newly added verbs, representative new nouns and descriptors, every new function word and phrase, plus structurally unusual entries.",
   limitation: "This is a developer curation and automated validation sample. It does not claim complete expert linguistic human review.",
   productionLexemeCount: TARGET_PRODUCTION,
   phase10AdditionCount: TARGET_ADDITIONS,
+  phase103AdditionCount: PHASE103_ADDITIONS,
   entryCount: sampleEntries.length,
   entries: sampleEntries,
+  remainingVerbReviews: gapRecords.filter((record) => record.originalPartOfSpeech === "verb" || record.classifiedAs === "verb"),
+  ambiguousMappings: gapRecords.filter((record) => record.finalCoverageStatus === "partially-covered" || record.decision === "REQUIRES_HUMAN_REVIEW"),
 }, null, 2)}\n`, "utf8");
 
 console.log(JSON.stringify({
@@ -863,7 +1308,16 @@ console.log(JSON.stringify({
     variantCoveredCount,
     partiallyCoveredCount,
     uncoveredCount,
+    excludedWithReasonCount,
     coveragePercentage,
+  },
+  phase103: {
+    additionCount: PHASE103_ADDITIONS,
+    partOfSpeechCounts: phase103PartOfSpeechCounts,
+    reviewedGapRecordCount: gapRecords.length,
+    reclassifiedRecordCount,
+    partialMappingsResolved,
+    decisionCounts: remainingDecisionCounts,
   },
   auditCount: sampleEntries.length,
 }, null, 2));

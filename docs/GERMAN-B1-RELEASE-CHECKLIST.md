@@ -4,9 +4,11 @@ Audit date: 2026-11-01
 
 Audited branch: `feature/german-b1-foundation`
 
-Phase 9D starting commit: `c16e74ad562560403fc14d64294f1541fa5d4d18`
+Phase 10.3 starting commit: `0905bc8cbd5213bb12a82941388bfb4fd1eabcca`
 
-Product status: Phase 10.2 release candidate; German TTS backend deployed; feature branch remains unmerged
+Product status: Phase 10.3 release candidate; German TTS backend deployed; feature branch remains unmerged
+
+Phase 10.3 vocabulary closeout: 2026-11-01
 
 Phase 9D.1 deployment verification: 2026-10-31
 
@@ -15,7 +17,7 @@ Final human/physical QA attempt: 2026-10-31. Detailed record: `GERMAN-B1-FINAL-Q
 ## Release inventory
 
 - German B1 Exam Preparation by Asenda Studio, with an explicit independent-product disclaimer.
-- 1,950 production lexemes across 25 categories; Favorites, Learning, Known, Review, and My Words flows.
+- 2,367 production lexemes across 25 categories; Favorites, Learning, Known, Review, and My Words flows.
 - 24 grammar lessons with eight exercises each, diagnostic, completion, retry, and mistake review.
 - Reading: five parts, 30 items, 65-minute absolute timer, scoring, results, review, and resume.
 - Listening: four parts, 30 items, three forms, 24 generated German MP3 assets, replay rules, review, and prepared-form offline cache.
@@ -28,13 +30,13 @@ Final human/physical QA attempt: 2026-10-31. Detailed record: `GERMAN-B1-FINAL-Q
 
 | Gate | Result | Evidence |
 |---|---|---|
-| Content/data validation | PASS | 1,950 lexemes, 25 categories, 24 grammar lessons; module/form/reference tests pass. |
-| Jest suite | PASS | Phase 10.2 unrestricted rerun: 63 suites, 362 tests, 0 failures, 0 skipped. The sandboxed attempt could not atomically rename Jest transform-cache files (`EPERM`, 0 tests executed); all assertions passed outside that filesystem restriction. Node 24 emitted one post-suite React 17/JSDOM passive-effect teardown stack after the affected worker had passed, but Jest still reported all 63 suites and 362 tests passed. |
+| Content/data validation | PASS | 2,367 lexemes, 25 categories, and 24 grammar lessons. All 1,764 pre-Phase-10.3 residual Wortliste rows were reviewed: 417 high-value entries were added, 367 were resolved without duplication, 112 were mapped as regional/metadata variants, and 868 were excluded with a specific low-value, artifact, inflection, abbreviation, proper-name, or non-standalone rationale. No partial or unclassified residual rows remain. |
+| Jest suite | PASS | Phase 10.3 unrestricted rerun: 63 suites, 364 tests, 0 failures, 0 skipped. The initial sandboxed run encountered the known Windows Jest transform-cache `EPERM` restriction before executing tests; the unrestricted rerun passed every assertion. |
 | Audio pipeline | PASS | 11 tests; 24/24 assets ready; 8,773,536 MP3 bytes; checksums/script hashes/metadata valid. |
-| Production build | PASS | Phase 10.2: `main.7d82d6f5.js`, 369.3 kB gzip; CSS 338 B gzip; basename `/pwagerman/`; fixture isolation pass; built with the verified public endpoint value. |
+| Production build | PASS | Phase 10.3: `main.7344703f.js`, 393.62 kB gzip, SHA-256 `A3CF6A3DFCF5BDA23CCDAA9C93884A0748777D7DCBD25BE26AEFB99330C7E8CE`; CSS 338 B gzip; basename `/pwagerman/`; fixture isolation pass; built with the verified public endpoint value. |
 | Production assets | PASS | 24 MP3s emitted; icons and optimized German SVG wordmarks emitted; the unreferenced design-source PNG is preserved under `docs/`, and retired Serbian wordmark PNGs are removed. |
 | Active runtime scan | PASS | No active `Serbian A1`, `Srpski`, `sr-RS`, `sr-Latn`, retired wordmark, or development-fixture markers. |
-| Production browser matrix | PASS | Prior release matrix remains 72/72. Phase 10.2 additionally passed 24/24 production-build combinations across Home, Vocabulary, a long-word lesson, Learning practice, Pair, and Quiz at 320×568, 390×844, 768×1024, and 1280×800. The run found and closed a 320 px filter-row overflow; the rerun had zero overflow and 10 independently labelled Pair pronunciation controls at every viewport. |
+| Production browser matrix | PENDING LIVE PHASE 10.3 RERUN | The prior Phase 10.2 24/24 matrix remains historical evidence. Phase 10.3 will be rerun against the deployed RC at 320×568, 390×844, 768×1024, and 1280×800 before release closure. |
 | Route/deep-link files | PASS | Twelve direct routes loaded/reloaded with the same heading; back/forward passed; a clean-origin nested URL restored through `404.html` to the intended route. The actual mock route is `/exam/full-mock-b1`. |
 | Production console | PASS | Clean-origin representative Home, Learn, Vocabulary, Exam, and Listening flows produced zero console errors or warnings. |
 | Prepared Listening cache | PASS WITH COMBINED EVIDENCE | Browser prepared 8/8 tracks, reloaded offline, passed cached preflight, resumed interrupted playback, and started all eight MP3s through the service worker without a range-response error. Replay/scoring/results/review contracts remain covered by the passing Listening UI/session tests. |
@@ -53,7 +55,7 @@ Final human/physical QA attempt: 2026-10-31. Detailed record: `GERMAN-B1-FINAL-Q
 | Gate | Classification | Required evidence before public release |
 |---|---|---|
 | Human Listening QA | BLOCKER / PENDING | 0/24 tracks human-reviewed. Listen to all 24 tracks for German accuracy, pronunciation, pacing, numbers/times, voice assignment, clipping, pauses, and transcript match. Record reviewer/date in `GERMAN-B1-LISTENING-AUDIO-QA.md`. |
-| Expert linguistic review | HUMAN CONTENT QA PARTIAL | Review worksheets and a 304-entry automated vocabulary audit pool exist, but no native-German/B1-qualified reviewer completed the required 100 lexemes, 24 grammar lessons, or representative exam content. Automated validation is not linguistic certification. |
+| Expert linguistic review | HUMAN CONTENT QA PARTIAL | Review worksheets and an expanded automated vocabulary audit pool exist, but no native-German/B1-qualified reviewer completed the required vocabulary sample, 24 grammar lessons, or representative exam content. Automated validation is not linguistic certification. |
 | Android browser/PWA | PENDING — NO PHYSICAL DEVICE CONNECTED | ADB returned an empty device list. Install/update takeover, TTS, prepared-form offline audio, microphone, recording/playback, Writing keyboard, screen lock, and headset/Bluetooth remain untested on hardware. |
 | iOS Safari/Home Screen | PENDING — NO PHYSICAL DEVICE CONNECTED | Windows PnP reported no present iPhone/iPad. Add to Home Screen, standalone/update behavior, install help, TTS, Listening, microphone, recording/playback, Writing keyboard, persistence, and interruption behavior remain untested on hardware. |
 | Production TTS endpoint | CLOSED | Staged production deployment passed German audio, negative, fixed-voice, CORS, and frontend-compatibility gates before promotion. Post-promotion browser checks for noun/article, verb, grammar, and My Words produced live HTTP 200 cloud requests without fallback errors. |
@@ -86,11 +88,11 @@ Final human/physical QA attempt: 2026-10-31. Detailed record: `GERMAN-B1-FINAL-Q
 
 ## Release blockers and follow-ups
 
-Software blockers: none identified after Phase 9D.1. Production German TTS, the fixed voice, live frontend cloud speech, and the distributed Vercel rate limit are verified. The Phase 9D production-browser matrix, deep links, console, service-worker update, and prepared-audio cache rerun remain passed.
+Software blockers: none identified in the Phase 10.3 source, data, automated-test, audio-validation, or production-build gates. Production German TTS, the fixed voice, live frontend cloud speech, and the distributed Vercel rate limit remain verified. The Phase 10.3 live deployment/browser/PWA rerun is recorded below when complete.
 
 External blockers: all 24 audio tracks still need human listening QA; native-German/B1 content review remains incomplete; physical Android and iOS checks remain pending. See `GERMAN-B1-FINAL-QA.md` for the review matrices and exact untested device gates.
 
-Non-blocking follow-ups after those gates: refresh the Browserslist database in a dependency-maintenance change, consider route-level splitting because the main bundle is now 369.3 kB gzip, and remove source maps from public hosting if deployment policy does not need them.
+Non-blocking follow-ups after those gates: refresh the Browserslist database in a dependency-maintenance change, consider route-level splitting because the main bundle is now 393.62 kB gzip, and remove source maps from public hosting if deployment policy does not need them.
 
 ## Merge and deployment status
 
@@ -99,5 +101,5 @@ Non-blocking follow-ups after those gates: refresh the Browserslist database in 
 - Merge: **NOT EXECUTED**.
 - Backend deployment: **EXECUTED** for the existing Vercel TTS project only; the previous production deployment remains the rollback target.
 - Firewall publication: **EXECUTED** for the exact `POST /api/tts` rule above.
-- Frontend deployment: Phase 10.2 RC deployment is authorized only after the passing tests, production build, commit, and feature-branch push above; the resulting `gh-pages` SHA is recorded in the Phase 10.2 handoff.
+- Frontend deployment: Phase 10.3 RC deployment is authorized only after the passing tests, production build, commit, and feature-branch push above. Pre-deployment `gh-pages` SHA: `e937bc9c51c5ab9bb13dfc690501991fa06074bd`; the resulting SHA and live validation are appended after deployment.
 - Merge only after the remaining human and physical gates are closed.

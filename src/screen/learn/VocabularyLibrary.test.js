@@ -24,8 +24,8 @@ const data = GermanCurriculum.map((category, categoryIndex) => ({
 test("shows dynamic category and total counts with progress", () => {
   render(<MemoryRouter><VocabularyLibrary data={data} /></MemoryRouter>);
   expect(screen.getByRole("heading", { name: "Vocabulary" })).toBeTruthy();
-  expect(screen.getByText(/Browse 1950 original German B1 lexemes/)).toBeTruthy();
-  expect(screen.getByRole("link", { name: /Personal information & identity/ }).textContent).toContain("36 words");
+  expect(screen.getByText(/Browse 2367 original German B1 lexemes/)).toBeTruthy();
+  expect(screen.getByRole("link", { name: /Personal information & identity/ }).textContent).toContain("52 words");
   expect(screen.getByRole("link", { name: /Personal information & identity/ }).textContent).toContain("1 known");
 });
 
@@ -48,4 +48,11 @@ test("keeps large search results incrementally rendered", () => {
   fireEvent.change(screen.getByRole("searchbox"), { target: { value: "e" } });
   expect(screen.getByRole("button", { name: "Show more" })).toBeTruthy();
   expect(container.querySelectorAll("details")).toHaveLength(30);
+});
+
+test("finds a long compound at 2367-word scale", () => {
+  render(<MemoryRouter><VocabularyLibrary data={data} /></MemoryRouter>);
+  fireEvent.change(screen.getByRole("searchbox"), { target: { value: "Verkehrszeichen" } });
+  expect(screen.getByText("traffic sign")).toBeTruthy();
+  expect(screen.getByText("1 matching words")).toBeTruthy();
 });

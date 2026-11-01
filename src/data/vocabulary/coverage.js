@@ -60,5 +60,5 @@ export const VOCABULARY_COVERAGE_SUMMARY = Object.freeze({
   coveredPercent: WORTLISTE_COVERAGE_SUMMARY.coveragePercentage,
   sourceSha256: WORTLISTE_COVERAGE_SUMMARY.sourceSha256,
   reviewDate: WORTLISTE_COVERAGE_SUMMARY.reviewDate,
-  status: "phase10-curated-inventory",
+  status: "phase103-curated-inventory",
 });

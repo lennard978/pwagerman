@@ -36,7 +36,31 @@ The app must not be described as official or as providing 100% Goethe coverage.
 
 The extractor is intentionally conservative. Ambiguous source notation remains visible in `rawEntry`/`pluralNotation` rather than being silently interpreted. The generated sample report is automated and is not a claim of complete linguistic human review.
 
-## Current production batch
+## Current Phase 10.3 production and decision audit
+
+- Production lexemes: 2,367 (800 retained + 1,567 cumulative Phase 10 additions).
+- Final POS: 1,155 nouns; 660 verbs; 242 adjectives; 99 adverbs; 56 connectors; 30 prepositions; 125 functional phrases.
+- Phase 10.3 additions: 417 (247 nouns, 100 verbs, 40 adjectives, 15 adverbs, 1 connector, 4 prepositions, 10 phrases).
+- Original German/English example pairs: 2,367.
+- Fully covered normalized reference units: 2,196 (2,186 exact + 10 variant-covered).
+- Partial mappings: 0; unresolved uncovered units: 0; excluded with reason: 980; full coverage: 69.14%.
+- Source type: 100% `original-curated` for learner-facing cards.
+
+Phase 10.3 classifies every pre-phase partial/uncovered unit by lexical type, normalization confidence, regional status, and final decision. Intentional exclusions use explicit reason codes instead of silent deletion. Regional alternatives remain evidence-first metadata unless a separate learner card has independent value.
+
+Reproducibility artifacts:
+
+- `scripts/vocabulary/phase10-curation.cjs` is the compact curation source.
+- `scripts/vocabulary/build-phase10-lexemes.cjs` regenerates specs, inventory, summary, full gap analysis, and audit sample.
+- `src/data/vocabulary/phase10LexemeSpecs.json` contains 1,567 cumulative generated additions, including 417 tagged Phase 10.3 records.
+- `docs/GERMAN-B1-WORTLISTE-GAP-ANALYSIS.json` records all 1,764 reviewed starting gaps and their decisions.
+- `docs/GERMAN-B1-VOCABULARY-AUDIT-SAMPLE.json` explicitly disclaims complete external expert review.
+
+## Archived pre-Phase-10.3 production batch
+
+The following figures preserve the exact 1,950-word checkpoint from which the Phase 10.3 audit was computed.
+
+### Phase 10.2 production batch
 
 - Production lexemes: 1,950 (800 retained + 600 Phase 10 entries + 550 Phase 10.2 entries)
 - Categories: 25, weighted by practical and exam relevance rather than equal size
@@ -49,7 +73,7 @@ The extractor is intentionally conservative. Ambiguous source notation remains v
 
 The production curriculum prioritizes high-frequency, everyday, administrative, travel, work, education, health, communication, opinion, connector, and functional exam language. It remains a quality-controlled subset of the normalized inventory.
 
-## Phase 10/10.2 reproducibility
+### Phase 10/10.2 reproducibility
 
 - `scripts/vocabulary/phase10-curation.cjs` is the compact, reviewed curation source.
 - `scripts/vocabulary/build-phase10-lexemes.cjs` validates and deterministically regenerates the Phase 10 specs, coverage inventory, summary, and audit sample.
