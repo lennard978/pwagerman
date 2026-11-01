@@ -114,7 +114,7 @@ export const Pair = ({ data }) => {
   });
 
   return (
-    <PracticeLayout title={`${t("navigation.pair")} ${number}`}>
+    <PracticeLayout title={lesson.id === "learning" ? `${t("navigation.pair")} · Learning` : `${t("navigation.pair")} ${number}`}>
       {roundItems.length < 2 ? <EmptyExercise message={t("myWords.minimum")} /> : <>
         {source.length === 0 ? (
           <Completion>

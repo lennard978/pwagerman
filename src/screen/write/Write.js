@@ -118,7 +118,7 @@ export const Write = ({ data }) => {
   };
 
   return (
-    <PracticeLayout title={`${t("navigation.spelling")} ${number}`}>
+    <PracticeLayout title={lesson.id === "learning" ? `${t("navigation.spelling")} · Learning` : `${t("navigation.spelling")} ${number}`}>
       {wordList.length === 0 ? <EmptyExercise message={t("myWords.minimum")} /> : <>
       <WriteStage data-testid="write-exercise-content">
       <PromptRow>

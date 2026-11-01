@@ -70,7 +70,7 @@ export const Cards = ({ data }) => {
     }
   };
   return (
-    <PracticeLayout title={`${t("navigation.cards")} ${number}`}>
+    <PracticeLayout title={lesson.id === "learning" ? `${t("navigation.cards")} · Learning` : `${t("navigation.cards")} ${number}`}>
       {wordList.length === 0 ? <EmptyExercise message={t("myWords.minimum")} /> : (
       <CardStage data-testid="cards-exercise-content">
         <CardGroup>

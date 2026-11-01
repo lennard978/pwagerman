@@ -113,7 +113,7 @@ export const Quiz = ({ data }) => {
   };
 
   return (
-    <PracticeLayout title={`${t("navigation.quiz")} ${number}`}>
+    <PracticeLayout title={lesson.id === "learning" ? `${t("navigation.quiz")} · Learning` : `${t("navigation.quiz")} ${number}`}>
       {complete ? (
         <ResultCard data-testid="quiz-result-card">
           <ResultTitle>{t("exercise.quizComplete")}</ResultTitle>

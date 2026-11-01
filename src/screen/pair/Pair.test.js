@@ -39,6 +39,7 @@ beforeEach(() => {
 
 test("Pair pronunciation uses a distinct accessible button and full German speech text", () => {
   renderPair();
+  expect(screen.getByRole("heading", { name: "Pair · Learning" })).toBeTruthy();
   const nounSpeaker = screen.getByRole("button", { name: "Pronounce der Antrag" });
   expect(nounSpeaker.tagName).toBe("BUTTON");
   expect(nounSpeaker.tabIndex).toBe(0);
