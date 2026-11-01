@@ -20,12 +20,12 @@ test("inventory has exact raw, normalized, variant, duplicate, and coverage tota
   assert.equal(inventory.records.length, 3176);
   assert.equal(inventory.metadata.variantGroups, 170);
   assert.equal(inventory.metadata.duplicateMergedGroups, 42);
-  assert.equal(inventory.metadata.exactCoveredCount, 982);
+  assert.equal(inventory.metadata.exactCoveredCount, 1402);
   assert.equal(inventory.metadata.variantCoveredCount, 10);
-  assert.equal(inventory.metadata.coveredCount, 992);
-  assert.equal(inventory.metadata.partiallyCoveredCount, 315);
-  assert.equal(inventory.metadata.uncoveredCount, 1869);
-  assert.equal(inventory.metadata.coveragePercentage, 31.23);
+  assert.equal(inventory.metadata.coveredCount, 1412);
+  assert.equal(inventory.metadata.partiallyCoveredCount, 409);
+  assert.equal(inventory.metadata.uncoveredCount, 1355);
+  assert.equal(inventory.metadata.coveragePercentage, 44.46);
 });
 
 test("reference identities and raw extraction identities are unique", () => {
@@ -50,16 +50,16 @@ test("regional and arrow variants remain represented", () => {
   assert.ok(inventory.records.some(({ variants }) => variants.length > 0));
 });
 
-test("all 1400 production lexemes resolve to a reference mapping", () => {
-  assert.equal(productionIds.length, 1400);
-  assert.equal(new Set(productionIds).size, 1400);
+test("all 1950 production lexemes resolve to a reference mapping", () => {
+  assert.equal(productionIds.length, 1950);
+  assert.equal(new Set(productionIds).size, 1950);
   assert.deepEqual(productionIds.filter((id) => !mappedIds.has(id)), []);
 });
 
-test("all 1150 expansion specs contain original learner-facing content and valid mappings", () => {
+test("all 1700 expansion specs contain original learner-facing content and valid mappings", () => {
   const specs = [...phase9Specs, ...phase10Specs];
   assert.equal(phase9Specs.length, 550);
-  assert.equal(phase10Specs.length, 600);
+  assert.equal(phase10Specs.length, 1150);
   specs.forEach((spec) => {
     assert.ok(spec.source && spec.example && spec.exampleTranslation && spec.referenceKey);
     assert.doesNotMatch(`${spec.source} ${spec.example} ${spec.exampleTranslation}`, /\uFFFD|Ã.|Â.|â[\u0080-\u00BF]/u);

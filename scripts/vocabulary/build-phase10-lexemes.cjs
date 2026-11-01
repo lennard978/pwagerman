@@ -3,6 +3,7 @@ const path = require("path");
 const {
   nounRows,
   verbRows,
+  verbExampleRows,
   adjectiveRows,
   adverbRows,
   connectorRows,
@@ -18,8 +19,8 @@ const AUDIT_PATH = path.join(ROOT, "docs", "GERMAN-B1-VOCABULARY-AUDIT-SAMPLE.js
 const PHASE9_PATH = path.join(ROOT, "src", "data", "vocabulary", "expandedLexemeSpecs.json");
 const LEXEMES_SOURCE_PATH = path.join(ROOT, "src", "data", "vocabulary", "lexemes.js");
 
-const TARGET_ADDITIONS = 600;
-const TARGET_PRODUCTION = 1400;
+const TARGET_ADDITIONS = 1150;
+const TARGET_PRODUCTION = 1950;
 const REVIEW_DATE = "2026-11-01";
 
 const normalize = (value) => String(value || "")
@@ -51,6 +52,42 @@ const splitRow = (line, expected, label) => {
   return values;
 };
 
+const rowValues = (line) => line.split("|").map((value) => value.trim());
+
+const cleanOfficialVerbField = (value) => String(value || "")
+  .replace(/([A-Za-zÄÖÜäöüß])-\s+([A-Za-zÄÖÜäöüß])/gu, "$1$2")
+  .replace(/\s+/gu, " ")
+  .replace(/\.$/u, "")
+  .trim();
+
+const parseOfficialVerbMetadata = (record, { reflexive, separablePrefix }) => {
+  const parts = String(record.rawEntry || "").split(",").map(cleanOfficialVerbField);
+  if (parts.length < 4) {
+    throw new Error(`Official verb metadata for ${record.normalizedLemma} has fewer than four fields: ${record.rawEntry}`);
+  }
+  let preterite = parts[2];
+  let perfect = parts.slice(3).join(", ")
+    .replace(/\s*\([^)]*\)\s*$/u, "")
+    .replace(/\s*→.*$/u, "")
+    .trim();
+  const perfectMatch = perfect.match(/^(hat|ist)\s+(.+)$/u);
+  if (!perfectMatch) {
+    throw new Error(`Cannot parse official perfect metadata for ${record.normalizedLemma}: ${perfect}`);
+  }
+  const auxiliary = perfectMatch[1] === "ist" ? "sein" : "haben";
+  let pastParticiple = perfectMatch[2]
+    .replace(/^sich\s+/u, "")
+    .replace(/^etwas\s+/u, "")
+    .trim();
+  if (reflexive && !/\bsich\b/u.test(preterite)) {
+    preterite = separablePrefix && preterite.endsWith(` ${separablePrefix}`)
+      ? `${preterite.slice(0, -(separablePrefix.length + 1))} sich ${separablePrefix}`
+      : `${preterite} sich`;
+  }
+  if (/\//u.test(pastParticiple)) pastParticiple = pastParticiple.split("/")[0].trim();
+  return { auxiliary, pastParticiple, preterite };
+};
+
 const inventory = JSON.parse(fs.readFileSync(INVENTORY_PATH, "utf8"));
 const phase9Specs = JSON.parse(fs.readFileSync(PHASE9_PATH, "utf8"));
 const lexemesSource = fs.readFileSync(LEXEMES_SOURCE_PATH, "utf8");
@@ -68,6 +105,31 @@ if (fs.existsSync(OUTPUT_PATH)) {
     }
   });
 }
+
+// Reassert Phase 9 mappings after removing a prior Phase 10 batch. This also
+// makes recovery deterministic if a newer reflexive entry once shared a
+// generated ID with an older non-reflexive entry before ID validation caught it.
+phase9Specs.forEach((spec) => {
+  const lexemeId = `de-b1-${spec.categoryId}-${spec.slug}`;
+  if (inventory.records.some((record) => (record.lexemeIds || []).includes(lexemeId))) return;
+  const referenceKey = normalize(spec.referenceKey);
+  const candidates = inventory.records.filter((record) => [record.normalizedLemma, ...(record.variants || [])]
+    .map(normalize)
+    .includes(referenceKey));
+  if (candidates.length !== 1) {
+    throw new Error(`Cannot restore Phase 9 mapping ${lexemeId} (${spec.referenceKey}): ${candidates.length} candidates`);
+  }
+  const [record] = candidates;
+  record.lexemeIds = [...new Set([...(record.lexemeIds || []), lexemeId])];
+  if (record.coverageStatus === "uncovered") {
+    const productionPos = spec.type === "term" ? spec.partOfSpeech : spec.type;
+    record.coverageStatus = normalize(record.normalizedLemma) !== normalize(spec.referenceKey)
+      ? "variant-covered"
+      : record.partOfSpeech === productionPos
+        ? "covered"
+        : "partially-covered";
+  }
+});
 
 // Phase 9 mapped these regional reference units through their standard-German
 // variants. They intentionally carry no direct lexeme ID of their own.
@@ -181,6 +243,7 @@ const nounTemplates = {
   "feelings-opinions": ["wird im Gespräch deutlich", "becomes clear in the conversation"],
   "problems-solutions": ["muss genau untersucht werden", "must be examined carefully"],
   "plans-goals-time": ["steht im aktuellen Plan", "is included in the current plan"],
+  "adjectives-adverbs": ["wird in der Beschreibung genau angegeben", "is stated precisely in the description"],
 };
 
 const nounExampleOverrides = {
@@ -238,6 +301,29 @@ const structuredVerbs = {
   "kämpfen": { caseGovernment: "für / gegen + accusative", prepositions: ["für + accusative", "gegen + accusative"], example: "Die Initiative kämpft für sichere Radwege.", exampleTranslation: "The initiative campaigns for safe cycle paths." },
   "protestieren": { caseGovernment: "gegen + accusative", prepositions: ["gegen + accusative"], example: "Die Anwohner protestieren gegen den starken Verkehr.", exampleTranslation: "The residents are protesting against the heavy traffic." },
   "dienen": { caseGovernment: "dative", prepositions: [], example: "Diese Anleitung dient neuen Mitarbeitenden als Orientierung.", exampleTranslation: "These instructions serve as guidance for new employees." },
+  "achten": { caseGovernment: "auf + accusative", prepositions: ["auf + accusative"], example: "Achten Sie bitte auf die Frist im Schreiben.", exampleTranslation: "Please pay attention to the deadline in the letter." },
+  "begegnen": { caseGovernment: "dative", prepositions: [], example: "Auf dem Weg zur Arbeit begegnete ich meiner Nachbarin.", exampleTranslation: "On the way to work, I met my neighbour." },
+  "danken": { caseGovernment: "dative / für + accusative", prepositions: ["für + accusative"], example: "Ich danke Ihnen für die schnelle Rückmeldung.", exampleTranslation: "Thank you for the prompt response." },
+  "gefallen": { caseGovernment: "dative", prepositions: [], example: "Der neue Kursplan gefällt den Teilnehmenden.", exampleTranslation: "The participants like the new course schedule." },
+  "gelingen": { caseGovernment: "dative", prepositions: [], example: "Mit guter Vorbereitung gelingt uns die Präsentation.", exampleTranslation: "With good preparation, we will succeed with the presentation." },
+  "genügen": { caseGovernment: "dative", prepositions: [], example: "Eine Kopie des Ausweises genügt der Behörde nicht.", exampleTranslation: "A copy of the identity card is not sufficient for the authority." },
+  "gratulieren": { caseGovernment: "dative / zu + dative", prepositions: ["zu + dative"], example: "Wir gratulieren dir zur bestandenen Prüfung.", exampleTranslation: "We congratulate you on passing the exam." },
+  "hinweisen": { caseGovernment: "auf + accusative", prepositions: ["auf + accusative"], example: "Die Mitarbeiterin weist auf die neue Regel hin.", exampleTranslation: "The employee points out the new rule." },
+  "klagen": { caseGovernment: "über + accusative", prepositions: ["über + accusative"], example: "Viele Fahrgäste klagen über die langen Wartezeiten.", exampleTranslation: "Many passengers complain about the long waiting times." },
+  "leiden": { caseGovernment: "an + dative / unter + dative", prepositions: ["an + dative", "unter + dative"], example: "Er leidet seit Tagen unter starken Kopfschmerzen.", exampleTranslation: "He has been suffering from severe headaches for days." },
+  "passen": { caseGovernment: "zu + dative", prepositions: ["zu + dative"], example: "Der neue Termin passt gut zu meinem Arbeitsplan.", exampleTranslation: "The new appointment fits well with my work schedule." },
+  "raten": { caseGovernment: "dative / zu + dative", prepositions: ["zu + dative"], example: "Die Ärztin rät mir zu einer kurzen Pause.", exampleTranslation: "The doctor advises me to take a short break." },
+  "reagieren": { caseGovernment: "auf + accusative", prepositions: ["auf + accusative"], example: "Der Kundendienst reagierte schnell auf meine Nachricht.", exampleTranslation: "Customer service responded quickly to my message." },
+  "riechen": { caseGovernment: "nach + dative", prepositions: ["nach + dative"], example: "Die Küche riecht nach frischem Brot.", exampleTranslation: "The kitchen smells of fresh bread." },
+  "sich bedanken": { caseGovernment: "bei + dative / für + accusative", prepositions: ["bei + dative", "für + accusative"], example: "Sie bedankt sich bei ihrem Kollegen für die Hilfe.", exampleTranslation: "She thanks her colleague for the help." },
+  "sich bemühen": { caseGovernment: "um + accusative", prepositions: ["um + accusative"], example: "Wir bemühen uns um eine schnelle Lösung.", exampleTranslation: "We are striving for a quick solution." },
+  "sich eignen": { caseGovernment: "für + accusative", prepositions: ["für + accusative"], example: "Der Raum eignet sich gut für kleine Gruppen.", exampleTranslation: "The room is well suited to small groups." },
+  "sich konzentrieren": { caseGovernment: "auf + accusative", prepositions: ["auf + accusative"], example: "Konzentrieren Sie sich auf die wichtigsten Aussagen.", exampleTranslation: "Concentrate on the most important statements." },
+  "sich nähern": { caseGovernment: "dative", prepositions: [], example: "Der Zug nähert sich langsam dem Hauptbahnhof.", exampleTranslation: "The train is slowly approaching the main station." },
+  "sich streiten": { caseGovernment: "mit + dative / über + accusative", prepositions: ["mit + dative", "über + accusative"], example: "Die Nachbarn streiten sich über den Lärm.", exampleTranslation: "The neighbours are arguing about the noise." },
+  "sich verabreden": { caseGovernment: "mit + dative / zu + dative", prepositions: ["mit + dative", "zu + dative"], example: "Ich habe mich mit einer Kollegin zum Mittagessen verabredet.", exampleTranslation: "I arranged to meet a colleague for lunch." },
+  "sich verlieben": { caseGovernment: "in + accusative", prepositions: ["in + accusative"], example: "Sie hat sich während des Studiums in Berlin verliebt.", exampleTranslation: "She fell in love with Berlin while studying." },
+  "sich vorbereiten": { caseGovernment: "auf + accusative", prepositions: ["auf + accusative"], example: "Die Gruppe bereitet sich auf die mündliche Prüfung vor.", exampleTranslation: "The group is preparing for the oral exam." },
 };
 
 const verbContext = {
@@ -292,8 +378,29 @@ const verbExampleOverrides = {
   auffallen: ["Der Fehler ist bei der letzten Kontrolle aufgefallen.", "The error was noticed during the final check."],
 };
 
+const phase102VerbExamples = Object.fromEntries(verbExampleRows.map((line) => {
+  const [lemma, example, exampleTranslation] = splitRow(line, 3, "Phase 10.2 verb example");
+  return [lemma, [example, exampleTranslation]];
+}));
+
 const verbSpecs = verbRows.map((line) => {
-  const [categoryId, lemma, english, pastParticiple, preterite, auxiliary, separablePrefix, use] = splitRow(line, 8, "verb");
+  const values = rowValues(line);
+  if (![5, 8].includes(values.length)) {
+    throw new Error(`verb row has ${values.length} fields; expected 5 or 8: ${line}`);
+  }
+  let categoryId;
+  let lemma;
+  let english;
+  let pastParticiple;
+  let preterite;
+  let auxiliary;
+  let separablePrefix;
+  let use;
+  if (values.length === 8) {
+    [categoryId, lemma, english, pastParticiple, preterite, auxiliary, separablePrefix, use] = values;
+  } else {
+    [categoryId, lemma, english, use, separablePrefix] = values;
+  }
   const reflexive = lemma.startsWith("sich ");
   let referenceKey = reflexive ? lemma.slice(5) : lemma;
   let match;
@@ -305,8 +412,11 @@ const verbSpecs = verbRows.map((line) => {
     match = findReference({ referenceKey, expectedReferencePos: "verb", requireUncovered: true });
   }
   const { record } = match;
+  if (values.length === 5) {
+    ({ pastParticiple, preterite, auxiliary } = parseOfficialVerbMetadata(record, { reflexive, separablePrefix }));
+  }
   const structured = structuredVerbs[lemma] || {};
-  const curatedExample = verbExampleOverrides[lemma] || [];
+  const curatedExample = phase102VerbExamples[lemma] || verbExampleOverrides[lemma] || [];
   const [germanContext, englishContext] = verbContext[categoryId] || ["In dieser Situation", "In this situation"];
   const root = reflexive ? lemma.slice(5) : lemma;
   const example = structured.example || curatedExample[0] || (reflexive
@@ -437,9 +547,15 @@ const adjectiveExamples = {
 };
 
 const adjectiveSpecs = adjectiveRows.map((line) => {
-  const [categoryId, target, source] = splitRow(line, 3, "adjective");
+  const values = rowValues(line);
+  if (![3, 5].includes(values.length)) {
+    throw new Error(`adjective row has ${values.length} fields; expected 3 or 5: ${line}`);
+  }
+  const [categoryId, target, source, rowExample, rowExampleTranslation] = values;
   const { record } = findPreferredReference({ referenceKey: target, expectedReferencePos: "other" });
-  const [example, exampleTranslation] = adjectiveExamples[target] || [];
+  const [example, exampleTranslation] = rowExample
+    ? [rowExample, rowExampleTranslation]
+    : adjectiveExamples[target] || [];
   if (!example || !exampleTranslation) throw new Error(`Missing curated adjective example for ${target}`);
   return {
     type: "term",
@@ -479,8 +595,16 @@ const adverbSpecs = adverbRows.map((line) => {
 });
 
 const connectorSpecs = connectorRows.map((line) => {
-  const [target, source, example, exampleTranslation, grammarRef] = splitRow(line, 5, "connector");
-  const { record } = findPreferredReference({ referenceKey: target, expectedReferencePos: target === "je ... desto ..." ? "phrase" : "other" });
+  const values = rowValues(line);
+  if (![5, 6].includes(values.length)) {
+    throw new Error(`connector row has ${values.length} fields; expected 5 or 6: ${line}`);
+  }
+  const [target, source, example, exampleTranslation, grammarRef, explicitReferenceKey] = values;
+  const referenceKey = explicitReferenceKey || target;
+  const { record } = findPreferredReference({
+    referenceKey,
+    expectedReferencePos: explicitReferenceKey ? null : target === "je ... desto ..." ? "phrase" : "other",
+  });
   return {
     type: "term",
     categoryId: "connectors-prepositions",
@@ -647,6 +771,23 @@ const categoryCounts = specs.reduce((counts, spec) => {
   counts[spec.categoryId] = (counts[spec.categoryId] || 0) + 1;
   return counts;
 }, {});
+const referencePartOfSpeechBreakdown = inventory.records.reduce((breakdown, record) => {
+  const partOfSpeech = record.partOfSpeech || "other";
+  const status = record.coverageStatus;
+  if (!breakdown[partOfSpeech]) {
+    breakdown[partOfSpeech] = { covered: 0, variantCovered: 0, partiallyCovered: 0, uncovered: 0, total: 0 };
+  }
+  breakdown[partOfSpeech].total += 1;
+  if (status === "covered") breakdown[partOfSpeech].covered += 1;
+  if (status === "variant-covered") breakdown[partOfSpeech].variantCovered += 1;
+  if (status === "partially-covered") breakdown[partOfSpeech].partiallyCovered += 1;
+  if (status === "uncovered") breakdown[partOfSpeech].uncovered += 1;
+  return breakdown;
+}, {});
+summary.phase10AdditionCount = TARGET_ADDITIONS;
+summary.phase10PartOfSpeechCounts = partOfSpeechCounts;
+summary.phase10CategoryCounts = categoryCounts;
+summary.referencePartOfSpeechBreakdown = referencePartOfSpeechBreakdown;
 
 const sampleEntries = [];
 const sampleIds = new Set();
@@ -680,14 +821,23 @@ const addSample = (spec, reason) => {
   });
 };
 
-Object.keys(partOfSpeechCounts).forEach((partOfSpeech) => {
+const auditQuotas = {
+  noun: 30,
+  verb: 40,
+  adjective: 15,
+  adverb: 10,
+  connector: 10,
+  preposition: 5,
+  phrase: 10,
+};
+Object.entries(auditQuotas).forEach(([partOfSpeech, quota]) => {
   specs
     .filter((spec) => (spec.type === "term" ? spec.partOfSpeech : spec.type) === partOfSpeech)
-    .slice(0, 6)
-    .forEach((spec) => addSample(spec, `representative-${partOfSpeech}`));
+    .slice(-quota)
+    .forEach((spec) => addSample(spec, `phase-10.2-representative-${partOfSpeech}`));
 });
 specs.filter((spec) => spec.note || spec.reflexive || spec.separablePrefix || (spec.prepositions || []).length)
-  .slice(0, 30)
+  .slice(-50)
   .forEach((spec) => addSample(spec, spec.note ? "regional-variant" : "structurally-unusual"));
 
 fs.writeFileSync(OUTPUT_PATH, `${JSON.stringify(specs, null, 2)}\n`, "utf8");
@@ -695,7 +845,7 @@ fs.writeFileSync(INVENTORY_PATH, `${JSON.stringify(inventory, null, 2)}\n`, "utf
 fs.writeFileSync(SUMMARY_PATH, `${JSON.stringify(summary, null, 2)}\n`, "utf8");
 fs.writeFileSync(AUDIT_PATH, `${JSON.stringify({
   generatedAt: REVIEW_DATE,
-  methodology: "Representative Phase 10 sample with at least six entries per production part of speech, plus regional variants and structurally unusual verbs.",
+  methodology: "Deterministic 100+ entry Phase 10.2 audit sample with explicit quotas across every production part of speech, plus regional variants and structurally unusual verbs.",
   limitation: "This is a developer curation and automated validation sample. It does not claim complete expert linguistic human review.",
   productionLexemeCount: TARGET_PRODUCTION,
   phase10AdditionCount: TARGET_ADDITIONS,

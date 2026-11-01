@@ -38,21 +38,21 @@ The extractor is intentionally conservative. Ambiguous source notation remains v
 
 ## Current production batch
 
-- Production lexemes: 1,400 (800 retained + 600 Phase 10 entries)
+- Production lexemes: 1,950 (800 retained + 600 Phase 10 entries + 550 Phase 10.2 entries)
 - Categories: 25, weighted by practical and exam relevance rather than equal size
-- Original German examples and English translations: 1,400 pairs
-- Nouns: 658; verbs: 390; adjectives: 142; adverbs: 59; connectors: 45; prepositions: 21; functional phrases: 85
-- Phase 10 additions: 185 nouns, 180 verbs, 90 adjectives, 45 adverbs, 25 connectors, 15 prepositions, and 60 functional phrases
+- Original German examples and English translations: 1,950 pairs
+- Nouns: 908; verbs: 560; adjectives: 202; adverbs: 84; connectors: 55; prepositions: 26; functional phrases: 115
+- Phase 10.2 additions: 250 nouns, 170 verbs, 60 adjectives, 25 adverbs, 10 connectors, 5 prepositions, and 30 functional phrases
 - Source type: 100% `original-curated`
-- Fully covered normalized reference units: 992 (982 exact + 10 variant-covered)
-- Partial mappings: 315; uncovered normalized reference units: 1,869; full coverage: 31.23%
+- Fully covered normalized reference units: 1,412 (1,402 exact + 10 variant-covered)
+- Partial mappings: 409; uncovered normalized reference units: 1,355; full coverage: 44.46%
 
 The production curriculum prioritizes high-frequency, everyday, administrative, travel, work, education, health, communication, opinion, connector, and functional exam language. It remains a quality-controlled subset of the normalized inventory.
 
-## Phase 10 reproducibility
+## Phase 10/10.2 reproducibility
 
 - `scripts/vocabulary/phase10-curation.cjs` is the compact, reviewed curation source.
 - `scripts/vocabulary/build-phase10-lexemes.cjs` validates and deterministically regenerates the Phase 10 specs, coverage inventory, summary, and audit sample.
-- `src/data/vocabulary/phase10LexemeSpecs.json` contains the 600 generated learner-facing additions.
-- `docs/GERMAN-B1-VOCABULARY-AUDIT-SAMPLE.json` records a representative 68-entry developer audit sample and explicitly disclaims complete expert review.
+- `src/data/vocabulary/phase10LexemeSpecs.json` contains the 1,150 generated learner-facing additions.
+- `docs/GERMAN-B1-VOCABULARY-AUDIT-SAMPLE.json` records a deterministic 141-entry developer audit sample and explicitly disclaims complete expert review.
 - The builder preserves prior Phase 9 regional variant mappings and can be rerun without changing its output hashes.

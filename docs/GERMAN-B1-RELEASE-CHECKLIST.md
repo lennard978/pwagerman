@@ -1,12 +1,12 @@
 # German B1 release checklist
 
-Audit date: 2026-10-31
+Audit date: 2026-11-01
 
 Audited branch: `feature/german-b1-foundation`
 
 Phase 9D starting commit: `c16e74ad562560403fc14d64294f1541fa5d4d18`
 
-Product status: release candidate; German TTS backend deployed; frontend not merged or deployed
+Product status: Phase 10.2 release candidate; German TTS backend deployed; feature branch remains unmerged
 
 Phase 9D.1 deployment verification: 2026-10-31
 
@@ -15,7 +15,7 @@ Final human/physical QA attempt: 2026-10-31. Detailed record: `GERMAN-B1-FINAL-Q
 ## Release inventory
 
 - German B1 Exam Preparation by Asenda Studio, with an explicit independent-product disclaimer.
-- 1,400 production lexemes across 25 categories; Favorites, Learning, Known, Review, and My Words flows.
+- 1,950 production lexemes across 25 categories; Favorites, Learning, Known, Review, and My Words flows.
 - 24 grammar lessons with eight exercises each, diagnostic, completion, retry, and mistake review.
 - Reading: five parts, 30 items, 65-minute absolute timer, scoring, results, review, and resume.
 - Listening: four parts, 30 items, three forms, 24 generated German MP3 assets, replay rules, review, and prepared-form offline cache.
@@ -28,13 +28,13 @@ Final human/physical QA attempt: 2026-10-31. Detailed record: `GERMAN-B1-FINAL-Q
 
 | Gate | Result | Evidence |
 |---|---|---|
-| Content/data validation | PASS | 1,400 lexemes, 25 categories, 24 grammar lessons; module/form/reference tests pass. |
-| Jest suite | PASS | Final-QA rerun: 61 suites, 353 tests, 0 failures, 0 skipped. The first sandboxed attempt was unable to create Jest's temporary transform cache (`EPERM`); the unrestricted rerun executed normally and passed. |
+| Content/data validation | PASS | 1,950 lexemes, 25 categories, 24 grammar lessons; module/form/reference tests pass. |
+| Jest suite | PASS | Phase 10.2 unrestricted rerun: 63 suites, 362 tests, 0 failures, 0 skipped. The sandboxed attempt could not atomically rename Jest transform-cache files (`EPERM`, 0 tests executed); all assertions passed outside that filesystem restriction. Node 24 emitted one post-suite React 17/JSDOM passive-effect teardown stack after the affected worker had passed, but Jest still reported all 63 suites and 362 tests passed. |
 | Audio pipeline | PASS | 11 tests; 24/24 assets ready; 8,773,536 MP3 bytes; checksums/script hashes/metadata valid. |
-| Production build | PASS | Final-QA rerun: `main.25619cdc.js`, 291.06 kB gzip; CSS 338 B gzip; basename `/pwagerman/`; fixture isolation pass; built with the verified public endpoint value. |
+| Production build | PASS | Phase 10.2: `main.7d82d6f5.js`, 369.3 kB gzip; CSS 338 B gzip; basename `/pwagerman/`; fixture isolation pass; built with the verified public endpoint value. |
 | Production assets | PASS | 24 MP3s emitted; icons and optimized German SVG wordmarks emitted; the unreferenced design-source PNG is preserved under `docs/`, and retired Serbian wordmark PNGs are removed. |
 | Active runtime scan | PASS | No active `Serbian A1`, `Srpski`, `sr-RS`, `sr-Latn`, retired wordmark, or development-fixture markers. |
-| Production browser matrix | PASS | Actual production build: 72/72 route/viewport combinations across 12 high-risk routes and six requested viewports had no horizontal overflow or visibly clipped controls. |
+| Production browser matrix | PASS | Prior release matrix remains 72/72. Phase 10.2 additionally passed 24/24 production-build combinations across Home, Vocabulary, a long-word lesson, Learning practice, Pair, and Quiz at 320×568, 390×844, 768×1024, and 1280×800. The run found and closed a 320 px filter-row overflow; the rerun had zero overflow and 10 independently labelled Pair pronunciation controls at every viewport. |
 | Route/deep-link files | PASS | Twelve direct routes loaded/reloaded with the same heading; back/forward passed; a clean-origin nested URL restored through `404.html` to the intended route. The actual mock route is `/exam/full-mock-b1`. |
 | Production console | PASS | Clean-origin representative Home, Learn, Vocabulary, Exam, and Listening flows produced zero console errors or warnings. |
 | Prepared Listening cache | PASS WITH COMBINED EVIDENCE | Browser prepared 8/8 tracks, reloaded offline, passed cached preflight, resumed interrupted playback, and started all eight MP3s through the service worker without a range-response error. Replay/scoring/results/review contracts remain covered by the passing Listening UI/session tests. |
@@ -90,7 +90,7 @@ Software blockers: none identified after Phase 9D.1. Production German TTS, the 
 
 External blockers: all 24 audio tracks still need human listening QA; native-German/B1 content review remains incomplete; physical Android and iOS checks remain pending. See `GERMAN-B1-FINAL-QA.md` for the review matrices and exact untested device gates.
 
-Non-blocking follow-ups after those gates: refresh the Browserslist database in a dependency-maintenance change, consider route-level splitting if the main bundle grows materially beyond the current 291.06 kB gzip, and remove source maps from public hosting if deployment policy does not need them.
+Non-blocking follow-ups after those gates: refresh the Browserslist database in a dependency-maintenance change, consider route-level splitting because the main bundle is now 369.3 kB gzip, and remove source maps from public hosting if deployment policy does not need them.
 
 ## Merge and deployment status
 
@@ -99,5 +99,5 @@ Non-blocking follow-ups after those gates: refresh the Browserslist database in 
 - Merge: **NOT EXECUTED**.
 - Backend deployment: **EXECUTED** for the existing Vercel TTS project only; the previous production deployment remains the rollback target.
 - Firewall publication: **EXECUTED** for the exact `POST /api/tts` rule above.
-- Frontend deployment: **NOT EXECUTED**. No `gh-pages` update was made.
+- Frontend deployment: Phase 10.2 RC deployment is authorized only after the passing tests, production build, commit, and feature-branch push above; the resulting `gh-pages` SHA is recorded in the Phase 10.2 handoff.
 - Merge only after the remaining human and physical gates are closed.

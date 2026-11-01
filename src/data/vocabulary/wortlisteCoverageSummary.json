@@ -12,11 +12,77 @@
   "normalizedLexicalUnitCount": 3176,
   "variantGroups": 170,
   "duplicateMergedGroups": 42,
-  "productionLexemeCount": 1400,
-  "coveredCount": 992,
-  "partiallyCoveredCount": 315,
-  "uncoveredCount": 1869,
-  "coveragePercentage": 31.23,
-  "exactCoveredCount": 982,
-  "variantCoveredCount": 10
+  "productionLexemeCount": 1950,
+  "coveredCount": 1412,
+  "partiallyCoveredCount": 409,
+  "uncoveredCount": 1355,
+  "coveragePercentage": 44.46,
+  "exactCoveredCount": 1402,
+  "variantCoveredCount": 10,
+  "phase10AdditionCount": 1150,
+  "phase10PartOfSpeechCounts": {
+    "noun": 435,
+    "verb": 350,
+    "adjective": 150,
+    "adverb": 70,
+    "connector": 35,
+    "preposition": 20,
+    "phrase": 90
+  },
+  "phase10CategoryCounts": {
+    "personal-identity": 16,
+    "family-relationships": 17,
+    "home-living": 37,
+    "daily-life": 27,
+    "food-eating-out": 17,
+    "shopping-money": 45,
+    "work-profession": 92,
+    "school-education": 70,
+    "travel-transport": 73,
+    "city-services": 39,
+    "health-body": 60,
+    "appointments-services": 33,
+    "media-communication": 80,
+    "technology-internet": 29,
+    "leisure-sport": 34,
+    "holidays-accommodation": 9,
+    "environment-weather": 34,
+    "society-community": 43,
+    "feelings-opinions": 72,
+    "problems-solutions": 61,
+    "plans-goals-time": 66,
+    "adjectives-adverbs": 46,
+    "connectors-prepositions": 60,
+    "functional-exam-phrases": 90
+  },
+  "referencePartOfSpeechBreakdown": {
+    "noun": {
+      "covered": 867,
+      "variantCovered": 9,
+      "partiallyCovered": 25,
+      "uncovered": 810,
+      "total": 1711
+    },
+    "phrase": {
+      "covered": 1,
+      "variantCovered": 0,
+      "partiallyCovered": 4,
+      "uncovered": 33,
+      "total": 38
+    },
+    "verb": {
+      "covered": 534,
+      "variantCovered": 1,
+      "partiallyCovered": 17,
+      "uncovered": 103,
+      "total": 655
+    },
+    "other": {
+      "covered": 0,
+      "variantCovered": 0,
+      "partiallyCovered": 363,
+      "uncovered": 409,
+      "total": 772
+    }
+  }
 }

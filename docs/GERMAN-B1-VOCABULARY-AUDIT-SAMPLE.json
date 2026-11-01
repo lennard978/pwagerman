@@ -1,76 +1,16 @@
 {
   "generatedAt": "2026-11-01",
-  "methodology": "Representative Phase 10 sample with at least six entries per production part of speech, plus regional variants and structurally unusual verbs.",
+  "methodology": "Deterministic 100+ entry Phase 10.2 audit sample with explicit quotas across every production part of speech, plus regional variants and structurally unusual verbs.",
   "limitation": "This is a developer curation and automated validation sample. It does not claim complete expert linguistic human review.",
-  "productionLexemeCount": 1400,
-  "phase10AdditionCount": 600,
-  "entryCount": 68,
+  "productionLexemeCount": 1950,
+  "phase10AdditionCount": 1150,
+  "entryCount": 141,
   "entries": [
     {
-      "lexemeId": "de-b1-personal-identity-angabe",
-      "categoryId": "personal-identity",
-      "english": "piece of information",
-      "german": "die Angabe",
-      "partOfSpeech": "noun",
-      "metadata": {
-        "article": "die",
-        "gender": "feminine",
-        "plural": "die Angaben",
-        "note": null
-      },
-      "example": "Die Angabe wird im Formular angegeben.",
-      "exampleTranslation": "The piece of information is entered on the form.",
-      "referenceMapping": {
-        "referenceId": "goethe-b1-unit-0096",
-        "referenceKey": "Angabe"
-      },
-      "selectionReason": "representative-noun"
-    },
-    {
-      "lexemeId": "de-b1-personal-identity-anrede",
-      "categoryId": "personal-identity",
-      "english": "form of address",
-      "german": "die Anrede",
-      "partOfSpeech": "noun",
-      "metadata": {
-        "article": "die",
-        "gender": "feminine",
-        "plural": "die Anreden",
-        "note": null
-      },
-      "example": "Die Anrede wird im Formular angegeben.",
-      "exampleTranslation": "The form of address is entered on the form.",
-      "referenceMapping": {
-        "referenceId": "goethe-b1-unit-0115",
-        "referenceKey": "Anrede"
-      },
-      "selectionReason": "representative-noun"
-    },
-    {
-      "lexemeId": "de-b1-personal-identity-dokument",
-      "categoryId": "personal-identity",
-      "english": "document",
-      "german": "das Dokument",
-      "partOfSpeech": "noun",
-      "metadata": {
-        "article": "das",
-        "gender": "neuter",
-        "plural": "die Dokumente",
-        "note": null
-      },
-      "example": "Das Dokument wird im Formular angegeben.",
-      "exampleTranslation": "The document is entered on the form.",
-      "referenceMapping": {
-        "referenceId": "goethe-b1-unit-0574",
-        "referenceKey": "Dokument"
-      },
-      "selectionReason": "representative-noun"
-    },
-    {
-      "lexemeId": "de-b1-personal-identity-personalien",
-      "categoryId": "personal-identity",
-      "english": "personal details",
-      "german": "die Personalien",
+      "lexemeId": "de-b1-media-communication-medien",
+      "categoryId": "media-communication",
+      "english": "media",
+      "german": "die Medien",
       "partOfSpeech": "noun",
       "metadata": {
         "article": "die",
@@ -78,1318 +18,2980 @@
         "plural": "plural-only",
         "note": null
       },
-      "example": "Die Personalien werden auf der ersten Seite eingetragen.",
-      "exampleTranslation": "The personal details are entered on the first page.",
+      "example": "Die Medien werden in der Nachricht erwähnt.",
+      "exampleTranslation": "Media are mentioned in the message.",
       "referenceMapping": {
-        "referenceId": "goethe-b1-unit-1940",
-        "referenceKey": "Personalien"
+        "referenceId": "goethe-b1-unit-1663",
+        "referenceKey": "Medien"
       },
-      "selectionReason": "representative-noun"
+      "selectionReason": "phase-10.2-representative-noun"
     },
     {
-      "lexemeId": "de-b1-personal-identity-wohnsitz",
-      "categoryId": "personal-identity",
-      "english": "place of residence",
-      "german": "der Wohnsitz",
-      "partOfSpeech": "noun",
-      "metadata": {
-        "article": "der",
-        "gender": "masculine",
-        "plural": "die Wohnsitze",
-        "note": null
-      },
-      "example": "Der Wohnsitz wird im Formular angegeben.",
-      "exampleTranslation": "The place of residence is entered on the form.",
-      "referenceMapping": {
-        "referenceId": "goethe-b1-unit-3008",
-        "referenceKey": "Wohnsitz"
-      },
-      "selectionReason": "representative-noun"
-    },
-    {
-      "lexemeId": "de-b1-family-relationships-angehoerige",
-      "categoryId": "family-relationships",
-      "english": "relative",
-      "german": "der Angehörige",
-      "partOfSpeech": "noun",
-      "metadata": {
-        "article": "der",
-        "gender": "masculine",
-        "plural": "die Angehörigen",
-        "note": null
-      },
-      "example": "Der Angehörige spielt im Familienleben eine wichtige Rolle.",
-      "exampleTranslation": "The relative plays an important role in family life.",
-      "referenceMapping": {
-        "referenceId": "goethe-b1-unit-0099",
-        "referenceKey": "Angehörige"
-      },
-      "selectionReason": "representative-noun"
-    },
-    {
-      "lexemeId": "de-b1-work-profession-akzeptieren",
-      "categoryId": "work-profession",
-      "english": "to accept",
-      "german": "akzeptieren",
-      "partOfSpeech": "verb",
-      "metadata": {
-        "auxiliary": "haben",
-        "pastParticiple": "akzeptiert",
-        "preterite": "akzeptierte",
-        "separablePrefix": null,
-        "reflexive": false,
-        "caseGovernment": "accusative",
-        "prepositions": []
-      },
-      "example": "Im Arbeitsalltag kann man etwas akzeptieren.",
-      "exampleTranslation": "At work, you can accept something.",
-      "referenceMapping": {
-        "referenceId": "goethe-b1-unit-0063",
-        "referenceKey": "akzeptieren"
-      },
-      "selectionReason": "representative-verb"
-    },
-    {
-      "lexemeId": "de-b1-work-profession-anerkennen",
-      "categoryId": "work-profession",
-      "english": "to recognise / acknowledge",
-      "german": "anerkennen",
-      "partOfSpeech": "verb",
-      "metadata": {
-        "auxiliary": "haben",
-        "pastParticiple": "anerkannt",
-        "preterite": "erkannte an",
-        "separablePrefix": "an",
-        "reflexive": false,
-        "caseGovernment": "accusative",
-        "prepositions": []
-      },
-      "example": "Im Arbeitsalltag kann man etwas anerkennen.",
-      "exampleTranslation": "At work, you can recognise / acknowledge something.",
-      "referenceMapping": {
-        "referenceId": "goethe-b1-unit-0093",
-        "referenceKey": "anerkennen"
-      },
-      "selectionReason": "representative-verb"
-    },
-    {
-      "lexemeId": "de-b1-work-profession-anbieten",
-      "categoryId": "work-profession",
-      "english": "to offer",
-      "german": "anbieten",
-      "partOfSpeech": "verb",
-      "metadata": {
-        "auxiliary": "haben",
-        "pastParticiple": "angeboten",
-        "preterite": "bot an",
-        "separablePrefix": "an",
-        "reflexive": false,
-        "caseGovernment": "accusative",
-        "prepositions": []
-      },
-      "example": "Im Arbeitsalltag kann man etwas anbieten.",
-      "exampleTranslation": "At work, you can offer something.",
-      "referenceMapping": {
-        "referenceId": "goethe-b1-unit-0088",
-        "referenceKey": "anbieten"
-      },
-      "selectionReason": "representative-verb"
-    },
-    {
-      "lexemeId": "de-b1-work-profession-anstellen",
-      "categoryId": "work-profession",
-      "english": "to employ",
-      "german": "anstellen",
-      "partOfSpeech": "verb",
-      "metadata": {
-        "auxiliary": "haben",
-        "pastParticiple": "angestellt",
-        "preterite": "stellte an",
-        "separablePrefix": "an",
-        "reflexive": false,
-        "caseGovernment": "accusative",
-        "prepositions": []
-      },
-      "example": "Das Unternehmen stellt im Herbst zwei Auszubildende an.",
-      "exampleTranslation": "The company is employing two trainees in the autumn.",
-      "referenceMapping": {
-        "referenceId": "goethe-b1-unit-0127",
-        "referenceKey": "anstellen"
-      },
-      "selectionReason": "representative-verb"
-    },
-    {
-      "lexemeId": "de-b1-work-profession-auffordern",
-      "categoryId": "work-profession",
-      "english": "to ask / require",
-      "german": "auffordern",
-      "partOfSpeech": "verb",
-      "metadata": {
-        "auxiliary": "haben",
-        "pastParticiple": "aufgefordert",
-        "preterite": "forderte auf",
-        "separablePrefix": "auf",
-        "reflexive": false,
-        "caseGovernment": "accusative",
-        "prepositions": []
-      },
-      "example": "Die Chefin fordert das Team auf, den Bericht zu prüfen.",
-      "exampleTranslation": "The manager asks the team to check the report.",
-      "referenceMapping": {
-        "referenceId": "goethe-b1-unit-0168",
-        "referenceKey": "auffordern"
-      },
-      "selectionReason": "representative-verb"
-    },
-    {
-      "lexemeId": "de-b1-work-profession-beraten",
-      "categoryId": "work-profession",
-      "english": "to advise",
-      "german": "beraten",
-      "partOfSpeech": "verb",
-      "metadata": {
-        "auxiliary": "haben",
-        "pastParticiple": "beraten",
-        "preterite": "beriet",
-        "separablePrefix": null,
-        "reflexive": false,
-        "caseGovernment": "accusative",
-        "prepositions": []
-      },
-      "example": "Eine Fachkraft berät uns bei der Berufswahl.",
-      "exampleTranslation": "A specialist advises us on choosing a career.",
-      "referenceMapping": {
-        "referenceId": "goethe-b1-unit-0322",
-        "referenceKey": "beraten"
-      },
-      "selectionReason": "representative-verb"
-    },
-    {
-      "lexemeId": "de-b1-work-profession-abhaengig",
-      "categoryId": "work-profession",
-      "english": "dependent",
-      "german": "abhängig",
-      "partOfSpeech": "adjective",
-      "metadata": {
-        "grammarRefs": [
-          "de-b1-adjective-endings"
-        ]
-      },
-      "example": "Die Entscheidung ist vom Preis abhängig.",
-      "exampleTranslation": "The decision depends on the price.",
-      "referenceMapping": {
-        "referenceId": "goethe-b1-unit-0029",
-        "referenceKey": "abhängig"
-      },
-      "selectionReason": "representative-adjective"
-    },
-    {
-      "lexemeId": "de-b1-work-profession-abwesend",
-      "categoryId": "work-profession",
-      "english": "absent",
-      "german": "abwesend",
-      "partOfSpeech": "adjective",
-      "metadata": {
-        "grammarRefs": [
-          "de-b1-adjective-endings"
-        ]
-      },
-      "example": "Die Kollegin ist heute wegen einer Fortbildung abwesend.",
-      "exampleTranslation": "The colleague is absent today because of a training course.",
-      "referenceMapping": {
-        "referenceId": "goethe-b1-unit-0049",
-        "referenceKey": "abwesend"
-      },
-      "selectionReason": "representative-adjective"
-    },
-    {
-      "lexemeId": "de-b1-work-profession-anwesend",
-      "categoryId": "work-profession",
-      "english": "present",
-      "german": "anwesend",
-      "partOfSpeech": "adjective",
-      "metadata": {
-        "grammarRefs": [
-          "de-b1-adjective-endings"
-        ]
-      },
-      "example": "Bei der Besprechung sind alle Teammitglieder anwesend.",
-      "exampleTranslation": "All team members are present at the meeting.",
-      "referenceMapping": {
-        "referenceId": "goethe-b1-unit-0135",
-        "referenceKey": "anwesend"
-      },
-      "selectionReason": "representative-adjective"
-    },
-    {
-      "lexemeId": "de-b1-work-profession-arbeitslos",
-      "categoryId": "work-profession",
-      "english": "unemployed",
-      "german": "arbeitslos",
-      "partOfSpeech": "adjective",
-      "metadata": {
-        "grammarRefs": [
-          "de-b1-adjective-endings"
-        ]
-      },
-      "example": "Nach der Schließung des Betriebs war er einige Monate arbeitslos.",
-      "exampleTranslation": "After the company closed, he was unemployed for several months.",
-      "referenceMapping": {
-        "referenceId": "goethe-b1-unit-0151",
-        "referenceKey": "arbeitslos"
-      },
-      "selectionReason": "representative-adjective"
-    },
-    {
-      "lexemeId": "de-b1-work-profession-ausgebildet",
-      "categoryId": "work-profession",
-      "english": "trained / qualified",
-      "german": "ausgebildet",
-      "partOfSpeech": "adjective",
-      "metadata": {
-        "grammarRefs": [
-          "de-b1-adjective-endings"
-        ]
-      },
-      "example": "Für diese Aufgabe brauchen wir gut ausgebildete Fachkräfte.",
-      "exampleTranslation": "We need well-trained specialists for this task.",
-      "referenceMapping": {
-        "referenceId": "goethe-b1-unit-0207",
-        "referenceKey": "ausgebildet"
-      },
-      "selectionReason": "representative-adjective"
-    },
-    {
-      "lexemeId": "de-b1-work-profession-berufstaetig",
-      "categoryId": "work-profession",
-      "english": "employed / working",
-      "german": "berufstätig",
-      "partOfSpeech": "adjective",
-      "metadata": {
-        "grammarRefs": [
-          "de-b1-adjective-endings"
-        ]
-      },
-      "example": "Viele Eltern sind berufstätig und teilen sich die Betreuung.",
-      "exampleTranslation": "Many parents work and share the childcare.",
-      "referenceMapping": {
-        "referenceId": "goethe-b1-unit-0336",
-        "referenceKey": "berufstätig"
-      },
-      "selectionReason": "representative-adjective"
-    },
-    {
-      "lexemeId": "de-b1-plans-goals-time-abends",
-      "categoryId": "plans-goals-time",
-      "english": "in the evenings",
-      "german": "abends",
-      "partOfSpeech": "adverb",
-      "metadata": {
-        "grammarRefs": [
-          "de-b1-word-order-foundation"
-        ]
-      },
-      "example": "Abends plane ich den nächsten Tag.",
-      "exampleTranslation": "In the evenings, I plan the next day.",
-      "referenceMapping": {
-        "referenceId": "goethe-b1-unit-0017",
-        "referenceKey": "abends"
-      },
-      "selectionReason": "representative-adverb"
-    },
-    {
-      "lexemeId": "de-b1-connectors-prepositions-allerdings",
-      "categoryId": "connectors-prepositions",
-      "english": "however",
-      "german": "allerdings",
-      "partOfSpeech": "adverb",
-      "metadata": {
-        "grammarRefs": [
-          "de-b1-word-order-foundation"
-        ]
-      },
-      "example": "Der Kurs ist gut, allerdings ist er ziemlich teuer.",
-      "exampleTranslation": "The course is good; however, it is quite expensive.",
-      "referenceMapping": {
-        "referenceId": "goethe-b1-unit-0069",
-        "referenceKey": "allerdings"
-      },
-      "selectionReason": "representative-adverb"
-    },
-    {
-      "lexemeId": "de-b1-adjectives-adverbs-anders",
-      "categoryId": "adjectives-adverbs",
-      "english": "differently",
-      "german": "anders",
-      "partOfSpeech": "adverb",
-      "metadata": {
-        "grammarRefs": [
-          "de-b1-word-order-foundation"
-        ]
-      },
-      "example": "Beim nächsten Mal machen wir es anders.",
-      "exampleTranslation": "Next time, we will do it differently.",
-      "referenceMapping": {
-        "referenceId": "goethe-b1-unit-0092",
-        "referenceKey": "anders"
-      },
-      "selectionReason": "representative-adverb"
-    },
-    {
-      "lexemeId": "de-b1-plans-goals-time-beinahe",
-      "categoryId": "plans-goals-time",
-      "english": "almost",
-      "german": "beinahe",
-      "partOfSpeech": "adverb",
-      "metadata": {
-        "grammarRefs": [
-          "de-b1-word-order-foundation"
-        ]
-      },
-      "example": "Ich hätte den Termin beinahe vergessen.",
-      "exampleTranslation": "I almost forgot the appointment.",
-      "referenceMapping": {
-        "referenceId": "goethe-b1-unit-0305",
-        "referenceKey": "beinahe"
-      },
-      "selectionReason": "representative-adverb"
-    },
-    {
-      "lexemeId": "de-b1-plans-goals-time-bereits",
-      "categoryId": "plans-goals-time",
-      "english": "already",
-      "german": "bereits",
-      "partOfSpeech": "adverb",
-      "metadata": {
-        "grammarRefs": [
-          "de-b1-word-order-foundation"
-        ]
-      },
-      "example": "Die Anmeldung ist bereits abgeschlossen.",
-      "exampleTranslation": "Registration has already closed.",
-      "referenceMapping": {
-        "referenceId": "goethe-b1-unit-0327",
-        "referenceKey": "bereits"
-      },
-      "selectionReason": "representative-adverb"
-    },
-    {
-      "lexemeId": "de-b1-plans-goals-time-bisher",
-      "categoryId": "plans-goals-time",
-      "english": "so far",
-      "german": "bisher",
-      "partOfSpeech": "adverb",
-      "metadata": {
-        "grammarRefs": [
-          "de-b1-word-order-foundation"
-        ]
-      },
-      "example": "Bisher hat alles gut funktioniert.",
-      "exampleTranslation": "So far, everything has worked well.",
-      "referenceMapping": {
-        "referenceId": "goethe-b1-unit-0399",
-        "referenceKey": "bisher"
-      },
-      "selectionReason": "representative-adverb"
-    },
-    {
-      "lexemeId": "de-b1-connectors-prepositions-connector-aber",
-      "categoryId": "connectors-prepositions",
-      "english": "but",
-      "german": "aber",
-      "partOfSpeech": "connector",
-      "metadata": {
-        "grammarRefs": [
-          "de-b1-cohesive-connectors"
-        ]
-      },
-      "example": "Ich würde gern kommen, aber ich muss länger arbeiten.",
-      "exampleTranslation": "I would like to come, but I have to work longer.",
-      "referenceMapping": {
-        "referenceId": "goethe-b1-unit-0019",
-        "referenceKey": "aber"
-      },
-      "selectionReason": "representative-connector"
-    },
-    {
-      "lexemeId": "de-b1-connectors-prepositions-connector-allerdings",
-      "categoryId": "connectors-prepositions",
-      "english": "however",
-      "german": "allerdings",
-      "partOfSpeech": "connector",
-      "metadata": {
-        "grammarRefs": [
-          "de-b1-main-clause-connectors"
-        ]
-      },
-      "example": "Die Wohnung ist hell, allerdings liegt sie weit außerhalb.",
-      "exampleTranslation": "The apartment is bright; however, it is far outside the city.",
-      "referenceMapping": {
-        "referenceId": "goethe-b1-unit-0069",
-        "referenceKey": "allerdings"
-      },
-      "selectionReason": "representative-connector"
-    },
-    {
-      "lexemeId": "de-b1-connectors-prepositions-connector-also",
-      "categoryId": "connectors-prepositions",
-      "english": "so / therefore",
-      "german": "also",
-      "partOfSpeech": "connector",
-      "metadata": {
-        "grammarRefs": [
-          "de-b1-main-clause-connectors"
-        ]
-      },
-      "example": "Der Bus fährt nicht, also gehen wir zu Fuß.",
-      "exampleTranslation": "The bus is not running, so we are walking.",
-      "referenceMapping": {
-        "referenceId": "goethe-b1-unit-0076",
-        "referenceKey": "also"
-      },
-      "selectionReason": "representative-connector"
-    },
-    {
-      "lexemeId": "de-b1-connectors-prepositions-connector-andererseits",
-      "categoryId": "connectors-prepositions",
-      "english": "on the other hand",
-      "german": "andererseits",
-      "partOfSpeech": "connector",
-      "metadata": {
-        "grammarRefs": [
-          "de-b1-cohesive-connectors"
-        ]
-      },
-      "example": "Das Angebot ist günstig, andererseits passt der Termin nicht.",
-      "exampleTranslation": "The offer is affordable; on the other hand, the date does not work.",
-      "referenceMapping": {
-        "referenceId": "goethe-b1-unit-0091",
-        "referenceKey": "andererseits"
-      },
-      "selectionReason": "representative-connector"
-    },
-    {
-      "lexemeId": "de-b1-connectors-prepositions-connector-dabei",
-      "categoryId": "connectors-prepositions",
-      "english": "at the same time / in doing so",
-      "german": "dabei",
-      "partOfSpeech": "connector",
-      "metadata": {
-        "grammarRefs": [
-          "de-b1-cohesive-connectors"
-        ]
-      },
-      "example": "Sie arbeitet und hört dabei leise Musik.",
-      "exampleTranslation": "She works and listens to quiet music at the same time.",
-      "referenceMapping": {
-        "referenceId": "goethe-b1-unit-0509",
-        "referenceKey": "dabei"
-      },
-      "selectionReason": "representative-connector"
-    },
-    {
-      "lexemeId": "de-b1-connectors-prepositions-connector-dafuer",
-      "categoryId": "connectors-prepositions",
-      "english": "for that / in favour of it",
-      "german": "dafür",
-      "partOfSpeech": "connector",
-      "metadata": {
-        "grammarRefs": [
-          "de-b1-cohesive-connectors"
-        ]
-      },
-      "example": "Der Kurs kostet mehr, dafür bietet er kleine Gruppen.",
-      "exampleTranslation": "The course costs more, but in return it offers small groups.",
-      "referenceMapping": {
-        "referenceId": "goethe-b1-unit-0511",
-        "referenceKey": "dafür"
-      },
-      "selectionReason": "representative-connector"
-    },
-    {
-      "lexemeId": "de-b1-connectors-prepositions-preposition-ab",
-      "categoryId": "connectors-prepositions",
-      "english": "from / starting at",
-      "german": "ab",
-      "partOfSpeech": "preposition",
-      "metadata": {
-        "grammarRefs": [
-          "de-b1-case-articles"
-        ]
-      },
-      "example": "Ab Montag gelten neue Öffnungszeiten.",
-      "exampleTranslation": "New opening hours apply from Monday.",
-      "referenceMapping": {
-        "referenceId": "goethe-b1-unit-0013",
-        "referenceKey": "ab"
-      },
-      "selectionReason": "representative-preposition"
-    },
-    {
-      "lexemeId": "de-b1-connectors-prepositions-preposition-an",
-      "categoryId": "connectors-prepositions",
-      "english": "at / on",
-      "german": "an",
-      "partOfSpeech": "preposition",
-      "metadata": {
-        "grammarRefs": [
-          "de-b1-two-way-local-temporal-prepositions"
-        ]
-      },
-      "example": "Am Eingang hängt ein aktueller Fahrplan.",
-      "exampleTranslation": "A current timetable is displayed at the entrance.",
-      "referenceMapping": {
-        "referenceId": "goethe-b1-unit-0086",
-        "referenceKey": "an"
-      },
-      "selectionReason": "representative-preposition"
-    },
-    {
-      "lexemeId": "de-b1-connectors-prepositions-preposition-auf",
-      "categoryId": "connectors-prepositions",
-      "english": "on / at",
-      "german": "auf",
-      "partOfSpeech": "preposition",
-      "metadata": {
-        "grammarRefs": [
-          "de-b1-two-way-local-temporal-prepositions"
-        ]
-      },
-      "example": "Die Unterlagen liegen auf dem Schreibtisch.",
-      "exampleTranslation": "The documents are on the desk.",
-      "referenceMapping": {
-        "referenceId": "goethe-b1-unit-0165",
-        "referenceKey": "auf"
-      },
-      "selectionReason": "representative-preposition"
-    },
-    {
-      "lexemeId": "de-b1-connectors-prepositions-preposition-aus",
-      "categoryId": "connectors-prepositions",
-      "english": "from / out of",
-      "german": "aus",
-      "partOfSpeech": "preposition",
-      "metadata": {
-        "grammarRefs": [
-          "de-b1-case-articles"
-        ]
-      },
-      "example": "Sie kommt direkt aus der Berufsschule.",
-      "exampleTranslation": "She is coming directly from vocational school.",
-      "referenceMapping": {
-        "referenceId": "goethe-b1-unit-0195",
-        "referenceKey": "aus"
-      },
-      "selectionReason": "representative-preposition"
-    },
-    {
-      "lexemeId": "de-b1-connectors-prepositions-preposition-bei",
-      "categoryId": "connectors-prepositions",
-      "english": "at / with",
-      "german": "bei",
-      "partOfSpeech": "preposition",
-      "metadata": {
-        "grammarRefs": [
-          "de-b1-case-articles"
-        ]
-      },
-      "example": "Bei Fragen wenden Sie sich bitte an den Kundendienst.",
-      "exampleTranslation": "If you have questions, please contact customer service.",
-      "referenceMapping": {
-        "referenceId": "goethe-b1-unit-0302",
-        "referenceKey": "bei"
-      },
-      "selectionReason": "representative-preposition"
-    },
-    {
-      "lexemeId": "de-b1-connectors-prepositions-preposition-bis",
-      "categoryId": "connectors-prepositions",
-      "english": "until / as far as",
-      "german": "bis",
-      "partOfSpeech": "preposition",
-      "metadata": {
-        "grammarRefs": [
-          "de-b1-case-articles"
-        ]
-      },
-      "example": "Die Anmeldung ist bis Freitag möglich.",
-      "exampleTranslation": "Registration is possible until Friday.",
-      "referenceMapping": {
-        "referenceId": "goethe-b1-unit-0398",
-        "referenceKey": "bis"
-      },
-      "selectionReason": "representative-preposition"
-    },
-    {
-      "lexemeId": "de-b1-functional-exam-phrases-sehr-geehrte-damen-und-herren",
-      "categoryId": "functional-exam-phrases",
-      "english": "Dear Sir or Madam",
-      "german": "Sehr geehrte Damen und Herren,",
-      "partOfSpeech": "phrase",
-      "metadata": {
-        "grammarRefs": [
-          "de-b1-noun-verb-writing"
-        ]
-      },
-      "example": "Sehr geehrte Damen und Herren, ich interessiere mich für Ihren Sprachkurs.",
-      "exampleTranslation": "Dear Sir or Madam, I am interested in your language course.",
-      "referenceMapping": {
-        "referenceId": "goethe-b1-unit-1142",
-        "referenceKey": "Gruß"
-      },
-      "selectionReason": "representative-phrase"
-    },
-    {
-      "lexemeId": "de-b1-functional-exam-phrases-sehr-geehrte-frau",
-      "categoryId": "functional-exam-phrases",
-      "english": "Dear Ms ...",
-      "german": "Sehr geehrte Frau ...,",
-      "partOfSpeech": "phrase",
-      "metadata": {
-        "grammarRefs": [
-          "de-b1-noun-verb-writing"
-        ]
-      },
-      "example": "Sehr geehrte Frau Berger, vielen Dank für Ihre Nachricht.",
-      "exampleTranslation": "Dear Ms Berger, thank you for your message.",
-      "referenceMapping": {
-        "referenceId": "goethe-b1-unit-1142",
-        "referenceKey": "Gruß"
-      },
-      "selectionReason": "representative-phrase"
-    },
-    {
-      "lexemeId": "de-b1-functional-exam-phrases-sehr-geehrter-herr",
-      "categoryId": "functional-exam-phrases",
-      "english": "Dear Mr ...",
-      "german": "Sehr geehrter Herr ...,",
-      "partOfSpeech": "phrase",
-      "metadata": {
-        "grammarRefs": [
-          "de-b1-noun-verb-writing"
-        ]
-      },
-      "example": "Sehr geehrter Herr Klein, ich habe eine Frage zu meiner Rechnung.",
-      "exampleTranslation": "Dear Mr Klein, I have a question about my invoice.",
-      "referenceMapping": {
-        "referenceId": "goethe-b1-unit-1142",
-        "referenceKey": "Gruß"
-      },
-      "selectionReason": "representative-phrase"
-    },
-    {
-      "lexemeId": "de-b1-functional-exam-phrases-danke-fuer-ihre-nachricht",
-      "categoryId": "functional-exam-phrases",
-      "english": "Thank you for your message",
-      "german": "Vielen Dank für Ihre Nachricht.",
-      "partOfSpeech": "phrase",
-      "metadata": {
-        "grammarRefs": [
-          "de-b1-noun-verb-writing"
-        ]
-      },
-      "example": "Vielen Dank für Ihre Nachricht und die hilfreichen Informationen.",
-      "exampleTranslation": "Thank you for your message and the helpful information.",
-      "referenceMapping": {
-        "referenceId": "goethe-b1-unit-1792",
-        "referenceKey": "Nachricht"
-      },
-      "selectionReason": "representative-phrase"
-    },
-    {
-      "lexemeId": "de-b1-functional-exam-phrases-ich-wende-mich-an-sie",
-      "categoryId": "functional-exam-phrases",
-      "english": "I am contacting you because",
-      "german": "Ich wende mich an Sie, weil ...",
-      "partOfSpeech": "phrase",
-      "metadata": {
-        "grammarRefs": [
-          "de-b1-subordinate-clauses"
-        ]
-      },
-      "example": "Ich wende mich an Sie, weil meine Bestellung noch nicht angekommen ist.",
-      "exampleTranslation": "I am contacting you because my order has not arrived yet.",
-      "referenceMapping": {
-        "referenceId": "goethe-b1-unit-2948",
-        "referenceKey": "wenden"
-      },
-      "selectionReason": "representative-phrase"
-    },
-    {
-      "lexemeId": "de-b1-functional-exam-phrases-darueber-informieren",
-      "categoryId": "functional-exam-phrases",
-      "english": "I would like to inform you that",
-      "german": "Ich möchte Sie darüber informieren, dass ...",
-      "partOfSpeech": "phrase",
-      "metadata": {
-        "grammarRefs": [
-          "de-b1-subordinate-clauses"
-        ]
-      },
-      "example": "Ich möchte Sie darüber informieren, dass ich den Termin nicht wahrnehmen kann.",
-      "exampleTranslation": "I would like to inform you that I cannot attend the appointment.",
-      "referenceMapping": {
-        "referenceId": "goethe-b1-unit-1289",
-        "referenceKey": "informieren"
-      },
-      "selectionReason": "representative-phrase"
-    },
-    {
-      "lexemeId": "de-b1-home-living-aufzug",
-      "categoryId": "home-living",
-      "english": "lift / elevator",
-      "german": "der Aufzug",
-      "partOfSpeech": "noun",
-      "metadata": {
-        "article": "der",
-        "gender": "masculine",
-        "plural": "die Aufzüge",
-        "note": "Regional Wortliste entry: Germany. Standard German remains the default elsewhere in the curriculum."
-      },
-      "example": "Der Aufzug gehört zur Ausstattung der Wohnung.",
-      "exampleTranslation": "The lift / elevator is part of the apartment's equipment.",
-      "referenceMapping": {
-        "referenceId": "goethe-b1-unit-0191",
-        "referenceKey": "Aufzug"
-      },
-      "selectionReason": "regional-variant"
-    },
-    {
-      "lexemeId": "de-b1-home-living-schrank",
-      "categoryId": "home-living",
-      "english": "cupboard / wardrobe",
-      "german": "der Schrank",
-      "partOfSpeech": "noun",
-      "metadata": {
-        "article": "der",
-        "gender": "masculine",
-        "plural": "die Schränke",
-        "note": "Regional Wortliste entry: Germany. Standard German remains the default elsewhere in the curriculum."
-      },
-      "example": "Der Schrank gehört zur Ausstattung der Wohnung.",
-      "exampleTranslation": "The cupboard / wardrobe is part of the apartment's equipment.",
-      "referenceMapping": {
-        "referenceId": "goethe-b1-unit-2217",
-        "referenceKey": "Schrank"
-      },
-      "selectionReason": "regional-variant"
-    },
-    {
-      "lexemeId": "de-b1-food-eating-out-marille",
-      "categoryId": "food-eating-out",
-      "english": "apricot (Austria)",
-      "german": "die Marille",
+      "lexemeId": "de-b1-media-communication-meldung",
+      "categoryId": "media-communication",
+      "english": "report / notification",
+      "german": "die Meldung",
       "partOfSpeech": "noun",
       "metadata": {
         "article": "die",
         "gender": "feminine",
-        "plural": "die Marillen",
-        "note": "Regional Wortliste entry: Austria. Standard German remains the default elsewhere in the curriculum."
+        "plural": "die Meldungen",
+        "note": null
       },
-      "example": "In Österreich heißt eine Aprikose oft Marille.",
-      "exampleTranslation": "In Austria, an apricot is often called Marille.",
+      "example": "Die Meldung wird in der Nachricht erwähnt.",
+      "exampleTranslation": "The report / notification is mentioned in the message.",
       "referenceMapping": {
-        "referenceId": "goethe-b1-unit-1650",
-        "referenceKey": "Marille"
+        "referenceId": "goethe-b1-unit-1679",
+        "referenceKey": "Meldung"
       },
-      "selectionReason": "regional-variant"
+      "selectionReason": "phase-10.2-representative-noun"
     },
     {
-      "lexemeId": "de-b1-work-profession-azubi",
+      "lexemeId": "de-b1-shopping-money-menge",
+      "categoryId": "shopping-money",
+      "english": "quantity / amount",
+      "german": "die Menge",
+      "partOfSpeech": "noun",
+      "metadata": {
+        "article": "die",
+        "gender": "feminine",
+        "plural": "die Mengen",
+        "note": null
+      },
+      "example": "Die Menge wird auf der Rechnung angegeben.",
+      "exampleTranslation": "The quantity / amount is shown on the invoice.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-1680",
+        "referenceKey": "Menge"
+      },
+      "selectionReason": "phase-10.2-representative-noun"
+    },
+    {
+      "lexemeId": "de-b1-work-profession-messe",
       "categoryId": "work-profession",
-      "english": "trainee",
-      "german": "der Azubi",
+      "english": "trade fair",
+      "german": "die Messe",
+      "partOfSpeech": "noun",
+      "metadata": {
+        "article": "die",
+        "gender": "feminine",
+        "plural": "die Messen",
+        "note": null
+      },
+      "example": "Die Messe wird im Arbeitsalltag häufig erwähnt.",
+      "exampleTranslation": "The trade fair is frequently mentioned in working life.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-1687",
+        "referenceKey": "Messe"
+      },
+      "selectionReason": "phase-10.2-representative-noun"
+    },
+    {
+      "lexemeId": "de-b1-work-profession-metall",
+      "categoryId": "work-profession",
+      "english": "metal",
+      "german": "das Metall",
+      "partOfSpeech": "noun",
+      "metadata": {
+        "article": "das",
+        "gender": "neuter",
+        "plural": "die Metalle",
+        "note": null
+      },
+      "example": "Das Metall wird im Arbeitsalltag häufig erwähnt.",
+      "exampleTranslation": "The metal is frequently mentioned in working life.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-1690",
+        "referenceKey": "Metall"
+      },
+      "selectionReason": "phase-10.2-representative-noun"
+    },
+    {
+      "lexemeId": "de-b1-society-community-migrant",
+      "categoryId": "society-community",
+      "english": "migrant",
+      "german": "der Migrant",
       "partOfSpeech": "noun",
       "metadata": {
         "article": "der",
         "gender": "masculine",
-        "plural": "die Azubis",
-        "note": "Regional Wortliste entry: Germany. Standard German remains the default elsewhere in the curriculum."
+        "plural": "die Migranten",
+        "note": null
       },
-      "example": "Der Azubi wird im Arbeitsalltag häufig erwähnt.",
-      "exampleTranslation": "The trainee is frequently mentioned in working life.",
+      "example": "Der Migrant wird derzeit öffentlich diskutiert.",
+      "exampleTranslation": "The migrant is currently being discussed publicly.",
       "referenceMapping": {
-        "referenceId": "goethe-b1-unit-0241",
-        "referenceKey": "Azubi"
+        "referenceId": "goethe-b1-unit-1698",
+        "referenceKey": "Migrant"
       },
-      "selectionReason": "regional-variant"
+      "selectionReason": "phase-10.2-representative-noun"
     },
     {
-      "lexemeId": "de-b1-school-education-abitur",
+      "lexemeId": "de-b1-travel-transport-mobilitaet",
+      "categoryId": "travel-transport",
+      "english": "mobility",
+      "german": "die Mobilität",
+      "partOfSpeech": "noun",
+      "metadata": {
+        "article": "die",
+        "gender": "feminine",
+        "plural": "die Mobilitäten",
+        "note": null
+      },
+      "example": "Die Mobilität steht in den aktuellen Reiseinformationen.",
+      "exampleTranslation": "The mobility appears in the current travel information.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-1731",
+        "referenceKey": "Mobilität"
+      },
+      "selectionReason": "phase-10.2-representative-noun"
+    },
+    {
+      "lexemeId": "de-b1-adjectives-adverbs-modell",
+      "categoryId": "adjectives-adverbs",
+      "english": "model",
+      "german": "das Modell",
+      "partOfSpeech": "noun",
+      "metadata": {
+        "article": "das",
+        "gender": "neuter",
+        "plural": "die Modelle",
+        "note": null
+      },
+      "example": "Das Modell wird in der Beschreibung genau angegeben.",
+      "exampleTranslation": "The model is stated precisely in the description.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-1734",
+        "referenceKey": "Modell"
+      },
+      "selectionReason": "phase-10.2-representative-noun"
+    },
+    {
+      "lexemeId": "de-b1-school-education-modul",
       "categoryId": "school-education",
-      "english": "school-leaving qualification",
-      "german": "das Abitur",
+      "english": "module",
+      "german": "das Modul",
+      "partOfSpeech": "noun",
+      "metadata": {
+        "article": "das",
+        "gender": "neuter",
+        "plural": "die Module",
+        "note": null
+      },
+      "example": "Das Modul wird im Kurs ausführlich erklärt.",
+      "exampleTranslation": "The module is explained in detail during the course.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-1737",
+        "referenceKey": "Modul"
+      },
+      "selectionReason": "phase-10.2-representative-noun"
+    },
+    {
+      "lexemeId": "de-b1-technology-internet-monitor",
+      "categoryId": "technology-internet",
+      "english": "monitor",
+      "german": "der Monitor",
+      "partOfSpeech": "noun",
+      "metadata": {
+        "article": "der",
+        "gender": "masculine",
+        "plural": "die Monitore",
+        "note": null
+      },
+      "example": "Der Monitor gehört zur technischen Ausstattung.",
+      "exampleTranslation": "The monitor is part of the technical equipment.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-1742",
+        "referenceKey": "Monitor"
+      },
+      "selectionReason": "phase-10.2-representative-noun"
+    },
+    {
+      "lexemeId": "de-b1-travel-transport-motor",
+      "categoryId": "travel-transport",
+      "english": "engine / motor",
+      "german": "der Motor",
+      "partOfSpeech": "noun",
+      "metadata": {
+        "article": "der",
+        "gender": "masculine",
+        "plural": "die Motoren",
+        "note": null
+      },
+      "example": "Der Motor steht in den aktuellen Reiseinformationen.",
+      "exampleTranslation": "The engine / motor appears in the current travel information.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-1747",
+        "referenceKey": "Motor"
+      },
+      "selectionReason": "phase-10.2-representative-noun"
+    },
+    {
+      "lexemeId": "de-b1-school-education-muttersprache",
+      "categoryId": "school-education",
+      "english": "native language",
+      "german": "die Muttersprache",
+      "partOfSpeech": "noun",
+      "metadata": {
+        "article": "die",
+        "gender": "feminine",
+        "plural": "die Muttersprachen",
+        "note": null
+      },
+      "example": "Die Muttersprache wird im Kurs ausführlich erklärt.",
+      "exampleTranslation": "The native language is explained in detail during the course.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-1760",
+        "referenceKey": "Muttersprache"
+      },
+      "selectionReason": "phase-10.2-representative-noun"
+    },
+    {
+      "lexemeId": "de-b1-problems-solutions-muehe",
+      "categoryId": "problems-solutions",
+      "english": "effort / trouble",
+      "german": "die Mühe",
+      "partOfSpeech": "noun",
+      "metadata": {
+        "article": "die",
+        "gender": "feminine",
+        "plural": "no-plural",
+        "note": null
+      },
+      "example": "Die Mühe muss genau untersucht werden.",
+      "exampleTranslation": "The effort / trouble must be examined carefully.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-1776",
+        "referenceKey": "Mühe"
+      },
+      "selectionReason": "phase-10.2-representative-noun"
+    },
+    {
+      "lexemeId": "de-b1-environment-weather-muelltonne",
+      "categoryId": "environment-weather",
+      "english": "rubbish bin",
+      "german": "die Mülltonne",
+      "partOfSpeech": "noun",
+      "metadata": {
+        "article": "die",
+        "gender": "feminine",
+        "plural": "die Mülltonnen",
+        "note": null
+      },
+      "example": "Die Mülltonne ist für Natur und Umwelt wichtig.",
+      "exampleTranslation": "The rubbish bin is important for nature and the environment.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-1779",
+        "referenceKey": "Mülltonne"
+      },
+      "selectionReason": "phase-10.2-representative-noun"
+    },
+    {
+      "lexemeId": "de-b1-shopping-money-nachfrage",
+      "categoryId": "shopping-money",
+      "english": "demand / enquiry",
+      "german": "die Nachfrage",
+      "partOfSpeech": "noun",
+      "metadata": {
+        "article": "die",
+        "gender": "feminine",
+        "plural": "die Nachfragen",
+        "note": null
+      },
+      "example": "Die Nachfrage wird auf der Rechnung angegeben.",
+      "exampleTranslation": "The demand / enquiry is shown on the invoice.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-1787",
+        "referenceKey": "Nachfrage"
+      },
+      "selectionReason": "phase-10.2-representative-noun"
+    },
+    {
+      "lexemeId": "de-b1-school-education-nachhilfe",
+      "categoryId": "school-education",
+      "english": "private tutoring",
+      "german": "die Nachhilfe",
+      "partOfSpeech": "noun",
+      "metadata": {
+        "article": "die",
+        "gender": "feminine",
+        "plural": "die Nachhilfen",
+        "note": null
+      },
+      "example": "Die Nachhilfe wird im Kurs ausführlich erklärt.",
+      "exampleTranslation": "The private tutoring is explained in detail during the course.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-1789",
+        "referenceKey": "Nachhilfe"
+      },
+      "selectionReason": "phase-10.2-representative-noun"
+    },
+    {
+      "lexemeId": "de-b1-media-communication-neuigkeit",
+      "categoryId": "media-communication",
+      "english": "news item",
+      "german": "die Neuigkeit",
+      "partOfSpeech": "noun",
+      "metadata": {
+        "article": "die",
+        "gender": "feminine",
+        "plural": "die Neuigkeiten",
+        "note": null
+      },
+      "example": "Die Neuigkeit wird in der Nachricht erwähnt.",
+      "exampleTranslation": "The news item is mentioned in the message.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-1828",
+        "referenceKey": "Neuigkeit"
+      },
+      "selectionReason": "phase-10.2-representative-noun"
+    },
+    {
+      "lexemeId": "de-b1-city-services-notausgang",
+      "categoryId": "city-services",
+      "english": "emergency exit",
+      "german": "der Notausgang",
+      "partOfSpeech": "noun",
+      "metadata": {
+        "article": "der",
+        "gender": "masculine",
+        "plural": "die Notäusgange",
+        "note": null
+      },
+      "example": "Der Notausgang wird auf der Website der Stadt erklärt.",
+      "exampleTranslation": "The emergency exit is explained on the city's website.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-1849",
+        "referenceKey": "Notausgang"
+      },
+      "selectionReason": "phase-10.2-representative-noun"
+    },
+    {
+      "lexemeId": "de-b1-daily-life-ordnung",
+      "categoryId": "daily-life",
+      "english": "order / tidiness",
+      "german": "die Ordnung",
+      "partOfSpeech": "noun",
+      "metadata": {
+        "article": "die",
+        "gender": "feminine",
+        "plural": "no-plural",
+        "note": null
+      },
+      "example": "Die Ordnung gehört für viele Menschen zum Alltag.",
+      "exampleTranslation": "The order / tidiness is part of everyday life for many people.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-1898",
+        "referenceKey": "Ordnung"
+      },
+      "selectionReason": "phase-10.2-representative-noun"
+    },
+    {
+      "lexemeId": "de-b1-appointments-services-paket",
+      "categoryId": "appointments-services",
+      "english": "parcel",
+      "german": "das Paket",
+      "partOfSpeech": "noun",
+      "metadata": {
+        "article": "das",
+        "gender": "neuter",
+        "plural": "die Pakete",
+        "note": null
+      },
+      "example": "Das Paket wurde schriftlich bestätigt.",
+      "exampleTranslation": "The parcel was confirmed in writing.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-1909",
+        "referenceKey": "Paket"
+      },
+      "selectionReason": "phase-10.2-representative-noun"
+    },
+    {
+      "lexemeId": "de-b1-work-profession-personal",
+      "categoryId": "work-profession",
+      "english": "staff / personnel",
+      "german": "das Personal",
       "partOfSpeech": "noun",
       "metadata": {
         "article": "das",
         "gender": "neuter",
         "plural": "no-plural",
-        "note": "Regional Wortliste entry: Germany. Standard German remains the default elsewhere in the curriculum."
+        "note": null
       },
-      "example": "Das Abitur wird im Kurs ausführlich erklärt.",
-      "exampleTranslation": "The school-leaving qualification is explained in detail during the course.",
+      "example": "Das Personal wird im Arbeitsalltag häufig erwähnt.",
+      "exampleTranslation": "The staff / personnel is frequently mentioned in working life.",
       "referenceMapping": {
-        "referenceId": "goethe-b1-unit-0030",
-        "referenceKey": "Abitur"
+        "referenceId": "goethe-b1-unit-1939",
+        "referenceKey": "Personal"
       },
-      "selectionReason": "regional-variant"
+      "selectionReason": "phase-10.2-representative-noun"
     },
     {
-      "lexemeId": "de-b1-school-education-klassenarbeit",
-      "categoryId": "school-education",
-      "english": "class test",
-      "german": "die Klassenarbeit",
+      "lexemeId": "de-b1-city-services-postleitzahl",
+      "categoryId": "city-services",
+      "english": "postal code",
+      "german": "die Postleitzahl",
       "partOfSpeech": "noun",
       "metadata": {
         "article": "die",
         "gender": "feminine",
-        "plural": "die Klassenarbeiten",
-        "note": "Regional Wortliste entry: Germany. Standard German remains the default elsewhere in the curriculum."
+        "plural": "die Postleitzahlen",
+        "note": null
       },
-      "example": "Die Klassenarbeit wird im Kurs ausführlich erklärt.",
-      "exampleTranslation": "The class test is explained in detail during the course.",
+      "example": "Die Postleitzahl wird auf der Website der Stadt erklärt.",
+      "exampleTranslation": "The postal code is explained on the city's website.",
       "referenceMapping": {
-        "referenceId": "goethe-b1-unit-1410",
-        "referenceKey": "Klassenarbeit"
+        "referenceId": "goethe-b1-unit-1984",
+        "referenceKey": "Postleitzahl"
       },
-      "selectionReason": "regional-variant"
+      "selectionReason": "phase-10.2-representative-noun"
     },
     {
-      "lexemeId": "de-b1-travel-transport-bahnsteig",
-      "categoryId": "travel-transport",
-      "english": "platform",
-      "german": "der Bahnsteig",
-      "partOfSpeech": "noun",
-      "metadata": {
-        "article": "der",
-        "gender": "masculine",
-        "plural": "die Bahnsteige",
-        "note": "Regional Wortliste entry: Germany. Standard German remains the default elsewhere in the curriculum."
-      },
-      "example": "Der Bahnsteig steht in den aktuellen Reiseinformationen.",
-      "exampleTranslation": "The platform appears in the current travel information.",
-      "referenceMapping": {
-        "referenceId": "goethe-b1-unit-0249",
-        "referenceKey": "Bahnsteig"
-      },
-      "selectionReason": "regional-variant"
-    },
-    {
-      "lexemeId": "de-b1-travel-transport-velo",
-      "categoryId": "travel-transport",
-      "english": "bicycle (Switzerland)",
-      "german": "das Velo",
+      "lexemeId": "de-b1-shopping-money-produkt",
+      "categoryId": "shopping-money",
+      "english": "product",
+      "german": "das Produkt",
       "partOfSpeech": "noun",
       "metadata": {
         "article": "das",
         "gender": "neuter",
-        "plural": "die Velos",
-        "note": "Regional Wortliste entry: Switzerland. Standard German remains the default elsewhere in the curriculum."
+        "plural": "die Produkte",
+        "note": null
       },
-      "example": "In der Schweiz sagt man häufig Velo statt Fahrrad.",
-      "exampleTranslation": "In Switzerland, people often say Velo instead of Fahrrad.",
+      "example": "Das Produkt wird auf der Rechnung angegeben.",
+      "exampleTranslation": "The product is shown on the invoice.",
       "referenceMapping": {
-        "referenceId": "goethe-b1-unit-2750",
-        "referenceKey": "Velo"
+        "referenceId": "goethe-b1-unit-1999",
+        "referenceKey": "Produkt"
       },
-      "selectionReason": "regional-variant"
+      "selectionReason": "phase-10.2-representative-noun"
     },
     {
-      "lexemeId": "de-b1-travel-transport-fuehrerschein",
-      "categoryId": "travel-transport",
-      "english": "driving licence",
-      "german": "der Führerschein",
-      "partOfSpeech": "noun",
-      "metadata": {
-        "article": "der",
-        "gender": "masculine",
-        "plural": "die Führerscheine",
-        "note": "Regional Wortliste entry: Germany. Standard German remains the default elsewhere in the curriculum."
-      },
-      "example": "Der Führerschein steht in den aktuellen Reiseinformationen.",
-      "exampleTranslation": "The driving licence appears in the current travel information.",
-      "referenceMapping": {
-        "referenceId": "goethe-b1-unit-0979",
-        "referenceKey": "Führerschein"
-      },
-      "selectionReason": "regional-variant"
-    },
-    {
-      "lexemeId": "de-b1-travel-transport-perron",
-      "categoryId": "travel-transport",
-      "english": "platform (Switzerland)",
-      "german": "der Perron",
-      "partOfSpeech": "noun",
-      "metadata": {
-        "article": "der",
-        "gender": "masculine",
-        "plural": "die Perrons",
-        "note": "Regional Wortliste entry: Switzerland. Standard German remains the default elsewhere in the curriculum."
-      },
-      "example": "In der Schweiz wartet man auf dem Perron auf den Zug.",
-      "exampleTranslation": "In Switzerland, you wait for the train on the Perron.",
-      "referenceMapping": {
-        "referenceId": "goethe-b1-unit-1937",
-        "referenceKey": "Perron"
-      },
-      "selectionReason": "regional-variant"
-    },
-    {
-      "lexemeId": "de-b1-health-body-versichertenkarte",
-      "categoryId": "health-body",
-      "english": "health insurance card",
-      "german": "die Versichertenkarte",
+      "lexemeId": "de-b1-shopping-money-qualitaet",
+      "categoryId": "shopping-money",
+      "english": "quality",
+      "german": "die Qualität",
       "partOfSpeech": "noun",
       "metadata": {
         "article": "die",
         "gender": "feminine",
-        "plural": "die Versichertenkarten",
-        "note": "Regional Wortliste entry: Germany. Standard German remains the default elsewhere in the curriculum."
+        "plural": "die Qualitäten",
+        "note": null
       },
-      "example": "Die Versichertenkarte wird beim Arzttermin besprochen.",
-      "exampleTranslation": "The health insurance card is discussed at the doctor's appointment.",
+      "example": "Die Qualität wird auf der Rechnung angegeben.",
+      "exampleTranslation": "The quality is shown on the invoice.",
       "referenceMapping": {
-        "referenceId": "goethe-b1-unit-2818",
-        "referenceKey": "Versichertenkarte"
+        "referenceId": "goethe-b1-unit-2028",
+        "referenceKey": "Qualität"
       },
-      "selectionReason": "regional-variant"
+      "selectionReason": "phase-10.2-representative-noun"
     },
     {
-      "lexemeId": "de-b1-holidays-accommodation-gasthaus",
-      "categoryId": "holidays-accommodation",
-      "english": "guest house / inn",
-      "german": "das Gasthaus",
-      "partOfSpeech": "noun",
-      "metadata": {
-        "article": "das",
-        "gender": "neuter",
-        "plural": "die Gasthäuser",
-        "note": "Regional Wortliste entry: Austria. Standard German remains the default elsewhere in the curriculum."
-      },
-      "example": "Das Gasthaus ist für die Reise bereits gebucht.",
-      "exampleTranslation": "The guest house / inn has already been booked for the trip.",
-      "referenceMapping": {
-        "referenceId": "goethe-b1-unit-0998",
-        "referenceKey": "Gasthaus"
-      },
-      "selectionReason": "regional-variant"
-    },
-    {
-      "lexemeId": "de-b1-holidays-accommodation-pension",
-      "categoryId": "holidays-accommodation",
-      "english": "guest house",
-      "german": "die Pension",
+      "lexemeId": "de-b1-feelings-opinions-reaktion",
+      "categoryId": "feelings-opinions",
+      "english": "reaction",
+      "german": "die Reaktion",
       "partOfSpeech": "noun",
       "metadata": {
         "article": "die",
         "gender": "feminine",
-        "plural": "die Pensionen",
-        "note": "Regional Wortliste entry: Austria. Standard German remains the default elsewhere in the curriculum."
+        "plural": "die Reaktionen",
+        "note": null
       },
-      "example": "Die Pension ist für die Reise bereits gebucht.",
-      "exampleTranslation": "The guest house has already been booked for the trip.",
+      "example": "Die Reaktion wird im Gespräch deutlich.",
+      "exampleTranslation": "The reaction becomes clear in the conversation.",
       "referenceMapping": {
-        "referenceId": "goethe-b1-unit-1932",
-        "referenceKey": "Pension"
+        "referenceId": "goethe-b1-unit-2049",
+        "referenceKey": "Reaktion"
       },
-      "selectionReason": "regional-variant"
+      "selectionReason": "phase-10.2-representative-noun"
     },
     {
-      "lexemeId": "de-b1-school-education-anwenden",
-      "categoryId": "school-education",
-      "english": "to apply / use",
-      "german": "anwenden",
+      "lexemeId": "de-b1-society-community-regel",
+      "categoryId": "society-community",
+      "english": "rule",
+      "german": "die Regel",
+      "partOfSpeech": "noun",
+      "metadata": {
+        "article": "die",
+        "gender": "feminine",
+        "plural": "die Regeln",
+        "note": null
+      },
+      "example": "Die Regel wird derzeit öffentlich diskutiert.",
+      "exampleTranslation": "The rule is currently being discussed publicly.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-2069",
+        "referenceKey": "Regel"
+      },
+      "selectionReason": "phase-10.2-representative-noun"
+    },
+    {
+      "lexemeId": "de-b1-work-profession-rente",
+      "categoryId": "work-profession",
+      "english": "pension / retirement",
+      "german": "die Rente",
+      "partOfSpeech": "noun",
+      "metadata": {
+        "article": "die",
+        "gender": "feminine",
+        "plural": "die Renten",
+        "note": "Regional Wortliste entry: Germany. Standard German remains the default elsewhere in the curriculum."
+      },
+      "example": "Die Rente wird im Arbeitsalltag häufig erwähnt.",
+      "exampleTranslation": "The pension / retirement is frequently mentioned in working life.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-2097",
+        "referenceKey": "Rente"
+      },
+      "selectionReason": "phase-10.2-representative-noun"
+    },
+    {
+      "lexemeId": "de-b1-society-community-ruecksicht",
+      "categoryId": "society-community",
+      "english": "consideration",
+      "german": "die Rücksicht",
+      "partOfSpeech": "noun",
+      "metadata": {
+        "article": "die",
+        "gender": "feminine",
+        "plural": "die Rücksichten",
+        "note": null
+      },
+      "example": "Die Rücksicht wird derzeit öffentlich diskutiert.",
+      "exampleTranslation": "The consideration is currently being discussed publicly.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-2139",
+        "referenceKey": "Rücksicht"
+      },
+      "selectionReason": "phase-10.2-representative-noun"
+    },
+    {
+      "lexemeId": "de-b1-shopping-money-schulden",
+      "categoryId": "shopping-money",
+      "english": "debts",
+      "german": "die Schulden",
+      "partOfSpeech": "noun",
+      "metadata": {
+        "article": "die",
+        "gender": "plural",
+        "plural": "plural-only",
+        "note": null
+      },
+      "example": "Die Schulden werden auf der Rechnung angegeben.",
+      "exampleTranslation": "Debts are shown on the invoice.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-2230",
+        "referenceKey": "Schulden"
+      },
+      "selectionReason": "phase-10.2-representative-noun"
+    },
+    {
+      "lexemeId": "de-b1-problems-solutions-schutz",
+      "categoryId": "problems-solutions",
+      "english": "protection",
+      "german": "der Schutz",
+      "partOfSpeech": "noun",
+      "metadata": {
+        "article": "der",
+        "gender": "masculine",
+        "plural": "no-plural",
+        "note": null
+      },
+      "example": "Der Schutz muss genau untersucht werden.",
+      "exampleTranslation": "The protection must be examined carefully.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-2234",
+        "referenceKey": "Schutz"
+      },
+      "selectionReason": "phase-10.2-representative-noun"
+    },
+    {
+      "lexemeId": "de-b1-feelings-opinions-scheinen",
+      "categoryId": "feelings-opinions",
+      "english": "to seem / shine",
+      "german": "scheinen",
       "partOfSpeech": "verb",
       "metadata": {
         "auxiliary": "haben",
-        "pastParticiple": "angewendet",
-        "preterite": "wandte an",
-        "separablePrefix": "an",
+        "pastParticiple": "geschienen",
+        "preterite": "schien",
+        "separablePrefix": null,
+        "reflexive": false,
+        "caseGovernment": null,
+        "prepositions": []
+      },
+      "example": "Nach dem Gespräch scheint eine Einigung möglich.",
+      "exampleTranslation": "After the conversation, an agreement seems possible.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-2178",
+        "referenceKey": "scheinen"
+      },
+      "selectionReason": "phase-10.2-representative-verb"
+    },
+    {
+      "lexemeId": "de-b1-family-relationships-schenken",
+      "categoryId": "family-relationships",
+      "english": "to give as a gift",
+      "german": "schenken",
+      "partOfSpeech": "verb",
+      "metadata": {
+        "auxiliary": "haben",
+        "pastParticiple": "geschenkt",
+        "preterite": "schenkte",
+        "separablePrefix": null,
         "reflexive": false,
         "caseGovernment": "accusative",
         "prepositions": []
       },
-      "example": "Im Kurs kann man etwas anwenden.",
-      "exampleTranslation": "During the course, you can apply / use something.",
+      "example": "Zum Abschied schenkte das Team ihr ein Buch.",
+      "exampleTranslation": "The team gave her a book as a farewell gift.",
       "referenceMapping": {
-        "referenceId": "goethe-b1-unit-0134",
-        "referenceKey": "anwenden"
+        "referenceId": "goethe-b1-unit-2179",
+        "referenceKey": "schenken"
       },
-      "selectionReason": "structurally-unusual"
+      "selectionReason": "phase-10.2-representative-verb"
     },
     {
-      "lexemeId": "de-b1-school-education-darstellen",
-      "categoryId": "school-education",
-      "english": "to present / portray",
-      "german": "darstellen",
+      "lexemeId": "de-b1-home-living-schieben",
+      "categoryId": "home-living",
+      "english": "to push / slide",
+      "german": "schieben",
       "partOfSpeech": "verb",
       "metadata": {
         "auxiliary": "haben",
-        "pastParticiple": "dargestellt",
-        "preterite": "stellte dar",
-        "separablePrefix": "dar",
+        "pastParticiple": "geschoben",
+        "preterite": "schob",
+        "separablePrefix": null,
         "reflexive": false,
         "caseGovernment": "accusative",
         "prepositions": []
       },
-      "example": "Im Kurs kann man etwas darstellen.",
-      "exampleTranslation": "During the course, you can present / portray something.",
+      "example": "Schieben Sie den schweren Karton nicht allein.",
+      "exampleTranslation": "Do not push the heavy box by yourself.",
       "referenceMapping": {
-        "referenceId": "goethe-b1-unit-0524",
-        "referenceKey": "darstellen"
+        "referenceId": "goethe-b1-unit-2182",
+        "referenceKey": "schieben"
       },
-      "selectionReason": "structurally-unusual"
+      "selectionReason": "phase-10.2-representative-verb"
     },
     {
-      "lexemeId": "de-b1-travel-transport-abbiegen",
-      "categoryId": "travel-transport",
-      "english": "to turn off",
-      "german": "abbiegen",
-      "partOfSpeech": "verb",
-      "metadata": {
-        "auxiliary": "sein",
-        "pastParticiple": "abgebogen",
-        "preterite": "bog ab",
-        "separablePrefix": "ab",
-        "reflexive": false,
-        "caseGovernment": null,
-        "prepositions": []
-      },
-      "example": "Auf einer Reise kann man abbiegen.",
-      "exampleTranslation": "While travelling, you can turn off.",
-      "referenceMapping": {
-        "referenceId": "goethe-b1-unit-0014",
-        "referenceKey": "abbiegen"
-      },
-      "selectionReason": "structurally-unusual"
-    },
-    {
-      "lexemeId": "de-b1-travel-transport-abheben",
-      "categoryId": "travel-transport",
-      "english": "to take off",
-      "german": "abheben",
-      "partOfSpeech": "verb",
-      "metadata": {
-        "auxiliary": "sein",
-        "pastParticiple": "abgehoben",
-        "preterite": "hob ab",
-        "separablePrefix": "ab",
-        "reflexive": false,
-        "caseGovernment": null,
-        "prepositions": []
-      },
-      "example": "Das Flugzeug hebt pünktlich um acht Uhr ab.",
-      "exampleTranslation": "The plane takes off punctually at eight o'clock.",
-      "referenceMapping": {
-        "referenceId": "goethe-b1-unit-0026",
-        "referenceKey": "abheben"
-      },
-      "selectionReason": "structurally-unusual"
-    },
-    {
-      "lexemeId": "de-b1-travel-transport-anschnallen",
-      "categoryId": "travel-transport",
-      "english": "to fasten a seat belt",
-      "german": "anschnallen",
+      "lexemeId": "de-b1-leisure-sport-schiessen",
+      "categoryId": "leisure-sport",
+      "english": "to shoot / score",
+      "german": "schießen",
       "partOfSpeech": "verb",
       "metadata": {
         "auxiliary": "haben",
-        "pastParticiple": "angeschnallt",
-        "preterite": "schnallte an",
-        "separablePrefix": "an",
+        "pastParticiple": "geschossen",
+        "preterite": "schoss",
+        "separablePrefix": null,
         "reflexive": false,
         "caseGovernment": "accusative",
         "prepositions": []
       },
-      "example": "Bitte schnallen Sie sich vor der Fahrt an.",
-      "exampleTranslation": "Please fasten your seat belt before the journey.",
+      "example": "In der letzten Minute schoss die Mannschaft das entscheidende Tor.",
+      "exampleTranslation": "The team scored the decisive goal in the final minute.",
       "referenceMapping": {
-        "referenceId": "goethe-b1-unit-0123",
-        "referenceKey": "anschnallen"
+        "referenceId": "goethe-b1-unit-2184",
+        "referenceKey": "schießen"
       },
-      "selectionReason": "structurally-unusual"
+      "selectionReason": "phase-10.2-representative-verb"
     },
     {
-      "lexemeId": "de-b1-travel-transport-ausfallen",
-      "categoryId": "travel-transport",
-      "english": "to be cancelled / fail",
-      "german": "ausfallen",
-      "partOfSpeech": "verb",
-      "metadata": {
-        "auxiliary": "sein",
-        "pastParticiple": "ausgefallen",
-        "preterite": "fiel aus",
-        "separablePrefix": "aus",
-        "reflexive": false,
-        "caseGovernment": null,
-        "prepositions": []
-      },
-      "example": "Wegen des Sturms fällt unser Zug heute aus.",
-      "exampleTranslation": "Our train is cancelled today because of the storm.",
-      "referenceMapping": {
-        "referenceId": "goethe-b1-unit-0201",
-        "referenceKey": "ausfallen"
-      },
-      "selectionReason": "structurally-unusual"
-    },
-    {
-      "lexemeId": "de-b1-travel-transport-losfahren",
-      "categoryId": "travel-transport",
-      "english": "to set off",
-      "german": "losfahren",
-      "partOfSpeech": "verb",
-      "metadata": {
-        "auxiliary": "sein",
-        "pastParticiple": "losgefahren",
-        "preterite": "fuhr los",
-        "separablePrefix": "los",
-        "reflexive": false,
-        "caseGovernment": null,
-        "prepositions": []
-      },
-      "example": "Auf einer Reise kann man losfahren.",
-      "exampleTranslation": "While travelling, you can set off.",
-      "referenceMapping": {
-        "referenceId": "goethe-b1-unit-1611",
-        "referenceKey": "losfahren"
-      },
-      "selectionReason": "structurally-unusual"
-    },
-    {
-      "lexemeId": "de-b1-travel-transport-verlaufen",
-      "categoryId": "travel-transport",
-      "english": "to get lost",
-      "german": "sich verlaufen",
+      "lexemeId": "de-b1-feelings-opinions-schimpfen",
+      "categoryId": "feelings-opinions",
+      "english": "to scold / complain",
+      "german": "schimpfen",
       "partOfSpeech": "verb",
       "metadata": {
         "auxiliary": "haben",
-        "pastParticiple": "verlaufen",
-        "preterite": "verlief sich",
+        "pastParticiple": "geschimpft",
+        "preterite": "schimpfte",
+        "separablePrefix": null,
+        "reflexive": false,
+        "caseGovernment": null,
+        "prepositions": []
+      },
+      "example": "Der Kunde schimpfte über die lange Wartezeit.",
+      "exampleTranslation": "The customer complained angrily about the long waiting time.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-2188",
+        "referenceKey": "schimpfen"
+      },
+      "selectionReason": "phase-10.2-representative-verb"
+    },
+    {
+      "lexemeId": "de-b1-problems-solutions-schlagen",
+      "categoryId": "problems-solutions",
+      "english": "to hit / beat",
+      "german": "schlagen",
+      "partOfSpeech": "verb",
+      "metadata": {
+        "auxiliary": "haben",
+        "pastParticiple": "geschlagen",
+        "preterite": "schlug",
+        "separablePrefix": null,
+        "reflexive": false,
+        "caseGovernment": "accusative",
+        "prepositions": []
+      },
+      "example": "Der Arzt schlug eine andere Behandlung vor.",
+      "exampleTranslation": "The doctor suggested a different treatment.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-2192",
+        "referenceKey": "schlagen"
+      },
+      "selectionReason": "phase-10.2-representative-verb"
+    },
+    {
+      "lexemeId": "de-b1-personal-identity-schminken",
+      "categoryId": "personal-identity",
+      "english": "to apply make-up",
+      "german": "schminken",
+      "partOfSpeech": "verb",
+      "metadata": {
+        "auxiliary": "haben",
+        "pastParticiple": "geschminkt",
+        "preterite": "schminkte",
+        "separablePrefix": null,
+        "reflexive": false,
+        "caseGovernment": "accusative",
+        "prepositions": []
+      },
+      "example": "Für die Feier schminkt sie sich nur leicht.",
+      "exampleTranslation": "She applies only light make-up for the celebration.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-2206",
+        "referenceKey": "schminken"
+      },
+      "selectionReason": "phase-10.2-representative-verb"
+    },
+    {
+      "lexemeId": "de-b1-feelings-opinions-schreien",
+      "categoryId": "feelings-opinions",
+      "english": "to shout / scream",
+      "german": "schreien",
+      "partOfSpeech": "verb",
+      "metadata": {
+        "auxiliary": "haben",
+        "pastParticiple": "geschrien",
+        "preterite": "schrie",
+        "separablePrefix": null,
+        "reflexive": false,
+        "caseGovernment": null,
+        "prepositions": []
+      },
+      "example": "Bitte schreien Sie nicht, sondern erklären Sie das Problem ruhig.",
+      "exampleTranslation": "Please do not shout; explain the problem calmly instead.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-2222",
+        "referenceKey": "schreien"
+      },
+      "selectionReason": "phase-10.2-representative-verb"
+    },
+    {
+      "lexemeId": "de-b1-media-communication-schweigen",
+      "categoryId": "media-communication",
+      "english": "to remain silent",
+      "german": "schweigen",
+      "partOfSpeech": "verb",
+      "metadata": {
+        "auxiliary": "haben",
+        "pastParticiple": "geschwiegen",
+        "preterite": "schwieg",
+        "separablePrefix": null,
+        "reflexive": false,
+        "caseGovernment": null,
+        "prepositions": []
+      },
+      "example": "Auf die schwierige Frage schwieg der Zeuge zunächst.",
+      "exampleTranslation": "The witness initially remained silent in response to the difficult question.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-2239",
+        "referenceKey": "schweigen"
+      },
+      "selectionReason": "phase-10.2-representative-verb"
+    },
+    {
+      "lexemeId": "de-b1-feelings-opinions-schaetzen",
+      "categoryId": "feelings-opinions",
+      "english": "to estimate / appreciate",
+      "german": "schätzen",
+      "partOfSpeech": "verb",
+      "metadata": {
+        "auxiliary": "haben",
+        "pastParticiple": "geschätzt",
+        "preterite": "schätzte",
+        "separablePrefix": null,
+        "reflexive": false,
+        "caseGovernment": "accusative",
+        "prepositions": []
+      },
+      "example": "Wir schätzen die Reparaturkosten auf etwa fünfhundert Euro.",
+      "exampleTranslation": "We estimate the repair costs at around five hundred euros.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-2254",
+        "referenceKey": "schätzen"
+      },
+      "selectionReason": "phase-10.2-representative-verb"
+    },
+    {
+      "lexemeId": "de-b1-daily-life-schuetteln",
+      "categoryId": "daily-life",
+      "english": "to shake",
+      "german": "schütteln",
+      "partOfSpeech": "verb",
+      "metadata": {
+        "auxiliary": "haben",
+        "pastParticiple": "geschüttelt",
+        "preterite": "schüttelte",
+        "separablePrefix": null,
+        "reflexive": false,
+        "caseGovernment": "accusative",
+        "prepositions": []
+      },
+      "example": "Vor dem Öffnen müssen Sie die Flasche kräftig schütteln.",
+      "exampleTranslation": "You must shake the bottle well before opening it.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-2258",
+        "referenceKey": "schütteln"
+      },
+      "selectionReason": "phase-10.2-representative-verb"
+    },
+    {
+      "lexemeId": "de-b1-leisure-sport-amuesieren",
+      "categoryId": "leisure-sport",
+      "english": "to enjoy oneself",
+      "german": "sich amüsieren",
+      "partOfSpeech": "verb",
+      "metadata": {
+        "auxiliary": "haben",
+        "pastParticiple": "amüsiert",
+        "preterite": "amüsierte sich",
         "separablePrefix": null,
         "reflexive": true,
         "caseGovernment": null,
         "prepositions": []
       },
-      "example": "Auf einer Reise kann man sich verlaufen.",
-      "exampleTranslation": "While travelling, you can get lost.",
+      "example": "Auf dem Sommerfest haben sich alle Gäste gut amüsiert.",
+      "exampleTranslation": "All the guests enjoyed themselves at the summer festival.",
       "referenceMapping": {
-        "referenceId": "goethe-b1-unit-2340",
-        "referenceKey": "sich verlaufen"
+        "referenceId": "goethe-b1-unit-2296",
+        "referenceKey": "sich amüsieren"
+      },
+      "selectionReason": "phase-10.2-representative-verb"
+    },
+    {
+      "lexemeId": "de-b1-work-profession-anstrengen",
+      "categoryId": "work-profession",
+      "english": "to make an effort",
+      "german": "sich anstrengen",
+      "partOfSpeech": "verb",
+      "metadata": {
+        "auxiliary": "haben",
+        "pastParticiple": "angestrengt",
+        "preterite": "strengte sich an",
+        "separablePrefix": "an",
+        "reflexive": true,
+        "caseGovernment": null,
+        "prepositions": []
+      },
+      "example": "Wenn du dich anstrengst, kannst du die Prüfung schaffen.",
+      "exampleTranslation": "If you make an effort, you can pass the exam.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-2297",
+        "referenceKey": "sich anstrengen"
+      },
+      "selectionReason": "phase-10.2-representative-verb"
+    },
+    {
+      "lexemeId": "de-b1-feelings-opinions-bedanken",
+      "categoryId": "feelings-opinions",
+      "english": "to thank someone",
+      "german": "sich bedanken",
+      "partOfSpeech": "verb",
+      "metadata": {
+        "auxiliary": "haben",
+        "pastParticiple": "bedankt",
+        "preterite": "bedankte sich",
+        "separablePrefix": null,
+        "reflexive": true,
+        "caseGovernment": "bei + dative / für + accusative",
+        "prepositions": [
+          "bei + dative",
+          "für + accusative"
+        ]
+      },
+      "example": "Sie bedankt sich bei ihrem Kollegen für die Hilfe.",
+      "exampleTranslation": "She thanks her colleague for the help.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-2300",
+        "referenceKey": "sich bedanken"
+      },
+      "selectionReason": "phase-10.2-representative-verb"
+    },
+    {
+      "lexemeId": "de-b1-travel-transport-befinden",
+      "categoryId": "travel-transport",
+      "english": "to be located / be situated",
+      "german": "sich befinden",
+      "partOfSpeech": "verb",
+      "metadata": {
+        "auxiliary": "haben",
+        "pastParticiple": "befunden",
+        "preterite": "befand sich",
+        "separablePrefix": null,
+        "reflexive": true,
+        "caseGovernment": null,
+        "prepositions": []
+      },
+      "example": "Das Bürgeramt befindet sich gegenüber dem Bahnhof.",
+      "exampleTranslation": "The citizens' office is located opposite the station.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-2302",
+        "referenceKey": "sich befinden"
+      },
+      "selectionReason": "phase-10.2-representative-verb"
+    },
+    {
+      "lexemeId": "de-b1-work-profession-bemuehen",
+      "categoryId": "work-profession",
+      "english": "to make an effort / strive",
+      "german": "sich bemühen",
+      "partOfSpeech": "verb",
+      "metadata": {
+        "auxiliary": "haben",
+        "pastParticiple": "bemüht",
+        "preterite": "bemühte sich",
+        "separablePrefix": null,
+        "reflexive": true,
+        "caseGovernment": "um + accusative",
+        "prepositions": [
+          "um + accusative"
+        ]
+      },
+      "example": "Wir bemühen uns um eine schnelle Lösung.",
+      "exampleTranslation": "We are striving for a quick solution.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-2303",
+        "referenceKey": "sich bemühen"
+      },
+      "selectionReason": "phase-10.2-representative-verb"
+    },
+    {
+      "lexemeId": "de-b1-health-body-duschen",
+      "categoryId": "health-body",
+      "english": "to take a shower",
+      "german": "sich duschen",
+      "partOfSpeech": "verb",
+      "metadata": {
+        "auxiliary": "haben",
+        "pastParticiple": "geduscht",
+        "preterite": "duschte sich",
+        "separablePrefix": null,
+        "reflexive": true,
+        "caseGovernment": null,
+        "prepositions": []
+      },
+      "example": "Nach dem Sport duscht sie sich in der Umkleidekabine.",
+      "exampleTranslation": "After exercising, she takes a shower in the changing room.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-2307",
+        "referenceKey": "sich duschen"
+      },
+      "selectionReason": "phase-10.2-representative-verb"
+    },
+    {
+      "lexemeId": "de-b1-plans-goals-time-eignen",
+      "categoryId": "plans-goals-time",
+      "english": "to be suitable",
+      "german": "sich eignen",
+      "partOfSpeech": "verb",
+      "metadata": {
+        "auxiliary": "haben",
+        "pastParticiple": "geeignet",
+        "preterite": "eignete sich",
+        "separablePrefix": null,
+        "reflexive": true,
+        "caseGovernment": "für + accusative",
+        "prepositions": [
+          "für + accusative"
+        ]
+      },
+      "example": "Der Raum eignet sich gut für kleine Gruppen.",
+      "exampleTranslation": "The room is well suited to small groups.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-2308",
+        "referenceKey": "sich eignen"
+      },
+      "selectionReason": "phase-10.2-representative-verb"
+    },
+    {
+      "lexemeId": "de-b1-plans-goals-time-entschliessen",
+      "categoryId": "plans-goals-time",
+      "english": "to decide / resolve",
+      "german": "sich entschließen",
+      "partOfSpeech": "verb",
+      "metadata": {
+        "auxiliary": "haben",
+        "pastParticiple": "entschlossen",
+        "preterite": "entschloss sich",
+        "separablePrefix": null,
+        "reflexive": true,
+        "caseGovernment": null,
+        "prepositions": []
+      },
+      "example": "Nach langer Suche entschloss er sich für die kleinere Wohnung.",
+      "exampleTranslation": "After a long search, he decided on the smaller apartment.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-2310",
+        "referenceKey": "sich entschließen"
+      },
+      "selectionReason": "phase-10.2-representative-verb"
+    },
+    {
+      "lexemeId": "de-b1-plans-goals-time-ereignen",
+      "categoryId": "plans-goals-time",
+      "english": "to occur / happen",
+      "german": "sich ereignen",
+      "partOfSpeech": "verb",
+      "metadata": {
+        "auxiliary": "haben",
+        "pastParticiple": "ereignet",
+        "preterite": "ereignete sich",
+        "separablePrefix": null,
+        "reflexive": true,
+        "caseGovernment": null,
+        "prepositions": []
+      },
+      "example": "Der Unfall ereignete sich am frühen Montagmorgen.",
+      "exampleTranslation": "The accident occurred early on Monday morning.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-2311",
+        "referenceKey": "sich ereignen"
+      },
+      "selectionReason": "phase-10.2-representative-verb"
+    },
+    {
+      "lexemeId": "de-b1-problems-solutions-irren",
+      "categoryId": "problems-solutions",
+      "english": "to be mistaken",
+      "german": "sich irren",
+      "partOfSpeech": "verb",
+      "metadata": {
+        "auxiliary": "haben",
+        "pastParticiple": "geirrt",
+        "preterite": "irrte sich",
+        "separablePrefix": null,
+        "reflexive": true,
+        "caseGovernment": null,
+        "prepositions": []
+      },
+      "example": "Entschuldigung, ich habe mich bei der Hausnummer geirrt.",
+      "exampleTranslation": "Sorry, I was mistaken about the house number.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-2317",
+        "referenceKey": "sich irren"
+      },
+      "selectionReason": "phase-10.2-representative-verb"
+    },
+    {
+      "lexemeId": "de-b1-school-education-konzentrieren",
+      "categoryId": "school-education",
+      "english": "to concentrate",
+      "german": "sich konzentrieren",
+      "partOfSpeech": "verb",
+      "metadata": {
+        "auxiliary": "haben",
+        "pastParticiple": "konzentriert",
+        "preterite": "konzentrierte sich",
+        "separablePrefix": null,
+        "reflexive": true,
+        "caseGovernment": "auf + accusative",
+        "prepositions": [
+          "auf + accusative"
+        ]
+      },
+      "example": "Konzentrieren Sie sich auf die wichtigsten Aussagen.",
+      "exampleTranslation": "Concentrate on the most important statements.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-2318",
+        "referenceKey": "sich konzentrieren"
+      },
+      "selectionReason": "phase-10.2-representative-verb"
+    },
+    {
+      "lexemeId": "de-b1-feelings-opinions-langweilen",
+      "categoryId": "feelings-opinions",
+      "english": "to be bored",
+      "german": "sich langweilen",
+      "partOfSpeech": "verb",
+      "metadata": {
+        "auxiliary": "haben",
+        "pastParticiple": "gelangweilt",
+        "preterite": "langweilte sich",
+        "separablePrefix": null,
+        "reflexive": true,
+        "caseGovernment": null,
+        "prepositions": []
+      },
+      "example": "Während der langen Wartezeit langweilten sich die Kinder.",
+      "exampleTranslation": "The children were bored during the long wait.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-2320",
+        "referenceKey": "sich langweilen"
+      },
+      "selectionReason": "phase-10.2-representative-verb"
+    },
+    {
+      "lexemeId": "de-b1-shopping-money-lohnen",
+      "categoryId": "shopping-money",
+      "english": "to be worthwhile",
+      "german": "sich lohnen",
+      "partOfSpeech": "verb",
+      "metadata": {
+        "auxiliary": "haben",
+        "pastParticiple": "gelohnt",
+        "preterite": "lohnte sich",
+        "separablePrefix": null,
+        "reflexive": true,
+        "caseGovernment": null,
+        "prepositions": []
+      },
+      "example": "Die frühe Buchung lohnt sich wegen des niedrigeren Preises.",
+      "exampleTranslation": "Booking early is worthwhile because of the lower price.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-2321",
+        "referenceKey": "sich lohnen"
+      },
+      "selectionReason": "phase-10.2-representative-verb"
+    },
+    {
+      "lexemeId": "de-b1-travel-transport-naehern",
+      "categoryId": "travel-transport",
+      "english": "to approach",
+      "german": "sich nähern",
+      "partOfSpeech": "verb",
+      "metadata": {
+        "auxiliary": "haben",
+        "pastParticiple": "genähert",
+        "preterite": "näherte sich",
+        "separablePrefix": null,
+        "reflexive": true,
+        "caseGovernment": "dative",
+        "prepositions": []
+      },
+      "example": "Der Zug nähert sich langsam dem Hauptbahnhof.",
+      "exampleTranslation": "The train is slowly approaching the main station.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-2322",
+        "referenceKey": "sich nähern"
+      },
+      "selectionReason": "phase-10.2-representative-verb"
+    },
+    {
+      "lexemeId": "de-b1-daily-life-rasieren",
+      "categoryId": "daily-life",
+      "english": "to shave",
+      "german": "sich rasieren",
+      "partOfSpeech": "verb",
+      "metadata": {
+        "auxiliary": "haben",
+        "pastParticiple": "rasiert",
+        "preterite": "rasierte sich",
+        "separablePrefix": null,
+        "reflexive": true,
+        "caseGovernment": null,
+        "prepositions": []
+      },
+      "example": "Vor dem Vorstellungsgespräch rasierte er sich sorgfältig.",
+      "exampleTranslation": "He shaved carefully before the job interview.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-2323",
+        "referenceKey": "sich rasieren"
+      },
+      "selectionReason": "phase-10.2-representative-verb"
+    },
+    {
+      "lexemeId": "de-b1-daily-life-setzen",
+      "categoryId": "daily-life",
+      "english": "to sit down",
+      "german": "sich setzen",
+      "partOfSpeech": "verb",
+      "metadata": {
+        "auxiliary": "haben",
+        "pastParticiple": "gesetzt",
+        "preterite": "setzte sich",
+        "separablePrefix": null,
+        "reflexive": true,
+        "caseGovernment": null,
+        "prepositions": []
+      },
+      "example": "Bitte setzen Sie sich im Wartezimmer auf einen freien Platz.",
+      "exampleTranslation": "Please sit in an available seat in the waiting room.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-2326",
+        "referenceKey": "sich setzen"
+      },
+      "selectionReason": "phase-10.2-representative-verb"
+    },
+    {
+      "lexemeId": "de-b1-feelings-opinions-streiten",
+      "categoryId": "feelings-opinions",
+      "english": "to argue",
+      "german": "sich streiten",
+      "partOfSpeech": "verb",
+      "metadata": {
+        "auxiliary": "haben",
+        "pastParticiple": "gestritten",
+        "preterite": "stritt sich",
+        "separablePrefix": null,
+        "reflexive": true,
+        "caseGovernment": "mit + dative / über + accusative",
+        "prepositions": [
+          "mit + dative",
+          "über + accusative"
+        ]
+      },
+      "example": "Die Nachbarn streiten sich über den Lärm.",
+      "exampleTranslation": "The neighbours are arguing about the noise.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-2329",
+        "referenceKey": "sich streiten"
+      },
+      "selectionReason": "phase-10.2-representative-verb"
+    },
+    {
+      "lexemeId": "de-b1-travel-transport-umdrehen",
+      "categoryId": "travel-transport",
+      "english": "to turn around",
+      "german": "sich umdrehen",
+      "partOfSpeech": "verb",
+      "metadata": {
+        "auxiliary": "haben",
+        "pastParticiple": "umgedreht",
+        "preterite": "drehte sich um",
+        "separablePrefix": "um",
+        "reflexive": true,
+        "caseGovernment": null,
+        "prepositions": []
+      },
+      "example": "Sie drehte sich um, als jemand ihren Namen rief.",
+      "exampleTranslation": "She turned around when someone called her name.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-2331",
+        "referenceKey": "sich umdrehen"
+      },
+      "selectionReason": "phase-10.2-representative-verb"
+    },
+    {
+      "lexemeId": "de-b1-daily-life-umziehen",
+      "categoryId": "daily-life",
+      "english": "to change clothes",
+      "german": "sich umziehen",
+      "partOfSpeech": "verb",
+      "metadata": {
+        "auxiliary": "haben",
+        "pastParticiple": "umgezogen",
+        "preterite": "zog sich um",
+        "separablePrefix": "um",
+        "reflexive": true,
+        "caseGovernment": null,
+        "prepositions": []
+      },
+      "example": "Nach der Arbeit zieht sie sich für das Training um.",
+      "exampleTranslation": "After work, she changes clothes for training.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-2332",
+        "referenceKey": "sich umziehen"
+      },
+      "selectionReason": "phase-10.2-representative-verb"
+    },
+    {
+      "lexemeId": "de-b1-family-relationships-verabreden",
+      "categoryId": "family-relationships",
+      "english": "to arrange to meet",
+      "german": "sich verabreden",
+      "partOfSpeech": "verb",
+      "metadata": {
+        "auxiliary": "haben",
+        "pastParticiple": "verabredet",
+        "preterite": "verabredete sich",
+        "separablePrefix": null,
+        "reflexive": true,
+        "caseGovernment": "mit + dative / zu + dative",
+        "prepositions": [
+          "mit + dative",
+          "zu + dative"
+        ]
+      },
+      "example": "Ich habe mich mit einer Kollegin zum Mittagessen verabredet.",
+      "exampleTranslation": "I arranged to meet a colleague for lunch.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-2334",
+        "referenceKey": "sich verabreden"
+      },
+      "selectionReason": "phase-10.2-representative-verb"
+    },
+    {
+      "lexemeId": "de-b1-media-communication-verabschieden",
+      "categoryId": "media-communication",
+      "english": "to say goodbye",
+      "german": "sich verabschieden",
+      "partOfSpeech": "verb",
+      "metadata": {
+        "auxiliary": "haben",
+        "pastParticiple": "verabschiedet",
+        "preterite": "verabschiedete sich",
+        "separablePrefix": null,
+        "reflexive": true,
+        "caseGovernment": null,
+        "prepositions": []
+      },
+      "example": "Vor der Abreise verabschiedeten wir uns von unseren Gastgebern.",
+      "exampleTranslation": "Before leaving, we said goodbye to our hosts.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-2335",
+        "referenceKey": "sich verabschieden"
+      },
+      "selectionReason": "phase-10.2-representative-verb"
+    },
+    {
+      "lexemeId": "de-b1-school-education-verbessern",
+      "categoryId": "school-education",
+      "english": "to improve",
+      "german": "sich verbessern",
+      "partOfSpeech": "verb",
+      "metadata": {
+        "auxiliary": "haben",
+        "pastParticiple": "verbessert",
+        "preterite": "verbesserte sich",
+        "separablePrefix": null,
+        "reflexive": true,
+        "caseGovernment": null,
+        "prepositions": []
+      },
+      "example": "Durch tägliches Üben hat sich seine Aussprache verbessert.",
+      "exampleTranslation": "His pronunciation improved through daily practice.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-2336",
+        "referenceKey": "sich verbessern"
+      },
+      "selectionReason": "phase-10.2-representative-verb"
+    },
+    {
+      "lexemeId": "de-b1-society-community-verhalten",
+      "categoryId": "society-community",
+      "english": "to behave",
+      "german": "sich verhalten",
+      "partOfSpeech": "verb",
+      "metadata": {
+        "auxiliary": "haben",
+        "pastParticiple": "verhalten",
+        "preterite": "verhielt sich",
+        "separablePrefix": null,
+        "reflexive": true,
+        "caseGovernment": null,
+        "prepositions": []
+      },
+      "example": "Bitte verhalten Sie sich im Krankenhaus ruhig.",
+      "exampleTranslation": "Please behave quietly in the hospital.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-2339",
+        "referenceKey": "sich verhalten"
+      },
+      "selectionReason": "phase-10.2-representative-verb"
+    },
+    {
+      "lexemeId": "de-b1-feelings-opinions-verlieben",
+      "categoryId": "feelings-opinions",
+      "english": "to fall in love",
+      "german": "sich verlieben",
+      "partOfSpeech": "verb",
+      "metadata": {
+        "auxiliary": "haben",
+        "pastParticiple": "verliebt",
+        "preterite": "verliebte sich",
+        "separablePrefix": null,
+        "reflexive": true,
+        "caseGovernment": "in + accusative",
+        "prepositions": [
+          "in + accusative"
+        ]
+      },
+      "example": "Sie hat sich während des Studiums in Berlin verliebt.",
+      "exampleTranslation": "She fell in love with Berlin while studying.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-2342",
+        "referenceKey": "sich verlieben"
+      },
+      "selectionReason": "phase-10.2-representative-verb"
+    },
+    {
+      "lexemeId": "de-b1-problems-solutions-verstecken",
+      "categoryId": "problems-solutions",
+      "english": "to hide",
+      "german": "sich verstecken",
+      "partOfSpeech": "verb",
+      "metadata": {
+        "auxiliary": "haben",
+        "pastParticiple": "versteckt",
+        "preterite": "versteckte sich",
+        "separablePrefix": null,
+        "reflexive": true,
+        "caseGovernment": null,
+        "prepositions": []
+      },
+      "example": "Das Kind versteckte sich hinter der offenen Tür.",
+      "exampleTranslation": "The child hid behind the open door.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-2343",
+        "referenceKey": "sich verstecken"
+      },
+      "selectionReason": "phase-10.2-representative-verb"
+    },
+    {
+      "lexemeId": "de-b1-plans-goals-time-veraendern",
+      "categoryId": "plans-goals-time",
+      "english": "to change",
+      "german": "sich verändern",
+      "partOfSpeech": "verb",
+      "metadata": {
+        "auxiliary": "haben",
+        "pastParticiple": "verändert",
+        "preterite": "veränderte sich",
+        "separablePrefix": null,
+        "reflexive": true,
+        "caseGovernment": null,
+        "prepositions": []
+      },
+      "example": "Die Arbeitswelt hat sich durch digitale Technik stark verändert.",
+      "exampleTranslation": "The world of work has changed significantly through digital technology.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-2345",
+        "referenceKey": "sich verändern"
+      },
+      "selectionReason": "phase-10.2-representative-verb"
+    },
+    {
+      "lexemeId": "de-b1-school-education-vorbereiten",
+      "categoryId": "school-education",
+      "english": "to prepare oneself",
+      "german": "sich vorbereiten",
+      "partOfSpeech": "verb",
+      "metadata": {
+        "auxiliary": "haben",
+        "pastParticiple": "vorbereitet",
+        "preterite": "bereitete sich vor",
+        "separablePrefix": "vor",
+        "reflexive": true,
+        "caseGovernment": "auf + accusative",
+        "prepositions": [
+          "auf + accusative"
+        ]
+      },
+      "example": "Die Gruppe bereitet sich auf die mündliche Prüfung vor.",
+      "exampleTranslation": "The group is preparing for the oral exam.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-2346",
+        "referenceKey": "sich vorbereiten"
+      },
+      "selectionReason": "phase-10.2-representative-verb"
+    },
+    {
+      "lexemeId": "de-b1-health-body-waschen",
+      "categoryId": "health-body",
+      "english": "to wash oneself",
+      "german": "sich waschen",
+      "partOfSpeech": "verb",
+      "metadata": {
+        "auxiliary": "haben",
+        "pastParticiple": "gewaschen",
+        "preterite": "wusch sich",
+        "separablePrefix": null,
+        "reflexive": true,
+        "caseGovernment": null,
+        "prepositions": []
+      },
+      "example": "Vor dem Essen wäscht sich das Kind gründlich die Hände.",
+      "exampleTranslation": "The child washes their hands thoroughly before eating.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-2348",
+        "referenceKey": "sich waschen"
+      },
+      "selectionReason": "phase-10.2-representative-verb"
+    },
+    {
+      "lexemeId": "de-b1-plans-goals-time-wuenschen",
+      "categoryId": "plans-goals-time",
+      "english": "to wish for",
+      "german": "sich wünschen",
+      "partOfSpeech": "verb",
+      "metadata": {
+        "auxiliary": "haben",
+        "pastParticiple": "gewünscht",
+        "preterite": "wünschte sich",
+        "separablePrefix": null,
+        "reflexive": true,
+        "caseGovernment": null,
+        "prepositions": []
+      },
+      "example": "Zum Geburtstag wünsche ich mir ein gutes Wörterbuch.",
+      "exampleTranslation": "I would like a good dictionary for my birthday.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-2351",
+        "referenceKey": "sich wünschen"
+      },
+      "selectionReason": "phase-10.2-representative-verb"
+    },
+    {
+      "lexemeId": "de-b1-personal-identity-jung",
+      "categoryId": "personal-identity",
+      "english": "young",
+      "german": "jung",
+      "partOfSpeech": "adjective",
+      "metadata": {
+        "grammarRefs": [
+          "de-b1-adjective-endings"
+        ]
+      },
+      "example": "Das junge Unternehmen bildet jedes Jahr Lehrlinge aus.",
+      "exampleTranslation": "The young company trains apprentices every year.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-1347",
+        "referenceKey": "jung"
+      },
+      "selectionReason": "phase-10.2-representative-adjective"
+    },
+    {
+      "lexemeId": "de-b1-environment-weather-kalt",
+      "categoryId": "environment-weather",
+      "english": "cold",
+      "german": "kalt",
+      "partOfSpeech": "adjective",
+      "metadata": {
+        "grammarRefs": [
+          "de-b1-adjective-endings"
+        ]
+      },
+      "example": "Bei kaltem Wetter fahren weniger Menschen mit dem Fahrrad.",
+      "exampleTranslation": "Fewer people cycle in cold weather.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-1357",
+        "referenceKey": "kalt"
+      },
+      "selectionReason": "phase-10.2-representative-adjective"
+    },
+    {
+      "lexemeId": "de-b1-problems-solutions-kaputt",
+      "categoryId": "problems-solutions",
+      "english": "broken",
+      "german": "kaputt",
+      "partOfSpeech": "adjective",
+      "metadata": {
+        "grammarRefs": [
+          "de-b1-adjective-endings"
+        ]
+      },
+      "example": "Der Aufzug ist seit gestern kaputt.",
+      "exampleTranslation": "The lift has been broken since yesterday.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-1366",
+        "referenceKey": "kaputt"
+      },
+      "selectionReason": "phase-10.2-representative-adjective"
+    },
+    {
+      "lexemeId": "de-b1-media-communication-klar",
+      "categoryId": "media-communication",
+      "english": "clear",
+      "german": "klar",
+      "partOfSpeech": "adjective",
+      "metadata": {
+        "grammarRefs": [
+          "de-b1-adjective-endings"
+        ]
+      },
+      "example": "Die Anleitung ist kurz und klar geschrieben.",
+      "exampleTranslation": "The instructions are written briefly and clearly.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-1407",
+        "referenceKey": "klar"
+      },
+      "selectionReason": "phase-10.2-representative-adjective"
+    },
+    {
+      "lexemeId": "de-b1-school-education-klug",
+      "categoryId": "school-education",
+      "english": "clever / wise",
+      "german": "klug",
+      "partOfSpeech": "adjective",
+      "metadata": {
+        "grammarRefs": [
+          "de-b1-adjective-endings"
+        ]
+      },
+      "example": "Das war eine kluge Lösung für ein schwieriges Problem.",
+      "exampleTranslation": "That was a clever solution to a difficult problem.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-1427",
+        "referenceKey": "klug"
+      },
+      "selectionReason": "phase-10.2-representative-adjective"
+    },
+    {
+      "lexemeId": "de-b1-plans-goals-time-knapp",
+      "categoryId": "plans-goals-time",
+      "english": "tight / scarce",
+      "german": "knapp",
+      "partOfSpeech": "adjective",
+      "metadata": {
+        "grammarRefs": [
+          "de-b1-adjective-endings"
+        ]
+      },
+      "example": "Wegen der knappen Zeit teilen wir die Aufgaben auf.",
+      "exampleTranslation": "Because time is tight, we are dividing the tasks.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-1429",
+        "referenceKey": "knapp"
+      },
+      "selectionReason": "phase-10.2-representative-adjective"
+    },
+    {
+      "lexemeId": "de-b1-appointments-services-komplett",
+      "categoryId": "appointments-services",
+      "english": "complete",
+      "german": "komplett",
+      "partOfSpeech": "adjective",
+      "metadata": {
+        "grammarRefs": [
+          "de-b1-adjective-endings"
+        ]
+      },
+      "example": "Bitte schicken Sie uns die kompletten Unterlagen.",
+      "exampleTranslation": "Please send us the complete documents.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-1443",
+        "referenceKey": "komplett"
+      },
+      "selectionReason": "phase-10.2-representative-adjective"
+    },
+    {
+      "lexemeId": "de-b1-technology-internet-kuenstlich",
+      "categoryId": "technology-internet",
+      "english": "artificial",
+      "german": "künstlich",
+      "partOfSpeech": "adjective",
+      "metadata": {
+        "grammarRefs": [
+          "de-b1-adjective-endings"
+        ]
+      },
+      "example": "Das System erkennt künstlich erzeugte Bilder.",
+      "exampleTranslation": "The system detects artificially generated images.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-1524",
+        "referenceKey": "künstlich"
+      },
+      "selectionReason": "phase-10.2-representative-adjective"
+    },
+    {
+      "lexemeId": "de-b1-home-living-leer",
+      "categoryId": "home-living",
+      "english": "empty",
+      "german": "leer",
+      "partOfSpeech": "adjective",
+      "metadata": {
+        "grammarRefs": [
+          "de-b1-adjective-endings"
+        ]
+      },
+      "example": "Die Wohnung steht seit zwei Monaten leer.",
+      "exampleTranslation": "The apartment has been empty for two months.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-1558",
+        "referenceKey": "leer"
+      },
+      "selectionReason": "phase-10.2-representative-adjective"
+    },
+    {
+      "lexemeId": "de-b1-society-community-menschlich",
+      "categoryId": "society-community",
+      "english": "human / humane",
+      "german": "menschlich",
+      "partOfSpeech": "adjective",
+      "metadata": {
+        "grammarRefs": [
+          "de-b1-adjective-endings"
+        ]
+      },
+      "example": "Trotz des Fehlers blieb die Reaktion menschlich und fair.",
+      "exampleTranslation": "Despite the mistake, the response remained humane and fair.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-1683",
+        "referenceKey": "menschlich"
+      },
+      "selectionReason": "phase-10.2-representative-adjective"
+    },
+    {
+      "lexemeId": "de-b1-home-living-moebliert",
+      "categoryId": "home-living",
+      "english": "furnished",
+      "german": "möbliert",
+      "partOfSpeech": "adjective",
+      "metadata": {
+        "grammarRefs": [
+          "de-b1-adjective-endings"
+        ]
+      },
+      "example": "Für das Praktikum mietet sie ein möbliertes Zimmer.",
+      "exampleTranslation": "She is renting a furnished room for the internship.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-1766",
+        "referenceKey": "möbliert"
+      },
+      "selectionReason": "phase-10.2-representative-adjective"
+    },
+    {
+      "lexemeId": "de-b1-society-community-national",
+      "categoryId": "society-community",
+      "english": "national",
+      "german": "national",
+      "partOfSpeech": "adjective",
+      "metadata": {
+        "grammarRefs": [
+          "de-b1-adjective-endings"
+        ]
+      },
+      "example": "Die nationale Regelung gilt ab Januar.",
+      "exampleTranslation": "The national regulation applies from January.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-1806",
+        "referenceKey": "national"
+      },
+      "selectionReason": "phase-10.2-representative-adjective"
+    },
+    {
+      "lexemeId": "de-b1-city-services-offiziell",
+      "categoryId": "city-services",
+      "english": "official",
+      "german": "offiziell",
+      "partOfSpeech": "adjective",
+      "metadata": {
+        "grammarRefs": [
+          "de-b1-adjective-endings"
+        ]
+      },
+      "example": "Die offizielle Bestätigung kommt per Post.",
+      "exampleTranslation": "The official confirmation will arrive by post.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-1877",
+        "referenceKey": "offiziell"
+      },
+      "selectionReason": "phase-10.2-representative-adjective"
+    },
+    {
+      "lexemeId": "de-b1-personal-identity-persoenlich",
+      "categoryId": "personal-identity",
+      "english": "personal",
+      "german": "persönlich",
+      "partOfSpeech": "adjective",
+      "metadata": {
+        "grammarRefs": [
+          "de-b1-adjective-endings"
+        ]
+      },
+      "example": "Für die Anmeldung ist ein persönliches Gespräch vorgesehen.",
+      "exampleTranslation": "A personal meeting is planned for registration.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-1942",
+        "referenceKey": "persönlich"
+      },
+      "selectionReason": "phase-10.2-representative-adjective"
+    },
+    {
+      "lexemeId": "de-b1-shopping-money-preiswert",
+      "categoryId": "shopping-money",
+      "english": "good value / inexpensive",
+      "german": "preiswert",
+      "partOfSpeech": "adjective",
+      "metadata": {
+        "grammarRefs": [
+          "de-b1-adjective-endings"
+        ]
+      },
+      "example": "Das Mittagessen in der Kantine ist frisch und preiswert.",
+      "exampleTranslation": "Lunch in the canteen is fresh and inexpensive.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-1991",
+        "referenceKey": "preiswert"
+      },
+      "selectionReason": "phase-10.2-representative-adjective"
+    },
+    {
+      "lexemeId": "de-b1-adjectives-adverbs-etwa",
+      "categoryId": "adjectives-adverbs",
+      "english": "approximately / perhaps",
+      "german": "etwa",
+      "partOfSpeech": "adverb",
+      "metadata": {
+        "grammarRefs": [
+          "de-b1-word-order-foundation"
+        ]
+      },
+      "example": "Die Reparatur dauert etwa zwei Stunden.",
+      "exampleTranslation": "The repair takes approximately two hours.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-0799",
+        "referenceKey": "etwa"
+      },
+      "selectionReason": "phase-10.2-representative-adverb"
+    },
+    {
+      "lexemeId": "de-b1-adjectives-adverbs-extra",
+      "categoryId": "adjectives-adverbs",
+      "english": "separately / especially",
+      "german": "extra",
+      "partOfSpeech": "adverb",
+      "metadata": {
+        "grammarRefs": [
+          "de-b1-word-order-foundation"
+        ]
+      },
+      "example": "Für den Versand müssen Sie extra bezahlen.",
+      "exampleTranslation": "You have to pay separately for shipping.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-0811",
+        "referenceKey": "extra"
+      },
+      "selectionReason": "phase-10.2-representative-adverb"
+    },
+    {
+      "lexemeId": "de-b1-adjectives-adverbs-gar",
+      "categoryId": "adjectives-adverbs",
+      "english": "at all / even",
+      "german": "gar",
+      "partOfSpeech": "adverb",
+      "metadata": {
+        "grammarRefs": [
+          "de-b1-word-order-foundation"
+        ]
+      },
+      "example": "Ohne Bestätigung kann ich gar nichts planen.",
+      "exampleTranslation": "I cannot plan anything at all without confirmation.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-0990",
+        "referenceKey": "gar"
+      },
+      "selectionReason": "phase-10.2-representative-adverb"
+    },
+    {
+      "lexemeId": "de-b1-plans-goals-time-gerade",
+      "categoryId": "plans-goals-time",
+      "english": "just now / currently",
+      "german": "gerade",
+      "partOfSpeech": "adverb",
+      "metadata": {
+        "grammarRefs": [
+          "de-b1-word-order-foundation"
+        ]
+      },
+      "example": "Die zuständige Kollegin ist gerade in einer Besprechung.",
+      "exampleTranslation": "The responsible colleague is currently in a meeting.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-1055",
+        "referenceKey": "gerade"
+      },
+      "selectionReason": "phase-10.2-representative-adverb"
+    },
+    {
+      "lexemeId": "de-b1-plans-goals-time-gestern",
+      "categoryId": "plans-goals-time",
+      "english": "yesterday",
+      "german": "gestern",
+      "partOfSpeech": "adverb",
+      "metadata": {
+        "grammarRefs": [
+          "de-b1-word-order-foundation"
+        ]
+      },
+      "example": "Gestern ist die schriftliche Zusage angekommen.",
+      "exampleTranslation": "The written confirmation arrived yesterday.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-1081",
+        "referenceKey": "gestern"
+      },
+      "selectionReason": "phase-10.2-representative-adverb"
+    },
+    {
+      "lexemeId": "de-b1-adjectives-adverbs-insgesamt",
+      "categoryId": "adjectives-adverbs",
+      "english": "in total / overall",
+      "german": "insgesamt",
+      "partOfSpeech": "adverb",
+      "metadata": {
+        "grammarRefs": [
+          "de-b1-word-order-foundation"
+        ]
+      },
+      "example": "Insgesamt nehmen vierzig Personen an der Fortbildung teil.",
+      "exampleTranslation": "A total of forty people are taking part in the training.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-1298",
+        "referenceKey": "insgesamt"
+      },
+      "selectionReason": "phase-10.2-representative-adverb"
+    },
+    {
+      "lexemeId": "de-b1-plans-goals-time-irgendwann",
+      "categoryId": "plans-goals-time",
+      "english": "at some point",
+      "german": "irgendwann",
+      "partOfSpeech": "adverb",
+      "metadata": {
+        "grammarRefs": [
+          "de-b1-word-order-foundation"
+        ]
+      },
+      "example": "Irgendwann möchte ich im Ausland arbeiten.",
+      "exampleTranslation": "At some point, I would like to work abroad.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-1318",
+        "referenceKey": "irgendwann"
+      },
+      "selectionReason": "phase-10.2-representative-adverb"
+    },
+    {
+      "lexemeId": "de-b1-adjectives-adverbs-jeweils",
+      "categoryId": "adjectives-adverbs",
+      "english": "in each case / respectively",
+      "german": "jeweils",
+      "partOfSpeech": "adverb",
+      "metadata": {
+        "grammarRefs": [
+          "de-b1-word-order-foundation"
+        ]
+      },
+      "example": "Die Gruppen haben jeweils zwanzig Minuten Zeit.",
+      "exampleTranslation": "Each group has twenty minutes.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-1338",
+        "referenceKey": "jeweils"
+      },
+      "selectionReason": "phase-10.2-representative-adverb"
+    },
+    {
+      "lexemeId": "de-b1-society-community-miteinander",
+      "categoryId": "society-community",
+      "english": "with one another",
+      "german": "miteinander",
+      "partOfSpeech": "adverb",
+      "metadata": {
+        "grammarRefs": [
+          "de-b1-word-order-foundation"
+        ]
+      },
+      "example": "Im Team müssen alle offen miteinander sprechen.",
+      "exampleTranslation": "Everyone on the team must speak openly with one another.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-1715",
+        "referenceKey": "miteinander"
+      },
+      "selectionReason": "phase-10.2-representative-adverb"
+    },
+    {
+      "lexemeId": "de-b1-plans-goals-time-moeglichst",
+      "categoryId": "plans-goals-time",
+      "english": "as far as possible",
+      "german": "möglichst",
+      "partOfSpeech": "adverb",
+      "metadata": {
+        "grammarRefs": [
+          "de-b1-word-order-foundation"
+        ]
+      },
+      "example": "Bitte schicken Sie die Unterlagen möglichst früh.",
+      "exampleTranslation": "Please send the documents as early as possible.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-1771",
+        "referenceKey": "möglichst"
+      },
+      "selectionReason": "phase-10.2-representative-adverb"
+    },
+    {
+      "lexemeId": "de-b1-connectors-prepositions-connector-weil",
+      "categoryId": "connectors-prepositions",
+      "english": "because",
+      "german": "weil",
+      "partOfSpeech": "connector",
+      "metadata": {
+        "grammarRefs": [
+          "de-b1-subordinate-clauses"
+        ]
+      },
+      "example": "Wir fahren mit der Bahn, weil die Autobahn gesperrt ist.",
+      "exampleTranslation": "We are travelling by train because the motorway is closed.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-2938",
+        "referenceKey": "weil"
+      },
+      "selectionReason": "phase-10.2-representative-connector"
+    },
+    {
+      "lexemeId": "de-b1-connectors-prepositions-connector-da",
+      "categoryId": "connectors-prepositions",
+      "english": "since / because",
+      "german": "da",
+      "partOfSpeech": "connector",
+      "metadata": {
+        "grammarRefs": [
+          "de-b1-subordinate-clauses"
+        ]
+      },
+      "example": "Da noch Fragen offen sind, vereinbaren wir einen zweiten Termin.",
+      "exampleTranslation": "Since some questions remain open, we are arranging a second appointment.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-0508",
+        "referenceKey": "da"
+      },
+      "selectionReason": "phase-10.2-representative-connector"
+    },
+    {
+      "lexemeId": "de-b1-connectors-prepositions-connector-zum-einen-zum-anderen",
+      "categoryId": "connectors-prepositions",
+      "english": "on the one hand ... on the other hand",
+      "german": "zum einen ... zum anderen",
+      "partOfSpeech": "connector",
+      "metadata": {
+        "grammarRefs": [
+          "de-b1-cohesive-connectors"
+        ]
+      },
+      "example": "Zum einen spart der Plan Zeit, zum anderen senkt er die Kosten.",
+      "exampleTranslation": "On the one hand, the plan saves time; on the other hand, it reduces costs.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-0091",
+        "referenceKey": "andererseits"
+      },
+      "selectionReason": "phase-10.2-representative-connector"
+    },
+    {
+      "lexemeId": "de-b1-connectors-prepositions-connector-darueber-hinaus",
+      "categoryId": "connectors-prepositions",
+      "english": "furthermore",
+      "german": "darüber hinaus",
+      "partOfSpeech": "connector",
+      "metadata": {
+        "grammarRefs": [
+          "de-b1-cohesive-connectors"
+        ]
+      },
+      "example": "Der Kurs ist praxisnah; darüber hinaus bietet er flexible Termine.",
+      "exampleTranslation": "The course is practical; furthermore, it offers flexible dates.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-0239",
+        "referenceKey": "außerdem"
+      },
+      "selectionReason": "phase-10.2-representative-connector"
+    },
+    {
+      "lexemeId": "de-b1-connectors-prepositions-connector-im-gegensatz-dazu",
+      "categoryId": "connectors-prepositions",
+      "english": "in contrast",
+      "german": "im Gegensatz dazu",
+      "partOfSpeech": "connector",
+      "metadata": {
+        "grammarRefs": [
+          "de-b1-cohesive-connectors"
+        ]
+      },
+      "example": "Viele fahren mit dem Auto; im Gegensatz dazu nutze ich meist die Bahn.",
+      "exampleTranslation": "Many people drive; in contrast, I usually take the train.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-1023",
+        "referenceKey": "Gegensatz"
+      },
+      "selectionReason": "phase-10.2-representative-connector"
+    },
+    {
+      "lexemeId": "de-b1-connectors-prepositions-connector-aus-diesem-grund",
+      "categoryId": "connectors-prepositions",
+      "english": "for this reason",
+      "german": "aus diesem Grund",
+      "partOfSpeech": "connector",
+      "metadata": {
+        "grammarRefs": [
+          "de-b1-main-clause-connectors"
+        ]
+      },
+      "example": "Die Frist endet heute; aus diesem Grund antworte ich sofort.",
+      "exampleTranslation": "The deadline ends today; for this reason, I am replying immediately.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-1138",
+        "referenceKey": "Grund"
+      },
+      "selectionReason": "phase-10.2-representative-connector"
+    },
+    {
+      "lexemeId": "de-b1-connectors-prepositions-connector-beispielsweise",
+      "categoryId": "connectors-prepositions",
+      "english": "for example",
+      "german": "beispielsweise",
+      "partOfSpeech": "connector",
+      "metadata": {
+        "grammarRefs": [
+          "de-b1-cohesive-connectors"
+        ]
+      },
+      "example": "Viele Aufgaben, beispielsweise die Anmeldung, lassen sich online erledigen.",
+      "exampleTranslation": "Many tasks, such as registration, can be completed online.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-0306",
+        "referenceKey": "Beispiel"
+      },
+      "selectionReason": "phase-10.2-representative-connector"
+    },
+    {
+      "lexemeId": "de-b1-connectors-prepositions-connector-dadurch",
+      "categoryId": "connectors-prepositions",
+      "english": "as a result / thereby",
+      "german": "dadurch",
+      "partOfSpeech": "connector",
+      "metadata": {
+        "grammarRefs": [
+          "de-b1-main-clause-connectors"
+        ]
+      },
+      "example": "Wir teilen die Aufgaben; dadurch sind wir schneller fertig.",
+      "exampleTranslation": "We divide the tasks; as a result, we finish more quickly.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-0517",
+        "referenceKey": "damit"
+      },
+      "selectionReason": "phase-10.2-representative-connector"
+    },
+    {
+      "lexemeId": "de-b1-connectors-prepositions-connector-schliesslich",
+      "categoryId": "connectors-prepositions",
+      "english": "finally / after all",
+      "german": "schließlich",
+      "partOfSpeech": "connector",
+      "metadata": {
+        "grammarRefs": [
+          "de-b1-main-clause-connectors"
+        ]
+      },
+      "example": "Wir haben lange verglichen und schließlich das günstigere Angebot gewählt.",
+      "exampleTranslation": "We compared for a long time and finally chose the cheaper offer.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-2197",
+        "referenceKey": "schließlich"
+      },
+      "selectionReason": "phase-10.2-representative-connector"
+    },
+    {
+      "lexemeId": "de-b1-connectors-prepositions-connector-weshalb",
+      "categoryId": "connectors-prepositions",
+      "english": "which is why / why",
+      "german": "weshalb",
+      "partOfSpeech": "connector",
+      "metadata": {
+        "grammarRefs": [
+          "de-b1-subordinate-clauses"
+        ]
+      },
+      "example": "Der Zug fällt aus, weshalb wir einen Ersatzbus nehmen.",
+      "exampleTranslation": "The train is cancelled, which is why we are taking a replacement bus.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-2963",
+        "referenceKey": "weshalb"
+      },
+      "selectionReason": "phase-10.2-representative-connector"
+    },
+    {
+      "lexemeId": "de-b1-connectors-prepositions-preposition-ohne",
+      "categoryId": "connectors-prepositions",
+      "english": "without",
+      "german": "ohne",
+      "partOfSpeech": "preposition",
+      "metadata": {
+        "grammarRefs": [
+          "de-b1-case-articles"
+        ]
+      },
+      "example": "Ohne gültigen Ausweis ist die Abholung nicht möglich.",
+      "exampleTranslation": "Collection is not possible without a valid identity card.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-1879",
+        "referenceKey": "ohne"
+      },
+      "selectionReason": "phase-10.2-representative-preposition"
+    },
+    {
+      "lexemeId": "de-b1-connectors-prepositions-preposition-von",
+      "categoryId": "connectors-prepositions",
+      "english": "from / of",
+      "german": "von",
+      "partOfSpeech": "preposition",
+      "metadata": {
+        "grammarRefs": [
+          "de-b1-case-articles"
+        ]
+      },
+      "example": "Die Bestätigung kommt direkt von der Behörde.",
+      "exampleTranslation": "The confirmation comes directly from the public authority.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-2868",
+        "referenceKey": "von"
+      },
+      "selectionReason": "phase-10.2-representative-preposition"
+    },
+    {
+      "lexemeId": "de-b1-connectors-prepositions-preposition-vor",
+      "categoryId": "connectors-prepositions",
+      "english": "in front of / before",
+      "german": "vor",
+      "partOfSpeech": "preposition",
+      "metadata": {
+        "grammarRefs": [
+          "de-b1-two-way-local-temporal-prepositions"
+        ]
+      },
+      "example": "Vor dem Gespräch bereite ich meine Fragen vor.",
+      "exampleTranslation": "I prepare my questions before the meeting.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-2870",
+        "referenceKey": "vor"
+      },
+      "selectionReason": "phase-10.2-representative-preposition"
+    },
+    {
+      "lexemeId": "de-b1-connectors-prepositions-preposition-zwischen",
+      "categoryId": "connectors-prepositions",
+      "english": "between",
+      "german": "zwischen",
+      "partOfSpeech": "preposition",
+      "metadata": {
+        "grammarRefs": [
+          "de-b1-two-way-local-temporal-prepositions"
+        ]
+      },
+      "example": "Die Praxis liegt zwischen der Bank und der Post.",
+      "exampleTranslation": "The medical practice is between the bank and the post office.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-3127",
+        "referenceKey": "zwischen"
+      },
+      "selectionReason": "phase-10.2-representative-preposition"
+    },
+    {
+      "lexemeId": "de-b1-connectors-prepositions-preposition-ueber",
+      "categoryId": "connectors-prepositions",
+      "english": "over / about",
+      "german": "über",
+      "partOfSpeech": "preposition",
+      "metadata": {
+        "grammarRefs": [
+          "de-b1-two-way-local-temporal-prepositions"
+        ]
+      },
+      "example": "Wir sprechen über die neuen Arbeitszeiten.",
+      "exampleTranslation": "We are talking about the new working hours.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-3149",
+        "referenceKey": "über"
+      },
+      "selectionReason": "phase-10.2-representative-preposition"
+    },
+    {
+      "lexemeId": "de-b1-functional-exam-phrases-schlage-folgendes-vor",
+      "categoryId": "functional-exam-phrases",
+      "english": "I suggest the following",
+      "german": "Ich schlage Folgendes vor: ...",
+      "partOfSpeech": "phrase",
+      "metadata": {
+        "grammarRefs": [
+          "de-b1-noun-verb-writing"
+        ]
+      },
+      "example": "Ich schlage Folgendes vor: Wir treffen uns um neun Uhr am Bahnhof.",
+      "exampleTranslation": "I suggest the following: We meet at nine o'clock at the station.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-2891",
+        "referenceKey": "Vorschlag"
+      },
+      "selectionReason": "phase-10.2-representative-phrase"
+    },
+    {
+      "lexemeId": "de-b1-functional-exam-phrases-waere-das-moeglich",
+      "categoryId": "functional-exam-phrases",
+      "english": "Would that be possible for you",
+      "german": "Wäre ... für dich möglich?",
+      "partOfSpeech": "phrase",
+      "metadata": {
+        "grammarRefs": [
+          "de-b1-konjunktiv-ii"
+        ]
+      },
+      "example": "Wäre ein Treffen am Donnerstagabend für dich möglich?",
+      "exampleTranslation": "Would a meeting on Thursday evening be possible for you?",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-2891",
+        "referenceKey": "Vorschlag"
+      },
+      "selectionReason": "phase-10.2-representative-phrase"
+    },
+    {
+      "lexemeId": "de-b1-functional-exam-phrases-was-haeltst-du-davon",
+      "categoryId": "functional-exam-phrases",
+      "english": "What do you think of",
+      "german": "Was hältst du davon, wenn ...?",
+      "partOfSpeech": "phrase",
+      "metadata": {
+        "grammarRefs": [
+          "de-b1-indirect-questions"
+        ]
+      },
+      "example": "Was hältst du davon, wenn wir die Aufgaben teilen?",
+      "exampleTranslation": "What do you think of dividing the tasks?",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-1169",
+        "referenceKey": "halten"
+      },
+      "selectionReason": "phase-10.2-representative-phrase"
+    },
+    {
+      "lexemeId": "de-b1-functional-exam-phrases-darauf-einigen-dass",
+      "categoryId": "functional-exam-phrases",
+      "english": "Let us agree that",
+      "german": "Lass uns darauf einigen, dass ...",
+      "partOfSpeech": "phrase",
+      "metadata": {
+        "grammarRefs": [
+          "de-b1-subordinate-clauses"
+        ]
+      },
+      "example": "Lass uns darauf einigen, dass jeder einen Teil vorbereitet.",
+      "exampleTranslation": "Let us agree that everyone prepares one part.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-0660",
+        "referenceKey": "einig-"
+      },
+      "selectionReason": "phase-10.2-representative-phrase"
+    },
+    {
+      "lexemeId": "de-b1-functional-exam-phrases-ich-uebernehme",
+      "categoryId": "functional-exam-phrases",
+      "english": "I will take care of",
+      "german": "Ich übernehme ...",
+      "partOfSpeech": "phrase",
+      "metadata": {
+        "grammarRefs": [
+          "de-b1-noun-verb-writing"
+        ]
+      },
+      "example": "Ich übernehme die Reservierung und informiere die Gruppe.",
+      "exampleTranslation": "I will take care of the reservation and inform the group.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-3159",
+        "referenceKey": "übernehmen"
+      },
+      "selectionReason": "phase-10.2-representative-phrase"
+    },
+    {
+      "lexemeId": "de-b1-functional-exam-phrases-koenntest-du-dich-kuemmern",
+      "categoryId": "functional-exam-phrases",
+      "english": "Could you take care of",
+      "german": "Könntest du dich um ... kümmern?",
+      "partOfSpeech": "phrase",
+      "metadata": {
+        "grammarRefs": [
+          "de-b1-prepositional-verbs"
+        ]
+      },
+      "example": "Könntest du dich um die Einladungen kümmern?",
+      "exampleTranslation": "Could you take care of the invitations?",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-2319",
+        "referenceKey": "sich kümmern"
+      },
+      "selectionReason": "phase-10.2-representative-phrase"
+    },
+    {
+      "lexemeId": "de-b1-functional-exam-phrases-zuerst-dann-schliesslich",
+      "categoryId": "functional-exam-phrases",
+      "english": "First, then, and finally",
+      "german": "Zuerst ..., dann ..., und schließlich ...",
+      "partOfSpeech": "phrase",
+      "metadata": {
+        "grammarRefs": [
+          "de-b1-cohesive-connectors"
+        ]
+      },
+      "example": "Zuerst sammeln wir Ideen, dann verteilen wir die Aufgaben, und schließlich prüfen wir den Plan.",
+      "exampleTranslation": "First we collect ideas, then we assign the tasks, and finally we check the plan.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-2197",
+        "referenceKey": "schließlich"
+      },
+      "selectionReason": "phase-10.2-representative-phrase"
+    },
+    {
+      "lexemeId": "de-b1-functional-exam-phrases-darf-ich-nachfragen",
+      "categoryId": "functional-exam-phrases",
+      "english": "May I ask briefly",
+      "german": "Darf ich kurz nachfragen, ...?",
+      "partOfSpeech": "phrase",
+      "metadata": {
+        "grammarRefs": [
+          "de-b1-indirect-questions"
+        ]
+      },
+      "example": "Darf ich kurz nachfragen, wann die Sitzung beginnt?",
+      "exampleTranslation": "May I ask briefly when the meeting begins?",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-0932",
+        "referenceKey": "fragen"
+      },
+      "selectionReason": "phase-10.2-representative-phrase"
+    },
+    {
+      "lexemeId": "de-b1-functional-exam-phrases-wenn-richtig-verstehe",
+      "categoryId": "functional-exam-phrases",
+      "english": "If I understand you correctly",
+      "german": "Wenn ich Sie richtig verstehe, ...",
+      "partOfSpeech": "phrase",
+      "metadata": {
+        "grammarRefs": [
+          "de-b1-subordinate-clauses"
+        ]
+      },
+      "example": "Wenn ich Sie richtig verstehe, findet der Kurs online statt.",
+      "exampleTranslation": "If I understand you correctly, the course takes place online.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-2823",
+        "referenceKey": "Verständnis"
+      },
+      "selectionReason": "phase-10.2-representative-phrase"
+    },
+    {
+      "lexemeId": "de-b1-functional-exam-phrases-damit-meinen-sie",
+      "categoryId": "functional-exam-phrases",
+      "english": "Do you mean by that that",
+      "german": "Meinen Sie damit, dass ...?",
+      "partOfSpeech": "phrase",
+      "metadata": {
+        "grammarRefs": [
+          "de-b1-indirect-questions"
+        ]
+      },
+      "example": "Meinen Sie damit, dass wir die Unterlagen noch einmal schicken sollen?",
+      "exampleTranslation": "Do you mean that we should send the documents again?",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-1672",
+        "referenceKey": "meinen"
+      },
+      "selectionReason": "phase-10.2-representative-phrase"
+    },
+    {
+      "lexemeId": "de-b1-work-profession-einfuehren",
+      "categoryId": "work-profession",
+      "english": "to introduce / implement",
+      "german": "einführen",
+      "partOfSpeech": "verb",
+      "metadata": {
+        "auxiliary": "haben",
+        "pastParticiple": "eingeführt",
+        "preterite": "führte ein",
+        "separablePrefix": "ein",
+        "reflexive": false,
+        "caseGovernment": "accusative",
+        "prepositions": []
+      },
+      "example": "Die Firma führt ab Januar flexible Arbeitszeiten ein.",
+      "exampleTranslation": "The company is introducing flexible working hours in January.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-0656",
+        "referenceKey": "einführen"
       },
       "selectionReason": "structurally-unusual"
     },
     {
-      "lexemeId": "de-b1-travel-transport-zurechtkommen",
+      "lexemeId": "de-b1-family-relationships-einladen",
+      "categoryId": "family-relationships",
+      "english": "to invite",
+      "german": "einladen",
+      "partOfSpeech": "verb",
+      "metadata": {
+        "auxiliary": "haben",
+        "pastParticiple": "eingeladen",
+        "preterite": "lud ein",
+        "separablePrefix": "ein",
+        "reflexive": false,
+        "caseGovernment": "accusative",
+        "prepositions": []
+      },
+      "example": "Wir laden die neuen Nachbarn am Sonntag zum Kaffee ein.",
+      "exampleTranslation": "We are inviting the new neighbours for coffee on Sunday.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-0664",
+        "referenceKey": "einladen"
+      },
+      "selectionReason": "structurally-unusual"
+    },
+    {
+      "lexemeId": "de-b1-health-body-einnehmen",
+      "categoryId": "health-body",
+      "english": "to take / consume",
+      "german": "einnehmen",
+      "partOfSpeech": "verb",
+      "metadata": {
+        "auxiliary": "haben",
+        "pastParticiple": "eingenommen",
+        "preterite": "nahm ein",
+        "separablePrefix": "ein",
+        "reflexive": false,
+        "caseGovernment": "accusative",
+        "prepositions": []
+      },
+      "example": "Nehmen Sie die Tabletten morgens nach dem Frühstück ein.",
+      "exampleTranslation": "Take the tablets in the morning after breakfast.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-0669",
+        "referenceKey": "einnehmen"
+      },
+      "selectionReason": "structurally-unusual"
+    },
+    {
+      "lexemeId": "de-b1-travel-transport-einpacken",
       "categoryId": "travel-transport",
-      "english": "to manage / find one's way",
-      "german": "zurechtkommen",
+      "english": "to pack",
+      "german": "einpacken",
+      "partOfSpeech": "verb",
+      "metadata": {
+        "auxiliary": "haben",
+        "pastParticiple": "eingepackt",
+        "preterite": "packte ein",
+        "separablePrefix": "ein",
+        "reflexive": false,
+        "caseGovernment": "accusative",
+        "prepositions": []
+      },
+      "example": "Ich packe für die Reise nur warme Kleidung ein.",
+      "exampleTranslation": "I am packing only warm clothes for the trip.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-0670",
+        "referenceKey": "einpacken"
+      },
+      "selectionReason": "structurally-unusual"
+    },
+    {
+      "lexemeId": "de-b1-work-profession-einsetzen",
+      "categoryId": "work-profession",
+      "english": "to deploy / use",
+      "german": "einsetzen",
+      "partOfSpeech": "verb",
+      "metadata": {
+        "auxiliary": "haben",
+        "pastParticiple": "eingesetzt",
+        "preterite": "setzte ein",
+        "separablePrefix": "ein",
+        "reflexive": false,
+        "caseGovernment": "accusative",
+        "prepositions": []
+      },
+      "example": "Die Schule setzt im Unterricht neue Lernsoftware ein.",
+      "exampleTranslation": "The school uses new learning software in lessons.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-0680",
+        "referenceKey": "einsetzen"
+      },
+      "selectionReason": "structurally-unusual"
+    },
+    {
+      "lexemeId": "de-b1-society-community-eintreten",
+      "categoryId": "society-community",
+      "english": "to enter / join",
+      "german": "eintreten",
       "partOfSpeech": "verb",
       "metadata": {
         "auxiliary": "sein",
-        "pastParticiple": "zurechtgekommen",
-        "preterite": "kam zurecht",
-        "separablePrefix": "zurecht",
+        "pastParticiple": "eingetreten",
+        "preterite": "trat ein",
+        "separablePrefix": "ein",
         "reflexive": false,
         "caseGovernment": null,
         "prepositions": []
       },
-      "example": "Auf einer Reise kann man zurechtkommen.",
-      "exampleTranslation": "While travelling, you can manage / find one's way.",
+      "example": "Nach kurzer Wartezeit durften wir in den Saal eintreten.",
+      "exampleTranslation": "After a short wait, we were allowed to enter the hall.",
       "referenceMapping": {
-        "referenceId": "goethe-b1-unit-3094",
-        "referenceKey": "zurechtkommen"
+        "referenceId": "goethe-b1-unit-0684",
+        "referenceKey": "eintreten"
       },
       "selectionReason": "structurally-unusual"
     },
     {
-      "lexemeId": "de-b1-city-services-abgeben",
-      "categoryId": "city-services",
-      "english": "to hand in / submit",
-      "german": "abgeben",
+      "lexemeId": "de-b1-shopping-money-einzahlen",
+      "categoryId": "shopping-money",
+      "english": "to deposit / pay in",
+      "german": "einzahlen",
       "partOfSpeech": "verb",
       "metadata": {
         "auxiliary": "haben",
-        "pastParticiple": "abgegeben",
-        "preterite": "gab ab",
-        "separablePrefix": "ab",
+        "pastParticiple": "eingezahlt",
+        "preterite": "zahlte ein",
+        "separablePrefix": "ein",
         "reflexive": false,
         "caseGovernment": "accusative",
         "prepositions": []
       },
-      "example": "Bei einer Behörde kann man etwas abgeben.",
-      "exampleTranslation": "At a public authority, you can hand in / submit something.",
+      "example": "Sie können den Betrag am Automaten auf Ihr Konto einzahlen.",
+      "exampleTranslation": "You can deposit the amount into your account at the machine.",
       "referenceMapping": {
-        "referenceId": "goethe-b1-unit-0025",
-        "referenceKey": "abgeben"
+        "referenceId": "goethe-b1-unit-0689",
+        "referenceKey": "einzahlen"
       },
       "selectionReason": "structurally-unusual"
     },
     {
-      "lexemeId": "de-b1-city-services-angeben",
-      "categoryId": "city-services",
-      "english": "to state / provide",
-      "german": "angeben",
+      "lexemeId": "de-b1-media-communication-festhalten",
+      "categoryId": "media-communication",
+      "english": "to record / hold on to",
+      "german": "festhalten",
       "partOfSpeech": "verb",
       "metadata": {
         "auxiliary": "haben",
-        "pastParticiple": "angegeben",
-        "preterite": "gab an",
-        "separablePrefix": "an",
+        "pastParticiple": "festgehalten",
+        "preterite": "hielt fest",
+        "separablePrefix": "fest",
         "reflexive": false,
         "caseGovernment": "accusative",
         "prepositions": []
       },
-      "example": "Bei einer Behörde kann man etwas angeben.",
-      "exampleTranslation": "At a public authority, you can state / provide something.",
+      "example": "Bitte halten Sie die wichtigsten Ergebnisse schriftlich fest.",
+      "exampleTranslation": "Please record the most important results in writing.",
       "referenceMapping": {
-        "referenceId": "goethe-b1-unit-0097",
-        "referenceKey": "angeben"
+        "referenceId": "goethe-b1-unit-0866",
+        "referenceKey": "festhalten"
       },
       "selectionReason": "structurally-unusual"
     },
     {
-      "lexemeId": "de-b1-city-services-ankreuzen",
-      "categoryId": "city-services",
-      "english": "to tick / mark",
-      "german": "ankreuzen",
+      "lexemeId": "de-b1-plans-goals-time-feststehen",
+      "categoryId": "plans-goals-time",
+      "english": "to be certain / fixed",
+      "german": "feststehen",
       "partOfSpeech": "verb",
       "metadata": {
-        "auxiliary": "haben",
-        "pastParticiple": "angekreuzt",
-        "preterite": "kreuzte an",
-        "separablePrefix": "an",
+        "auxiliary": "sein",
+        "pastParticiple": "festgestanden",
+        "preterite": "stand fest",
+        "separablePrefix": "fest",
         "reflexive": false,
-        "caseGovernment": "accusative",
+        "caseGovernment": null,
         "prepositions": []
       },
-      "example": "Bei einer Behörde kann man etwas ankreuzen.",
-      "exampleTranslation": "At a public authority, you can tick / mark something.",
+      "example": "Der genaue Prüfungstermin steht noch nicht fest.",
+      "exampleTranslation": "The exact exam date has not yet been fixed.",
       "referenceMapping": {
-        "referenceId": "goethe-b1-unit-0106",
-        "referenceKey": "ankreuzen"
+        "referenceId": "goethe-b1-unit-0872",
+        "referenceKey": "feststehen"
       },
       "selectionReason": "structurally-unusual"
     },
     {
-      "lexemeId": "de-b1-city-services-anzeigen",
-      "categoryId": "city-services",
-      "english": "to report / display",
-      "german": "anzeigen",
+      "lexemeId": "de-b1-plans-goals-time-fortsetzen",
+      "categoryId": "plans-goals-time",
+      "english": "to continue",
+      "german": "fortsetzen",
       "partOfSpeech": "verb",
       "metadata": {
         "auxiliary": "haben",
-        "pastParticiple": "angezeigt",
-        "preterite": "zeigte an",
-        "separablePrefix": "an",
+        "pastParticiple": "fortgesetzt",
+        "preterite": "setzte fort",
+        "separablePrefix": "fort",
         "reflexive": false,
         "caseGovernment": "accusative",
         "prepositions": []
       },
-      "example": "Bei einer Behörde kann man etwas anzeigen.",
-      "exampleTranslation": "At a public authority, you can report / display something.",
+      "example": "Nach der Pause setzen wir die Besprechung fort.",
+      "exampleTranslation": "We will continue the meeting after the break.",
       "referenceMapping": {
-        "referenceId": "goethe-b1-unit-0138",
-        "referenceKey": "anzeigen"
+        "referenceId": "goethe-b1-unit-0923",
+        "referenceKey": "fortsetzen"
+      },
+      "selectionReason": "structurally-unusual"
+    },
+    {
+      "lexemeId": "de-b1-feelings-opinions-gratulieren",
+      "categoryId": "feelings-opinions",
+      "english": "to congratulate",
+      "german": "gratulieren",
+      "partOfSpeech": "verb",
+      "metadata": {
+        "auxiliary": "haben",
+        "pastParticiple": "gratuliert",
+        "preterite": "gratulierte",
+        "separablePrefix": null,
+        "reflexive": false,
+        "caseGovernment": "dative / zu + dative",
+        "prepositions": [
+          "zu + dative"
+        ]
+      },
+      "example": "Wir gratulieren dir zur bestandenen Prüfung.",
+      "exampleTranslation": "We congratulate you on passing the exam.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-1125",
+        "referenceKey": "gratulieren"
+      },
+      "selectionReason": "structurally-unusual"
+    },
+    {
+      "lexemeId": "de-b1-work-profession-herstellen",
+      "categoryId": "work-profession",
+      "english": "to produce / manufacture",
+      "german": "herstellen",
+      "partOfSpeech": "verb",
+      "metadata": {
+        "auxiliary": "haben",
+        "pastParticiple": "hergestellt",
+        "preterite": "stellte her",
+        "separablePrefix": "her",
+        "reflexive": false,
+        "caseGovernment": "accusative",
+        "prepositions": []
+      },
+      "example": "Der Betrieb stellt medizinische Geräte her.",
+      "exampleTranslation": "The company manufactures medical devices.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-1217",
+        "referenceKey": "herstellen"
+      },
+      "selectionReason": "structurally-unusual"
+    },
+    {
+      "lexemeId": "de-b1-media-communication-hinweisen",
+      "categoryId": "media-communication",
+      "english": "to point out / refer",
+      "german": "hinweisen",
+      "partOfSpeech": "verb",
+      "metadata": {
+        "auxiliary": "haben",
+        "pastParticiple": "hingewiesen",
+        "preterite": "wies hin",
+        "separablePrefix": "hin",
+        "reflexive": false,
+        "caseGovernment": "auf + accusative",
+        "prepositions": [
+          "auf + accusative"
+        ]
+      },
+      "example": "Die Mitarbeiterin weist auf die neue Regel hin.",
+      "exampleTranslation": "The employee points out the new rule.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-1232",
+        "referenceKey": "hinweisen"
+      },
+      "selectionReason": "structurally-unusual"
+    },
+    {
+      "lexemeId": "de-b1-society-community-kennenlernen",
+      "categoryId": "society-community",
+      "english": "to get to know",
+      "german": "kennenlernen",
+      "partOfSpeech": "verb",
+      "metadata": {
+        "auxiliary": "haben",
+        "pastParticiple": "kennengelernt",
+        "preterite": "lernte kennen",
+        "separablePrefix": "kennen",
+        "reflexive": false,
+        "caseGovernment": "accusative",
+        "prepositions": []
+      },
+      "example": "Im Sprachkurs habe ich Menschen aus vielen Ländern kennengelernt.",
+      "exampleTranslation": "I met people from many countries in the language course.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-1386",
+        "referenceKey": "kennenlernen"
+      },
+      "selectionReason": "structurally-unusual"
+    },
+    {
+      "lexemeId": "de-b1-problems-solutions-klagen",
+      "categoryId": "problems-solutions",
+      "english": "to complain / sue",
+      "german": "klagen",
+      "partOfSpeech": "verb",
+      "metadata": {
+        "auxiliary": "haben",
+        "pastParticiple": "geklagt",
+        "preterite": "klagte",
+        "separablePrefix": null,
+        "reflexive": false,
+        "caseGovernment": "über + accusative",
+        "prepositions": [
+          "über + accusative"
+        ]
+      },
+      "example": "Viele Fahrgäste klagen über die langen Wartezeiten.",
+      "exampleTranslation": "Many passengers complain about the long waiting times.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-1405",
+        "referenceKey": "klagen"
+      },
+      "selectionReason": "structurally-unusual"
+    },
+    {
+      "lexemeId": "de-b1-health-body-leiden",
+      "categoryId": "health-body",
+      "english": "to suffer",
+      "german": "leiden",
+      "partOfSpeech": "verb",
+      "metadata": {
+        "auxiliary": "haben",
+        "pastParticiple": "gelitten",
+        "preterite": "litt",
+        "separablePrefix": null,
+        "reflexive": false,
+        "caseGovernment": "an + dative / unter + dative",
+        "prepositions": [
+          "an + dative",
+          "unter + dative"
+        ]
+      },
+      "example": "Er leidet seit Tagen unter starken Kopfschmerzen.",
+      "exampleTranslation": "He has been suffering from severe headaches for days.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-1566",
+        "referenceKey": "leiden"
+      },
+      "selectionReason": "structurally-unusual"
+    },
+    {
+      "lexemeId": "de-b1-feelings-opinions-nachdenken",
+      "categoryId": "feelings-opinions",
+      "english": "to think about / reflect",
+      "german": "nachdenken",
+      "partOfSpeech": "verb",
+      "metadata": {
+        "auxiliary": "haben",
+        "pastParticiple": "nachgedacht",
+        "preterite": "dachte nach",
+        "separablePrefix": "nach",
+        "reflexive": false,
+        "caseGovernment": null,
+        "prepositions": []
+      },
+      "example": "Ich möchte noch einen Tag über das Angebot nachdenken.",
+      "exampleTranslation": "I would like to think about the offer for one more day.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-1786",
+        "referenceKey": "nachdenken"
+      },
+      "selectionReason": "structurally-unusual"
+    },
+    {
+      "lexemeId": "de-b1-plans-goals-time-passen",
+      "categoryId": "plans-goals-time",
+      "english": "to fit / suit",
+      "german": "passen",
+      "partOfSpeech": "verb",
+      "metadata": {
+        "auxiliary": "haben",
+        "pastParticiple": "gepasst",
+        "preterite": "passte",
+        "separablePrefix": null,
+        "reflexive": false,
+        "caseGovernment": "zu + dative",
+        "prepositions": [
+          "zu + dative"
+        ]
+      },
+      "example": "Der neue Termin passt gut zu meinem Arbeitsplan.",
+      "exampleTranslation": "The new appointment fits well with my work schedule.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-1923",
+        "referenceKey": "passen"
+      },
+      "selectionReason": "structurally-unusual"
+    },
+    {
+      "lexemeId": "de-b1-feelings-opinions-raten",
+      "categoryId": "feelings-opinions",
+      "english": "to advise / guess",
+      "german": "raten",
+      "partOfSpeech": "verb",
+      "metadata": {
+        "auxiliary": "haben",
+        "pastParticiple": "geraten",
+        "preterite": "riet",
+        "separablePrefix": null,
+        "reflexive": false,
+        "caseGovernment": "dative / zu + dative",
+        "prepositions": [
+          "zu + dative"
+        ]
+      },
+      "example": "Die Ärztin rät mir zu einer kurzen Pause.",
+      "exampleTranslation": "The doctor advises me to take a short break.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-2040",
+        "referenceKey": "raten"
+      },
+      "selectionReason": "structurally-unusual"
+    },
+    {
+      "lexemeId": "de-b1-media-communication-reagieren",
+      "categoryId": "media-communication",
+      "english": "to react",
+      "german": "reagieren",
+      "partOfSpeech": "verb",
+      "metadata": {
+        "auxiliary": "haben",
+        "pastParticiple": "reagiert",
+        "preterite": "reagierte",
+        "separablePrefix": null,
+        "reflexive": false,
+        "caseGovernment": "auf + accusative",
+        "prepositions": [
+          "auf + accusative"
+        ]
+      },
+      "example": "Der Kundendienst reagierte schnell auf meine Nachricht.",
+      "exampleTranslation": "Customer service responded quickly to my message.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-2048",
+        "referenceKey": "reagieren"
+      },
+      "selectionReason": "structurally-unusual"
+    },
+    {
+      "lexemeId": "de-b1-health-body-riechen",
+      "categoryId": "health-body",
+      "english": "to smell",
+      "german": "riechen",
+      "partOfSpeech": "verb",
+      "metadata": {
+        "auxiliary": "haben",
+        "pastParticiple": "gerochen",
+        "preterite": "roch",
+        "separablePrefix": null,
+        "reflexive": false,
+        "caseGovernment": "nach + dative",
+        "prepositions": [
+          "nach + dative"
+        ]
+      },
+      "example": "Die Küche riecht nach frischem Brot.",
+      "exampleTranslation": "The kitchen smells of fresh bread.",
+      "referenceMapping": {
+        "referenceId": "goethe-b1-unit-2115",
+        "referenceKey": "riechen"
       },
       "selectionReason": "structurally-unusual"
     }
