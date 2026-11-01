@@ -2,11 +2,19 @@
 
 Audit date: 2026-11-01
 
-Audited branch: `feature/german-b1-foundation`
+Audited branch: `master`
 
 Phase 10.3 starting commit: `0905bc8cbd5213bb12a82941388bfb4fd1eabcca`
 
-Product status: Phase 10.3 release candidate live on GitHub Pages; German TTS backend deployed; feature branch remains unmerged
+Product status: German B1 production release; `master` fast-forwarded to the approved Phase 10.3 source; existing GitHub Pages production verified
+
+Production promotion date: 2026-11-01
+
+Production source SHA: `af5dbfc03a8b702da473a1e2b09e22a0918cd5ec`
+
+Production URL: `https://lennard978.github.io/pwagerman/`
+
+Production deployment: `ec2b67b0f6def0728d32ef11e09637a675d4eb6d` serving `main.7344703f.js`
 
 Phase 10.3 vocabulary closeout: 2026-11-01
 
@@ -31,7 +39,7 @@ Final human/physical QA attempt: 2026-10-31. Detailed record: `GERMAN-B1-FINAL-Q
 | Gate | Result | Evidence |
 |---|---|---|
 | Content/data validation | PASS | 2,367 lexemes, 25 categories, and 24 grammar lessons. All 1,764 pre-Phase-10.3 residual Wortliste rows were reviewed: 417 high-value entries were added, 367 were resolved without duplication, 112 were mapped as regional/metadata variants, and 868 were excluded with a specific low-value, artifact, inflection, abbreviation, proper-name, or non-standalone rationale. No partial or unclassified residual rows remain. |
-| Jest suite | PASS | Phase 10.3 unrestricted rerun: 63 suites, 364 tests, 0 failures, 0 skipped. The initial sandboxed run encountered the known Windows Jest transform-cache `EPERM` restriction before executing tests; the unrestricted rerun passed every assertion. |
+| Jest suite | PASS | Production promotion reruns passed on both the approved feature branch and fast-forwarded `master`: 63 suites, 364 tests, 0 failures, 0 skipped each time. Sandboxed attempts encounter the known Windows Jest transform-cache `EPERM` restriction before executing tests; unrestricted reruns passed every assertion. |
 | Audio pipeline | PASS | 11 tests; 24/24 assets ready; 8,773,536 MP3 bytes; checksums/script hashes/metadata valid. |
 | Production build | PASS | Phase 10.3: `main.7344703f.js`, 393.62 kB gzip, SHA-256 `A3CF6A3DFCF5BDA23CCDAA9C93884A0748777D7DCBD25BE26AEFB99330C7E8CE`; CSS 338 B gzip; basename `/pwagerman/`; fixture isolation pass; built with the verified public endpoint value. |
 | Production assets | PASS | 24 MP3s emitted; icons and optimized German SVG wordmarks emitted; the unreferenced design-source PNG is preserved under `docs/`, and retired Serbian wordmark PNGs are removed. |
@@ -54,10 +62,10 @@ Final human/physical QA attempt: 2026-10-31. Detailed record: `GERMAN-B1-FINAL-Q
 
 | Gate | Classification | Required evidence before public release |
 |---|---|---|
-| Human Listening QA | BLOCKER / PENDING | 0/24 tracks human-reviewed. Listen to all 24 tracks for German accuracy, pronunciation, pacing, numbers/times, voice assignment, clipping, pauses, and transcript match. Record reviewer/date in `GERMAN-B1-LISTENING-AUDIO-QA.md`. |
-| Expert linguistic review | HUMAN CONTENT QA PARTIAL | Review worksheets and an expanded automated vocabulary audit pool exist, but no native-German/B1-qualified reviewer completed the required vocabulary sample, 24 grammar lessons, or representative exam content. Automated validation is not linguistic certification. |
-| Android browser/PWA | PENDING — NO PHYSICAL DEVICE CONNECTED | ADB returned an empty device list. Install/update takeover, TTS, prepared-form offline audio, microphone, recording/playback, Writing keyboard, screen lock, and headset/Bluetooth remain untested on hardware. |
-| iOS Safari/Home Screen | PENDING — NO PHYSICAL DEVICE CONNECTED | Windows PnP reported no present iPhone/iPad. Add to Home Screen, standalone/update behavior, install help, TTS, Listening, microphone, recording/playback, Writing keyboard, persistence, and interruption behavior remain untested on hardware. |
+| Human Listening QA | POST-RELEASE QA / IN PROGRESS | The complete 24-track human review is not finished and is not marked PASS. Continue checking German accuracy, pronunciation, pacing, numbers/times, voice assignment, clipping, pauses, and transcript match in production, recording actual user verdicts in `GERMAN-B1-LISTENING-AUDIO-QA.md`. |
+| Qualified linguistic review | POST-RELEASE QA / PENDING | Review worksheets and an expanded automated vocabulary audit pool exist, but no qualified reviewer completed the required vocabulary sample, 24 grammar lessons, or representative exam content. Automated validation is not linguistic certification. |
+| Android browser/PWA | POST-RELEASE QA / USER TESTING IN PRODUCTION | ADB returned an empty device list during automated release work. Install/update takeover, TTS, prepared-form offline audio, microphone, recording/playback, Writing keyboard, screen lock, and headset/Bluetooth still require user evidence on hardware. |
+| iOS Safari/Home Screen | POST-RELEASE QA / USER TESTING IN PRODUCTION | Windows PnP reported no present iPhone/iPad during automated release work. Add to Home Screen, standalone/update behavior, install help, TTS, Listening, microphone, recording/playback, Writing keyboard, persistence, and interruption behavior still require user evidence on hardware. |
 | Production TTS endpoint | CLOSED | Staged production deployment passed German audio, negative, fixed-voice, CORS, and frontend-compatibility gates before promotion. Post-promotion browser checks for noun/article, verb, grammar, and My Words produced live HTTP 200 cloud requests without fallback errors. |
 | Distributed TTS abuse control | CLOSED | The log-only baseline was published and observed first. The same exact-scope rule was then converted to 30 requests/60 seconds/IP, inspected, published, and validated through Vercel 429 telemetry. GET remains 405, OPTIONS remains 204, and unrelated paths remain outside the rule. |
 
@@ -90,17 +98,20 @@ Final human/physical QA attempt: 2026-10-31. Detailed record: `GERMAN-B1-FINAL-Q
 
 Software blockers: none identified in the Phase 10.3 source, data, automated-test, audio-validation, production-build, deployment, or live-browser gates. Production German TTS, the fixed voice, live frontend cloud speech, and the distributed Vercel rate limit remain verified. The live update prompt activated `ec2b67b0f6def0728d32ef11e09637a675d4eb6d`, changed the visible vocabulary total from 1,950 to 2,367, and completed without a reload loop.
 
-External blockers: all 24 audio tracks still need human listening QA; native-German/B1 content review remains incomplete; physical Android and iOS checks remain pending. See `GERMAN-B1-FINAL-QA.md` for the review matrices and exact untested device gates.
+Post-release QA pending by explicit user release decision: the complete 24-track human listening review, qualified linguistic/content review, and physical Android/iOS matrices remain incomplete and are not marked PASS. They do not block this explicitly authorized production promotion, but their status must remain visible. See `GERMAN-B1-FINAL-QA.md` for the review matrices and exact untested device gates.
 
 Non-blocking follow-ups after those gates: refresh the Browserslist database in a dependency-maintenance change, consider route-level splitting because the main bundle is now 393.62 kB gzip, and remove source maps from public hosting if deployment policy does not need them.
 
 ## Merge and deployment status
 
 - Phase 10.3 feature commit/push: **COMPLETED** at `1366501b6961c5db33eade33e7bcc12d8a504a1c`.
+- Production promotion: **COMPLETED** by fast-forwarding `master` from `ac96f54d42d250f81d44eb6e00843888a2834d7c` to approved source `af5dbfc03a8b702da473a1e2b09e22a0918cd5ec`; feature and master test/build gates both passed before the master push.
 - Phase 9D.1 commit/push: **COMPLETED** at `c4ac730f9e0a5c19d8945a7a2871e55771e03b49` before this final-QA attempt.
 - Final-QA documentation: prepared on the feature branch; commit and push status are reported in the final handoff.
-- Merge: **NOT EXECUTED**.
+- Merge: **FAST-FORWARD EXECUTED**; no merge commit, rebase, or conflict.
 - Backend deployment: **EXECUTED** for the existing Vercel TTS project only; the previous production deployment remains the rollback target.
 - Firewall publication: **EXECUTED** for the exact `POST /api/tts` rule above.
 - Frontend deployment: **COMPLETED** after passing tests, production build, feature commit, and push. `gh-pages` advanced from `e937bc9c51c5ab9bb13dfc690501991fa06074bd` to `ec2b67b0f6def0728d32ef11e09637a675d4eb6d`; Pages reported the new commit built and the live origin served `main.7344703f.js`.
-- Merge only after the remaining human and physical gates are closed.
+- GitHub Pages redeployment during production promotion: **NOT REQUIRED**. The rebuilt master artifact and deployed JavaScript are the same Git blob (`564a892ba83656037c73885683a76b7f644a0aa6`).
+- Rollback points retained: pre-promotion master `ac96f54d42d250f81d44eb6e00843888a2834d7c`, current production Pages `ec2b67b0f6def0728d32ef11e09637a675d4eb6d`, and previous Pages deployment `e937bc9c51c5ab9bb13dfc690501991fa06074bd`.
+- `feature/german-b1-foundation` is retained temporarily as release history and a rollback reference.
