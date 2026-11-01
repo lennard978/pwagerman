@@ -4,23 +4,23 @@
   "description": "Independent German B1 exam preparation by Asenda Studio.",
   "icons": [
     {
-      "src": "favicon.svg",
+      "src": "german-b1-favicon-v2.svg",
       "sizes": "any",
       "type": "image/svg+xml"
     },
     {
-      "src": "logo192.png",
+      "src": "german-b1-icon-192-v2.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "logo512.png",
+      "src": "german-b1-icon-512-v2.png",
       "type": "image/png",
       "sizes": "512x512",
       "purpose": "any maskable"
     },
     {
-      "src": "apple-touch-icon.png",
+      "src": "german-b1-apple-touch-v2.png",
       "type": "image/png",
       "sizes": "180x180"
     }
