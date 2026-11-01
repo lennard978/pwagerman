@@ -6,7 +6,7 @@ Audited branch: `feature/german-b1-foundation`
 
 Phase 10.3 starting commit: `0905bc8cbd5213bb12a82941388bfb4fd1eabcca`
 
-Product status: Phase 10.3 release candidate; German TTS backend deployed; feature branch remains unmerged
+Product status: Phase 10.3 release candidate live on GitHub Pages; German TTS backend deployed; feature branch remains unmerged
 
 Phase 10.3 vocabulary closeout: 2026-11-01
 
@@ -36,7 +36,7 @@ Final human/physical QA attempt: 2026-10-31. Detailed record: `GERMAN-B1-FINAL-Q
 | Production build | PASS | Phase 10.3: `main.7344703f.js`, 393.62 kB gzip, SHA-256 `A3CF6A3DFCF5BDA23CCDAA9C93884A0748777D7DCBD25BE26AEFB99330C7E8CE`; CSS 338 B gzip; basename `/pwagerman/`; fixture isolation pass; built with the verified public endpoint value. |
 | Production assets | PASS | 24 MP3s emitted; icons and optimized German SVG wordmarks emitted; the unreferenced design-source PNG is preserved under `docs/`, and retired Serbian wordmark PNGs are removed. |
 | Active runtime scan | PASS | No active `Serbian A1`, `Srpski`, `sr-RS`, `sr-Latn`, retired wordmark, or development-fixture markers. |
-| Production browser matrix | PENDING LIVE PHASE 10.3 RERUN | The prior Phase 10.2 24/24 matrix remains historical evidence. Phase 10.3 will be rerun against the deployed RC at 320×568, 390×844, 768×1024, and 1280×800 before release closure. |
+| Production browser matrix | PASS | Phase 10.3 live RC passed the requested responsive matrix: Pair and Quiz at 320×568; Vocabulary search, filters, long-compound details, and Learning actions at 390×844; Listening at 768×1024; and Home plus Full Mock at 1280×800. The inspected views had no clipped controls or horizontal overflow. |
 | Route/deep-link files | PASS | Twelve direct routes loaded/reloaded with the same heading; back/forward passed; a clean-origin nested URL restored through `404.html` to the intended route. The actual mock route is `/exam/full-mock-b1`. |
 | Production console | PASS | Clean-origin representative Home, Learn, Vocabulary, Exam, and Listening flows produced zero console errors or warnings. |
 | Prepared Listening cache | PASS WITH COMBINED EVIDENCE | Browser prepared 8/8 tracks, reloaded offline, passed cached preflight, resumed interrupted playback, and started all eight MP3s through the service worker without a range-response error. Replay/scoring/results/review contracts remain covered by the passing Listening UI/session tests. |
@@ -46,7 +46,7 @@ Final human/physical QA attempt: 2026-10-31. Detailed record: `GERMAN-B1-FINAL-Q
 | Local TTS request validation | PASS | Current source accepts `de-DE` only, enforces 300 characters, origin allowlist, fixed server-side voice, controlled errors, and a 30 requests/client/minute in-process defense. |
 | Production TTS | PASS | Endpoint `https://serbian-a1-tts-one.vercel.app/api/tts` serves the promoted, staged-and-tested deployment `dpl_DhRoqdRwXQHgzsAihrgrkAgioZWB`. Live `de-DE` returned HTTP 200 `audio/mpeg` and a valid 4.344-second MP3; live `sr-RS` returned HTTP 400. Fixed voice: `de-DE-Chirp3-HD-Aoede`. |
 | Distributed TTS rate limit | PASS | Published Vercel rule `rate-limit-tts` (`rule_observe_tts_post_traffic_DwtTxg`): path exactly `/api/tts`, method exactly `POST`, fixed-window 30 requests/60 seconds keyed by IP, exceeded action `rate_limit`/HTTP 429. Firewall telemetry recorded the controlled rate-limit action. The application limiter remains defense in depth. |
-| Final-QA TTS sanity | PASS | One non-burst `POST /api/tts` request for `Guten Morgen`/`de-DE` returned HTTP 200, `audio/mpeg`, 4,896 bytes after the firewall rule was active. This is endpoint evidence, not physical-device playback evidence. |
+| Final-QA TTS sanity | PASS | Live Phase 10.3 UI pronunciation controls were exercised for a compound and in Pair without changing matching state. Six representative production requests (`die Antwort`, `entschuldigen`, `Bescheid sagen`, `die Pfanne`, `das Verkehrszeichen`, `je`) returned HTTP 200 audio for new noun, verb, phrase, regional, compound, and connector coverage. This is endpoint/browser evidence, not physical-device playback evidence. |
 | Privacy disclosure | PASS | Product page covers localStorage/IndexedDB, optional local recording/no upload, TTS network use, and offline limits. |
 | Recovery | PASS | Application error boundary and invalid-route recovery preserve local data. |
 
@@ -88,7 +88,7 @@ Final human/physical QA attempt: 2026-10-31. Detailed record: `GERMAN-B1-FINAL-Q
 
 ## Release blockers and follow-ups
 
-Software blockers: none identified in the Phase 10.3 source, data, automated-test, audio-validation, or production-build gates. Production German TTS, the fixed voice, live frontend cloud speech, and the distributed Vercel rate limit remain verified. The Phase 10.3 live deployment/browser/PWA rerun is recorded below when complete.
+Software blockers: none identified in the Phase 10.3 source, data, automated-test, audio-validation, production-build, deployment, or live-browser gates. Production German TTS, the fixed voice, live frontend cloud speech, and the distributed Vercel rate limit remain verified. The live update prompt activated `ec2b67b0f6def0728d32ef11e09637a675d4eb6d`, changed the visible vocabulary total from 1,950 to 2,367, and completed without a reload loop.
 
 External blockers: all 24 audio tracks still need human listening QA; native-German/B1 content review remains incomplete; physical Android and iOS checks remain pending. See `GERMAN-B1-FINAL-QA.md` for the review matrices and exact untested device gates.
 
@@ -96,10 +96,11 @@ Non-blocking follow-ups after those gates: refresh the Browserslist database in 
 
 ## Merge and deployment status
 
+- Phase 10.3 feature commit/push: **COMPLETED** at `1366501b6961c5db33eade33e7bcc12d8a504a1c`.
 - Phase 9D.1 commit/push: **COMPLETED** at `c4ac730f9e0a5c19d8945a7a2871e55771e03b49` before this final-QA attempt.
 - Final-QA documentation: prepared on the feature branch; commit and push status are reported in the final handoff.
 - Merge: **NOT EXECUTED**.
 - Backend deployment: **EXECUTED** for the existing Vercel TTS project only; the previous production deployment remains the rollback target.
 - Firewall publication: **EXECUTED** for the exact `POST /api/tts` rule above.
-- Frontend deployment: Phase 10.3 RC deployment is authorized only after the passing tests, production build, commit, and feature-branch push above. Pre-deployment `gh-pages` SHA: `e937bc9c51c5ab9bb13dfc690501991fa06074bd`; the resulting SHA and live validation are appended after deployment.
+- Frontend deployment: **COMPLETED** after passing tests, production build, feature commit, and push. `gh-pages` advanced from `e937bc9c51c5ab9bb13dfc690501991fa06074bd` to `ec2b67b0f6def0728d32ef11e09637a675d4eb6d`; Pages reported the new commit built and the live origin served `main.7344703f.js`.
 - Merge only after the remaining human and physical gates are closed.
