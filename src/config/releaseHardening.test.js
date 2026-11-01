@@ -1,5 +1,6 @@
 import fs from "fs";
 import path from "path";
+import crypto from "crypto";
 
 const publicPath = (...parts) => path.join(process.cwd(), "public", ...parts);
 
@@ -13,9 +14,10 @@ test("release manifest and deep-link recovery match the German B1 GitHub Pages a
     scope: ".",
   }));
   expect(manifest.icons).toEqual(expect.arrayContaining([
-    expect.objectContaining({ src: "logo192.png", sizes: "192x192" }),
-    expect.objectContaining({ src: "logo512.png", sizes: "512x512", purpose: "any maskable" }),
-    expect.objectContaining({ src: "apple-touch-icon.png", sizes: "180x180" }),
+    expect.objectContaining({ src: "german-b1-favicon-v2.svg", sizes: "any" }),
+    expect.objectContaining({ src: "german-b1-icon-192-v2.png", sizes: "192x192" }),
+    expect.objectContaining({ src: "german-b1-icon-512-v2.png", sizes: "512x512", purpose: "any maskable" }),
+    expect.objectContaining({ src: "german-b1-apple-touch-v2.png", sizes: "180x180" }),
   ]));
   manifest.icons.forEach((icon) => expect(fs.existsSync(publicPath(icon.src))).toBe(true));
 
@@ -28,8 +30,16 @@ test("release manifest and deep-link recovery match the German B1 GitHub Pages a
 });
 
 test("production branding includes German assets and excludes retired Serbian wordmarks", () => {
+  const shell = fs.readFileSync(publicPath("index.html"), "utf8");
+  const faviconSvg = fs.readFileSync(publicPath("german-b1-favicon-v2.svg"), "utf8");
+  const faviconHash = crypto.createHash("sha256").update(fs.readFileSync(publicPath("favicon.ico"))).digest("hex");
+
   expect(fs.existsSync(publicPath("german-b1-wordmark.svg"))).toBe(true);
   expect(fs.existsSync(publicPath("german-b1-wordmark-compact.svg"))).toBe(true);
+  expect(faviconSvg).toContain("German B1");
+  expect(shell).toContain("%PUBLIC_URL%/german-b1-favicon-v2.svg");
+  expect(shell).toContain("%PUBLIC_URL%/german-b1-apple-touch-v2.png");
+  expect(faviconHash).not.toBe("fd6d1437c849652aa864a47138040e88b0ee99b1a9e4cc531b1bff7a1bf51729");
   expect(fs.existsSync(publicPath("german-b1-brand-source.png"))).toBe(false);
   expect(fs.existsSync(path.join(process.cwd(), "docs", "german-b1-brand-source.png"))).toBe(true);
   expect(fs.existsSync(publicPath("serbian-a1-wordmark.png"))).toBe(false);

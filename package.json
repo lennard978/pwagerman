@@ -45,6 +45,8 @@
 		"audio:generate": "node scripts/generate-listening-audio.cjs",
 		"audio:validate": "node scripts/generate-listening-audio.cjs --validate",
 		"audio:test": "node --test scripts/listening-audio/*.test.cjs",
+		"vocabulary:build-phase10": "node scripts/vocabulary/build-phase10-lexemes.cjs",
+		"vocabulary:test": "node --test scripts/vocabulary/inventory.test.cjs",
 		"eject": "react-scripts eject",
 		"predeploy": "yarn run build",
 		"deploy": "gh-pages -d build"

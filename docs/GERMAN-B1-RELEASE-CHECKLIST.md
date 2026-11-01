@@ -15,7 +15,7 @@ Final human/physical QA attempt: 2026-10-31. Detailed record: `GERMAN-B1-FINAL-Q
 ## Release inventory
 
 - German B1 Exam Preparation by Asenda Studio, with an explicit independent-product disclaimer.
-- 800 production lexemes across 25 categories; Favorites, Learning, Known, Review, and My Words flows.
+- 1,400 production lexemes across 25 categories; Favorites, Learning, Known, Review, and My Words flows.
 - 24 grammar lessons with eight exercises each, diagnostic, completion, retry, and mistake review.
 - Reading: five parts, 30 items, 65-minute absolute timer, scoring, results, review, and resume.
 - Listening: four parts, 30 items, three forms, 24 generated German MP3 assets, replay rules, review, and prepared-form offline cache.
@@ -28,7 +28,7 @@ Final human/physical QA attempt: 2026-10-31. Detailed record: `GERMAN-B1-FINAL-Q
 
 | Gate | Result | Evidence |
 |---|---|---|
-| Content/data validation | PASS | 800 lexemes, 25 categories, 24 grammar lessons; module/form/reference tests pass. |
+| Content/data validation | PASS | 1,400 lexemes, 25 categories, 24 grammar lessons; module/form/reference tests pass. |
 | Jest suite | PASS | Final-QA rerun: 61 suites, 353 tests, 0 failures, 0 skipped. The first sandboxed attempt was unable to create Jest's temporary transform cache (`EPERM`); the unrestricted rerun executed normally and passed. |
 | Audio pipeline | PASS | 11 tests; 24/24 assets ready; 8,773,536 MP3 bytes; checksums/script hashes/metadata valid. |
 | Production build | PASS | Final-QA rerun: `main.25619cdc.js`, 291.06 kB gzip; CSS 338 B gzip; basename `/pwagerman/`; fixture isolation pass; built with the verified public endpoint value. |

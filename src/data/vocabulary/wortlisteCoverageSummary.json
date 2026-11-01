@@ -4,7 +4,7 @@
   "sourcePublisher": "Goethe-Institut and ÖSD",
   "sourceEdition": "2016 first edition; PDF metadata modified 2017; retrieved from the current official Goethe URL",
   "sourceSha256": "8860f7f0c916831b2365f66239a3ceba3be81ddba28e1224846ca8420807fe42",
-  "reviewDate": "2026-10-31",
+  "reviewDate": "2026-11-01",
   "sourcePages": 104,
   "copyrightBoundary": "Only lexical entries, articles, inflection/plural notation, and regional/variant markers are retained. Official examples, layout, and explanatory prose are excluded.",
   "normalization": "NFKC; German-aware lexical keying; articles separated; reflexive markers retained; part of speech and noun article preserve homographs; slash and arrow forms retained as variants; duplicate extracted identities merged without discarding raw records.",
@@ -12,9 +12,11 @@
   "normalizedLexicalUnitCount": 3176,
   "variantGroups": 170,
   "duplicateMergedGroups": 42,
-  "productionLexemeCount": 800,
-  "coveredCount": 626,
-  "partiallyCoveredCount": 128,
-  "uncoveredCount": 2422,
-  "coveragePercentage": 19.71
+  "productionLexemeCount": 1400,
+  "coveredCount": 992,
+  "partiallyCoveredCount": 315,
+  "uncoveredCount": 1869,
+  "coveragePercentage": 31.23,
+  "exactCoveredCount": 982,
+  "variantCoveredCount": 10
 }

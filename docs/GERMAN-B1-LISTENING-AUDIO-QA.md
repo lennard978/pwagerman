@@ -4,9 +4,9 @@ Automated metadata is not a substitute for listening. Human status remains `PEND
 
 Generated: 2026-10-31 with Google Cloud Text-to-Speech. `PASS` means the asset exists, is a valid browser-decodable MP3, has matching SHA-256/byte-size/duration metadata, matches the current normalized script hash and content/audio versions, and maps to the expected manifest record. It does not assess naturalness.
 
-Human reviewer: `PENDING`
+Human reviewer: `User acceptance reviewer (name not supplied)`
 
-Review date: `PENDING`
+Review date: `2026-10-31` (in progress)
 
 Playback equipment: `PENDING` (record speakers/headphones and device)
 
@@ -45,7 +45,7 @@ Legend: **Pron.** pronunciation/understandability; **German** no wrong or missin
 
 | Audio ID | Pron. | German | Num/time | Pace | Voices | Pauses | Clip | Artifacts | Match | Verdict |
 |---|---|---|---|---|---|---|---|---|---|---|
-| de-b1-listening-form-001-p1-audio-1 | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING |
+| de-b1-listening-form-001-p1-audio-1 | PASS | PASS | PASS | PASS | PASS | PASS | PASS | PASS | PASS | PASS |
 | de-b1-listening-form-001-p1-audio-2 | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING |
 | de-b1-listening-form-001-p1-audio-3 | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING |
 | de-b1-listening-form-001-p1-audio-4 | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING |
@@ -69,6 +69,12 @@ Legend: **Pron.** pronunciation/understandability; **German** no wrong or missin
 | de-b1-listening-form-003-p2-audio-1 | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING |
 | de-b1-listening-form-003-p3-audio-1 | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING |
 | de-b1-listening-form-003-p4-audio-1 | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING |
+
+## User evidence log
+
+| Audio ID | Human QA | Notes | Reviewed at |
+|---|---|---|---|
+| de-b1-listening-form-001-p1-audio-1 | PASS | User replied `PASS` after being asked to evaluate pronunciation, pacing, numbers/time, German words, clipping, pauses, transcript match, and naturalness. Playback equipment was not reported. | 2026-10-31T22:36:23+01:00 |
 
 ## Defect notes
 

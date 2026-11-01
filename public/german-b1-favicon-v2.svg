@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title id="title">German B1</title>
+  <rect width="64" height="64" rx="14" fill="#282824"/>
+  <path d="M10 22c9-4 17-2 22 4v26c-7-5-14-6-22-3zm44 0c-9-4-17-2-22 4v26c7-5 14-6 22-3z" fill="#f7f3e9" stroke="#d49a38" stroke-width="3" stroke-linejoin="round"/>
+  <text x="32" y="19" text-anchor="middle" fill="#d49a38" font-family="Arial, sans-serif" font-size="14" font-weight="900">B1</text>
+</svg>

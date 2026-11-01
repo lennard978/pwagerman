@@ -24,8 +24,8 @@ const data = GermanCurriculum.map((category, categoryIndex) => ({
 test("shows dynamic category and total counts with progress", () => {
   render(<MemoryRouter><VocabularyLibrary data={data} /></MemoryRouter>);
   expect(screen.getByRole("heading", { name: "Vocabulary" })).toBeTruthy();
-  expect(screen.getByText(/Browse 800 original German B1 lexemes/)).toBeTruthy();
-  expect(screen.getByRole("link", { name: /Personal information & identity/ }).textContent).toContain("20 words");
+  expect(screen.getByText(/Browse 1400 original German B1 lexemes/)).toBeTruthy();
+  expect(screen.getByRole("link", { name: /Personal information & identity/ }).textContent).toContain("25 words");
   expect(screen.getByRole("link", { name: /Personal information & identity/ }).textContent).toContain("1 known");
 });
 

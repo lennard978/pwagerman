@@ -12,21 +12,21 @@ import { validateLexeme, validateLexemeCollection } from "./schema";
 import { TARGET_LANGUAGE } from "../../config/course";
 
 describe("German B1 production vocabulary schema", () => {
-  test("contains 800 original production lexemes in 25 deliberately weighted categories", () => {
-    expect(GERMAN_B1_LEXEMES).toHaveLength(800);
+  test("contains 1400 original production lexemes in 25 deliberately weighted categories", () => {
+    expect(GERMAN_B1_LEXEMES).toHaveLength(1400);
     expect(VOCABULARY_CATEGORIES).toHaveLength(25);
     expect(new Set(VOCABULARY_CATEGORY_IDS).size).toBe(25);
     expect(GermanCurriculum).toHaveLength(25);
     expect(GermanCurriculum.map((category) => category.items.length)).toEqual([
-      20, 25, 35, 35, 35, 30, 45, 35, 45, 40, 45, 30, 40,
-      25, 30, 30, 30, 30, 30, 30, 25, 30, 30, 25, 25,
+      25, 31, 46, 43, 45, 38, 90, 75, 88, 65, 82, 52, 67,
+      44, 51, 36, 48, 48, 67, 67, 55, 30, 55, 67, 85,
     ]);
   });
 
   test("every record passes schema and collection validation", () => {
     expect(validateLexemeCollection(GERMAN_B1_LEXEMES)).toEqual([]);
     expect(GERMAN_B1_LEXEMES.every((lexeme) => validateLexeme(lexeme).length === 0)).toBe(true);
-    expect(new Set(GERMAN_B1_LEXEMES.map((lexeme) => lexeme.id)).size).toBe(800);
+    expect(new Set(GERMAN_B1_LEXEMES.map((lexeme) => lexeme.id)).size).toBe(1400);
   });
 
   test("static content contains no mutable user state", () => {
@@ -40,8 +40,8 @@ describe("German B1 production vocabulary schema", () => {
   test("noun, verb, example, category, and source metadata are complete", () => {
     const nouns = GERMAN_B1_LEXEMES.filter((lexeme) => lexeme.partOfSpeech === "noun");
     const verbs = GERMAN_B1_LEXEMES.filter((lexeme) => lexeme.partOfSpeech === "verb");
-    expect(nouns).toHaveLength(473);
-    expect(verbs).toHaveLength(210);
+    expect(nouns).toHaveLength(658);
+    expect(verbs).toHaveLength(390);
     expect(nouns.every(({ article, gender, plural }) => article && gender && plural)).toBe(true);
     expect(verbs.every(({ auxiliary, reflexive, prepositions }) => auxiliary && typeof reflexive === "boolean" && Array.isArray(prepositions))).toBe(true);
     expect(GERMAN_B1_LEXEMES.every(({ example, exampleTranslation }) => example && exampleTranslation)).toBe(true);
@@ -69,6 +69,52 @@ describe("German B1 production vocabulary schema", () => {
       "abfahren",
       "sich bewerben",
     ]);
+
+    const phase10Samples = [
+      "Hauptbahnhof",
+      "Arbeitserlaubnis",
+      "abbiegen",
+      "sich kümmern",
+      "Einbahnstraße",
+      "Mit freundlichen Grüßen",
+    ].map((lemma) => GERMAN_B1_LEXEMES.find((lexeme) => lexeme.lemma === lemma));
+    expect(phase10Samples.every(Boolean)).toBe(true);
+    expect(phase10Samples.map(getLexemeSpeechText)).toEqual([
+      "der Hauptbahnhof",
+      "die Arbeitserlaubnis",
+      "abbiegen",
+      "sich kümmern",
+      "die Einbahnstraße",
+      "Mit freundlichen Grüßen",
+    ]);
+  });
+
+  test("keeps Phase 10 part-of-speech balance and structural verb metadata", () => {
+    const counts = GERMAN_B1_LEXEMES.reduce((result, lexeme) => ({
+      ...result,
+      [lexeme.partOfSpeech]: (result[lexeme.partOfSpeech] || 0) + 1,
+    }), {});
+    expect(counts).toEqual({
+      noun: 658,
+      verb: 390,
+      adjective: 142,
+      adverb: 59,
+      connector: 45,
+      preposition: 21,
+      phrase: 85,
+    });
+    [
+      ["abhängen", "von + dative"],
+      ["sich kümmern", "um + accusative"],
+      ["sich interessieren", "für + accusative"],
+      ["denken", "an + accusative"],
+      ["sprechen", "über + accusative / mit + dative"],
+    ].forEach(([lemma, caseGovernment]) => {
+      expect(GERMAN_B1_LEXEMES.find((lexeme) => lexeme.lemma === lemma)).toMatchObject({
+        partOfSpeech: "verb",
+        caseGovernment,
+      });
+    });
   });
 
   test("category progress is not faked and supports explicit completion", () => {
@@ -126,12 +172,14 @@ describe("Goethe Wortliste coverage infrastructure", () => {
       normalizedReferenceItems: 3176,
       variantGroups: 170,
       duplicateMergedGroups: 42,
-      productionLexemes: 800,
-      coveredReferenceItems: 626,
-      partiallyCoveredReferenceItems: 128,
-      uncoveredReferenceItems: 2422,
-      coveredPercent: 19.71,
-      status: "expanded-reviewed-inventory",
+      productionLexemes: 1400,
+      exactCoveredReferenceItems: 982,
+      variantCoveredReferenceItems: 10,
+      coveredReferenceItems: 992,
+      partiallyCoveredReferenceItems: 315,
+      uncoveredReferenceItems: 1869,
+      coveredPercent: 31.23,
+      status: "phase10-curated-inventory",
     });
   });
 });

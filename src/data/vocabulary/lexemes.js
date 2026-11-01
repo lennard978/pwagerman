@@ -1,5 +1,6 @@
 import { noun, term, verb } from "./schema";
 import { EXPANDED_GERMAN_B1_LEXEMES } from "./expandedLexemes";
+import { PHASE10_GERMAN_B1_LEXEMES } from "./phase10Lexemes";
 
 // Every translation and example below is original app-authored content.
 // The Goethe B1 Wortliste is used only as a lexical coverage reference.
@@ -304,6 +305,7 @@ export const GERMAN_B1_LEXEMES = Object.freeze([
   term("functional-exam-phrases", "ich-wuerde-gern", "I would like to ...", "Ich würde gern ...", "phrase", "Ich würde gern mehr über den Abendkurs erfahren.", "I would like to learn more about the evening course.", { lemma: "Ich würde gern", referenceKey: "gern" }),
   term("functional-exam-phrases", "vielen-dank-im-voraus", "thank you in advance", "Vielen Dank im Voraus.", "phrase", "Vielen Dank im Voraus für Ihre schnelle Antwort.", "Thank you in advance for your prompt reply.", { lemma: "Vielen Dank im Voraus", referenceKey: "Dank" }),
   ...EXPANDED_GERMAN_B1_LEXEMES,
+  ...PHASE10_GERMAN_B1_LEXEMES,
 ]);
 
 export const GERMAN_B1_LEXEME_COUNT = GERMAN_B1_LEXEMES.length;

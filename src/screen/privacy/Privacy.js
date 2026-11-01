@@ -20,7 +20,7 @@ export const Privacy = () => (
         Vocabulary state, progress, exam sessions, writing drafts, settings,
         and history are stored in this browser using localStorage and
         IndexedDB. This German course uses its own <code>asenda.german-b1</code>
-        namespace and does not modify preserved Serbian-course data.
+        namespace and does not modify data preserved from earlier course versions.
       </p>
     </Section>
 
