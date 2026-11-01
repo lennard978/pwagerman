@@ -371,7 +371,8 @@ test("Pair shows no more than ten vocabulary pairs per round", () => {
     </MemoryRouter>
   );
 
-  expect(screen.getAllByRole("button")).toHaveLength(20);
+  expect(screen.getAllByRole("button", { name: /^Pronounce / })).toHaveLength(10);
+  expect(screen.getAllByRole("button")).toHaveLength(30);
 });
 
 test("Pair completion links back to the existing selector", () => {

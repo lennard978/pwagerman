@@ -136,6 +136,11 @@ export const MyWordsProvider = ({ children }) => {
       status: word.status === "known" ? "learning" : "known",
     });
 
+  const toggleLearning = (word) =>
+    updateVocabulary(word, {
+      status: word.status === "learning" ? "new" : "learning",
+    });
+
   const recordVocabularyAnswer = (word, correct, now) => {
     const current = wordStatuses.find((entry) => entry.lexemeId === word.id) ||
       createLexemeState(word.id);
@@ -156,6 +161,7 @@ export const MyWordsProvider = ({ children }) => {
     updateWord,
     deleteWord,
     toggleFavorite,
+    toggleLearning,
     toggleKnown,
     recordVocabularyAnswer,
   };

@@ -50,7 +50,7 @@ export const Lesson = ({ data }) => {
               {item.note && <GrammarLine>{item.note}</GrammarLine>}
             </Details>
             <CardActions>
-              <WordStatusActions word={item} compact />
+              <WordStatusActions word={item} />
             </CardActions>
           </Container>
         );

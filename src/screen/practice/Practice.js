@@ -9,6 +9,7 @@ import {
   FaRedo,
   FaLanguage,
   FaPen,
+  FaBullseye,
 } from "react-icons/fa";
 import { useLanguage } from "../../i18n/LanguageProvider";
 import { theme } from "../../styles/theme";
@@ -16,6 +17,7 @@ import { theme } from "../../styles/theme";
 export const Practice = () => {
   const { t } = useLanguage();
   const exercises = [
+    { key: "learning", to: "/practice/learning", icon: FaBullseye, title: "Continue Learning", description: "Focused practice from words marked Learning." },
     { key: "pair", to: "/practice/pair", icon: FaClone },
     { key: "spelling", to: "/practice/spelling", icon: FaKeyboard },
     { key: "cards", to: "/practice/cards", icon: FaLayerGroup },
@@ -32,11 +34,11 @@ export const Practice = () => {
       <Heading>{t("navigation.practice")}</Heading>
       <Intro>{t("practice.description")}</Intro>
       <Grid>
-        {exercises.map(({ key, to, icon: Icon }) => (
+        {exercises.map(({ key, to, icon: Icon, title, description }) => (
           <Card key={key} to={to}>
             <Icon aria-hidden="true" />
-            <strong>{t(`navigation.${key}`)}</strong>
-            <span>{t(`practice.${key}`)}</span>
+            <strong>{title || t(`navigation.${key}`)}</strong>
+            <span>{description || t(`practice.${key}`)}</span>
           </Card>
         ))}
       </Grid>

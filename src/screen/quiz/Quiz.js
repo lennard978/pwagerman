@@ -132,9 +132,11 @@ export const Quiz = ({ data }) => {
             ))}
           </Review>
           <PrimaryButton type="button" onClick={restart}>
-            {t("exercise.restartQuiz")}
+            {lesson.id === "learning" && items.length > round.length ? "Continue learning" : t("exercise.restartQuiz")}
           </PrimaryButton>
-          <BackLink to="/practice/quiz">{t("actions.backToQuiz")}</BackLink>
+          <BackLink to={lesson.id === "learning" ? "/practice/learning" : "/practice/quiz"}>
+            {lesson.id === "learning" ? "Learning practice" : t("actions.backToQuiz")}
+          </BackLink>
         </ResultCard>
       ) : (
         round.length === 0 ? <EmptyExercise message={t("myWords.minimum")} /> : (

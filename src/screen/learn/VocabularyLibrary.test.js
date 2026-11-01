@@ -37,7 +37,7 @@ test("searches English and German and filters by state", () => {
   fireEvent.change(screen.getByRole("searchbox"), { target: { value: "" } });
   fireEvent.click(screen.getByRole("button", { name: "Known" }));
   expect(screen.getByText("1 matching words")).toBeTruthy();
-  fireEvent.click(screen.getByRole("button", { name: "Learning" }));
+  fireEvent.click(screen.getByRole("button", { name: "Learning: 1" }));
   expect(screen.getByText("1 matching words")).toBeTruthy();
   fireEvent.click(screen.getByRole("button", { name: "Favorites" }));
   expect(screen.getByText("1 matching words")).toBeTruthy();

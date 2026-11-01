@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { FaCheck, FaRegStar, FaStar } from "react-icons/fa";
+import { FaBookOpen, FaCheck, FaRegStar, FaStar } from "react-icons/fa";
 import { useLanguage } from "../i18n/LanguageProvider";
 import { useMyWords } from "../i18n/MyWordsProvider";
 import { theme } from "../styles/theme";
@@ -8,8 +8,9 @@ export const WordStatusActions = ({ word, compact = false, variant = "default" }
   const { t } = useLanguage();
   const vocabulary = useMyWords();
   if (!vocabulary) return null;
-  const { allWords, toggleFavorite, toggleKnown } = vocabulary;
+  const { allWords, toggleFavorite, toggleKnown, toggleLearning } = vocabulary;
   const currentWord = allWords.find((item) => item.id === word.id) || word;
+  const isLearning = currentWord.status === "learning";
 
   const iconOnly = compact || variant === "card";
 
@@ -25,6 +26,18 @@ export const WordStatusActions = ({ word, compact = false, variant = "default" }
         onClick={() => toggleFavorite(currentWord)}
       >
         {currentWord.favorite ? <FaStar aria-hidden="true" /> : <FaRegStar aria-hidden="true" />}
+      </Action>
+      <Action
+        type="button"
+        $compact={iconOnly}
+        $active={isLearning}
+        aria-pressed={isLearning}
+        aria-label={isLearning ? "Learning ✓" : "Learn this"}
+        title={isLearning ? "Learning ✓" : "Learn this"}
+        onClick={() => toggleLearning(currentWord)}
+      >
+        <FaBookOpen aria-hidden="true" />
+        {!iconOnly && <span>{isLearning ? "Learning ✓" : "Learn this"}</span>}
       </Action>
       <Action
         type="button"

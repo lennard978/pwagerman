@@ -13,6 +13,10 @@ import {
 } from "../../components/practice/PracticeLayout";
 import { getContentPosition, resolveContentByRouteId } from "../../data/contentSelection";
 import { useMyWords } from "../../i18n/MyWordsProvider";
+import { CompactSoundButton } from "../../components/CompactSoundButton";
+import { FaVolumeUp } from "react-icons/fa";
+import { TARGET_LANGUAGE } from "../../config/course";
+import { formatLexemeTarget, getLexemeSpeechText } from "../../data/vocabulary/presentation";
 
 export const isCorrectLexemePair = (sourceItem, targetItem) =>
   sourceItem.id === targetItem.id;
@@ -90,14 +94,22 @@ export const Pair = ({ data }) => {
   });
   const targetList = target.map((item) => {
     return (
-      <PairButton
-        onClick={() => checkTarget(item)}
-        $selected={selectedTarget === item}
-        $wrong={wrongPair && selectedTarget === item}
-        key={item.id}
-      >
-        {item.target}
-      </PairButton>
+      <TargetCard key={item.id} $selected={selectedTarget === item} $wrong={wrongPair && selectedTarget === item}>
+        <TargetMatchButton
+          type="button"
+          onClick={() => checkTarget(item)}
+          aria-pressed={selectedTarget === item}
+        >
+          {formatLexemeTarget(item)}
+        </TargetMatchButton>
+        <CompactSoundButton
+          text={getLexemeSpeechText(item)}
+          lang={TARGET_LANGUAGE}
+          ariaLabel={`Pronounce ${getLexemeSpeechText(item)}`}
+        >
+          <FaVolumeUp aria-hidden="true" />
+        </CompactSoundButton>
+      </TargetCard>
     );
   });
 
@@ -107,7 +119,9 @@ export const Pair = ({ data }) => {
         {source.length === 0 ? (
           <Completion>
             <CompletionTitle>{t("exercise.pairComplete")}</CompletionTitle>
-            <BackLink to="/practice/pair">{t("actions.backToPair")}</BackLink>
+            <BackLink to={lesson.id === "learning" ? "/practice/learning" : "/practice/pair"}>
+              {lesson.id === "learning" ? "Continue learning" : t("actions.backToPair")}
+            </BackLink>
           </Completion>
         ) : (
           <Board data-testid="pair-board" data-short-height-fallback="scroll">
@@ -148,6 +162,36 @@ const PairButton = styled(Btn)`
   border-color: ${(props) => (props.$wrong ? theme.colors.error : props.$selected ? theme.colors.primary : theme.colors.border)};
   background: ${(props) => (props.$wrong ? theme.colors.errorSoft : props.$selected ? theme.colors.primarySoft : theme.colors.surface)};
   transform: ${(props) => props.$selected ? "scale(0.98)" : "scale(1)"};
+`;
+
+const TargetCard = styled.div`
+  min-inline-size: 0;
+  min-block-size: 3rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: stretch;
+  gap: 0.35rem;
+  padding: 0.25rem;
+  border: 1px solid ${(props) => (props.$wrong ? theme.colors.error : props.$selected ? theme.colors.primary : theme.colors.border)};
+  border-radius: ${theme.radius.small};
+  background: ${(props) => (props.$wrong ? theme.colors.errorSoft : props.$selected ? theme.colors.primarySoft : theme.colors.surface)};
+  box-shadow: ${theme.shadow.soft};
+  transform: ${(props) => props.$selected ? "scale(0.98)" : "scale(1)"};
+`;
+
+const TargetMatchButton = styled.button`
+  min-inline-size: 0;
+  min-block-size: 2.75rem;
+  padding: 0.55rem 0.45rem;
+  color: ${theme.colors.text};
+  background: transparent;
+  border: 0;
+  border-radius: ${theme.radius.small};
+  font: inherit;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+  cursor: pointer;
+  &:focus-visible { outline: 3px solid ${theme.colors.primarySoft}; outline-offset: 1px; }
 `;
 
 const revealCompletion = keyframes`

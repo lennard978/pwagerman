@@ -173,7 +173,7 @@ export const Write = ({ data }) => {
       {count === wordList.length - 1 ? (
         <PracticeActionArea>
           <BackLink
-            to="/practice/spelling"
+            to={lesson.id === "learning" ? "/practice/learning" : "/practice/spelling"}
             onClick={() => {
               if (resultState === "correct") {
                 progress?.recordCompletion({
@@ -185,7 +185,7 @@ export const Write = ({ data }) => {
               }
             }}
           >
-            {t("actions.backToWrite")}
+            {lesson.id === "learning" ? (lesson.items.length > wordList.length ? "Continue learning" : "Learning practice") : t("actions.backToWrite")}
           </BackLink>
         </PracticeActionArea>
       ) : (

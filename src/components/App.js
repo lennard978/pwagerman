@@ -49,6 +49,7 @@ import { MockB1Home } from "../exam/mock/MockB1Home";
 import { MockB1Session } from "../exam/mock/MockB1Session";
 import { ReadinessDashboard } from "../exam/mock/ReadinessDashboard";
 import { Privacy } from "../screen/privacy/Privacy";
+import { LearningPractice } from "../screen/learning/LearningPractice";
 
 function App() {
   useSpeechSynthesis();
@@ -68,6 +69,14 @@ function App() {
     ),
   }));
   const exerciseData = [...data, customLesson];
+  const learningLesson = {
+    id: "learning",
+    title: "Learning",
+    description: "Words in your focused Learning queue.",
+    category: "learning",
+    items: [...customWords, ...curriculumWords].filter((word) => word.status === "learning"),
+  };
+  const focusedExerciseData = [...exerciseData, learningLesson];
   if (progressContext && !progressContext.progress.onboardingComplete) {
     return <Onboarding />;
   }
@@ -89,16 +98,17 @@ function App() {
           <Route path="learn/grammar/:grammarLessonId" element={<GermanGrammarLesson />} />
           <Route path="learn/my-words" element={<MyWords />} />
           <Route path="practice" element={<Practice />} />
+          <Route path="practice/learning" element={<LearningPractice />} />
           <Route path="practice/pair" element={<ChoosePair data={exerciseData} />} />
-          <Route path="practice/pair/:lessonId" element={<Pair data={exerciseData} />} />
+          <Route path="practice/pair/:lessonId" element={<Pair data={focusedExerciseData} />} />
           <Route path="practice/spelling" element={<ChooseWrite data={exerciseData} />} />
-          <Route path="practice/spelling/:lessonId" element={<Write data={exerciseData} />} />
+          <Route path="practice/spelling/:lessonId" element={<Write data={focusedExerciseData} />} />
           <Route path="practice/cards" element={<ChooseCards data={exerciseData} />} />
-          <Route path="practice/cards/:lessonId" element={<Cards data={exerciseData} />} />
+          <Route path="practice/cards/:lessonId" element={<Cards data={focusedExerciseData} />} />
           <Route path="practice/test" element={<ChooseTest data={Tests} />} />
           <Route path="practice/test/:lessonId" element={<Test data={Tests} />} />
           <Route path="practice/quiz" element={<ChooseQuiz data={exerciseData} />} />
-          <Route path="practice/quiz/:lessonId" element={<Quiz data={exerciseData} />} />
+          <Route path="practice/quiz/:lessonId" element={<Quiz data={focusedExerciseData} />} />
           <Route path="practice/review" element={<Review />} />
           <Route path="practice/grammar" element={<GrammarPracticeHub />} />
           <Route path="practice/grammar/review" element={<GrammarReview />} />

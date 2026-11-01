@@ -9,7 +9,7 @@ import { EmptyExercise } from "../../components/EmptyExercise";
 import { speak } from "../../services/tts/ttsProvider";
 import { WordStatusActions } from "../../components/WordStatusActions";
 import { useProgress } from "../../i18n/ProgressProvider";
-import { createBoundedRound, EXERCISE_ROUND_LIMITS } from "../../data/exerciseRounds";
+import { createBoundedRound, getExerciseRoundLimit } from "../../data/exerciseRounds";
 import {
   PracticeActionArea,
   PracticeLayout,
@@ -33,7 +33,7 @@ export const Cards = ({ data }) => {
   const number = getContentPosition(data, lesson);
   const { speak: browserSpeak, voices } = useSpeechSynthesis();
   const [wordList, setWordList] = useState(() =>
-    createBoundedRound(lesson.items, EXERCISE_ROUND_LIMITS.cards)
+    createBoundedRound(lesson.items, getExerciseRoundLimit("cards", lesson.id))
   );
 
   const [cardIndex, setCardIndex] = useState(0);
@@ -42,7 +42,7 @@ export const Cards = ({ data }) => {
   useEffect(() => {
     setWordList(createBoundedRound(
       lesson.items,
-      EXERCISE_ROUND_LIMITS.cards
+      getExerciseRoundLimit("cards", lesson.id)
     ));
     setCardIndex(0);
     setFlipped(false);
@@ -92,7 +92,7 @@ export const Cards = ({ data }) => {
           <WordStatusActions word={currentItem} variant="card" />
           {cardIndex === wordList.length - 1 ? (
             <BackLink
-              to="/practice/cards"
+              to={lesson.id === "learning" ? "/practice/learning" : "/practice/cards"}
               onClick={() => progress?.recordCompletion({
                 type: "cards",
                 categoryId: lesson.id,
@@ -100,7 +100,7 @@ export const Cards = ({ data }) => {
                 titleKey: lesson.titleKey,
               })}
             >
-              {t("actions.backToCards")}
+              {lesson.id === "learning" ? (lesson.items.length > wordList.length ? "Continue learning" : "Learning practice") : t("actions.backToCards")}
             </BackLink>
           ) : (
             <Btn onClick={nextWord}>{t("actions.nextWord")}</Btn>

@@ -17,7 +17,9 @@ const FILTERS = ["all", "learning", "known", "favorites"];
 const INITIAL_LIMIT = 30;
 
 export const VocabularyLibrary = ({ data }) => {
-  const requestedFilter = new URLSearchParams(window.location.search).get("filter");
+  const searchParams = new URLSearchParams(window.location.search);
+  const requestedFilter = searchParams.get("filter");
+  const requestedBrowse = searchParams.get("browse") === "1";
   const [query, setQuery] = useState("");
   const [filter, setFilter] = useState(FILTERS.includes(requestedFilter) ? requestedFilter : "all");
   const [visibleLimit, setVisibleLimit] = useState(INITIAL_LIMIT);
@@ -29,7 +31,8 @@ export const VocabularyLibrary = ({ data }) => {
     if (filter === "favorites") return lexeme.favorite;
     return true;
   }), [filter, lexemes, query]);
-  const showLibrary = Boolean(query.trim()) || filter !== "all";
+  const showLibrary = requestedBrowse || Boolean(query.trim()) || filter !== "all";
+  const learningCount = lexemes.filter((lexeme) => lexeme.status === "learning").length;
 
   const chooseFilter = (next) => {
     setFilter(next);
@@ -60,7 +63,7 @@ export const VocabularyLibrary = ({ data }) => {
       <Filters aria-label="Vocabulary filters">
         {FILTERS.map((name) => (
           <FilterButton key={name} type="button" $active={filter === name} aria-pressed={filter === name} onClick={() => chooseFilter(name)}>
-            {name === "all" ? "All" : name[0].toUpperCase() + name.slice(1)}
+            {name === "all" ? "All" : name === "learning" ? `Learning: ${learningCount}` : name[0].toUpperCase() + name.slice(1)}
           </FilterButton>
         ))}
       </Filters>

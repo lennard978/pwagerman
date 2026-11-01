@@ -80,13 +80,14 @@ const Probe = () => {
 };
 
 const VocabularyProbe = () => {
-  const { allWords, toggleFavorite, toggleKnown } = useMyWords();
+  const { allWords, toggleFavorite, toggleKnown, toggleLearning } = useMyWords();
   const word = allWords.find((item) => item.id === "de-b1-media-communication-meinung");
   return (
     <>
       <span data-testid="new-word-status">{word.status}</span>
       <span data-testid="new-word-favorite">{String(word.favorite)}</span>
       <button onClick={() => toggleKnown(word)}>Toggle new Known</button>
+      <button onClick={() => toggleLearning(word)}>Toggle Learning</button>
       <button onClick={() => toggleFavorite(word)}>Toggle new Favorite</button>
     </>
   );
@@ -204,6 +205,49 @@ test("new curriculum words use the existing Known and Favorite persistence", () 
     correctCount: 0,
     incorrectCount: 0,
   });
+});
+
+test("Learning is a persisted canonical status and Known replaces it", () => {
+  const { unmount } = render(
+    <LanguageProvider><MyWordsProvider><VocabularyProbe /></MyWordsProvider></LanguageProvider>
+  );
+
+  fireEvent.click(screen.getByRole("button", { name: "Toggle Learning" }));
+  expect(screen.getByTestId("new-word-status").textContent).toBe("learning");
+  expect(JSON.parse(localStorage.getItem(WORD_STATUSES_STORAGE_KEY))).toContainEqual(
+    expect.objectContaining({
+      lexemeId: "de-b1-media-communication-meinung",
+      status: "learning",
+    })
+  );
+
+  unmount();
+  render(<LanguageProvider><MyWordsProvider><VocabularyProbe /></MyWordsProvider></LanguageProvider>);
+  expect(screen.getByTestId("new-word-status").textContent).toBe("learning");
+
+  fireEvent.click(screen.getByRole("button", { name: "Toggle new Known" }));
+  expect(screen.getByTestId("new-word-status").textContent).toBe("known");
+  expect(JSON.parse(localStorage.getItem(WORD_STATUSES_STORAGE_KEY))).toContainEqual(
+    expect.objectContaining({
+      lexemeId: "de-b1-media-communication-meinung",
+      status: "known",
+    })
+  );
+});
+
+test("Learning status survives an IndexedDB-backed app restart", async () => {
+  window.indexedDB = createFakeIndexedDb();
+  const firstRender = render(
+    <LanguageProvider><MyWordsProvider><VocabularyProbe /></MyWordsProvider></LanguageProvider>
+  );
+
+  fireEvent.click(screen.getByRole("button", { name: "Toggle Learning" }));
+  await waitFor(() => expect(screen.getByTestId("new-word-status").textContent).toBe("learning"));
+  firstRender.unmount();
+  localStorage.removeItem(WORD_STATUSES_STORAGE_KEY);
+
+  render(<LanguageProvider><MyWordsProvider><VocabularyProbe /></MyWordsProvider></LanguageProvider>);
+  await waitFor(() => expect(screen.getByTestId("new-word-status").textContent).toBe("learning"));
 });
 
 test("saved My Words pronounce the German target without coupling Edit/Delete", () => {

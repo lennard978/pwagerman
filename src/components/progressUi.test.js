@@ -12,6 +12,7 @@ import { Lesson } from "../screen/lesson/Lesson";
 import { Test } from "../screen/test/Test";
 import { Cards } from "../screen/cards/Cards";
 import { GermanCurriculum } from "../data/vocabulary/curriculum";
+import { WORD_STATUSES_STORAGE_KEY } from "../data/myWords";
 
 jest.mock("../services/tts/ttsProvider", () => ({ speak: jest.fn() }));
 jest.mock("react-speech-kit", () => ({
@@ -72,6 +73,27 @@ test("Home credits Asenda Studio using the verified studio destination", () => {
   expect(screen.getByAltText("German B1").getAttribute("src")).toContain(
     "german-b1-wordmark-compact.svg"
   );
+  expect(screen.getByTestId("learning-empty-card").textContent).toContain("Mark words you want to practise.");
+  expect(screen.getByRole("link", { name: /Browse vocabulary/ }).getAttribute("href"))
+    .toBe("/learn/vocabulary?browse=1");
+});
+
+test("Home exposes the dynamic Learning count and focused continuation route", () => {
+  localStorage.setItem(PROGRESS_STORAGE_KEY, JSON.stringify({
+    ...createDefaultProgress(),
+    onboardingComplete: true,
+  }));
+  localStorage.setItem(WORD_STATUSES_STORAGE_KEY, JSON.stringify([
+    { lexemeId: GermanCurriculum[0].items[0].id, status: "learning" },
+    { lexemeId: GermanCurriculum[0].items[1].id, status: "learning" },
+  ]));
+
+  render(<Providers><MemoryRouter><Home /></MemoryRouter></Providers>);
+
+  const card = screen.getByTestId("continue-learning-card");
+  expect(card.textContent).toContain("Continue Learning");
+  expect(card.textContent).toContain("2 words to practise");
+  expect(card.getAttribute("href")).toBe("/practice/learning");
 });
 
 test("Review reveals a mistake, supports word statuses, and clears it when correct", async () => {
@@ -165,16 +187,22 @@ test("Cards use icon-only accessible Favorite and Known controls", () => {
   );
 
   const favorite = screen.getByRole("button", { name: "Add to favorites" });
+  const learning = screen.getByRole("button", { name: "Learn this" });
   const known = screen.getByRole("button", { name: "Mark as Known" });
   expect(screen.queryByText("Mark as Known")).toBeNull();
   expect(favorite.getAttribute("aria-pressed")).toBe("false");
+  expect(learning.getAttribute("aria-pressed")).toBe("false");
   expect(known.getAttribute("aria-pressed")).toBe("false");
   fireEvent.click(favorite);
+  fireEvent.click(learning);
+  expect(screen.getByRole("button", { name: "Learning ✓" }).getAttribute("aria-pressed")).toBe("true");
   fireEvent.click(known);
   expect(screen.getByRole("button", { name: "Remove from favorites" })
     .getAttribute("aria-pressed")).toBe("true");
   expect(screen.getByRole("button", { name: "Move to Learning" })
     .getAttribute("aria-pressed")).toBe("true");
+  expect(screen.getByRole("button", { name: "Learn this" })
+    .getAttribute("aria-pressed")).toBe("false");
   expect(screen.getByRole("button", { name: "Next Word" })).toBeTruthy();
 });
 

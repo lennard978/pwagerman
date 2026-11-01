@@ -6,6 +6,13 @@ export const EXERCISE_ROUND_LIMITS = {
   test: 10,
 };
 
+export const LEARNING_SESSION_LIMIT = 10;
+
+export const getExerciseRoundLimit = (exercise, sourceId) =>
+  sourceId === "learning"
+    ? LEARNING_SESSION_LIMIT
+    : EXERCISE_ROUND_LIMITS[exercise];
+
 export const createBoundedRound = (
   items,
   limit,

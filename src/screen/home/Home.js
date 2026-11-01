@@ -60,6 +60,31 @@ export const Home = () => {
       </Hero>
 
       <Section>
+        <PriorityStack>
+          {mockResumable && (
+            <PriorityCard to="/exam/full-mock-b1/session">
+              <div><strong>Continue active mock</strong><span>{Object.values(activeMock.modules).filter(({ status }) => status === "completed").length}/4 modules completed</span></div>
+              <ActionLabel>Continue <FaArrowRight aria-hidden="true" /></ActionLabel>
+            </PriorityCard>
+          )}
+          {learning > 0 ? (
+            <PriorityCard to="/practice/learning" data-testid="continue-learning-card">
+              <div><strong>Continue Learning</strong><span>{learning} {learning === 1 ? "word" : "words"} to practise</span></div>
+              <ActionLabel>Continue <FaArrowRight aria-hidden="true" /></ActionLabel>
+            </PriorityCard>
+          ) : (
+            <PriorityCard to="/learn/vocabulary?browse=1" data-testid="learning-empty-card">
+              <div><strong>Mark words you want to practise.</strong><span>Build a focused Learning queue from the Vocabulary Library.</span></div>
+              <ActionLabel>Browse vocabulary <FaArrowRight aria-hidden="true" /></ActionLabel>
+            </PriorityCard>
+          )}
+          {reviewDue > 0 && (
+            <PriorityCard to="/practice/review">
+              <div><strong>Review due</strong><span>{reviewDue} {reviewDue === 1 ? "word" : "words"} ready to revisit</span></div>
+              <ActionLabel>Review <FaArrowRight aria-hidden="true" /></ActionLabel>
+            </PriorityCard>
+          )}
+        </PriorityStack>
         <StartCard to={destination}>
           <div>
             <strong>{progress?.lastActivity ? t("home.continueLearning") : t("home.startLearning")}</strong>
@@ -178,6 +203,9 @@ const AsendaMark = styled.span`
   transform: rotate(-8deg);
 `;
 const Section = styled.section`margin-top: 1rem;`;
+const PriorityStack = styled.div`display: grid; gap: 0.65rem; margin-bottom: 0.65rem;`;
+const PriorityCard = styled(Link)`min-inline-size: 0; min-block-size: 4.8rem; display: flex; align-items: center; justify-content: space-between; gap: 0.8rem; padding: 0.85rem 1rem; color: ${theme.colors.text}; background: ${theme.colors.surface}; border: 1px solid ${theme.colors.border}; border-radius: ${theme.radius.medium}; box-shadow: ${theme.shadow.soft}; text-decoration: none; & > div { min-inline-size: 0; display: grid; gap: 0.2rem; } & strong, & span { overflow-wrap: anywhere; } & > div > span { color: ${theme.colors.textMuted}; font-size: 0.8rem; line-height: 1.35; } &:focus-visible { outline: 3px solid ${theme.colors.primarySoft}; outline-offset: 2px; }`;
+const ActionLabel = styled.span`flex: 0 0 auto; display: inline-flex; align-items: center; gap: 0.35rem; color: ${theme.colors.primaryPressed}; font-size: 0.78rem; font-weight: 900; @media (max-width: 22rem) { & { font-size: 0; } & svg { font-size: 0.9rem; } }`;
 const Eyebrow = styled.h2`
   margin: 0 0 0.55rem;
   color: ${theme.colors.text};
